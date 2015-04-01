@@ -1,0 +1,19 @@
+{
+  "name": "PathHero",
+  "version": "1.0.0",
+  "description": "Quickly create and share citywide scavenger hunts.",
+  "main": "server.js",
+  "scripts": {
+    "test": "grunt test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/PathHero/PathHero.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/PathHero/PathHero/issues"
+  },
+  "homepage": "https://github.com/PathHero/PathHero"
+}
