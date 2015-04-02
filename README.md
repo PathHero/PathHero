@@ -1,12 +1,12 @@
-# Project Name
+# Path Hero
 
-> Pithy project description
+> Fast, easy city scavenger hunts.
 
 ## Team
 
-  - __Product Owner__: teamMember
-  - __Scrum Master__: teamMember
-  - __Development Team Members__: teamMember, teamMember
+  - __Product Owner__: benrodigas
+  - __Scrum Master__: wettowelreactor
+  - __Development Team Members__: jcrben, ThornWinters
 
 ## Table of Contents
 
@@ -20,15 +20,13 @@
 
 ## Usage
 
-> Some usage instructions
+> To run: Grunt
 
 ## Requirements
 
 - Node 0.10.x
-- Redis 2.6.x
-- Postgresql 9.1.x
-- etc
-- etc
+- MongoDB 2.6.x
+- Bower
 
 ## Development
 
@@ -38,13 +36,14 @@ From within the root directory:
 
 ```sh
 sudo npm install -g bower
+sudo npm install -g nodemon
 npm install
 bower install
 ```
 
 ### Roadmap
 
-View the project roadmap [here](LINK_TO_PROJECT_ISSUES)
+View the project roadmap [here](https://github.com/PathHero/PathHero/issues)
 
 
 ## Contributing
