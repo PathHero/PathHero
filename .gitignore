@@ -29,3 +29,8 @@ dist/
 node_modules/
 Client/bower_components/
 db
+
+# Platform files
+.DS_Store
+*.sublime-project
+*.sublime-workspace
