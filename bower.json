@@ -1,0 +1,29 @@
+{
+  "name": "PathHero",
+  "version": "0.0.0",
+  "homepage": "https://github.com/jcrben/PathHero",
+  "authors": [
+    "Ben Creasy <contact@bencreasy.com>"
+  ],
+  "description": "Scavenge hunting platform",
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "Client/bower_components/",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.3.15",
+    "angular-animate": "^1.3.0",
+    "angular-cookies": "^1.3.0",
+    "angular-resource": "^1.3.0",
+    "angular-sanitize": "^1.3.0",
+    "angular-touch": "^1.3.0",
+    "angular-ui-router": "~0.2.13",
+    "angular-material": "~0.8.3"
+  }
+}
