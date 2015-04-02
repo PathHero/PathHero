@@ -26,6 +26,9 @@
     "grunt-notify": "^0.4.1"
   },
   "dependencies": {
-    "express": "^4.12.3"
+    "connect-mongo": "^0.8.0",
+    "express": "^4.12.3",
+    "express-session": "^1.10.4",
+    "monk": "^1.0.1"
   }
 }
