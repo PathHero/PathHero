@@ -1,0 +1,179 @@
+<!-- 
+
+
+things to look into 
+loadGeoJson 
+
+
+-->
+
+
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <style type='text/css'>
+      html, body, #map-canvas { 
+        height: 100%; 
+        margin: 0; 
+        padding: 0;
+        cursor: url("https://maps.gstatic.com/mapfiles/openhand_8_8.cur");
+      }
+
+    </style>
+    
+    <script type='text/javascript'
+      src='https://maps.googleapis.com/maps/api/js'>
+    </script>
+    <script type='text/javascript'>
+
+
+      function initialize() {
+
+        var centerLocation;
+        //both are equal
+        centerLocation = new google.maps.LatLng(-33.73, 149.02);
+        centerLocation = { lat: -33.73, lng: 149.02}
+        var mapOptions = {
+          center: centerLocation,
+          zoom: 8,
+          backgroundColor: '#568',
+          disableDoubleClickZoom : true,
+          disableDefaultUI: true,
+          keyboardShortcuts: false,
+
+
+        };
+        var map = new google.maps.Map(document.getElementById('map-canvas'),mapOptions);
+
+        //----------------------------------
+        //styling 
+        //----------------------------------
+        // Create an array of styles.
+        var styles = [
+          {
+            stylers: [
+              { hue: "#00ffe6" },
+              { saturation: -20 }
+            ]
+          },{
+            featureType: "road",
+            elementType: "geometry",
+            stylers: [
+              { lightness: 100 },
+              { visibility: "simplified" }
+            ]
+          },{
+            featureType: "road",
+            elementType: "labels",
+            stylers: [
+              { visibility: "off" }
+            ]
+          }
+        ];
+
+        // Create a new StyledMapType object, passing it the array of styles,
+        // as well as the name to be displayed on the map type control.
+        var styledMap = new google.maps.StyledMapType(styles,
+          {name: "Styled Map"});
+
+
+        //----------------------------------
+        //markers
+        //----------------------------------
+        var marker1 = new google.maps.Marker({
+            position: new google.maps.LatLng(-34, 149.5),
+            map: map,
+            title: 'mark1'
+        });
+
+        var marker2 = new google.maps.Marker({
+            position: new google.maps.LatLng(-33.34, 148.5),
+            map: map,
+            title: 'mark2'
+        });
+
+        //----------------------------------
+        //events
+        //----------------------------------
+        google.maps.event.addListener(map, 'click', function() {
+          map.setZoom(8);
+          //map.setCenter(marker.getPosition());
+        });
+        google.maps.event.addListener(map, 'click', function(event) {
+          makeMarker(event.latLng, map, 'Count ' + markerAmount)
+            //marker = new google.maps.Marker({position: event.latLng, map: map});
+        });
+
+        //attaching the style to the map
+        map.mapTypes.set('map_style', styledMap);
+        map.setMapTypeId('map_style');
+
+
+        calcRoute(new google.maps.LatLng(-34, 149.5),new google.maps.LatLng(-33.34, 148.5));
+        //attaching the directionDisplay to the map
+        directionsDisplay.setMap(map);
+      }
+
+      var markerAmount = 0;
+      var makeMarker = function(latLng, map, title){
+        var id = markerAmount++;
+
+        var size = {
+          height: 40,
+          width: 40
+        }
+
+        var image = {
+          url: 'https://cdn2.iconfinder.com/data/icons/snipicons/500/map-marker-512.png',
+          //size: new google.maps.Size(200, 320), //this does not scale the image
+          scaledSize: new google.maps.Size(size.width,size.height), // set the size and scales 
+          origin: new google.maps.Point(0,0), // you can define the top left 0,0 location. If you say 100,50 the 0,0 starts at 100,50. good for cropping the image
+          // The anchor for this image is the base of the flagpole at 0,32.
+          anchor: new google.maps.Point(size.width/2,size.height) //This creates the location of the image that is points to the geo locaiton
+        };
+
+        var shape = {
+            coords: [1, 1, 1, 20, 18, 20, 18 , 1],
+            type: 'poly'
+        };
+
+        var marker = new google.maps.Marker({
+            position: latLng,
+            map: map,
+            title: title,
+            icon: image,
+            //shape: shape
+        });
+        google.maps.event.addListener(marker, 'click', function() {
+          console.log(id);
+          //map.setCenter(marker.getPosition());
+        });
+      }
+
+      var directionsDisplay = new google.maps.DirectionsRenderer();
+      var directionsService = new google.maps.DirectionsService();
+
+      function calcRoute(first, last) {
+        var start = first;
+        var end = last;
+        var request = {
+            origin:start,
+            destination:end,
+            travelMode: google.maps.TravelMode.DRIVING
+        };
+        directionsService.route(request, function(response, status) {
+          if (status == google.maps.DirectionsStatus.OK) {
+            directionsDisplay.setDirections(response);
+            console.log('completed')
+          }
+        });
+      }
+      google.maps.event.addDomListener(window, 'load', initialize);
+
+    </script>
+  </head>
+  <body>
+<div id='map-canvas'></div>
+  </body>
+</html>
