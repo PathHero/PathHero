@@ -1,7 +1,7 @@
 'use strict';
 module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-notify');
-  grunt.loadNpmTasks('grunt-contrib-jshint');
+  grunt.loadNpmTasks('grunt-jsxhint');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-nodemon');
   grunt.loadNpmTasks('grunt-concurrent');
