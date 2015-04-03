@@ -1,7 +1,7 @@
 'use strict';
 
 var passport = require('passport');
-var db = require('./database');
+var db = require('../util/database');
 var secrets = require('../util/secrets.js');
 var FacebookStrategy = require('passport-facebook').Strategy;
 var GitHubStrategy = require('passport-github').Strategy;
@@ -10,11 +10,10 @@ var TwitterStrategy = require('passport-twitter').Strategy;
 var LocalStrategy = require('passport-local').Strategy;
 
 var oauthLogin = function(accessToken, refreshToken, profile, done) {
-  db.findOrCreateUser(profile.id, null, function(err, id) {
-    if (err) {
-      return done(err);
-    }
+  db.findOrCreateUser(profile.id).then(function(id){
     return done(null, id);
+  }).fail(function(error){
+    return done(error);
   });
 };
 

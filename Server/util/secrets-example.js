@@ -4,7 +4,7 @@
 
 module.exports = {
   facebook: {
-    clientId: 'FACEBOOK_APP_ID',
+    clientID: 'FACEBOOK_APP_ID',
     clientSecret: 'FACEBOOK_APP_SECRET',
     callbackUrl: 'http://www.example.com/auth/facebook/callback'
   },
