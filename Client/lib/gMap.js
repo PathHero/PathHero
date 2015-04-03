@@ -153,7 +153,7 @@ var gMap = function(){
       console.log(id);
     });
     if(!!lastLocationClicked){
-      calcRoute()
+      calcRoute();
     }
     lastLocationClicked = latLng;
   }
