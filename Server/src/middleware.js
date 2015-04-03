@@ -3,7 +3,7 @@
 var express = require('express');
 var session = require('express-session');
 var MongoStore = require('connect-mongo')(session);
-var uri = require('./database').uri;
+var uri = require('../util/database').uri;
 var passport = require('./authMiddleware');
 
 module.exports = function(app) {
