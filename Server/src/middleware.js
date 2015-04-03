@@ -23,6 +23,6 @@ module.exports = function(app) {
   playDomain.addSubdomain(app);
   createDomain.addSubdomain(app);
 
-  console.log('Serving Static Folder:', __dirname + '/../../Client/');
-  app.use(express.static(__dirname + '/../../Client/'));
+  console.log('Serving Static Folder:', __dirname + '/../../Client/app/');
+  app.use(express.static(__dirname + '/../../Client/app/'));
 };
