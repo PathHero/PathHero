@@ -34,3 +34,5 @@ db
 .DS_Store
 *.sublime-project
 *.sublime-workspace
+
+Server/util/secrets.js
