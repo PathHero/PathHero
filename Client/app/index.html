@@ -5,18 +5,127 @@
     <title>Path Hero</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
-    <link rel="stylesheet" href="../bower_components/angular-material/angular-material.css" />
-    <link rel="stylesheet" href="../style/style.css">
+    <link rel="stylesheet" href="bower_components/angular-material/angular-material.css" />
+    <link rel="stylesheet" href="style/style.css"/>
   </head>
   <body ng-app="PathHero">
 
-    <header class="header">
-    <h3>Header</h3>
-    </header>
+    
+    <div id="creater-container">
+      
+      <div class="row">
+        <div id="map-container" class="col-sm-6">
+            <img src="img/map.png" alt="">
+        </div>  
 
-    <div class="app-container">
-        <div ui-view="create"></div>
+
+
+        <div id="hunt-info-container" class="col-sm-6">
+
+          <div id="hunt-title-container">
+            <h2>Hunt Description</h2>
+            <span id="hunt-title">Discover SF's most beautiful views</span>            
+          </div>
+
+          <div class="tour-summary-container">
+            <h2>Tour Summary</h2>
+            <div class="summary-box">
+              <p>Duration: 2 hours</p>
+              <p>Distance: 2.8 miles</p>
+              <p>Clues: 3</p>              
+            </div>
+          </div>
+
+          <div id="pin-container">
+            <h2>Pins</h2>
+
+            <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+              <div class="panel panel-default">
+                <div class="panel-heading" role="tab" id="headingOne">
+                  <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#pin-1" aria-expanded="true" aria-controls="pin-1">
+                      Pin 1: Embarcadero
+                    </a>
+                  </h4>
+                </div>
+                <div id="pin-1" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                  <div class="panel-body">
+                    
+                    <div class="clue clue-hint-container">
+                      <div class="row">
+                        <div class="col-xs-2">
+                          Clue
+                        </div>
+                        <div class="col-xs-10">
+                          Located at the eastern waterfront and roadway of the Port of San Francisco, along San Francisco Bay. Constructed atop an engineered seawall on reclaimed land.
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="hint clue-hint-container">
+                      <div class="row">
+                        <div class="col-xs-2">
+                          Hint 1
+                        </div>
+                        <div class="col-xs-10">
+                          It derives its name from the Spanish verb embarcar, meaning "to embark"; embarcadero itself means "the place to embark".
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="hint clue-hint-container">
+                      <div class="row">
+                        <div class="col-xs-2">
+                          Hint 2
+                        </div>
+                        <div class="col-xs-10">
+                          Begins at the intersection of Second and King Streets near AT&T Park, and travels north, passing under the San Francisco – Oakland Bay Bridge. Continues north past the Ferry Building at Market Street, Fisherman's Wharf, and Pier 39, before ending at Pier 45.
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="hint clue-hint-container">
+                      <div class="row">
+                        <div class="col-xs-2">
+                          Default Hint
+                        </div>
+                        <div class="col-xs-10">
+                          The pin is located in <a href=""> this radius</a> on the map. 
+                        </div>
+                      </div>
+                    </div>
+
+                    <button class="btn btn-default">Add Hint</button>                
+                  </div>
+                </div>
+              </div>
+              <div class="panel panel-default">
+                <div class="panel-heading" role="tab" id="headingTwo">
+                  <h4 class="panel-title">
+                    <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#pin-2" aria-expanded="false" aria-controls="pin-2">
+                      Pin 2: Golden Gate Park
+                    </a>
+                  </h4>
+                </div>
+                <div id="pin-2" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                  <div class="panel-body">
+                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>            
+
+      </div>
     </div>
+
+
+    <!-- <div class="app-container">
+        <div ui-view="create"></div>
+    </div> -->
+
     <footer class="footer">
       <!-- footer will go here -->
     </footer>
@@ -32,6 +141,8 @@
   <script src="../bower_components/angular-ui-router/release/angular-ui-router.js"></script>
   <script src="../bower_components/angular-aria/angular-aria.js"></script>
   <script src="../bower_components/angular-material/angular-material.js"></script>
+  <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
+  <script src="bower_components/bootstrap-sass/assets/javascripts/bootstrap.min.js"></script>
 
   <script src="app.js"></script>
 

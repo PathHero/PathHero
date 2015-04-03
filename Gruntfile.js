@@ -23,8 +23,8 @@ module.exports = function(grunt) {
 
     sass: {
       dev: {
-        src: ['Client/style/style.scss'],
-        dest: 'Client/style/style.css',
+        src: ['Client/app/style/style.scss'],
+        dest: 'Client/app/style/style.css',
       },
     },
 
@@ -55,7 +55,7 @@ module.exports = function(grunt) {
       },
       css: {
         files: [
-          'Client/style/*.css'
+          'Client/app/style/*.css'
         ],
         options: {
           livereload: true
@@ -73,7 +73,7 @@ module.exports = function(grunt) {
       },
       sass: {
         // We watch and compile sass files as normal but don't live reload here
-        files: ['Client/style/*.scss'],
+        files: ['Client/app/style/*.scss'],
         tasks: ['sass'],
       },
     }
