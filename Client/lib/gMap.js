@@ -1,13 +1,60 @@
 
-var gMap = function(){
-
-  getGeolocation(startGMap);
+  
   
   var lastLocationClicked;
   var markerCords = [];
+  var markers = [];
+  var routes = [];
   var travelButtonList = [];
   var travelMode = 'WALKING';
   var map;
+  var linkedList = function(value){
+    this.next = {
+      list : null,
+      path : null
+    };
+    this.parent = {
+      list : null,
+      path : null
+    };
+    this.value = value;
+  }
+  linkedList.prototype.addToEnd = function(value,path){
+    this.next.list = new linkedList(value, this);
+    this.next.path = path;
+    this.next.list.parent.list = this;
+    this.next.list.parent.path = path;
+  }
+  linkedList.prototype.remove = function(obj){
+    if(this.value === obj){
+      var next = null;
+      var parent = null;
+      //is first and last element
+      if(this.parent.list === null && this.next.list === null){
+        this.value.setMap(null);
+        this.value = null;
+      }
+      //first element
+      else if(this.next.list === null ){
+        //this = next
+      }
+      //is end element
+      else if(this.parent.list === null){
+        this.value.setMap(null);
+        this.parent.path.setMap(null);
+        this.parent.next.list = null;
+        this.parent.next.path = null;
+        this.parent.path = null;
+        this.value = null;
+      }
+      //middle element
+      else{
+
+      }
+    }else if(this.next.list){
+      this.next.list.remove(obj);
+    }
+  }
 
   function startGMap(pos){
     //can be -> BICYCLING, DRIVING, TRANSIT, WALKING
@@ -23,7 +70,7 @@ var gMap = function(){
       disableDefaultUI: true,
       keyboardShortcuts: false
     };
-  	map = new google.maps.Map(document.getElementById('gMap'),mapOptions);
+    map = new google.maps.Map(document.getElementById('gMap'),mapOptions);
     
     //----------------------------------
     //styling the Map
@@ -51,7 +98,7 @@ var gMap = function(){
     //events
     //----------------------------------
     google.maps.event.addListener(map, 'click', function(event) {
-      addMarker(event.latLng, 'Count ' + markerCords.length);
+      addToPath(event.latLng);
     });
 
     //----------------------------------
@@ -59,44 +106,30 @@ var gMap = function(){
     //----------------------------------
 
 
-    var tagForZoomOut = document.createElement('div');
-    var controlForZoomOut = new CenterControl(tagForZoomOut, '-', function(){
+    new CenterControl('TOP_LEFT', '-', function(){
       map.setZoom(map.getZoom()-1);
     });
 
-    var tagForZoomIn = document.createElement('div');
-    var controlForZoomIn = new CenterControl(tagForZoomIn, '+', function(){
+    new CenterControl('TOP_LEFT', '+', function(){
       map.setZoom(map.getZoom()+1);
     });
 
-    var tagForWalk = document.createElement('div');
-    var controlForWalk = new CenterControl(tagForWalk, 'W', function(){
+    new CenterControl('BOTTOM_LEFT', 'W', function(){
       travelMode = 'WALKING';
     },true,true);
-    
-    var tagForBicycle = document.createElement('div');
-    var controlForBicycle = new CenterControl(tagForBicycle, 'B', function(){
+
+    new CenterControl('BOTTOM_LEFT', 'B', function(){
       travelMode= 'BICYCLING';
     },true);
-    
-    var tagForDrive = document.createElement('div');
-    var controlForDrive = new CenterControl(tagForDrive, 'D', function(){
+
+    new CenterControl('BOTTOM_LEFT', 'D', function(){
       travelMode= 'DRIVING';
     },true);
 
-    var tagForTransit = document.createElement('div');
-    var controlForTransit = new CenterControl(tagForTransit, 'T', function(){
+    new CenterControl('BOTTOM_LEFT', 'T', function(){
       travelMode= 'TRANSIT';
     },true);
 
-    //adding the events tags to the Map
-    
-    map.controls[google.maps.ControlPosition.TOP_LEFT].push(tagForZoomOut);
-    map.controls[google.maps.ControlPosition.TOP_LEFT].push(tagForZoomIn);
-    map.controls[google.maps.ControlPosition.BOTTOM_LEFT].push(tagForWalk);
-    map.controls[google.maps.ControlPosition.BOTTOM_LEFT].push(tagForBicycle);
-    map.controls[google.maps.ControlPosition.BOTTOM_LEFT].push(tagForDrive);
-    map.controls[google.maps.ControlPosition.BOTTOM_LEFT].push(tagForTransit);
   }
 
 
@@ -108,7 +141,11 @@ var gMap = function(){
 
   function calcRoute() {
 
-    var directionsDisplay = new google.maps.DirectionsRenderer({suppressMarkers: true});
+    var directionsDisplay = new google.maps.DirectionsRenderer({
+      suppressMarkers: false,
+      draggable:true,
+      preserveViewport:true
+    });
     var directionsService = new google.maps.DirectionsService();
   
     directionsDisplay.setMap(map);
@@ -125,74 +162,24 @@ var gMap = function(){
         directionsDisplay.setDirections(response);
       }
     });
+    routes.push([directionsDisplay,directionsService]);
   }
 
-  function addMarker (latLng, title){
-    var id = markerCords.length;
-    markerCords.push(latLng);
-    var size = {
-      height: 40,
-      width: 40
-    }
-
-    var image = {
-      url: 'https://cdn2.iconfinder.com/data/icons/snipicons/500/map-marker-512.png',
-      scaledSize: new google.maps.Size(size.width,size.height),
-      origin: new google.maps.Point(0,0),
-      anchor: new google.maps.Point(size.width/2,size.height)
-    };
-
-    var marker = new google.maps.Marker({
-        position: latLng,
-        map: map,
-        title: title,
-        icon: image,
-    });
-
-    google.maps.event.addListener(marker, 'click', function() {
-      console.log(id);
-    });
-    if(!!lastLocationClicked){
-      calcRoute();
-    }
-    lastLocationClicked = latLng;
-  }
-
-  function CenterControl (controlDiv, text, callback, addToList,startAsActive) {
+  function CenterControl (position,text, callback, addToList,startAsActive) {
 
     // Set CSS for the control border
     var controlUI = document.createElement('div');
-    controlUI.className = 'gMapInactiveButton gMapButton';
+    controlUI.className = 'gMapInactiveButton';
     if(startAsActive){
-      controlUI.className = 'gMapActiveButton gMapButton';
+      controlUI.className = 'gMapActiveButton';
     }
-    controlUI.style.border = '2px solid #fff';
-    controlUI.style.borderRadius = '200px';
-    controlUI.style.boxShadow = '0 2px 6px rgba(0,0,0,.3)';
-    controlUI.style.cursor = 'pointer';
-    controlUI.style.marginBottom = '22px';
-    controlUI.style.marginLeft = '10px';
-    controlUI.style.textAlign = 'center';
-    controlUI.style.width = '35px';
-    controlUI.style.height = '35px';
-    controlUI.style.marginTop = '10px';
 
 
     controlUI.title = 'Click to recenter the map';
 
-    controlDiv.appendChild(controlUI);
-
     // Set CSS for the control interior
     var controlText = document.createElement('div');
     controlText.className = 'gMapText';
-    controlText.style.color = 'rgb(255,255,255)';
-    controlText.style.fontFamily = 'Roboto,Arial,sans-serif';
-    controlText.style.fontSize = '16px';
-    controlText.style.lineHeight = '38px';
-    controlText.style.paddingLeft = '5px';
-    controlText.style.paddingRight = '5px';
-    controlText.style.paddingBottom = '5px';
-
     controlText.innerHTML = text;
     controlUI.appendChild(controlText);
     if(addToList){
@@ -211,8 +198,139 @@ var gMap = function(){
       }
       callback();
     });
+    map.controls[google.maps.ControlPosition[position]].push(controlUI);
   }
 
+  var markerImage = {
+    url: 'https://cdn2.iconfinder.com/data/icons/snipicons/500/map-marker-512.png',
+    scaledSize: new google.maps.Size(40,40),
+    origin: new google.maps.Point(0,0),
+    anchor: new google.maps.Point(20,40)
+  };
+  function fillMap(markerArray){
+
+  }
+  function addMarker (latLng, title){
+    var marker = new google.maps.Marker({
+          position: latLng,
+          map: map,
+          title: 'Marker',
+          icon: markerImage,
+      });
+      google.maps.event.addListener(marker, 'click', function() {
+        console.log('clicked');
+        var id = undefined;
+        for (var i = 0; i < markers.length; i++) {
+          if(marker === markers[i]){
+            id = i;
+            console.log(id);
+          }
+        };
+        console.log(id)
+        removeMarker(id)
+      });
+    markers.push(marker);
+  }
+
+  function addToPath(latLng){
+
+    if(markers.length === 0){
+      addMarker(latLng);
+    }else{
+      createPath(new google.maps.LatLng(markers[markers.length-1].position.lat(), 
+        markers[markers.length-1].position.lng()), 
+        latLng,
+        function(response, directionsDisplay){
+          directionsDisplay.setDirections(response);
+          var leg = response.routes[ 0 ].legs[ 0 ];
+          addMarker(leg.end_location)
+        });
+    }
+  }
+
+  function createPath(startLatLng, endLatLng, callback, insertInTo){
+    var directionsDisplay = new google.maps.DirectionsRenderer({
+      suppressMarkers: true
+    });
+    var directionsService = new google.maps.DirectionsService();
+  
+    directionsDisplay.setMap(map);
+
+    var request = {
+        origin:startLatLng,
+        destination:endLatLng,
+        travelMode: google.maps.TravelMode[travelMode],
+    };
+    directionsService.route(request, function(response, status) {
+      if (status === google.maps.DirectionsStatus.OK) {
+        callback(response, directionsDisplay);
+      }
+    });
+    if(insertInTo){
+      insertInTo = [directionsDisplay,directionsService]
+    }else{
+      routes.push([directionsDisplay,directionsService]);
+    }
+  }
+
+  function selectMarker(index){
+
+  }
+
+  function removeMarker(index){
+
+    if(index === markers.length-1){
+      markers[markers.length-1].setMap(null);
+      markers.pop();
+      routes[routes.length-1][0].setMap(null);
+      routes.pop();
+    }else if (index === 0){
+      markers[0].setMap(null);
+      markers.shift();
+      routes[0][0].setMap(null);
+      routes.shift();
+    }else{
+      //remove the marker
+      //remove the path to the left
+      //remove the path to the right
+      //create a path filling in the gap
+
+      markers[index].setMap(null);
+      var markerArray = markers.splice(0,index);
+      markers.shift();
+
+      if(routes[index]){
+        routes[index][0].setMap(null);
+      }if(routes[index-1]){
+        routes[index-1][0].setMap(null);
+      }
+
+      var routeArray = routes.splice(0,index);
+      routes.shift();
+      createPath( markerArray[markerArray.length-1].position, 
+                  markers[0].position,
+                  function(response, directionsDisplay){
+                    directionsDisplay.setDirections(response);
+                  }),
+                  routeArray.length
+
+      markers = markerArray.concat(markers);
+      routes = routeArray.concat(routes);
+    }
+  }
+
+  function startDragMarker(index){
+
+  }
+  function endDragMarker(index){
+
+  }
+  function getTimeForPath(index){
+    //index = index || all
+  }
+  function getDistanceForPath(index){
+    //index = index || all
+  }
   function getGeolocation (callback){
     var pos = new google.maps.LatLng(-33.73, 149.02);
     if (navigator.geolocation) {
@@ -225,7 +343,3 @@ var gMap = function(){
       callback(pos);
     }
   }
-
-}
-
-
