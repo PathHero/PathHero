@@ -36,4 +36,11 @@ var initalizeStrategies = function() {
   return passport;
 };
 
-module.exports = initalizeStrategies();
+module.exports.addAuth = function(app) {
+  initalizeStrategies();
+  app.use(passport.initialize());
+  app.use(passport.session());
+};
+
+// This should not be imported before addAuth has been called.
+module.exports.passport = passport;
