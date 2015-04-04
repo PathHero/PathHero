@@ -6,6 +6,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-nodemon');
   grunt.loadNpmTasks('grunt-concurrent');
   grunt.loadNpmTasks('grunt-contrib-sass');
+  grunt.loadNpmTasks('grunt-jest');
 
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
@@ -14,10 +15,17 @@ module.exports = function(grunt) {
       files: [
         'Gruntfile.js',
         'server.js',
+        'preprocessor.js',
         'Client/**/*.js',
         'Server/**/*.js',
       ],
       options: {jshintrc: true}
+    },
+
+    jest: {
+      options: {
+        coverage: true
+      }
     },
 
     sass: {
@@ -77,6 +85,6 @@ module.exports = function(grunt) {
     }
   });
 
-  grunt.registerTask('check', 'jshint');
+  grunt.registerTask('check', ['jshint', 'jest']);
   grunt.registerTask('default', ['concurrent']);
 };
