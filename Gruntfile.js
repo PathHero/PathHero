@@ -18,7 +18,13 @@ module.exports = function(grunt) {
         'Server/**/*.js',
         'Spec/**/*.js'
       ],
-      options: {jshintrc: true}
+      options: {
+        jshintrc: true,
+        ignores: [
+          'Client/bower_components/**/*.js',
+          'node_modules/**/*.js'
+        ]
+      }
     },
 
     sass: {
