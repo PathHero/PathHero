@@ -2980,31 +2980,34 @@ button.close {
   border: 0;
   -webkit-appearance: none; }
 
-#creater-container h2 {
+h2 {
   color: #848484;
   font-size: 12px;
   font-weight: bold;
   text-transform: uppercase; }
-#creater-container #map-container img {
-  width: 100%; }
-#creater-container #hunt-info-container {
+
+#map-container img {
+  width: 100%;
+  height: 800px; }
+
+#hunt-info-container {
   padding-right: 40px; }
-  #creater-container #hunt-info-container #hunt-title-container {
+  #hunt-info-container #hunt-title-container {
     margin: 20px 0 25px; }
-    #creater-container #hunt-info-container #hunt-title-container #hunt-title {
+    #hunt-info-container #hunt-title-container #hunt-title {
       margin: 0px 0;
       font-size: 30px; }
-  #creater-container #hunt-info-container .tour-summary-container h2 {
+  #hunt-info-container .tour-summary-container h2 {
     color: #676767; }
-  #creater-container #hunt-info-container .tour-summary-container .summary-box {
+  #hunt-info-container .tour-summary-container .summary-box {
     background-color: #F4F4F4;
     border: 1px solid #ccc;
     padding: 15px 20px 15px; }
-    #creater-container #hunt-info-container .tour-summary-container .summary-box p {
+    #hunt-info-container .tour-summary-container .summary-box p {
       font-size: 15px;
       font-weight: bold;
       margin-bottom: 0px; }
-  #creater-container #hunt-info-container #pin-container .clue-hint-container {
+  #hunt-info-container #pin-container .clue-hint-container {
     margin-bottom: 10px; }
 
 /*# sourceMappingURL=style.css.map */

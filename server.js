@@ -8,6 +8,6 @@ var SERVERURL = process.env.SERVERURL || 'localhost';
 
 middleware(app);
 
-app.listen(SERVERPORT, SERVERURL);
+app.listen(3000, SERVERURL);
 
 console.log('Path hero listening at http://%s:%s', SERVERURL, SERVERPORT);
