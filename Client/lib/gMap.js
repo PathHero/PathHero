@@ -2,59 +2,13 @@
   
   
   var lastLocationClicked;
-  var markerCords = [];
   var markers = [];
   var routes = [];
   var travelButtonList = [];
   var travelMode = 'WALKING';
   var map;
-  var linkedList = function(value){
-    this.next = {
-      list : null,
-      path : null
-    };
-    this.parent = {
-      list : null,
-      path : null
-    };
-    this.value = value;
-  }
-  linkedList.prototype.addToEnd = function(value,path){
-    this.next.list = new linkedList(value, this);
-    this.next.path = path;
-    this.next.list.parent.list = this;
-    this.next.list.parent.path = path;
-  }
-  linkedList.prototype.remove = function(obj){
-    if(this.value === obj){
-      var next = null;
-      var parent = null;
-      //is first and last element
-      if(this.parent.list === null && this.next.list === null){
-        this.value.setMap(null);
-        this.value = null;
-      }
-      //first element
-      else if(this.next.list === null ){
-        //this = next
-      }
-      //is end element
-      else if(this.parent.list === null){
-        this.value.setMap(null);
-        this.parent.path.setMap(null);
-        this.parent.next.list = null;
-        this.parent.next.path = null;
-        this.parent.path = null;
-        this.value = null;
-      }
-      //middle element
-      else{
 
-      }
-    }else if(this.next.list){
-      this.next.list.remove(obj);
-    }
-  }
+  
 
   function startGMap(pos){
     //can be -> BICYCLING, DRIVING, TRANSIT, WALKING
@@ -138,32 +92,6 @@
   //------------------------
   //functions
   //------------------------
-
-  function calcRoute() {
-
-    var directionsDisplay = new google.maps.DirectionsRenderer({
-      suppressMarkers: false,
-      draggable:true,
-      preserveViewport:true
-    });
-    var directionsService = new google.maps.DirectionsService();
-  
-    directionsDisplay.setMap(map);
-
-    var start = markerCords[markerCords.length-2];
-    var end = markerCords[markerCords.length-1];
-    var request = {
-        origin:start,
-        destination:end,
-        travelMode: google.maps.TravelMode[travelMode],
-    };
-    directionsService.route(request, function(response, status) {
-      if (status == google.maps.DirectionsStatus.OK) {
-        directionsDisplay.setDirections(response);
-      }
-    });
-    routes.push([directionsDisplay,directionsService]);
-  }
 
   function CenterControl (position,text, callback, addToList,startAsActive) {
 
