@@ -28,7 +28,7 @@ var HuntBox = React.createClass({
 
 var ClueBox = React.createClass({
   getInitialState: function() {
-    return {data: clues};
+    return {data: pins};
   },
   render: function() {
     return (
@@ -47,65 +47,123 @@ var ClueBox = React.createClass({
         </div>
       </div>
         </div>
+        <div id="pin-container">
+          <h2>Pins</h2>
+            <PinList data={this.state.data} /> 
+        </div>
       </div>
 
-      <div id="pin-container">
-        <h2>Pins</h2>
-          <ClueList data={this.state.data} /> 
-      </div>
     </div>
       )
   }
 });
 
 
-var Clue = React.createClass({
+var Pin = React.createClass({
+  getInitialState: function() {
+    return { 
+      showTextField: false,
+      showAddClueBtn: true
+    };
+  },
+  toggleInput: function() {
+    !this.state.showTextField ? this.setState({showTextField: true}) : this.setState({showTextField: false});
+    this.state.showAddClueBtn ? this.setState({showAddClueBtn: false}) : this.setState({showAddClueBtn: true});
+  },
   render: function() {
+  
+    var clueNodes = this.props.clues.map(function(clue, index) {
+      return (
+        <Clue index={index+1} text={clue} key={index}>
+        </Clue>
+      );
+    });
+    
     return (
-      <div className="clue">
-      Pin {this.props.index}: {this.props.location}
+      <div className="pinContainer">
         <Accordion>
-          <Panel header={this.props.answer} eventKey={this.props.index}>
-          {this.props.answer}
-          Placeholder value
+          <Panel header={"Pin " + (this.props.index+1) + ": " + this.props.answer} eventKey={this.props.index}>
+          {clueNodes}
+          {this.state.showTextField ? <Textfield clues={this.props.clues}/>  : null}
+          {this.state.showAddClueBtn ? <AddTextFieldBtn toggleInput={this.toggleInput}/>  : null}
           </Panel>
         </Accordion>  
-              
-            
-        
       </div>
       )
   }
 })
 
-var ClueList = React.createClass({
+var AddTextFieldBtn = React.createClass({
   render: function() {
-    var clueNodes = this.props.data.map(function(clue, index) {
+    return (
+      <button className="btn btn-default" type="button" onClick={this.props.toggleInput}>Add Clue</button>
+      )
+  }
+})
+
+var Textfield = React.createClass({
+  handleClue: function() {
+    var newClue = this.refs.clueInput.getDOMNode().value;
+    this.props.clues.push(newClue);
+    this.setState({clues: clues});
+  },
+  render: function() {
+    return (
+      <div className="textField">
+        Clue [num]: <input type="text" ref="clueInput" placeholder="Enter a clue" />
+        <button className="btn btn-default" type="button" onClick={this.handleClue}>Add</button>
+      </div>
+      )
+  }
+})
+
+var Clue = React.createClass({
+  render: function() {
+    return (
+
+    <div className="clueContainer">
+      <div className="row">
+        <div className="col-xs-2">
+          Clue {this.props.index}:
+        </div>
+        <div className="col-xs-10">
+        {this.props.text}
+        </div>
+      </div>
+    </div>
+
+    )
+  }
+})
+
+var PinList = React.createClass({
+  render: function() {
+    var pinNodes = this.props.data.map(function(pin, index) {
       return (
-        <Clue index={index} answer={clue.answer} location={clue.location} key={index}>
-        </Clue>
+        <Pin index={index} answer={pin.answer} clues={pin.clues} location={pin.location} key={index}>
+        </Pin>
       );
     });
 
     return (
-      <div className="clueList">
-        {clueNodes}
+      <div className="pinList">
+        {pinNodes}
       </div>
     );
   }
 });
 
-var clues = [
+var pins = [
   {
     "text": "Landmark used by commuters",
     "answer": "Bay Bridge",
-    "hints": ['Refurbished in 2013', 'Not the Golden Gate Bridge'],
+    "clues": ['Refurbished in 2013', 'Not the Golden Gate Bridge'],
     "location": [37.8181, 122.3467]
   },
   {
     "text": "Pointed building in SF",
     "answer": "Transamerica Building",
-    "hints": ['Named after a company', 'In Financial District'],
+    "clues": ['Named after a company', 'In Financial District'],
     "location": [37.8181, 122.3467]
 
   }
