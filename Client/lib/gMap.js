@@ -1,14 +1,14 @@
 
-  
-  var travelButtonList = [];
-  var travelMode = 'WALKING';
-  var map;
-  var pathLatLng = [];
-  var directionsDisplay;
-  var directionsService;
-  var markers = [];
+  var gMap = {}
+  gMap.travelButtonList = [];
+  gMap.travelMode = 'WALKING';
+  gMap.map;
+  gMap.pathLatLng = [];
+  gMap.directionsDisplay;
+  gMap.directionsService;
+  gMap.markers = [];
 
-  function startGMap(pos){
+  gMap.startGMap = function (pos){
     //can be -> BICYCLING, DRIVING, TRANSIT, WALKING
 
     //----------------------------------
@@ -22,7 +22,7 @@
       disableDefaultUI: true,
       keyboardShortcuts: false
     };
-    map = new google.maps.Map(document.getElementById('gMap'),mapOptions);
+    gMap.map = new google.maps.Map(document.getElementById('gMap'),mapOptions);
     
     //----------------------------------
     //styling the Map
@@ -43,43 +43,45 @@
     ];
 
     var styledMap = new google.maps.StyledMapType(mapStyles,{name: "Styled Map"});
-    map.mapTypes.set('map_style', styledMap);
-    map.setMapTypeId('map_style');
+    gMap.map.mapTypes.set('map_style', styledMap);
+    gMap.map.setMapTypeId('map_style');
 
     //----------------------------------
     //events
     //----------------------------------
-    google.maps.event.addListener(map, 'click', function(event) {
+    google.maps.event.addListener(gMap.map, 'click', function(event) {
       //makeMarker(event.latLng);
-      pathLatLng.push(event.latLng);
-      createPath();
+      if(gMap.pathLatLng.length < 10){
+        gMap.pathLatLng.push(event.latLng);
+      }
+      gMap.createPath();
     });
     //----------------------------------
     //adding custom GUI elements
     //----------------------------------
 
-    new CenterControl('TOP_LEFT', '-', function(){
-      map.setZoom(map.getZoom()-1);
+    new gMap.CenterControl('TOP_LEFT', '-', function(){
+      gMap.map.setZoom(gMap.map.getZoom()-1);
     });
 
-    new CenterControl('TOP_LEFT', '+', function(){
-      map.setZoom(map.getZoom()+1);
+    new gMap.CenterControl('TOP_LEFT', '+', function(){
+      gMap.map.setZoom(gMap.map.getZoom()+1);
     });
 
-    new CenterControl('BOTTOM_LEFT', 'W', function(){
-      travelMode = 'WALKING';
+    new gMap.CenterControl('BOTTOM_LEFT', 'W', function(){
+      gMap.travelMode = 'WALKING';
     },true,true);
 
-    new CenterControl('BOTTOM_LEFT', 'B', function(){
-      travelMode= 'BICYCLING';
+    new gMap.CenterControl('BOTTOM_LEFT', 'B', function(){
+      gMap.travelMode= 'BICYCLING';
     },true);
 
-    new CenterControl('BOTTOM_LEFT', 'D', function(){
-      travelMode= 'DRIVING';
+    new gMap.CenterControl('BOTTOM_LEFT', 'D', function(){
+      gMap.travelMode= 'DRIVING';
     },true);
 
-    new CenterControl('BOTTOM_LEFT', 'T', function(){
-      travelMode= 'TRANSIT';
+    new gMap.CenterControl('BOTTOM_LEFT', 'T', function(){
+      gMap.travelMode= 'TRANSIT';
     },true);
 
   }
@@ -88,7 +90,7 @@
   //functions
   //------------------------
 
-  function CenterControl (position,text, callback, addToList,startAsActive) {
+  gMap.CenterControl = function (position,text, callback, addToList,startAsActive) {
 
     // Set CSS for the control border
     var controlUI = document.createElement('div');
@@ -103,31 +105,31 @@
     controlText.innerHTML = text;
     controlUI.appendChild(controlText);
     if(addToList){
-      travelButtonList.push(controlUI);
+      gMap.travelButtonList.push(controlUI);
     }
     // Setup the click event listeners: simply set the map to
     // Chicago
     google.maps.event.addDomListener(controlUI, 'click', function(){
       if(addToList){
-        for (var i = 0; i < travelButtonList.length; i++) {
-          travelButtonList[i].className = 'gMapInactiveButton';
-          if(travelButtonList[i] === controlUI){
+        for (var i = 0; i < gMap.travelButtonList.length; i++) {
+          gMap.travelButtonList[i].className = 'gMapInactiveButton';
+          if(gMap.travelButtonList[i] === controlUI){
             controlUI.className = 'gMapActiveButton';
           }
         };
       }
       callback();
     });
-    map.controls[google.maps.ControlPosition[position]].push(controlUI);
+    gMap.map.controls[google.maps.ControlPosition[position]].push(controlUI);
   }
 
 
-  function createPath(){
-    if(directionsDisplay instanceof google.maps.DirectionsRenderer){
-      var oldPath = directionsDisplay;
+  gMap.createPath = function (){
+    if(gMap.directionsDisplay instanceof google.maps.DirectionsRenderer){
+      var oldPath = gMap.directionsDisplay;
     }
-    directionsDisplay = new google.maps.DirectionsRenderer({
-      map: map,
+    gMap.directionsDisplay = new google.maps.DirectionsRenderer({
+      map: gMap.map,
       draggable: true,
 
       markerOptions: {
@@ -142,45 +144,44 @@
     });
     //creating waypoints to place on the map
     var waypoints = [];
-    for (var i = 1; i < pathLatLng.length-1; i++) {
-      waypoints.push({ location: pathLatLng[i] });
+    for (var i = 1; i < gMap.pathLatLng.length-1; i++) {
+      waypoints.push({ location: gMap.pathLatLng[i] });
     };
-    directionsService = new google.maps.DirectionsService();
+    gMap.directionsService = new google.maps.DirectionsService();
 
     var request = {
-        origin:pathLatLng[0],
-        destination:pathLatLng[pathLatLng.length-1], // can be latLng or string (this is required)
-        travelMode: google.maps.TravelMode[travelMode],
+        origin:gMap.pathLatLng[0],
+        destination:gMap.pathLatLng[gMap.pathLatLng.length-1], // can be latLng or string (this is required)
+        travelMode: google.maps.TravelMode[gMap.travelMode],
         waypoints : waypoints
     };
 
-    directionsService.route(request, function(response, status) {
+    gMap.directionsService.route(request, function(response, status) {
       if (status === google.maps.DirectionsStatus.OK) {
-        directionsDisplay.setDirections(response);
-        emptyMarkers();
-        makeMarker(response.routes[0].legs[0].start_location);
+        gMap.directionsDisplay.setDirections(response);
+        gMap.emptyMarkers();
+        gMap.makeMarker(response.routes[0].legs[0].start_location);
         for (var i = 0; i < response.routes[0].legs.length; i++) {
-          makeMarker(response.routes[0].legs[i].end_location);
+          gMap.makeMarker(response.routes[0].legs[i].end_location);
         };
         oldPath.setMap(null);
       }else{
-        pathLatLng.pop(); //remove the last waypoint added
+        gMap.pathLatLng.pop(); //remove the last waypoint added
       }
-      google.maps.event.addListener(directionsDisplay, 'directions_changed', function() {
-        if(directionsDisplay.directions.routes){
-          pathLatLng[0] = directionsDisplay.directions.routes[0].legs[0].start_location
+      google.maps.event.addListener(gMap.directionsDisplay, 'directions_changed', function() {
+        if(gMap.directionsDisplay.directions.routes){
+          gMap.pathLatLng[0] = gMap.directionsDisplay.directions.routes[0].legs[0].start_location
         }
-        for (var i = 1; i <= directionsDisplay.directions.routes[0].legs.length; i++) {
-          pathLatLng[i] = directionsDisplay.directions.routes[0].legs[i-1].end_location
+        for (var i = 1; i <= gMap.directionsDisplay.directions.routes[0].legs.length; i++) {
+          gMap.pathLatLng[i] = gMap.directionsDisplay.directions.routes[0].legs[i-1].end_location
         };
-        emptyMarkers();
-        console.log('changed'); 
-        createPath();
+        gMap.emptyMarkers();
+        gMap.createPath();
       });
     });
   }
 
-  function makeMarker(latLng){
+  gMap.makeMarker = function (latLng){
 
     var markerImage = {
       url: 'https://cdn2.iconfinder.com/data/icons/snipicons/500/map-marker-512.png',
@@ -189,27 +190,27 @@
       anchor: new google.maps.Point(20,50)
     };
 
-    var index = markers.length;
+    var index = gMap.markers.length;
     var marker = new google.maps.Marker({
-      map: map,
+      map: gMap.map,
       icon: markerImage,
       position: latLng,
       title: 'marker ' + index
     });
-    markers.push(marker);
+    gMap.markers.push(marker);
     google.maps.event.addListener(marker, 'click', function() {
       console.log(index);
     });
 
   }
-  function emptyMarkers(){
-    for (var i = 0; i < markers.length; i++) {
-      markers[i].setMap(null);
+  gMap.emptyMarkers = function (){
+    for (var i = 0; i < gMap.markers.length; i++) {
+      gMap.markers[i].setMap(null);
     };
-    markers.length = 0;
+    gMap.markers.length = 0;
   }
 
-  function getGeolocation (callback){
+  gMap.getGeolocation = function (callback){
     var pos = new google.maps.LatLng(-33.73, 149.02);
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(function(position){
@@ -221,30 +222,31 @@
       callback(pos);
     }
   }
-  function selectMarker(index){
+  gMap.selectMarker = function (index){
 
   }
-  function removeMarker(index){
+  gMap.removeMarker = function (index){
 
   }
-  function getTimeAndDistance(index){
+  gMap.getTimeAndDistance = function (index){
+
     //index = index || all
   }
-  function importMap(markerArray){
-    pathLatLng=[];
+  gMap.importMap = function (markerArray){
+    gMap.pathLatLng=[];
     //emptyMarkers();
     //directionsDisplay.setMap(null);
 
     for (var i = 0; i < markerArray.length; i++) {
       console.log(markerArray[i][0],markerArray[i][1]);
-      pathLatLng.push(new google.maps.LatLng(markerArray[i][0], markerArray[i][1]));
+      gMap.pathLatLng.push(new google.maps.LatLng(markerArray[i][0], markerArray[i][1]));
     };
-    createPath();
+    gMap.createPath();
   }
-  function exportMap(){
+  gMap.exportMap = function (){
     var exportedArray = [];
-    for (var i = 0; i < markers.length; i++) {
-      exportedArray.push([markers[i].getPosition().lat(), markers[i].getPosition().lng()]);
+    for (var i = 0; i < gMap.markers.length; i++) {
+      exportedArray.push([gMap.markers[i].getPosition().lat(), gMap.markers[i].getPosition().lng()]);
     };
     return exportedArray;
   }
