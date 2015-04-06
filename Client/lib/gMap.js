@@ -1,14 +1,11 @@
 
   
-  
-  var lastLocationClicked;
-  var markers = [];
-  var routes = [];
   var travelButtonList = [];
   var travelMode = 'WALKING';
   var map;
-
-  
+  var pathLatLng = [];
+  var directionsDisplay;
+  var directionsService;
 
   function startGMap(pos){
     //can be -> BICYCLING, DRIVING, TRANSIT, WALKING
@@ -52,13 +49,14 @@
     //events
     //----------------------------------
     google.maps.event.addListener(map, 'click', function(event) {
-      addToPath(event.latLng);
+      if(pathLatLng.length){
+        createPath(event.latLng);
+      }
+      pathLatLng.push(event.latLng);
     });
-
     //----------------------------------
     //adding custom GUI elements
     //----------------------------------
-
 
     new CenterControl('TOP_LEFT', '-', function(){
       map.setZoom(map.getZoom()-1);
@@ -86,9 +84,6 @@
 
   }
 
-
-
-
   //------------------------
   //functions
   //------------------------
@@ -101,9 +96,6 @@
     if(startAsActive){
       controlUI.className = 'gMapActiveButton';
     }
-
-
-    controlUI.title = 'Click to recenter the map';
 
     // Set CSS for the control interior
     var controlText = document.createElement('div');
@@ -129,136 +121,61 @@
     map.controls[google.maps.ControlPosition[position]].push(controlUI);
   }
 
-  var markerImage = {
-    url: 'https://cdn2.iconfinder.com/data/icons/snipicons/500/map-marker-512.png',
-    scaledSize: new google.maps.Size(40,40),
-    origin: new google.maps.Point(0,0),
-    anchor: new google.maps.Point(20,40)
-  };
-  function fillMap(markerArray){
 
-  }
-  function addMarker (latLng, title){
-    var marker = new google.maps.Marker({
-          position: latLng,
-          map: map,
-          title: 'Marker',
-          icon: markerImage,
-      });
-      google.maps.event.addListener(marker, 'click', function() {
-        console.log('clicked');
-        var id = undefined;
-        for (var i = 0; i < markers.length; i++) {
-          if(marker === markers[i]){
-            id = i;
-            console.log(id);
-          }
-        };
-        console.log(id)
-        removeMarker(id)
-      });
-    markers.push(marker);
-  }
-
-  function addToPath(latLng){
-
-    if(markers.length === 0){
-      addMarker(latLng);
-    }else{
-      createPath(new google.maps.LatLng(markers[markers.length-1].position.lat(), 
-        markers[markers.length-1].position.lng()), 
-        latLng,
-        function(response, directionsDisplay){
-          directionsDisplay.setDirections(response);
-          var leg = response.routes[ 0 ].legs[ 0 ];
-          addMarker(leg.end_location)
-        });
+  function createPath(endLatLng){
+    if(directionsDisplay instanceof google.maps.DirectionsRenderer){
+      var oldPath = directionsDisplay;
     }
-  }
-
-  function createPath(startLatLng, endLatLng, callback, insertInTo){
-    var directionsDisplay = new google.maps.DirectionsRenderer({
-      suppressMarkers: true
+    directionsDisplay = new google.maps.DirectionsRenderer({
+      map: map,
+      draggable: true,
+      markerOptions: {
+          title: 'Marker',
+          icon: {
+            url: 'https://cdn2.iconfinder.com/data/icons/snipicons/500/map-marker-512.png',
+            scaledSize: new google.maps.Size(40,40),
+            origin: new google.maps.Point(0,0),
+            anchor: new google.maps.Point(20,40)
+          }
+      }
     });
-    var directionsService = new google.maps.DirectionsService();
-  
-    directionsDisplay.setMap(map);
+    //creating waypoints to place on the map
+    var waypoints = [];
+    for (var i = 1; i < pathLatLng.length; i++) {
+      waypoints.push({
+        location: pathLatLng[i]
+      });
+      // google.maps.event.addListener(waypoints[waypoints.length-1], 'click', function() {
+      //   console.log('waypoint number', waypoints.length);
+      // });
+    };
+    google.maps.event.addListener(directionsDisplay, 'directions_changed', function() {  
+        console.log('directions_changed')  
+    });
+    google.maps.event.addListener(directionsDisplay, 'click', function() {  
+        console.log('clicked')
+    });
+    directionsService = new google.maps.DirectionsService();
 
     var request = {
-        origin:startLatLng,
-        destination:endLatLng,
+        origin:pathLatLng[0],
+        destination:endLatLng, // can be latLng or string (this is required)
         travelMode: google.maps.TravelMode[travelMode],
+        waypoints : waypoints
     };
+
     directionsService.route(request, function(response, status) {
       if (status === google.maps.DirectionsStatus.OK) {
-        callback(response, directionsDisplay);
+        console.log(response)
+        directionsDisplay.setDirections(response);
+        oldPath.setMap(null);
+      }else{
+        pathLatLng.pop(); //remove the last waypoint added
       }
     });
-    if(insertInTo){
-      insertInTo = [directionsDisplay,directionsService]
-    }else{
-      routes.push([directionsDisplay,directionsService]);
-    }
   }
 
-  function selectMarker(index){
 
-  }
-
-  function removeMarker(index){
-
-    if(index === markers.length-1){
-      markers[markers.length-1].setMap(null);
-      markers.pop();
-      routes[routes.length-1][0].setMap(null);
-      routes.pop();
-    }else if (index === 0){
-      markers[0].setMap(null);
-      markers.shift();
-      routes[0][0].setMap(null);
-      routes.shift();
-    }else{
-      //remove the marker
-      //remove the path to the left
-      //remove the path to the right
-      //create a path filling in the gap
-
-      markers[index].setMap(null);
-      var markerArray = markers.splice(0,index);
-      markers.shift();
-
-      if(routes[index]){
-        routes[index][0].setMap(null);
-      }if(routes[index-1]){
-        routes[index-1][0].setMap(null);
-      }
-
-      var routeArray = routes.splice(0,index);
-      routes.shift();
-      createPath( markerArray[markerArray.length-1].position, 
-                  markers[0].position,
-                  function(response, directionsDisplay){
-                    directionsDisplay.setDirections(response);
-                  }),
-                  routeArray.length
-
-      markers = markerArray.concat(markers);
-      routes = routeArray.concat(routes);
-    }
-  }
-
-  function startDragMarker(index){
-
-  }
-  function endDragMarker(index){
-
-  }
-  function getTimeForPath(index){
-    //index = index || all
-  }
-  function getDistanceForPath(index){
-    //index = index || all
-  }
   function getGeolocation (callback){
     var pos = new google.maps.LatLng(-33.73, 149.02);
     if (navigator.geolocation) {
@@ -270,4 +187,16 @@
     }else{
       callback(pos);
     }
+  }
+  function selectMarker(index){
+
+  }
+  function removeMarker(index){
+
+  }
+  function getTimeAndDistance(index){
+    //index = index || all
+  }
+  function fillMap(markerArray){
+
   }
