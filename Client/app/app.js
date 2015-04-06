@@ -61,10 +61,15 @@ var ClueBox = React.createClass({
 
 var Pin = React.createClass({
   getInitialState: function() {
-    return { 
+    return {
       showTextField: false,
-      showAddClueBtn: true
+      showAddClueBtn: true,
+      clues: this.props.clues
     };
+  },
+  handleClue: function(newClue) {
+    this.props.clues.push(newClue);
+    this.setState({clues: this.props.clues});
   },
   toggleInput: function() {
     !this.state.showTextField ? this.setState({showTextField: true}) : this.setState({showTextField: false});
@@ -84,7 +89,7 @@ var Pin = React.createClass({
         <Accordion>
           <Panel header={"Pin " + (this.props.index+1) + ": " + this.props.answer} eventKey={this.props.index}>
           {clueNodes}
-          {this.state.showTextField ? <Textfield clues={this.props.clues}/>  : null}
+          {this.state.showTextField ? <Textfield onClueAdd={this.handleClue}/>  : null}
           {this.state.showAddClueBtn ? <AddTextFieldBtn toggleInput={this.toggleInput}/>  : null}
           </Panel>
         </Accordion>  
@@ -102,16 +107,17 @@ var AddTextFieldBtn = React.createClass({
 })
 
 var Textfield = React.createClass({
-  handleClue: function() {
+  handleClueTextField: function() {
     var newClue = this.refs.clueInput.getDOMNode().value;
-    this.props.clues.push(newClue);
-    this.setState({clues: clues});
+    this.props.onClueAdd(newClue);
+    // React.findDOMNode(this.clueInput) = '';
   },
   render: function() {
+    // var newClueIndex = clues.length+1;
     return (
       <div className="textField">
         Clue [num]: <input type="text" ref="clueInput" placeholder="Enter a clue" />
-        <button className="btn btn-default" type="button" onClick={this.handleClue}>Add</button>
+        <button className="btn btn-default" type="button" onClick={this.handleClueTextField}>Add</button>
       </div>
       )
   }
