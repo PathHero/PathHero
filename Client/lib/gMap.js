@@ -7,6 +7,8 @@
   gMap.directionsDisplay;
   gMap.directionsService;
   gMap.markers = [];
+  gMap.distance = [];
+  gMap.duration = [];
 
   gMap.startGMap = function (pos){
     //can be -> BICYCLING, DRIVING, TRANSIT, WALKING
@@ -150,9 +152,9 @@
     gMap.directionsService = new google.maps.DirectionsService();
 
     var request = {
-        origin:gMap.pathLatLng[0],
-        destination:gMap.pathLatLng[gMap.pathLatLng.length-1], // can be latLng or string (this is required)
-        travelMode: google.maps.TravelMode[gMap.travelMode],
+        origin : gMap.pathLatLng[0],
+        destination : gMap.pathLatLng[gMap.pathLatLng.length-1], // can be latLng or string (this is required)
+        travelMode : google.maps.TravelMode[gMap.travelMode],
         waypoints : waypoints
     };
 
@@ -163,6 +165,8 @@
         gMap.makeMarker(response.routes[0].legs[0].start_location);
         for (var i = 0; i < response.routes[0].legs.length; i++) {
           gMap.makeMarker(response.routes[0].legs[i].end_location);
+          gMap.distance[i] = response.routes[0].legs[i].distance.value;
+          gMap.duration[i] = response.routes[0].legs[i].duration.value;
         };
         oldPath.setMap(null);
       }else{
@@ -222,15 +226,35 @@
       callback(pos);
     }
   }
-  gMap.selectMarker = function (index){
-
+  gMap.select = function (index){
   }
-  gMap.removeMarker = function (index){
-
+  gMap.remove = function (index){
+    //debugger
+    var array = gMap.exportMap();
+    var lastHalf = array.splice(index);
+    array.pop();
+    var newArray = array.concat(lastHalf);
+    gMap.importMap(newArray);
   }
-  gMap.getTimeAndDistance = function (index){
-
-    //index = index || all
+  gMap.getDistance = function (index){
+    index = index || 0;
+    var total = 0;
+    for (var i = index; i < gMap.distance.length; i++) {
+      total += gMap.distance[i];
+    };
+    total = total * 100;
+    total = total / 1609.34;
+    total = Math.floor(total);
+    total = total / 100;
+    return total;
+  }
+  gMap.getDuration = function (index){
+    index = index || 0;
+    var total = 0;
+    for (var i = index; i < gMap.duration.length; i++) {
+      total += gMap.duration[i];
+    };
+    return total;
   }
   gMap.importMap = function (markerArray){
     gMap.pathLatLng=[];
