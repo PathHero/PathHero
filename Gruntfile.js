@@ -6,9 +6,19 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-nodemon');
   grunt.loadNpmTasks('grunt-concurrent');
   grunt.loadNpmTasks('grunt-contrib-sass');
+  grunt.loadNpmTasks('grunt-mocha-test');
 
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
+
+    mochaTest: {
+      test: {
+        options: {
+          reporter: 'spec'
+        },
+        src: ['Spec/**/*.js']
+      }
+    },
 
     jshint: {
       files: [
@@ -83,6 +93,7 @@ module.exports = function(grunt) {
     }
   });
 
-  grunt.registerTask('check', 'jshint');
+  grunt.registerTask('test', 'mochaTest');
+  grunt.registerTask('check', ['jshint', 'test']);
   grunt.registerTask('default', ['concurrent']);
 };
