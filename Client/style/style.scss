@@ -42,11 +42,9 @@ $screen-md-max:              ($screen-lg-min - 1) !default;
     text-transform: uppercase;      
   }
 
-  #map-container {
-    img {
-      width: 100%;
-      height: 800px;
-    }
+  #gMap {
+    width: 50%;
+    height: 800px;
   }
 
   #hunt-info-container {
@@ -84,47 +82,6 @@ $screen-md-max:              ($screen-lg-min - 1) !default;
       .clue-hint-container {
         margin-bottom: 10px;
       }
-
     }
-
-    
-
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  

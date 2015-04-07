@@ -7,11 +7,8 @@ var Panel = ReactBootstrap.Panel;
 var Map = React.createClass({
   render: function() {
     return (
-      <div>
-      </div>
-      // <div id="map-container" className="col-sm-6">
-      //     <!-- <img src="img/map.png" alt="" />-->
-      // </div>  
+      <div id="gMap" className="col-md-6">
+      </div>  
 
     );
   }
@@ -34,28 +31,27 @@ var ClueBox = React.createClass({
   },
   render: function() {
     return (
-    <div>
-      <div id="hunt-info-container" className="col-md-6">
-        <div id="hunt-title-container">
-          <h2>Hunt Description</h2>
-          <span id="hunt-title">Discover SFs most beautiful views</span>
-
-      <div className="tour-summary-container">
-        <h2>Tour Summary</h2>
-        <div className="summary-box">
-          <p>Duration: 2 hours</p>
-          <p>Distance: 2.8 miles</p>
-          <p>Clues: 3</p>              
-        </div>
-      </div>
-        </div>
-        <div id="pin-container">
-          <h2>Pins</h2>
+      <div>
+        <div id="hunt-info-container" className="col-md-6">
+          <div id="hunt-title-container">
+            <h2>Hunt Description</h2>
+            <span id="hunt-title">Discover SFs most beautiful views</span>
+            <div className="tour-summary-container">
+              <h2>Tour Summary</h2>
+              <div className="summary-box">
+                <p>Duration: 2 hours</p>
+                <p>Distance: 2.8 miles</p>
+                <p>Clues: 3</p>              
+              </div>
+            </div>
+          </div>
+          <div id="pin-container">
+            <h2>Pins</h2>
             <PinList data={this.state.data} /> 
+          </div>
         </div>
       </div>
-    </div>
-      )
+    )
   }
 });
 
@@ -85,27 +81,22 @@ var Pin = React.createClass({
       showEditBtn: true
     };
   },
-
   handleClue: function(newClue) {
     this.props.clues.push(newClue);
     this.setState({clues: this.props.clues});
   },
-  
   deleteClueFromState: function (clueNumber) {
     this.props.clues.splice(clueNumber-1, 1);
     this.setState({clues: this.props.clues});
   },
-
-  editClueInState: function(index) {
+  editClueInState: function() {
     this.setState({showEditBtn: false}); 
   },
   toggleInput: function() {
-    debugger;
     !this.state.showTextField ? this.setState({showTextField: true}) : this.setState({showTextField: false});
     this.state.showAddClueBtn ? this.setState({showAddClueBtn: false}) : this.setState({showAddClueBtn: true});
   },
   render: function() {
-  
     var clueNodes = this.props.clues.map(function(clue, index) {
       return (
         <Clue 
@@ -115,9 +106,7 @@ var Pin = React.createClass({
           key={index} 
           showEditBtn={this.state.showEditBtn}
           deleteClueFromState={this.deleteClueFromState}
-          editClueInState={this.editClueInState}
-          >
-        </Clue>
+          editClueInState={this.editClueInState} />
       );
     }.bind(this));
     
@@ -149,14 +138,12 @@ var Clue = React.createClass({
     
     return (
       <div className="clueContainer">
-        {this.props.cluesInEditMode.hasOwnProperty(this.props.index) ? 
-          console.log("BAM") : 
-          <EditBtn 
-            clueNumber={this.props.clueNumber} 
-            showEditBtn={this.props.showEditBtn}
-            text={this.props.text} 
-            handleEditClue={this.handleEditClue} 
-            handleDeleteClue={this.handleDeleteClue}  />}
+        <EditBtn 
+          clueNumber={this.props.clueNumber} 
+          showEditBtn={this.props.showEditBtn}
+          text={this.props.text} 
+          handleEditClue={this.handleEditClue} 
+          handleDeleteClue={this.handleDeleteClue}  />
       </div>
     )
   }
