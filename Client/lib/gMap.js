@@ -1,18 +1,21 @@
 
   var gMap = {}
-  gMap.travelButtonList = [];
-  gMap.travelMode = 'WALKING';
+  
   gMap.map;
-  gMap.pathLatLng = [];
-  gMap.directionsDisplay;
-  gMap.directionsService;
   gMap.markers = [];
+  
   gMap.distance = [];
   gMap.duration = [];
+  
+  gMap.pathLatLng = [];
+  gMap.travelMode = 'WALKING';
+  gMap.travelButtonList = [];
+
+  gMap.directionsDisplay;
+  gMap.directionsService;
 
   gMap.startGMap = function (pos){
     //can be -> BICYCLING, DRIVING, TRANSIT, WALKING
-
     //----------------------------------
     //creatig the Map
     //----------------------------------
@@ -125,7 +128,6 @@
     gMap.map.controls[google.maps.ControlPosition[position]].push(controlUI);
   }
 
-
   gMap.createPath = function (){
     if(gMap.directionsDisplay instanceof google.maps.DirectionsRenderer){
       var oldPath = gMap.directionsDisplay;
@@ -186,7 +188,6 @@
   }
 
   gMap.makeMarker = function (latLng){
-
     var markerImage = {
       url: 'https://cdn2.iconfinder.com/data/icons/snipicons/500/map-marker-512.png',
       scaledSize: new google.maps.Size(40,40),
@@ -205,7 +206,6 @@
     google.maps.event.addListener(marker, 'click', function() {
       console.log(index);
     });
-
   }
   gMap.emptyMarkers = function (){
     for (var i = 0; i < gMap.markers.length; i++) {
@@ -227,12 +227,22 @@
     }
   }
   gMap.select = function (index){
+    var obj = {};
+    obj.title = gMap.markers[index].title;
+    obj.position = {};
+    obj.position.lat = gMap.markers[index].getPosition().lat();
+    obj.position.lng = gMap.markers[index].getPosition().lng();
+    return obj;
   }
   gMap.remove = function (index){
-    //debugger
+    index = index || 1;
     var array = gMap.exportMap();
     var lastHalf = array.splice(index);
-    array.pop();
+    if(index === 1 && array.length === 1){
+      array = [];
+    }else{
+      array.pop();
+    }
     var newArray = array.concat(lastHalf);
     gMap.importMap(newArray);
   }
@@ -258,11 +268,7 @@
   }
   gMap.importMap = function (markerArray){
     gMap.pathLatLng=[];
-    //emptyMarkers();
-    //directionsDisplay.setMap(null);
-
     for (var i = 0; i < markerArray.length; i++) {
-      console.log(markerArray[i][0],markerArray[i][1]);
       gMap.pathLatLng.push(new google.maps.LatLng(markerArray[i][0], markerArray[i][1]));
     };
     gMap.createPath();
