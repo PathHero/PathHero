@@ -1,0 +1,27 @@
+'use strict';
+
+// Setup
+var chai = require('chai');
+var chaiAsPromised = require('chai-as-promised');
+var sinon = require("sinon");
+var sinonChai = require("sinon-chai");
+chai.use(chaiAsPromised);
+chai.use(sinonChai);
+var should = chai.should();
+
+// Module to test
+var myfile = '../Path/to/file.js';
+
+// Tests
+// Module being tested
+describe('My Module', function() {
+  // Unit tests
+  describe('My function', function() {
+    it('Should pass', function() {
+      (1+1).should.equal(2);
+    });
+    it('Should fail', function() {
+      (1+1).should.equal(3);
+    });
+  });
+});

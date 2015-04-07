@@ -16,6 +16,7 @@ module.exports = function(grunt) {
         'server.js',
         'Client/**/*.js',
         'Server/**/*.js',
+        'Spec/**/*.js'
       ],
       options: {jshintrc: true}
     },
@@ -66,6 +67,7 @@ module.exports = function(grunt) {
           'Gruntfile.js',
           'server.js',
           'Server/**/*.js',
+          'Spec/**/*.js'
         ],
         tasks: ['check']
       },
