@@ -9,13 +9,14 @@ var uri = require('../util/database').uri;
 var passport = require('./authMiddleware');
 var playDomain = require('./playMiddleware');
 var createDomain = require('./createMiddleware');
+var sessionKey = require('../util/secrets.js').sessionKey;
 
 module.exports = function(app) {
   app.use(cookieParser());
   app.use(bodyParser.json());
   // Use sessions and store them in our MongoDB instance
   app.use(session({
-    secret: '9u292grbervq3uh5v',
+    secret: sessionKey,
     store: new MongoStore({url: 'mongodb://' + uri})
   }));
 

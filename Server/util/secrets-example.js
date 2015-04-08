@@ -22,5 +22,6 @@ module.exports = {
     consumerKey: 'TWITTER_CONSUMER_KEY',
     consumerSecret: 'TWITTER_CONSUMER_SECRET',
     callbackUrl: 'http://www.example.com/login/twitter/'
-  }
+  },
+  sessionKey: 'BaconNarwal'
 };
