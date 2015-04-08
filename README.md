@@ -1,3 +1,4 @@
+[![Circle CI](https://circleci.com/gh/PathHero/PathHero/tree/master.svg?style=svg)](https://circleci.com/gh/PathHero/PathHero/tree/master)
 # Path Hero
 
 > Fast, easy city scavenger hunts.
