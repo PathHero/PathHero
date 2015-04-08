@@ -35,3 +35,5 @@ db
 *.sublime-workspace
 
 Server/util/secrets.js
+dummy.js
+dummy.html
