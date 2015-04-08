@@ -208,6 +208,7 @@
     //-------------------
     google.maps.event.addListener(marker, 'click', function() {
       console.log(index);
+      gMap.trigger('addMarker', [index]);
     });
   };
   gMap.emptyMarkers = function (){
@@ -284,3 +285,45 @@
     }
     return exportedArray;
   };
+
+  gMap.events = {};
+  gMap.events.addMarker = [];
+
+  gMap.removeEventListener = function(event, callback){
+    if(gMap.events[event]){
+      for (var i = 0; i < gMap.events[event].length; i++) {
+        if(gMap.events[event][i] === callback){ 
+          gMap.events[event][i] = undefined;
+        }
+      }
+    }
+  };
+  gMap.addEventListener = function(events, callback){
+    if(gMap.events[events]){
+      for (var i = 0; i < gMap.events[events].length; i++) {
+        if(gMap.events[events][i] === callback){ return undefined; }
+      }
+      gMap.events[events].push(callback);
+    }
+  };
+  gMap.trigger = function(events,args){
+     if(gMap.events[events]){
+      for (var i = 0; i < gMap.events[events].length; i++) {
+        if(gMap.events[events][i]){
+          gMap.events[events][i].apply(this,args);
+        }
+      }
+    }   
+  };
+  //create Event
+  //add eventListener
+  //removeEventListener
+  //
+  /*
+  array for each event
+  add to the list for each listener
+  remove for each listener
+  evoke the event within the functions above
+  */
+
+  //events
