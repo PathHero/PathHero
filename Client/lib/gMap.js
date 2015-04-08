@@ -289,11 +289,18 @@
   gMap.events = {};
   gMap.events.addMarker = [];
 
-  gMap.removeEventListener = function(event, callback){
-    if(gMap.events[event]){
-      for (var i = 0; i < gMap.events[event].length; i++) {
-        if(gMap.events[event][i] === callback){ 
-          gMap.events[event][i] = undefined;
+  gMap.removeEventListener = function(events, callback){
+    if(gMap.events[events]){
+      for (var i = 0; i < gMap.events[events].length; i++) {
+        if(gMap.events[events][i].toString() === callback.toString()){ 
+          if(i === 0){
+            gMap.events[events].shift();
+          }else if (i === gMap.events[events].length-1){
+            gMap.events[events].pop();
+          }else{
+            gMap.events[events].splice(i,1);
+          }
+          return undefined; 
         }
       }
     }
@@ -301,7 +308,10 @@
   gMap.addEventListener = function(events, callback){
     if(gMap.events[events]){
       for (var i = 0; i < gMap.events[events].length; i++) {
-        if(gMap.events[events][i] === callback){ return undefined; }
+        if(gMap.events[events][i].toString() === callback.toString()){ 
+          console.log('found duplicate')
+          return undefined; 
+        }
       }
       gMap.events[events].push(callback);
     }
