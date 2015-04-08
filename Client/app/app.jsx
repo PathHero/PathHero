@@ -7,6 +7,20 @@
 var Accordion = ReactBootstrap.Accordion;
 var Panel = ReactBootstrap.Panel;
 
+var HuntBox = React.createClass({
+  getInitialState: function() {
+    return {data: pins};
+  },
+  render: function() {
+    return (
+      <div className="huntBox">
+        <HuntMap />
+        <ClueBox data={this.state.data} />
+      </div>
+    );
+  }
+});
+
 var HuntMap = React.createClass({
   render: function() {
     return (
@@ -16,20 +30,18 @@ var HuntMap = React.createClass({
   }
 });
 
-var HuntBox = React.createClass({
-  render: function() {
-    return (
-      <div className="huntBox">
-        <HuntMap />
-        <ClueBox />
-      </div>
-    );
-  }
-});
-
 var ClueBox = React.createClass({
-  getInitialState: function() {
-    return {data: pins};
+  componentDidMount: function() {
+    gMap.addEventListener('addMarker', function(newPinIndex) {
+      var pin = {
+        "text": "Another place to go",
+        "answer": "Golden Gate Park",
+        "clues": ['Check out the zen garden', 'Go boating in the lake'],
+        "location": [37.8181, 122.3467]
+      };
+      this.props.data.push(pin);
+      this.setState({data: this.props.data});
+    }.bind(this));
   },
   render: function() {
     return (
@@ -49,7 +61,7 @@ var ClueBox = React.createClass({
           </div>
           <div id="pin-container">
             <h2>Pins</h2>
-            <PinList data={this.state.data} /> 
+            <PinList data={this.props.data} /> 
           </div>
         </div>
       </div>
@@ -80,7 +92,8 @@ var Pin = React.createClass({
       showTextField: false,
       showAddClueBtn: true,
       clues: this.props.clues,
-      showEditBtn: true
+      showEditBtn: true,
+      showSetLocation: false
     };
   },
   handleClue: function(newClue) {
@@ -91,33 +104,36 @@ var Pin = React.createClass({
     this.props.clues.splice(clueNumber-1, 1);
     this.setState({clues: this.props.clues});
   },
-  editClueInState: function() {
-    this.setState({showEditBtn: false}); 
+  toggleEdit: function() {
+    this.setState({showTextField: !this.state.showTextField});
   },
   toggleInput: function() {
-    !this.state.showTextField ? this.setState({showTextField: true}) : this.setState({showTextField: false});
-    this.state.showAddClueBtn ? this.setState({showAddClueBtn: false}) : this.setState({showAddClueBtn: true});
+    this.setState({showTextField: !this.state.showTextField});
+    this.setState({showAddClueBtn: !this.state.showAddClueBtn});
   },
   render: function() {
+    if (this.state.showTextField) {
+      var textField = (<TextField handleClue={this.handleClue} 
+                        index={this.props.clues.length} />)
+    }
+
     var clueNodes = this.props.clues.map(function(clue, index) {
       return (
-        <Clue 
-          index={index}          
-          clueNumber={index+1} 
-          text={clue} 
-          key={index} 
+        <Clue index={index} clueNumber={index+1} text={clue} key={index} 
           showEditBtn={this.state.showEditBtn}
           deleteClueFromState={this.deleteClueFromState}
-          editClueInState={this.editClueInState} />
+          toggleEdit={this.toggleEdit} />
       );
     }.bind(this));
     
     return (
       <div className="pinContainer">
         <Accordion>
-          <Panel header={"Pin " + (this.props.index+1) + ": " + this.props.answer} eventKey={this.props.index}>
+          <Panel 
+            header={"Pin " + (this.props.index+1) + ": " + this.props.answer} 
+            eventKey={this.props.index}>
           {clueNodes}
-          {this.state.showTextField ? <Textfield onClueAdd={this.handleClue} index={this.props.clues.length} />  : null}
+          {textField}
           {this.state.showAddClueBtn ? <AddTextFieldBtn toggleInput={this.toggleInput}/>  : null}
           </Panel>
         </Accordion>  
@@ -126,24 +142,22 @@ var Pin = React.createClass({
   }
 });
 
-
 var Clue = React.createClass({
   handleDeleteClue: function() {
     this.props.deleteClueFromState(this.props.clueNumber);
   },
-  handleEditClue: function() {
+  toggleEdit: function() {
     // this.props.editClueInState(this.props.index);
-    this.props.editClueInState();
+    this.props.toggleEdit();
   },
   render: function() {
-    
     return (
       <div className="clueContainer">
         <EditBtn 
           clueNumber={this.props.clueNumber} 
           showEditBtn={this.props.showEditBtn}
           text={this.props.text} 
-          handleEditClue={this.handleEditClue} 
+          toggleEdit={this.toggleEdit} 
           handleDeleteClue={this.handleDeleteClue}  />
       </div>
     );
@@ -151,10 +165,13 @@ var Clue = React.createClass({
 });
 
 var EditBtn = React.createClass({
-  toggleEditButton: function() {
-    this.props.handleEditClue();
+  toggleEdit: function() {
+    this.props.toggleEdit();
   },
   render: function() {
+    if (this.props.showEditBtn) {
+      var editBtn = (<button className="btn" onClick={this.toggleEdit}>Edit</button>)
+    }
     return (
       <div className="row">
         <div className="col-xs-2">
@@ -164,7 +181,7 @@ var EditBtn = React.createClass({
           {this.props.text}
         </div>
         <div className="col-xs-4"> 
-          {this.props.showEditBtn ? <button className="btn" onClick={this.toggleEditButton}>Edit</button> : null}
+          {editBtn}
           <button className="btn" onClick={this.props.handleDeleteClue}>Delete</button>
         </div>
       </div>
@@ -180,10 +197,10 @@ var AddTextFieldBtn = React.createClass({
   }
 });
 
-var Textfield = React.createClass({
-  handleClueTextField: function() {
+var TextField = React.createClass({
+  handleClue: function() {
     var newClue = this.refs.clueInput.getDOMNode().value;
-    this.props.onClueAdd(newClue);
+    this.props.handleClue(newClue);
     // React.findDOMNode(this.clueInput) = '';
   },
   render: function() {
@@ -191,7 +208,7 @@ var Textfield = React.createClass({
     return (
       <div className="textField">
         Clue {this.props.index+1}: <input type="text" ref="clueInput" placeholder="Enter a clue" />
-        <button className="btn btn-default" type="button" onClick={this.handleClueTextField}>Add</button>
+        <button className="btn btn-default" type="button" onClick={this.handleClue}>Add</button>
       </div>
     );
   }
