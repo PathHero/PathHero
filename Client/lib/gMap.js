@@ -327,15 +327,3 @@
       }
     }   
   };
-  //create Event
-  //add eventListener
-  //removeEventListener
-  //
-  /*
-  array for each event
-  add to the list for each listener
-  remove for each listener
-  evoke the event within the functions above
-  */
-
-  //events
