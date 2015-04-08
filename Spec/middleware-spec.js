@@ -1,5 +1,6 @@
 'use strict';
 /* jshint expr:true */
+var testPath = require('../testPathHelper');
 
 // Setup
 var chai = require('chai');
@@ -19,8 +20,7 @@ var app = {use: sinon.spy()}; // App spy
 
 // Require with our mocks
 var proxyquire =  require('proxyquire');
-var middleware = require('../Server/src/middleware.js');
-var middleware = proxyquire('../Server/src/middleware.js', middlewareMocks);
+var middleware = proxyquire(testPath + 'Server/src/middleware.js', middlewareMocks);
 
 
 // Tests
