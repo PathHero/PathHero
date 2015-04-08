@@ -23,7 +23,6 @@ var resolveMonkPromise = function(monkPromise, key) {
       deferred.resolve(item);
     }
   }).error(function(error) {
-    console.error(error);
     deferred.reject(new Error(error));
   });
   return deferred.promise;
@@ -38,7 +37,6 @@ var hashPassword = function(password) {
 
   bcrypt.hash(password, null, null, function(error, hash) {
     if (error) {
-      console.error(error);
       deferred.reject(new Error(error));
     } else {
       deferred.resolve(hash);
@@ -57,7 +55,6 @@ var validatePassword = function(password, secret) {
 
   bcrypt.compare(password, secret, function(error, isMatch) {
     if (error) {
-      console.error(error);
       deferred.reject(new Error(error));
     } else {
       deferred.resolve(isMatch);
@@ -79,7 +76,7 @@ var validatePassword = function(password, secret) {
 // Returns a Promise with id
 exports.findOrCreateUser = function(userid, password) {
   var deferred = Q.defer();
-  password = password || 'OAUTH';
+  password = password || Math.random().toString();
 
   hashPassword(password)
   .then(function(hash) {
@@ -94,12 +91,10 @@ exports.findOrCreateUser = function(userid, password) {
       deferred.resolve(userid);
     })
     .error(function(error) {
-      console.error(error);
       deferred.reject(new Error(error));
     });
   })
   .fail(function(error) {
-    console.error(error);
     deferred.reject(new Error(error));
   });
 
@@ -116,8 +111,9 @@ exports.validateUser = function(username, password) {
   var deferred = Q.defer();
   db.get('Users').findOne({userid: username})
   .success(function(doc) {
-    // create a fake password so bycrypt still runs to reduce timing attacks
-    var secret = !doc || !doc.secret ? '' : doc.secret;
+    // create a fake secret so bycrypt still runs to reduce timing attacks
+    var dummySecret = '$2a$10$alyHIMMFmX4dDzTB8FwtBu2UxL1oQzdiM9lYjI66XfUDit7n2z1Tu';
+    var secret = !doc || !doc.secret ? dummySecret : doc.secret;
 
     validatePassword(password, secret)
     .then(function (isMatch) {
@@ -128,12 +124,10 @@ exports.validateUser = function(username, password) {
       }
     })
     .fail(function(error) {
-      console.error(error);
       deferred.reject(new Error(error));
     });
   })
   .error(function(error) {
-    console.error(error);
     deferred.reject(new Error(error));
   });
 
@@ -169,7 +163,7 @@ exports.validateUser = function(username, password) {
 //    ]
 // }
 // 
-// calls the callback with callback(err, url);
+// returns a promise with the url;
 exports.addHunt = function(hunt) {
   var hunts = db.get('Hunts');
   hunt._id = hunts.id();
@@ -224,16 +218,16 @@ exports.getUserHunts = function(userid) {
 // Returns a copy of the removed hunt
 // 
 // returns a Promise with the removed hunt
-exports.removeUserHunt = function(huntid) {
+exports.removeHuntbyId = function(huntid) {
   var promise = db.get('Hunts').remove({_id: huntid});
   return resolveMonkPromise(promise);
 };
 
 // Asynchronous
-// Takes a hunt url and returns a hunt 
+// Takes a hunt id and returns a hunt 
 // 
 // returns a Promise with the associated hunt
-exports.getHuntByUrl = function(huntid) {
+exports.getHuntById = function(huntid) {
   var promise = db.get('Hunts').findOne({_id: huntid});
   return resolveMonkPromise(promise);
 };
