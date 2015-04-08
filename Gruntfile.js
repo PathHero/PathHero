@@ -21,16 +21,14 @@ module.exports = function(grunt) {
       options: {
         jshintrc: true,
         ignores: [
-          'Client/bower_components/**/*.js',
-          'node_modules/**/*.js'
-        ]
+          'Client/bower_components/**/*.js'        ],
       }
     },
 
     sass: {
       dev: {
         src: ['Client/style/style.scss'],
-        dest: 'Client/style/style.css',
+        dest: 'Client/style/style.css'
       },
     },
 

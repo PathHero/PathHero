@@ -21,6 +21,7 @@
     "smarttabs": true,
     "white": true,
     "globals": {
-        "angular": true
+        "React": true,
+        "ReactBootstrap": true
     }
 }

@@ -1,15 +1,17 @@
 'use strict';
+/* jshint quotmark: false */
+/* jshint expr: true */
+/* jshint latedef: false */
 
 // Aliasing for shorthand reference
 var Accordion = ReactBootstrap.Accordion;
 var Panel = ReactBootstrap.Panel;
 
-var Map = React.createClass({
+var HuntMap = React.createClass({
   render: function() {
     return (
       <div id="gMap" className="col-md-6">
       </div>  
-
     );
   }
 });
@@ -18,7 +20,7 @@ var HuntBox = React.createClass({
   render: function() {
     return (
       <div className="huntBox">
-        <Map />
+        <HuntMap />
         <ClueBox />
       </div>
     );
@@ -51,7 +53,7 @@ var ClueBox = React.createClass({
           </div>
         </div>
       </div>
-    )
+    );
   }
 });
 
@@ -120,9 +122,9 @@ var Pin = React.createClass({
           </Panel>
         </Accordion>  
       </div>
-      )
+    );
   }
-})
+});
 
 
 var Clue = React.createClass({
@@ -131,7 +133,6 @@ var Clue = React.createClass({
   },
   handleEditClue: function() {
     // this.props.editClueInState(this.props.index);
-    console.log('handleEdit')
     this.props.editClueInState();
   },
   render: function() {
@@ -145,9 +146,9 @@ var Clue = React.createClass({
           handleEditClue={this.handleEditClue} 
           handleDeleteClue={this.handleDeleteClue}  />
       </div>
-    )
+    );
   }
-})
+});
 
 var EditBtn = React.createClass({
   toggleEditButton: function() {
@@ -167,17 +168,17 @@ var EditBtn = React.createClass({
           <button className="btn" onClick={this.props.handleDeleteClue}>Delete</button>
         </div>
       </div>
-    )
+    );
   }
-})
+});
 
 var AddTextFieldBtn = React.createClass({
   render: function() {
     return (
       <button className="btn btn-default" type="button" onClick={this.props.toggleInput}>Add Clue</button>
-      )
+    );
   }
-})
+});
 
 var Textfield = React.createClass({
   handleClueTextField: function() {
@@ -192,9 +193,9 @@ var Textfield = React.createClass({
         Clue {this.props.index+1}: <input type="text" ref="clueInput" placeholder="Enter a clue" />
         <button className="btn btn-default" type="button" onClick={this.handleClueTextField}>Add</button>
       </div>
-      )
+    );
   }
-})
+});
 
 var pins = [
   {
@@ -210,7 +211,7 @@ var pins = [
     "location": [37.8181, 122.3467]
 
   }
-]
+];
 
 React.render(
   <HuntBox/>, document.getElementById('app-container')
