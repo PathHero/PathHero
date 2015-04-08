@@ -58,6 +58,7 @@
       //makeMarker(event.latLng);
       if(gMap.pathLatLng.length < 10){
         gMap.pathLatLng.push(event.latLng);
+        gMap.trigger('addMarker', [event.latLng]);
       }
       gMap.createPath();
     });
@@ -208,6 +209,7 @@
     //-------------------
     google.maps.event.addListener(marker, 'click', function() {
       console.log(index);
+      gMap.trigger('clickMarker', [index]);
     });
   };
   gMap.emptyMarkers = function (){
@@ -283,4 +285,45 @@
       exportedArray.push([gMap.markers[i].getPosition().lat(), gMap.markers[i].getPosition().lng()]);
     }
     return exportedArray;
+  };
+
+  gMap.events = {};
+  gMap.events.addMarker = [];
+  gMap.events.clickMarker = [];
+
+  gMap.removeEventListener = function(events, callback){
+    if(gMap.events[events]){
+      for (var i = 0; i < gMap.events[events].length; i++) {
+        if(gMap.events[events][i].toString() === callback.toString()){ 
+          if(i === 0){
+            gMap.events[events].shift();
+          }else if (i === gMap.events[events].length-1){
+            gMap.events[events].pop();
+          }else{
+            gMap.events[events].splice(i,1);
+          }
+          return undefined; 
+        }
+      }
+    }
+  };
+  gMap.addEventListener = function(events, callback){
+    if(gMap.events[events]){
+      for (var i = 0; i < gMap.events[events].length; i++) {
+        if(gMap.events[events][i].toString() === callback.toString()){ 
+          console.log('found duplicate')
+          return undefined; 
+        }
+      }
+      gMap.events[events].push(callback);
+    }
+  };
+  gMap.trigger = function(events,args){
+     if(gMap.events[events]){
+      for (var i = 0; i < gMap.events[events].length; i++) {
+        if(gMap.events[events][i]){
+          gMap.events[events][i].apply(this,args);
+        }
+      }
+    }   
   };
