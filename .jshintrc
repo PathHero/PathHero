@@ -22,6 +22,7 @@
     "white": true,
     "globals": {
         "React": true,
-        "ReactBootstrap": true
+        "ReactBootstrap": true,
+        "google": true
     }
 }
