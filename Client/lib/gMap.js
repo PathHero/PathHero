@@ -58,6 +58,7 @@
       //makeMarker(event.latLng);
       if(gMap.pathLatLng.length < 10){
         gMap.pathLatLng.push(event.latLng);
+        gMap.events.trigger('addMarker', [event.latLng]);
       }
       gMap.createPath();
     });
@@ -208,7 +209,7 @@
     //-------------------
     google.maps.event.addListener(marker, 'click', function() {
       console.log(index);
-      gMap.trigger('addMarker', [index]);
+      gMap.trigger('clickMarker', [index]);
     });
   };
   gMap.emptyMarkers = function (){
@@ -288,6 +289,7 @@
 
   gMap.events = {};
   gMap.events.addMarker = [];
+  gMao.events.clickMarker = [];
 
   gMap.removeEventListener = function(events, callback){
     if(gMap.events[events]){
