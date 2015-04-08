@@ -58,7 +58,7 @@
       //makeMarker(event.latLng);
       if(gMap.pathLatLng.length < 10){
         gMap.pathLatLng.push(event.latLng);
-        gMap.events.trigger('addMarker', [event.latLng]);
+        gMap.trigger('addMarker', [event.latLng]);
       }
       gMap.createPath();
     });
@@ -289,7 +289,7 @@
 
   gMap.events = {};
   gMap.events.addMarker = [];
-  gMao.events.clickMarker = [];
+  gMap.events.clickMarker = [];
 
   gMap.removeEventListener = function(events, callback){
     if(gMap.events[events]){
