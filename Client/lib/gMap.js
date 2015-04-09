@@ -270,7 +270,6 @@
     travelMode = travelMode || 'WALK';
 
     gMap.getGeolocation(function(latLng){
-      gMap.markers[index];
       var directionsDisplay = new google.maps.DirectionsRenderer({
         map: null,
       });
@@ -278,7 +277,7 @@
       var request = {
           origin : latLng,
           destination : gMap.markers[index].position, // can be latLng or string (this is required)
-          travelMode : google.maps.TravelMode[gMap.travelMode],
+          travelMode : google.maps.TravelMode[travelMode],
       };
       directionsService.route(request, function(response, status) {
         if (status === google.maps.DirectionsStatus.OK) {
