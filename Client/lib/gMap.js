@@ -311,7 +311,7 @@
     if(gMap.events[events]){
       for (var i = 0; i < gMap.events[events].length; i++) {
         if(gMap.events[events][i].toString() === callback.toString()){ 
-          console.log('found duplicate')
+          console.log('found duplicate');
           return undefined; 
         }
       }

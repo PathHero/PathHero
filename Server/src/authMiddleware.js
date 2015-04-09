@@ -2,7 +2,7 @@
 
 var passport = require('passport');
 var db = require('../util/database');
-var secrets = require('../util/secrets.js');
+var secrets = require('../util/serverConfig.js');
 var FacebookStrategy = require('passport-facebook').Strategy;
 var GitHubStrategy = require('passport-github').Strategy;
 var GoogleStrategy = require('passport-google-oauth').Strategy;
