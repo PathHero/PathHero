@@ -173,6 +173,7 @@
         }
         oldPath.setMap(null);
       }else{
+        console.error('Error with gMap.createPath: Status:', google.maps.DirectionsStatus, ': Response:',response);
         gMap.pathLatLng.pop(); //remove the last waypoint added
       }
       google.maps.event.addListener(gMap.directionsDisplay, 'directions_changed', function() {
@@ -249,11 +250,13 @@
     //this will clean the  board and redraw with the new data
     gMap.importMap(array);
   };
-  gMap.getDistance = function (index){
+  gMap.getDistance = function (index, total){
     index = index || 0;
-    var total = 0;
-    for (var i = index; i < gMap.distance.length; i++) {
-      total += gMap.distance[i];
+    if(!total){
+      total = 0;
+      for (var i = index; i < gMap.distance.length; i++) {
+        total += gMap.distance[i];
+      }
     }
     //The API gives distance by meter this will change meters into miles.
     total = total * 100;
@@ -262,7 +265,29 @@
     total = total / 100;
     return total;
   };
-  gMap.getDistanceByLocation = function (){
+  gMap.getDistanceByLocation = function (callback, index, travelMode){
+    index = index || 0;
+    travelMode = travelMode || 'WALKING';
+
+    gMap.getGeolocation(function(latLng){
+      var directionsDisplay = new google.maps.DirectionsRenderer({
+        map: null,
+      });
+      var directionsService = new google.maps.DirectionsService();
+      var request = {
+          origin : latLng,
+          destination : gMap.markers[index].position, // can be latLng or string (this is required)
+          travelMode : google.maps.TravelMode[travelMode],
+      };
+      directionsService.route(request, function(response, status) {
+        if (status === google.maps.DirectionsStatus.OK) {
+          callback(gMap.getDistance(0, response.routes[0].legs[0].distance.value));
+        }else{
+          console.error('Error with gMap.getDistanceByLocation: Status:', google.maps.DirectionsStatus, ': Response:',response);
+          callback(-1);
+        }
+      });
+    });
   };
   gMap.getDuration = function (index){
     index = index || 0;
@@ -287,6 +312,7 @@
     return exportedArray;
   };
 
+  //EVENTS HANDLING
   gMap.events = {};
   gMap.events.addMarker = [];
   gMap.events.clickMarker = [];
