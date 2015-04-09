@@ -267,7 +267,7 @@
   };
   gMap.getDistanceByLocation = function (callback, index, travelMode){
     index = index || 0;
-    travelMode = travelMode || 'WALK';
+    travelMode = travelMode || 'WALKING';
 
     gMap.getGeolocation(function(latLng){
       var directionsDisplay = new google.maps.DirectionsRenderer({
