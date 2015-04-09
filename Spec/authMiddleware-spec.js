@@ -1,5 +1,6 @@
 'use strict';
 /* jshint expr:true */
+var testPath = require('../testPathHelper');
 
 // Setup
 var chai = require('chai');
@@ -22,7 +23,7 @@ var LocalStrategy = {Strategy: sinon.spy()};
 
 // Require with our mocks
 var proxyquire =  require('proxyquire');
-var authMiddleware = proxyquire('../Server/src/authMiddleware.js', {
+var authMiddleware = proxyquire(testPath + 'Server/src/authMiddleware.js', {
   'passport': passport,
   'passport-facebook': FacebookStrategy,
   'passport-github': GitHubStrategy,
