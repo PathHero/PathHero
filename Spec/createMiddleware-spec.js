@@ -1,5 +1,6 @@
 'use strict';
 /* jshint expr:true */
+var testPath = require('../testPathHelper');
 
 // Setup
 var chai = require('chai');
@@ -18,7 +19,7 @@ var subdomain = sinon.spy();
 
 // Require with our mocks
 var proxyquire =  require('proxyquire');
-var playMiddleware = proxyquire('../Server/src/createMiddleware.js', {
+var playMiddleware = proxyquire(testPath + 'Server/src/createMiddleware.js', {
   'express': expressMock,
   'express-subdomain': subdomain
 });
