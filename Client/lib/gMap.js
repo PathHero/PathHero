@@ -14,6 +14,7 @@
 
   gMap.directionsDisplay = null;
   gMap.directionsService = null;
+  gMap.currentLocationMarker = null;
 
   gMap.startGMap = function (pos){
     //can be -> BICYCLING, DRIVING, TRANSIT, WALKING
@@ -136,7 +137,7 @@
     gMap.directionsDisplay = new google.maps.DirectionsRenderer({
       map: gMap.map,
       draggable: true,
-
+      preserveViewport: true,
       markerOptions: {
           title: 'Marker',
           icon: {
@@ -289,6 +290,30 @@
       });
     });
   };
+  gMap.showCurrentLocation = function(){
+    setTimeout(function(){
+      gMap.getGeolocation(function(latLng){
+
+        var markerImage = {
+          url: 'https://cdn2.iconfinder.com/data/icons/snipicons/500/map-marker-512.png',
+          scaledSize: new google.maps.Size(40,40),
+          origin: new google.maps.Point(0,0),
+          anchor: new google.maps.Point(20,50)
+        };
+        var marker = new google.maps.Marker({
+          map: gMap.map,
+          icon: markerImage,
+          position: latLng,
+          title: 'Current Location'
+        });
+        if (gMap.currentLocationMarker){
+          gMap.currentLocationMarker.setMap(null);
+        }
+        gMap.currentLocationMarker = marker;
+        gMap.showCurrentLocation();
+      });
+    },5000);
+  };
   gMap.getDuration = function (index){
     index = index || 0;
     var total = 0;
@@ -336,8 +361,7 @@
   gMap.addEventListener = function(events, callback){
     if(gMap.events[events]){
       for (var i = 0; i < gMap.events[events].length; i++) {
-        if(gMap.events[events][i].toString() === callback.toString()){ 
-          console.log('found duplicate')
+        if(gMap.events[events][i].toString() === callback.toString()){
           return undefined; 
         }
       }
