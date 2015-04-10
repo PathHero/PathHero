@@ -17,6 +17,8 @@ module.exports = function(app) {
   // Use sessions and store them in our MongoDB instance
   app.use(session({
     secret: sessionKey,
+    saveUninitialized: true, 
+    resave: true, 
     store: new MongoStore({url: 'mongodb://' + uri})
   }));
 

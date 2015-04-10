@@ -137,7 +137,7 @@ describe('Hunt User Methods', function() {
       monkPromise.fulfill({test:true});
       database.findOrCreateUser('test', 'mypass').should.be.fulfilled
       .then(function() {
-        tempSecret = stubMethods.findAndModify.getCall(0).args[0].update.$setOnInsert.secret;
+        tempSecret = stubMethods.findAndModify.getCall(0).args[1].$setOnInsert.secret;
         tempSecret.length.should.equal(60);
       }).should.notify(done);
     });
@@ -145,7 +145,7 @@ describe('Hunt User Methods', function() {
       monkPromise.fulfill({test:true});
       database.findOrCreateUser('test').should.be.fulfilled
       .then(function() {
-        var secret = stubMethods.findAndModify.getCall(0).args[0].update.$setOnInsert.secret;
+        var secret = stubMethods.findAndModify.getCall(0).args[1].$setOnInsert.secret;
         secret.length.should.equal(60);
       }).should.notify(done);
     });
@@ -171,7 +171,7 @@ describe('Hunt User Methods', function() {
       .have.deep.property('id', null);
     });
     it('Should return a truthy id', function() {
-      monkPromise.fulfill({id:'joe',secret:tempSecret});
+      monkPromise.fulfill({userid:'joe',secret:tempSecret});
       return database.validateUser('joe', 'mypass').should.eventually
       .have.deep.property('id', 'joe');
     });
