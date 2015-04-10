@@ -1,5 +1,6 @@
 'use strict';
 module.exports = function(grunt) {
+  grunt.file.setBase(__dirname);
   grunt.loadNpmTasks('grunt-notify');
   grunt.loadNpmTasks('grunt-jsxhint');
   grunt.loadNpmTasks('grunt-contrib-watch');
