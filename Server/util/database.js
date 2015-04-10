@@ -52,7 +52,6 @@ var hashPassword = function(password) {
 // returns a promise with a bool
 var validatePassword = function(password, secret) {
   var deferred = Q.defer();
-
   bcrypt.compare(password, secret, function(error, isMatch) {
     if (error) {
       deferred.reject(new Error(error));
@@ -80,15 +79,16 @@ exports.findOrCreateUser = function(userid, password) {
 
   hashPassword(password)
   .then(function(hash) {
-    db.get('Users').findAndModify({
-      query: {userid: userid},
-      update: {
-        $setOnInsert: {userid: userid, secret: hash}
-      },
-      upsert: true
-    })
-    .success(function() { // ignoring param doc
-      deferred.resolve(userid);
+    db.get('Users').findAndModify(
+      {userid: userid}, 
+      {$setOnInsert: {userid: userid, secret: hash}},
+      {
+        upsert: true,
+        'new': false
+      }
+    )
+    .success(function(doc) { // ignoring param doc
+      deferred.resolve(doc);
     })
     .error(function(error) {
       deferred.reject(new Error(error));
@@ -120,7 +120,7 @@ exports.validateUser = function(username, password) {
       if (!doc || !isMatch) {
         deferred.resolve({id: null, message: 'Incorrect user name or password'});
       } else {
-        deferred.resolve({id: doc.id, message: 'success'});
+        deferred.resolve({id: doc.userid, message: 'success'});
       }
     })
     .fail(function(error) {

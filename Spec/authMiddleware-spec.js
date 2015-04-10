@@ -13,7 +13,9 @@ var app = {use: sinon.spy()}; // App spy
 var passport = {
   initialize: sinon.spy(),
   session: sinon.spy(),
-  use: sinon.spy()
+  use: sinon.spy(),
+  serializeUser: sinon.spy(),
+  deserializeUser: sinon.spy()
 };
 var FacebookStrategy = {Strategy: sinon.spy()};
 var GitHubStrategy = {Strategy: sinon.spy()};
@@ -64,6 +66,12 @@ describe('Auth middleware', function() {
     });
     it('Should add passport sessions', function() {
       passport.session.should.have.been.calledOnce;
+    });
+    it('Should add a serialize user function', function() {
+      passport.serializeUser.should.have.been.calledOnce;
+    });
+    it('Should add a deserialize user function', function() {
+      passport.deserializeUser.should.have.been.calledOnce;
     });
   });
 });

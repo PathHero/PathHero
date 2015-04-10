@@ -3,13 +3,20 @@
 var express = require('express');
 var subdomain = require('express-subdomain');
 var serverConfig = require('../util/serverConfig');
-var passport = require('./authMiddleware');
+var passport = require('./authMiddleware').passport;
+var bodyParser = require('body-parser');
 var db = require('../util/database');
 
 // Common pattern for resolving promises from DB function calls
-var resolvePromise = function(dbPromise, res) {
+// By default this will send the result of the promise to response
+// you can overide the default by passing in a custom callback.
+var resolvePromise = function(dbPromise, res, callback) {
   dbPromise.then(function(item) {
-    res.send(item);
+    if (!callback) {
+      res.send(item);
+    } else {
+      callback(item);
+    }
   }).fail(function(error) {
     console.error(error);
     res.end();
@@ -17,9 +24,11 @@ var resolvePromise = function(dbPromise, res) {
 };
 
 var checkAuth = function(req, res, next) {
-  if (!!req.session.user) {
+  if (!!req.user) {
+    console.log('user authed');
     next();
   } else {
+    console.log('user not authed');
     res.redirect('/login');
   }
 };
@@ -34,36 +43,47 @@ module.exports.addSubdomain = function(app) {
     resolvePromise(db.getUserHunts(userid), res);
   });
 
-  router.get('/login', function(req, res) {
-    console.log('Get Create Login');
-    res.send('Get Create Login');
-  });
-
   // Authenticate a user: strategy is one of
   // ['local', 'facebook', 'github', 'google', 'twitter']
   // Local expects the body to have a username and password in a json object.
-  router.post('/login/:strategy', function(req) { // ignored param response
-    console.log('Post Create Login');
+  router.post('/login/local', bodyParser.urlencoded({ extended: false }),
+    passport.authenticate('local',
+      {successRedirect: '/', failureRedirect: '/login'}
+    )
+  );
+
+  router.get('/login/:strategy/callback', bodyParser.urlencoded({ extended: false }), function(req, res, next) { 
+    console.log('Post Create Login callback');
     var strategy = req.params.strategy;
     passport.authenticate(strategy, 
       {successRedirect: '/', failureRedirect: '/login'}
-    );
+    ).call(null, req, res, next);
   });
 
-  router.get('/signup', function(req, res) {
-    console.log('Get Signup Login');
-    res.send('Get Signup Login');
+  router.get('/login/:strategy', bodyParser.urlencoded({ extended: false }), function(req, res, next) { 
+    console.log('Get Create Login');
+    var strategy = req.params.strategy;
+    passport.authenticate(strategy).call(null, req, res, next);
   });
+
+  router.use('/login', express.static(__dirname + '/../../Client/create/login'));
 
   // Creates a a local user account for use with local strategy
-  // Expects a username and password in the body
-  router.post('/signup', function(req, res) {
-    console.log('Post Signup Login');
+  // Expects a username and password in the form body
+  router.post('/signup', bodyParser.urlencoded({ extended: false }), function(req, res) {
     var username = req.body.username;
     var password = req.body.password;
     
-    resolvePromise(db.findOrCreateUser(username, password), res);
+    resolvePromise(db.findOrCreateUser(username, password), res, function(doc) {
+      if (doc === null) {
+        res.redirect('/login');
+      } else {
+        res.send('user already exists');
+      }
+    });
   });
+
+  router.use('/signup', express.static(__dirname + '/../../Client/create/signup'));
 
   router.get('/create', checkAuth, function(req, res) {
     console.log('Get Create Login');
