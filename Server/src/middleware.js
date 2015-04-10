@@ -9,7 +9,7 @@ var uri = require('../util/database').uri;
 var passport = require('./authMiddleware');
 var playDomain = require('./playMiddleware');
 var createDomain = require('./createMiddleware');
-var sessionKey = require('../util/secrets.js').sessionKey;
+var sessionKey = require('../util/serverConfig.js').sessionKey;
 
 module.exports = function(app) {
   app.use(cookieParser());

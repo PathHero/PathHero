@@ -1,5 +1,6 @@
 'use strict';
 /* jshint expr:true */
+var testPath = require('../testPathHelper');
 
 // Setup
 var chai = require('chai');
@@ -33,7 +34,7 @@ stubMethods.findAndModify = sinon.stub();
 dbStub.get = function() {return stubMethods;};
 
 // Module to test (using procxy require since we need to override the Monk dependency)
-var database = proxyquire('../Server/util/database.js', { 'monk': function(){return dbStub;}});
+var database = proxyquire(testPath + 'Server/util/database.js', { 'monk': function(){return dbStub;}});
 
 
 // Tests

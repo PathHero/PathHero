@@ -361,7 +361,7 @@
   gMap.addEventListener = function(events, callback){
     if(gMap.events[events]){
       for (var i = 0; i < gMap.events[events].length; i++) {
-        if(gMap.events[events][i].toString() === callback.toString()){
+        if(gMap.events[events][i].toString() === callback.toString()){ 
           return undefined; 
         }
       }
