@@ -271,9 +271,6 @@
     travelMode = travelMode || 'WALKING';
 
     gMap.getGeolocation(function(latLng){
-      var directionsDisplay = new google.maps.DirectionsRenderer({
-        map: null,
-      });
       var directionsService = new google.maps.DirectionsService();
       var request = {
           origin : latLng,
