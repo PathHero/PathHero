@@ -23,6 +23,7 @@
     "globals": {
         "React": true,
         "ReactBootstrap": true,
-        "google": true
+        "google": true,
+        "gMap": true
     }
 }
