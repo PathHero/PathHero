@@ -12,16 +12,19 @@ chai.use(sinonChai);
 var app = {use: sinon.spy()}; // App spy
 var getSpy = sinon.spy();
 var postSpy = sinon.spy();
+var useSpy = sinon.spy();
 var expressMock = {
-  Router: function(){return {get: getSpy, post: postSpy};} // Mock Express Router
+  Router: function(){return {get: getSpy, post: postSpy, use: useSpy};} // Mock Express Router
 };
 var subdomain = sinon.spy();
+var passport = {passport: {authenticate: sinon.spy()}};
 
 // Require with our mocks
 var proxyquire =  require('proxyquire');
 var playMiddleware = proxyquire(testPath + 'Server/src/createMiddleware.js', {
   'express': expressMock,
-  'express-subdomain': subdomain
+  'express-subdomain': subdomain,
+  './authMiddleware': passport
 });
 
 // Tests
@@ -43,13 +46,16 @@ describe('Create subdomain middleware', function() {
       getSpy.should.have.been.calledWith('/');
     });
     it('Should add a GET route for "/login"', function() {
-      getSpy.should.have.been.calledWith('/login');
+      useSpy.should.have.been.calledWith('/signup');
     });
-    it('Should add a POST route for "/login/:strategy"', function() {
-      postSpy.should.have.been.calledWith('/login/:strategy');
+    it('Should add a POST route for "/login/local"', function() {
+      postSpy.should.have.been.calledWith('/login/local');
+    });
+    it('Should add a GET route for "/login/:strategy/callback"', function() {
+      getSpy.should.have.been.calledWith('/login/:strategy');
     });
     it('Should add a GET route for "/signup"', function() {
-      getSpy.should.have.been.calledWith('/signup');
+      useSpy.should.have.been.calledWith('/signup');
     });
     it('Should add a POST route for "/signup"', function() {
       postSpy.should.have.been.calledWith('/signup');
