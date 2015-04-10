@@ -6,6 +6,7 @@ var serverConfig = require('../util/serverConfig');
 var passport = require('./authMiddleware').passport;
 var bodyParser = require('body-parser');
 var db = require('../util/database');
+var cors = require('cors');
 
 // Common pattern for resolving promises from DB function calls
 // By default this will send the result of the promise to response
@@ -35,6 +36,9 @@ var checkAuth = function(req, res, next) {
 
 module.exports.addSubdomain = function(app) {
   var router = express.Router();
+
+  //CORS
+  router.use(cors());
 
   // returns an array of hunts belonging to the user
   router.get('/', checkAuth, function(req, res) {

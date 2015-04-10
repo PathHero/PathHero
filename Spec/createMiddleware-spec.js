@@ -18,13 +18,15 @@ var expressMock = {
 };
 var subdomain = sinon.spy();
 var passport = {passport: {authenticate: sinon.spy()}};
+var cors = sinon.spy();
 
 // Require with our mocks
 var proxyquire =  require('proxyquire');
 var playMiddleware = proxyquire(testPath + 'Server/src/createMiddleware.js', {
   'express': expressMock,
   'express-subdomain': subdomain,
-  './authMiddleware': passport
+  './authMiddleware': passport,
+  'cors': cors
 });
 
 // Tests
@@ -36,6 +38,9 @@ describe('Create subdomain middleware', function() {
   });
 
   describe('Create Middleware', function() {
+    it('Should add a CORS handling', function() {
+      cors.should.have.been.calledOnce;
+    });
     it('Should use the express app', function() {
       app.use.should.have.been.calledOnce;
     });

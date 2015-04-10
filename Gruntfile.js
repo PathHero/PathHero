@@ -36,8 +36,12 @@ module.exports = function(grunt) {
       files: [
         'Gruntfile.js',
         'server.js',
-        'Client/**/*.js',
-        'Client/**/*.jsx',
+        'Client/app/**/*.js',
+        'Client/create/**/*.js',
+        'Client/play/**/*.js',
+        'Client/app/**/*.jsx',
+        'Client/create/**/*.jsx',
+        'Client/play/**/*.jsx',
         'Server/**/*.js',
         'Spec/**/*.js'
       ],
@@ -55,15 +59,20 @@ module.exports = function(grunt) {
     },
 
     instrument: {
+      ignore: ['Client/bower_components/**/*.js'],
       files: [
-        'Client/**/*.js',
-        'Client/**/*.jsx',
+        'Client/app/**/*.js',
+        'Client/create/**/*.js',
+        'Client/play/**/*.js',
+        'Client/app/**/*.jsx',
+        'Client/create/**/*.jsx',
+        'Client/play/**/*.jsx',
         'Server/**/*.js'
       ],
       options: {
         lazy: true,
         basePath: 'coverage/instrument/',
-        instrumenter: require('istanbul-react').Instrumenter
+        instrumenter: require('istanbul-react').Instrumenter,
       }
     },
 
@@ -107,8 +116,12 @@ module.exports = function(grunt) {
     watch: {
       client: {
         files: [
-          'Client/**/*.js',
-          'Client/**/*.jsx',
+          'Client/app/**/*.js',
+          'Client/create/**/*.js',
+          'Client/play/**/*.js',
+          'Client/app/**/*.jsx',
+          'Client/create/**/*.jsx',
+          'Client/play/**/*.jsx',
         ],
         options: {
           livereload: true
