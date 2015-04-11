@@ -92,14 +92,28 @@ module.exports.addSubdomain = function(app) {
 
   // Expects a hunt json object in the body as follows:
   // {
-  //    name: String
-  //    desc: String
-  //    createrId: ID -> matches up to the Users collection id
-  //    clues: [
-  //      geo: [Lat, Lon]
-  //      answer: String
-  //      timeEst: Number
-  //      hints: [ String, .... ]
+  //    huntName: String
+  //    huntDesc: String
+  //    huntInfo: {
+  //      numOfLocations: Int
+  //      huntTimeEst: Float
+  //      huntDistance: Float
+  //    }
+  //    pins: [ 
+  //      {
+  //        hiddenName: String
+  //        answer: String
+  //        geo: {
+  //          lat: Float
+  //          lng: Float
+  //        }
+  //        timeToNextPin: Float
+  //        distanceToNextPin: Float
+  //        clues: [Stirngs]
+  //      }
+  //      .
+  //      .
+  //      .
   //    ]
   // }
   // 
@@ -107,6 +121,7 @@ module.exports.addSubdomain = function(app) {
   router.post('/create', checkAuth, function(req, res) {
     console.log('Post Create Login');
     var hunt = req.body.hunt;
+    hunt.creatorId = req.user;
     resolvePromise(db.addHunt(hunt), res);
   });
 
@@ -123,16 +138,28 @@ module.exports.addSubdomain = function(app) {
 
   // Expects a hunt json object in the body as follows:
   // {
-  //    _id: ObjectID This should not be modified by the user
-  //    name: String
-  //    desc: String
-  //    createrId: ID -> matches up to the Users collection id
-  //    url: String this should not be modified by the user
-  //    clues: [
-  //      geo: [Lat, Lon]
-  //      answer: String
-  //      timeEst: Number
-  //      hints: [ String, .... ]
+  //    huntName: String
+  //    huntDesc: String
+  //    huntInfo: {
+  //      numOfLocations: Int
+  //      huntTimeEst: Float
+  //      huntDistance: Float
+  //    }
+  //    pins: [ 
+  //      {
+  //        hiddenName: String
+  //        answer: String
+  //        geo: {
+  //          lat: Float
+  //          lng: Float
+  //        }
+  //        timeToNextPin: Float
+  //        distanceToNextPin: Float
+  //        clues: [Stirngs]
+  //      }
+  //      .
+  //      .
+  //      .
   //    ]
   // }
   // 
@@ -141,11 +168,8 @@ module.exports.addSubdomain = function(app) {
     console.log('Post Create Login for');
     var huntid = req.params.huntid;
     var hunt = req.body.hunt;
-
-    if (huntid !== hunt._id) {
-      console.error('wrong enpoint for this hunt');
-      res.end();
-    }
+    hunt._id = huntid;
+    hunt.creatorId = req.user;
     
     resolvePromise(db.updateHunt(hunt), res);
   });
