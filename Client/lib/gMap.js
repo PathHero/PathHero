@@ -311,11 +311,8 @@
       }
     }
     //The API gives distance by meter this will change meters into miles.
-    total = total * 100;
     total = total / 1609.34;
-    total = Math.floor(total);
-    total = total / 100;
-    return total;
+    return Math.round(total*100)/100;
   };
   gMap.getDistanceByLocation = function (callback, index, travelMode){
     index = index || 0;
@@ -368,7 +365,9 @@
     for (var i = index; i < gMap.duration.length; i++) {
       total += gMap.duration[i];
     }
-    return total;
+    //changing seconds to hours
+    total = (total / 60) / 60;
+    return Math.round(total*100)/100;
   };
   gMap.importMap = function (markerArray){
     gMap.pathLatLng=[];
