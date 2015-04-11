@@ -15,6 +15,22 @@
   gMap.directionsDisplay = null;
   gMap.directionsService = null;
   gMap.currentLocationMarker = null;
+  gMap.highlightedMarker = null;
+
+  gMap.markerImgList = [
+    'http://static.iconsplace.com/icons/preview/orange/number-1-filled-256.png',
+    'http://static.iconsplace.com/icons/preview/orange/number-2-filled-256.png',
+    'http://static.iconsplace.com/icons/preview/orange/number-3-filled-256.png',
+    'http://static.iconsplace.com/icons/preview/orange/number-4-filled-256.png',
+    'http://static.iconsplace.com/icons/preview/orange/number-5-filled-256.png',
+    'http://static.iconsplace.com/icons/preview/orange/number-6-filled-256.png',
+    'http://static.iconsplace.com/icons/preview/orange/number-7-filled-256.png',
+    'http://static.iconsplace.com/icons/preview/orange/number-8-filled-256.png',
+    'http://static.iconsplace.com/icons/preview/orange/number-9-filled-256.png',
+    'http://static.iconsplace.com/icons/preview/orange/number-10-filled-256.png',
+    'http://static.iconsplace.com/icons/preview/orange/number-11-filled-256.png'
+  ];
+  gMap.markerImgDefault = gMap.markerImgList[0];
 
   gMap.startGMap = function (pos){
     //can be -> BICYCLING, DRIVING, TRANSIT, WALKING
@@ -81,11 +97,11 @@
     },true,true);
 
     new gMap.CenterControl('BOTTOM_LEFT', 'B', function(){
-      gMap.travelMode= 'BICYCLING';
+      gMap.travelMode = 'BICYCLING';
     },true);
 
     new gMap.CenterControl('BOTTOM_LEFT', 'D', function(){
-      gMap.travelMode= 'DRIVING';
+      gMap.travelMode = 'DRIVING';
     },true);
 
     // new gMap.CenterControl('BOTTOM_LEFT', 'T', function(){
@@ -146,7 +162,8 @@
             url: 'https://s3.amazonaws.com/old.cdn.content/pb/f85b4a1ca1094d22e6c6839e934f048b.png',
             scaledSize: new google.maps.Size(20,20),
             origin: new google.maps.Point(0,0),
-            anchor: new google.maps.Point(10,10)
+            anchor: new google.maps.Point(10,10),
+            zIndex: 0
           }
       }
     });
@@ -164,30 +181,50 @@
         waypoints : waypoints
     };
 
+    //GET ROUTES
     gMap.directionsService.route(request, function(response, status) {
+      //IF REQUEST IS OK
       if (status === google.maps.DirectionsStatus.OK) {
         gMap.directionsDisplay.setDirections(response);
         gMap.emptyMarkers();
-        gMap.makeMarker(response.routes[0].legs[0].start_location);
-        for (var i = 0; i < response.routes[0].legs.length; i++) {
-          gMap.makeMarker(response.routes[0].legs[i].end_location);
-          gMap.distance[i] = response.routes[0].legs[i].distance.value;
-          gMap.duration[i] = response.routes[0].legs[i].duration.value;
+        gMap.makeMarker(response.routes[0].legs[0].start_location, gMap.markerImgList[0]);
+        if(gMap.pathLatLng.length === 1){//this handles an edge case we will need to fix this later
+          gMap.makeMarker(response.routes[0].legs[0].end_location, gMap.markerImgList[0]);
+          gMap.distance[0] = 0;
+        }else{
+          for (var i = 0; i < response.routes[0].legs.length; i++) {
+            gMap.makeMarker(response.routes[0].legs[i].end_location, gMap.markerImgList[i+1]);
+            gMap.distance[i] = response.routes[0].legs[i].distance.value;
+            gMap.duration[i] = response.routes[0].legs[i].duration.value;
+          }
         }
         if(oldPath){
           oldPath.setMap(null);
         }
-      }else{
+      }
+      //IF REQUEST FAILED
+      else{
         console.error('Error with gMap.createPath: Status:', google.maps.DirectionsStatus, ': Response:',response);
         gMap.pathLatLng.pop(); //remove the last waypoint added
       }
+      //AFTER REQUEST
+
+      //CALLBACK
       callback();
+
+      //EVENTS
       google.maps.event.addListener(gMap.directionsDisplay, 'directions_changed', function() {
         if(gMap.directionsDisplay.directions.routes){
           gMap.pathLatLng[0] = gMap.directionsDisplay.directions.routes[0].legs[0].start_location;
         }
-        for (var i = 1; i <= gMap.directionsDisplay.directions.routes[0].legs.length; i++) {
-          gMap.pathLatLng[i] = gMap.directionsDisplay.directions.routes[0].legs[i-1].end_location;
+        //debugger
+        if(gMap.pathLatLng.length === 1){//this handles an edge case we will need to fix this later
+          gMap.pathLatLng[0] = gMap.directionsDisplay.directions.routes[0].legs[0].end_location;
+        }
+        else{
+          for (var i = 1; i <= gMap.directionsDisplay.directions.routes[0].legs.length; i++) {
+            gMap.pathLatLng[i] = gMap.directionsDisplay.directions.routes[0].legs[i-1].end_location;
+          }
         }
         gMap.emptyMarkers();
         gMap.createPath();
@@ -195,12 +232,16 @@
     });
   };
 
-  gMap.makeMarker = function (latLng){
+  gMap.makeMarker = function (latLng,img){
+    img = img || gMap.markerImgDefault;
+    var lat = latLng.lat() || 10;
+    console.log(latLng);
     var markerImage = {
-      url: 'https://cdn2.iconfinder.com/data/icons/snipicons/500/map-marker-512.png',
+      url: img,
       scaledSize: new google.maps.Size(40,40),
       origin: new google.maps.Point(0,0),
-      anchor: new google.maps.Point(20,50)
+      anchor: new google.maps.Point(20,50),
+      zIndex: lat
     };
 
     var index = gMap.markers.length;
@@ -208,8 +249,9 @@
       map: gMap.map,
       icon: markerImage,
       position: latLng,
-      title: 'marker ' + index,
+      title: 'marker ' + index
     });
+
     gMap.markers.push(marker);
     //-------------------
     //events
