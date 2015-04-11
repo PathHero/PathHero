@@ -111,7 +111,6 @@ var ClueBox = React.createClass({
 
 var HuntSubmitForm = React.createClass({
   handleSubmit: function() {
-    console.log(this.props.pins);
     var newHunt = {
       huntName: this.props.title,
       huntDesc: this.props.desc,
