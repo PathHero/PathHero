@@ -136,32 +136,37 @@ exports.validateUser = function(username, password) {
 
 
 // Hunts Collection
-// _id: ObjectId provided by MongoDB (monk will cast this to/from ObjectId)
-// name: String
-// desc: String
-// createrId: ID -> matches up to the Users collection id
-// url: string (siteName/_id)
-// clues: [
-//   geo: [Lat, Lon]
-//   answer: String
-//   timeEst: Number
-//   hints: [ String, .... ]
-// ]
+// {
+//    _id = BSON_ID (auto generated)
+//    creatorID = session user (auto generated)
+//    hunt.url = URL for player (auto generated)
+//    huntName: String
+//    huntDesc: String
+//    huntInfo: {
+//      numOfLocations: Int
+//      huntTimeEst: Float
+//      huntDistance: Float
+//    }
+//    pins: [ 
+//      {
+//        hiddenName: String
+//        answer: String
+//        geo: {
+//          lat: Float
+//          lng: Float
+//        }
+//        timeToNextPin: Float
+//        distanceToNextPin: Float
+//        clues: [Stirngs]
+//      }
+//      .
+//      .
+//      .
+//    ]
+// }
 
 // Asynchronous
 // adds a new hunt to the DB and will return the generated URL to the callback
-// Expects a hunt object as follows:
-// {
-//    name: String
-//    desc: String
-//    createrId: ID -> matches up to the Users collection id
-//    clues: [
-//      geo: [Lat, Lon]
-//      answer: String
-//      timeEst: Number
-//      hints: [ String, .... ]
-//    ]
-// }
 // 
 // returns a promise with the url;
 exports.addHunt = function(hunt) {
@@ -182,20 +187,6 @@ exports.addHunt = function(hunt) {
 // Asynchronous
 // Updates an existing hunt with new data
 // Returns a copy of the updated hunt or null if the hunt did not exist
-// Expects a hunt object as follows:
-// {
-//    _id: ObjectID This should not be modified by the user
-//    name: String
-//    desc: String
-//    createrId: ID -> matches up to the Users collection id
-//    url: String this should not be modified by the user
-//    clues: [
-//      geo: [Lat, Lon]
-//      answer: String
-//      timeEst: Number
-//      hints: [ String, .... ]
-//    ]
-// }
 // 
 // returns a Promise with the updated hunt
 exports.updateHunt = function(hunt) {
