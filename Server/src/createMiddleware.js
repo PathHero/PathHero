@@ -129,7 +129,7 @@ module.exports.addSubdomain = function(app) {
   
   // Retrieves a hunt based on a hunt id.
   // returns a full hunt object on success
-  router.get('/create/:huntid', checkAuth, function(req, res) {
+  router.get('/create/:huntid', function(req, res) {
     console.log('Get Create Login for');
     var huntid = req.params.huntid;
       
