@@ -22,7 +22,6 @@ coverage
 # Compiled Dirs/Files (http://nodejs.org/api/addons.html)
 build/
 dist/
-Client/style/*.css
 Client/style/*.map
 
 # Dependency directorys

@@ -159,5 +159,5 @@ module.exports = function(grunt) {
   grunt.registerTask('coverage', ['env:coverage', 'instrument', 'mochaTest:cov',
     'storeCoverage', 'makeReport']);
   grunt.registerTask('default', ['concurrent']);
-  grunt.registerTask('deploy', ['sass', 'nodemon']);
+  grunt.registerTask('deploy', ['nodemon']);
 };
