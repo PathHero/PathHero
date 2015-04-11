@@ -41,6 +41,8 @@ module.exports.addSubdomain = function(app) {
   //CORS
   router.use(cors());
 
+  router.use('/static', express.static(__dirname + '/../../Client/create/static'));
+
   // returns an array of hunts belonging to the user
   router.get('/', checkAuth, function(req, res) {
     console.log('Get Create /');
@@ -71,7 +73,9 @@ module.exports.addSubdomain = function(app) {
     passport.authenticate(strategy).call(null, req, res, next);
   });
 
-  router.use('/login', express.static(__dirname + '/../../Client/create/login'));
+  router.get('/login', function(req, res) {
+    res.sendFile(path.resolve(__dirname + '/../../Client/create/login.html'));
+  });
 
   // Creates a a local user account for use with local strategy
   // Expects a username and password in the form body
@@ -88,8 +92,9 @@ module.exports.addSubdomain = function(app) {
     });
   });
 
-  router.use('/signup', express.static(__dirname + '/../../Client/create/signup'));
-
+  router.get('/signup', function(req, res) {
+    res.sendFile(path.resolve(__dirname + '/../../Client/create/signup.html'));
+  });
 
   // Expects a hunt json object in the body as follows:
   // {
@@ -126,7 +131,9 @@ module.exports.addSubdomain = function(app) {
     resolvePromise(db.addHunt(hunt), res);
   });
 
-  router.use('/create', checkAuth, express.static(__dirname + '/../../Client/create/create'));
+  router.get('/create', function(req, res) {
+    res.sendFile(path.resolve(__dirname + '/../../Client/create/create.html'));
+  });
   
   // Retrieves a hunt based on a hunt id.
   // returns a full hunt object on success
