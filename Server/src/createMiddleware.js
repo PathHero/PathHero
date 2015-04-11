@@ -43,7 +43,7 @@ module.exports.addSubdomain = function(app) {
   // returns an array of hunts belonging to the user
   router.get('/', checkAuth, function(req, res) {
     console.log('Get Create /');
-    var userid = req.session.user;
+    var userid = req.user;
     resolvePromise(db.getUserHunts(userid), res);
   });
 
@@ -120,12 +120,12 @@ module.exports.addSubdomain = function(app) {
   //  Returns the hunt url on success
   router.post('/create', checkAuth, function(req, res) {
     console.log('Post Create Login');
-    var hunt = req.body.hunt;
-    hunt.creatorId = req.user;
+    var hunt = req.body;
+    hunt.creatorId = req.user;    
     resolvePromise(db.addHunt(hunt), res);
   });
 
-  router.use('/create', express.static(__dirname + '/../../Client/create/create'));
+  router.use('/create', checkAuth, express.static(__dirname + '/../../Client/create/create'));
   
   // Retrieves a hunt based on a hunt id.
   // returns a full hunt object on success
