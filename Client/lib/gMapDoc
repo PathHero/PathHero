@@ -1,0 +1,45 @@
+
+--------------- gMap Features --------------- 
+
+  --------------- Utilities --------------- 
+  gMap.select = function (index)
+  	// returns the info for the marker at index number
+  
+  gMap.remove = function (index)
+  	// remove the marker at index number
+  
+  gMap.getDuration(index) 
+  	//get duration from the Marker specified by the index to the end of the path 
+
+  gMap.getDistance = function (index) 
+  	// get Distance from index number to the end of the Marker chain(Path)
+
+  gMap.getDistanceByLocation = function (callback, index, travelMode) 
+	// callback is what happens after the data is received 
+	// index is the Marker index. We will check the users current position with this markers position
+	// travelMode is the GOOGLE Maps travelMode (BICYCLING, DRIVING, TRANSIT, WALKING)
+
+  gMap.getGeolocation = function (callback)
+  	// the callback will happen after the info is received
+
+  gMap.showCurrentLocation() 
+  	// this will show a Marker for the players location.
+  
+  gMap.importMap([array])
+  	//imports the Map
+  	//it will expect something like this [[37.7908,-122.4035],[37.790,-122.404],[37.72,-122.4],[37.792,-122.4011]]
+  	//[ [lat,lng], [lat,lng] ]
+  gMap.exportMap()
+  	//exports the markers on the map into the array format the import function expects
+
+
+--------------- EVENTS HANDLING --------------- 
+
+  removeEventListener(events, callback)
+  	//removes events
+  addEventListener(events, callback)
+  	//adds events
+  
+  //Events you can listen for:
+  addMarker
+  clickMarker
