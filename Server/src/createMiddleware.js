@@ -43,9 +43,13 @@ module.exports.addSubdomain = function(app) {
 
   router.use('/static', express.static(__dirname + '/../../Client/create/static'));
 
+  router.get('/', function(req, res) {
+    res.sendFile(path.resolve(__dirname + '/../../Client/create/index.html'));
+  });  
+
   // returns an array of hunts belonging to the user
-  router.get('/', checkAuth, function(req, res) {
-    console.log('Get Create /');
+  router.get('/hunts', checkAuth, function(req, res) {
+    console.log('Get Player Hunts');
     var userid = req.user;
     resolvePromise(db.getUserHunts(userid), res);
   });
