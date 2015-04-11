@@ -81,11 +81,11 @@
     },true,true);
 
     new gMap.CenterControl('BOTTOM_LEFT', 'B', function(){
-      gMap.travelMode= 'BICYCLING';
+      gMap.travelMode = 'BICYCLING';
     },true);
 
     new gMap.CenterControl('BOTTOM_LEFT', 'D', function(){
-      gMap.travelMode= 'DRIVING';
+      gMap.travelMode = 'DRIVING';
     },true);
 
     // new gMap.CenterControl('BOTTOM_LEFT', 'T', function(){
@@ -164,7 +164,9 @@
         waypoints : waypoints
     };
 
+    //GET ROUTES
     gMap.directionsService.route(request, function(response, status) {
+      //IF REQUEST IS OK
       if (status === google.maps.DirectionsStatus.OK) {
         gMap.directionsDisplay.setDirections(response);
         gMap.emptyMarkers();
@@ -177,17 +179,30 @@
         if(oldPath){
           oldPath.setMap(null);
         }
-      }else{
+      }
+      //IF REQUEST FAILED
+      else{
         console.error('Error with gMap.createPath: Status:', google.maps.DirectionsStatus, ': Response:',response);
         gMap.pathLatLng.pop(); //remove the last waypoint added
       }
+      //AFTER REQUEST
+
+      //CALLBACK
       callback();
+
+      //EVENTS
       google.maps.event.addListener(gMap.directionsDisplay, 'directions_changed', function() {
         if(gMap.directionsDisplay.directions.routes){
           gMap.pathLatLng[0] = gMap.directionsDisplay.directions.routes[0].legs[0].start_location;
         }
-        for (var i = 1; i <= gMap.directionsDisplay.directions.routes[0].legs.length; i++) {
-          gMap.pathLatLng[i] = gMap.directionsDisplay.directions.routes[0].legs[i-1].end_location;
+        //debugger
+        if(gMap.pathLatLng.length === 1){//this handles an edge case we will need to fix this later
+          gMap.pathLatLng[0] = gMap.directionsDisplay.directions.routes[0].legs[0].end_location;
+        }
+        else{
+          for (var i = 1; i <= gMap.directionsDisplay.directions.routes[0].legs.length; i++) {
+            gMap.pathLatLng[i] = gMap.directionsDisplay.directions.routes[0].legs[i-1].end_location;
+          }
         }
         gMap.emptyMarkers();
         gMap.createPath();
