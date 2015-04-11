@@ -18,9 +18,9 @@ var HuntBox = React.createClass({
     return (
       <div className="huntBox">
         <Navbar brand="Path Hero">
-          <Nav>
+          <Nav right>
             <NavItem eventKey={1} href="#">Create hunt</NavItem>
-            <NavItem eventKey={2} href="#">View hunts</NavItem>
+            <NavItem eventKey={2} href="/hunts">View hunts</NavItem>
             <NavItem eventKey={3} href='#'>Profile</NavItem>
             <NavItem>Logout</NavItem>
           </Nav>
