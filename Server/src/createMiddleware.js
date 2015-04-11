@@ -89,10 +89,6 @@ module.exports.addSubdomain = function(app) {
 
   router.use('/signup', express.static(__dirname + '/../../Client/create/signup'));
 
-  router.get('/create', checkAuth, function(req, res) {
-    console.log('Get Create Login');
-    res.send('Get Create Login');
-  });
 
   // Expects a hunt json object in the body as follows:
   // {
@@ -114,6 +110,8 @@ module.exports.addSubdomain = function(app) {
     resolvePromise(db.addHunt(hunt), res);
   });
 
+  router.use('/create', express.static(__dirname + '/../../Client/create/create'));
+  
   // Retrieves a hunt based on a hunt id.
   // returns a full hunt object on success
   router.get('/create/:huntid', checkAuth, function(req, res) {

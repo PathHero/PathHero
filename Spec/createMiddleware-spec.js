@@ -66,7 +66,7 @@ describe('Create subdomain middleware', function() {
       postSpy.should.have.been.calledWith('/signup');
     });
     it('Should add a GET route for "/create"', function() {
-      getSpy.should.have.been.calledWith('/create');
+      useSpy.should.have.been.calledWith('/create');
     });
     it('Should add a POST route for "/create"', function() {
       postSpy.should.have.been.calledWith('/create');
