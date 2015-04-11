@@ -178,7 +178,7 @@ exports.addHunt = function(hunt) {
     '.',
     serverConfig.domain,
     '/',
-    hunt._id.str
+    hunt._id.toString()
   ].join('');
 
   return resolveMonkPromise(hunts.insert(hunt), 'url');
@@ -210,6 +210,9 @@ exports.getUserHunts = function(userid) {
 // 
 // returns a Promise with the removed hunt
 exports.removeHuntbyId = function(huntid) {
+  if (huntid.length !== 12 && huntid.length !== 24) {
+    huntid = '000000000000000000000000';
+  }
   var promise = db.get('Hunts').remove({_id: huntid});
   return resolveMonkPromise(promise);
 };
@@ -219,6 +222,18 @@ exports.removeHuntbyId = function(huntid) {
 // 
 // returns a Promise with the associated hunt
 exports.getHuntById = function(huntid) {
+  if (huntid.length !== 12 && huntid.length !== 24) {
+    huntid = '000000000000000000000000';
+  }
   var promise = db.get('Hunts').findOne({_id: huntid});
+  return resolveMonkPromise(promise);
+};
+
+// Asynchronous
+// Takes return all Hunts 
+// 
+// returns a Promise with the associated hunt
+exports.getAllHunts = function() {
+  var promise = db.get('Hunts').find({});
   return resolveMonkPromise(promise);
 };

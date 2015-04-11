@@ -7,6 +7,7 @@ var passport = require('./authMiddleware').passport;
 var bodyParser = require('body-parser');
 var db = require('../util/database');
 var cors = require('cors');
+var path = require('path');
 
 // Common pattern for resolving promises from DB function calls
 // By default this will send the result of the promise to response
@@ -129,11 +130,28 @@ module.exports.addSubdomain = function(app) {
   
   // Retrieves a hunt based on a hunt id.
   // returns a full hunt object on success
-  router.get('/create/:huntid', function(req, res) {
+  router.get('/:huntid', function(req, res) {
     console.log('Get Create Login for');
     var huntid = req.params.huntid;
       
     resolvePromise(db.getHuntById(huntid), res);
+  });
+
+  router.get('/edit/:huntid', function(req, res) {
+    var huntid = req.params.huntid;
+    console.log('getting hunt game:', huntid);
+    db.getHuntById(huntid)
+    .then(function(data) {
+      if (Object.keys(data).length === 0) {
+        res.redirect('/');
+      } else {
+        res.sendFile(path.resolve(__dirname + '/../../Client/create/create.html'));
+      }
+    })
+    .fail(function(error) { 
+      console.log(error);
+      res.redirect('/');
+    });
   });
 
   // Expects a hunt json object in the body as follows:
@@ -164,7 +182,7 @@ module.exports.addSubdomain = function(app) {
   // }
   // 
   // Returns a copy of the updated hunt on success
-  router.post('/create/:huntid', checkAuth, function(req, res) {
+  router.post('/edit/:huntid', checkAuth, function(req, res) {
     console.log('Post Create Login for');
     var huntid = req.params.huntid;
     var hunt = req.body.hunt;

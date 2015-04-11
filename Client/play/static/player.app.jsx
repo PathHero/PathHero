@@ -3,8 +3,6 @@
 /* jshint expr: true */
 /* jshint latedef: false */
 
-
-
 var Hunt = {
   huntName: "Discover SFs most beautiful views",
   huntDesc: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Incidunt, quidem tenetur dolorem ea eaque at explicabo. Necessitatibus quaerat aliquam repellendus, ipsam cum deleniti, voluptatem culpa nostrum recusandae sed iure architecto.",
@@ -14,56 +12,53 @@ var Hunt = {
     huntDistance: 2,
   }, 
   pins: [
-          {
-            hiddenName: "Under The Bridge", 
-            answer: "Bay Bridge",
-            geo: {
-              lat: 10.809870897,
-              lng: 23.0987070
-            },
-            timeToNextPin: 300,
-            distanceToNextPin: 0.87,
-            clues: [
-              "Lorem ipsum dolor sit amet, consectetur adipisicing elit. In similique corporis vitae minus laborum odio recusandae quibusdam voluptatum error amet, dolore, perferendis, rerum ad officia tempore veritatis nostrum quae nihil.", 
-              "Consectetur adipisicing elit. Voluptatum earum atque iusto nesciunt labore non explicabo optio consequuntur, quis aspernatur qui ad architecto, doloribus asperiores deleniti. Quas delectus, ad animi.", 
-              "Amet, consectetur adipisicing elit. Dignissimos exercitationem totam magni sequi fugiat in quam perspiciatis minima reprehenderit repellat dolores, dolore eos, aspernatur inventore et architecto doloremque. Porro, modi."
-            ]                    
-          },
-          {
-            hiddenName: "Next to the Bay",
-            answer: "Golden Gate Bridge",
-            geo: {
-              lat: 10.742342,
-              lng: 23.09870897
-            },
-            timeToNextPin: 0.28,
-            distanceToNextPin: 0.53,
-            clues: [
-              "Lorem ipsum dolor sit amet, consectetur adipisicing elit. In similique corporis vitae minus laborum odio recusandae quibusdam voluptatum error amet, dolore, perferendis, rerum ad officia tempore veritatis nostrum quae nihil.", 
-              "Consectetur adipisicing elit. Voluptatum earum atque iusto nesciunt labore non explicabo optio consequuntur, quis aspernatur qui ad architecto, doloribus asperiores deleniti. Quas delectus, ad animi.", 
-              "Amet, consectetur adipisicing elit. Dignissimos exercitationem totam magni sequi fugiat in quam perspiciatis minima reprehenderit repellat dolores, dolore eos, aspernatur inventore et architecto doloremque. Porro, modi."
-            ]                    
-          },
-          {
-            hiddenName: "Amazing View",
-            answer: "In the Park",
-            geo: {
-              lat: 10.87098,
-              lng: 23.90808
-            },
-            timeToNextPin: 25,
-            distanceToNextPin: 0.45,
-            clues: [
-              "Lorem ipsum dolor sit amet, consectetur adipisicing elit. In similique corporis vitae minus laborum odio recusandae quibusdam voluptatum error amet, dolore, perferendis, rerum ad officia tempore veritatis nostrum quae nihil.", 
-              "Consectetur adipisicing elit. Voluptatum earum atque iusto nesciunt labore non explicabo optio consequuntur, quis aspernatur qui ad architecto, doloribus asperiores deleniti. Quas delectus, ad animi.", 
-              "Amet, consectetur adipisicing elit. Dignissimos exercitationem totam magni sequi fugiat in quam perspiciatis minima reprehenderit repellat dolores, dolore eos, aspernatur inventore et architecto doloremque. Porro, modi."
-            ]                    
-          },
-        ],
-  };
-
-
-
+    {
+      hiddenName: "Under The Bridge", 
+      answer: "Bay Bridge",
+      geo: {
+        lat: 10.809870897,
+        lng: 23.0987070
+      },
+      timeToNextPin: 300,
+      distanceToNextPin: 0.87,
+      clues: [
+        "Lorem ipsum dolor sit amet, consectetur adipisicing elit. In similique corporis vitae minus laborum odio recusandae quibusdam voluptatum error amet, dolore, perferendis, rerum ad officia tempore veritatis nostrum quae nihil.", 
+        "Consectetur adipisicing elit. Voluptatum earum atque iusto nesciunt labore non explicabo optio consequuntur, quis aspernatur qui ad architecto, doloribus asperiores deleniti. Quas delectus, ad animi.", 
+        "Amet, consectetur adipisicing elit. Dignissimos exercitationem totam magni sequi fugiat in quam perspiciatis minima reprehenderit repellat dolores, dolore eos, aspernatur inventore et architecto doloremque. Porro, modi."
+      ]                    
+    },
+    {
+      hiddenName: "Next to the Bay",
+      answer: "Golden Gate Bridge",
+      geo: {
+        lat: 10.742342,
+        lng: 23.09870897
+      },
+      timeToNextPin: 0.28,
+      distanceToNextPin: 0.53,
+      clues: [
+        "Lorem ipsum dolor sit amet, consectetur adipisicing elit. In similique corporis vitae minus laborum odio recusandae quibusdam voluptatum error amet, dolore, perferendis, rerum ad officia tempore veritatis nostrum quae nihil.", 
+        "Consectetur adipisicing elit. Voluptatum earum atque iusto nesciunt labore non explicabo optio consequuntur, quis aspernatur qui ad architecto, doloribus asperiores deleniti. Quas delectus, ad animi.", 
+        "Amet, consectetur adipisicing elit. Dignissimos exercitationem totam magni sequi fugiat in quam perspiciatis minima reprehenderit repellat dolores, dolore eos, aspernatur inventore et architecto doloremque. Porro, modi."
+      ]                    
+    },
+    {
+      hiddenName: "Amazing View",
+      answer: "In the Park",
+      geo: {
+        lat: 10.87098,
+        lng: 23.90808
+      },
+      timeToNextPin: 25,
+      distanceToNextPin: 0.45,
+      clues: [
+        "Lorem ipsum dolor sit amet, consectetur adipisicing elit. In similique corporis vitae minus laborum odio recusandae quibusdam voluptatum error amet, dolore, perferendis, rerum ad officia tempore veritatis nostrum quae nihil.", 
+        "Consectetur adipisicing elit. Voluptatum earum atque iusto nesciunt labore non explicabo optio consequuntur, quis aspernatur qui ad architecto, doloribus asperiores deleniti. Quas delectus, ad animi.", 
+        "Amet, consectetur adipisicing elit. Dignissimos exercitationem totam magni sequi fugiat in quam perspiciatis minima reprehenderit repellat dolores, dolore eos, aspernatur inventore et architecto doloremque. Porro, modi."
+      ]                    
+    },
+  ],
+};
 
 var Router = window.ReactRouter;
 var DefaultRoute = Router.DefaultRoute;
@@ -89,11 +84,11 @@ var PlayerApp = React.createClass({
 
       data.set = function(key, value) {
         this.storage[key] = value;
-        localStorage.setItem(key, value)
+        localStorage.setItem(key, value);
       };
       data.get = function(key) {
         if (this.storage[key] !== undefined) {
-          return this.storage[key]
+          return this.storage[key];
 
         } else if (localStorage[key] !== undefined) {
           this.storage[key] = localStorage[key];
@@ -117,11 +112,11 @@ var PlayerApp = React.createClass({
     var display = (<div>Loading...</div>);
 
     if (this.state.hunt) {
-      display = (<div id="playerApp"><RouteHandler hunt={this.state.hunt}/></div>)
+      display = (<div id="playerApp"><RouteHandler hunt={this.state.hunt}/></div>);
     }
 
     return (
-      {display}
+      <div>{display}</div>
     );
   }
 });
@@ -159,7 +154,7 @@ var TitleBox = React.createClass({
         <h2>{this.props.title}</h2>
         <div>{this.props.children}</div>
       </div>
-    )
+    );
   }
 });
 
@@ -168,13 +163,13 @@ var List = React.createClass({
     return (
       <div>
         <ul>
-        {this.props.listItemArray.map(function(listItem, index) {
-            return (<li>{listItem}</li>)
+        {this.props.listItemArray.map(function(listItem) {
+            return (<li>{listItem}</li>);
           })
         }
         </ul>
       </div>
-    )  
+    );
   }
 });
 
@@ -203,7 +198,7 @@ var HuntSummaryContainer = React.createClass({
           </TitleBox>          
         </div>
       </div>
-    )  
+    ); 
   }
 });
 
@@ -218,7 +213,7 @@ var Status = React.createClass({
     var nextPinDistance = null;
     gMap.getDistanceByLocation(function (value) {
       nextPinDistance = value;
-    })
+    });
   },
 
   render: function () {
@@ -240,7 +235,7 @@ var Status = React.createClass({
 
         <BottomNav/>
       </div>
-    )
+    );
   }
 });
 
@@ -278,7 +273,7 @@ var Clues = React.createClass({
   },
   init: function() {
     this.hunt = this.props.hunt;
-    this.clueIndex = Number.parseInt(this.hunt.get('currentClue'))
+    this.clueIndex = Number.parseInt(this.hunt.get('currentClue'));
     this.pin = this.hunt.pins[this.hunt.get('currentPin')];
     this.max = this.pin.clues.length;
   },
@@ -311,7 +306,7 @@ var Clues = React.createClass({
         </div>
         <BottomNav/>
       </div>
-    )
+    );
   }
 });
 
