@@ -126,10 +126,13 @@ var HuntSubmitForm = React.createClass({
     $.ajax({
       url: 'http://create.wettowelreactor.com:3000/create',
       type: 'POST',
-      contentType: 'json',
+      contentType: 'application/json; charset=utf-8',
       data: newHunt,
       success: function(data) {
         console.log('success!', data);
+      },
+      error: function(error) {
+        console.error('Error:', error);
       }
     });
   },
