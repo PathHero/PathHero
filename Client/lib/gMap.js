@@ -59,9 +59,10 @@
       //makeMarker(event.latLng);
       if(gMap.pathLatLng.length < 10){
         gMap.pathLatLng.push(event.latLng);
-        gMap.trigger('addMarker', [event.latLng]);
+        gMap.createPath(function(){
+            gMap.trigger('addMarker', [event.latLng]);
+        });
       }
-      gMap.createPath();
     });
     //----------------------------------
     //adding custom GUI elements
@@ -130,7 +131,8 @@
     gMap.map.controls[google.maps.ControlPosition[position]].push(controlUI);
   };
 
-  gMap.createPath = function (){
+  gMap.createPath = function (callback){
+    callback = callback || function(){};
     if(gMap.directionsDisplay instanceof google.maps.DirectionsRenderer){
       var oldPath = gMap.directionsDisplay;
     }
@@ -172,11 +174,14 @@
           gMap.distance[i] = response.routes[0].legs[i].distance.value;
           gMap.duration[i] = response.routes[0].legs[i].duration.value;
         }
-        oldPath.setMap(null);
+        if(oldPath){
+          oldPath.setMap(null);
+        }
       }else{
         console.error('Error with gMap.createPath: Status:', google.maps.DirectionsStatus, ': Response:',response);
         gMap.pathLatLng.pop(); //remove the last waypoint added
       }
+      callback();
       google.maps.event.addListener(gMap.directionsDisplay, 'directions_changed', function() {
         if(gMap.directionsDisplay.directions.routes){
           gMap.pathLatLng[0] = gMap.directionsDisplay.directions.routes[0].legs[0].start_location;
@@ -203,7 +208,7 @@
       map: gMap.map,
       icon: markerImage,
       position: latLng,
-      title: 'marker ' + index
+      title: 'marker ' + index,
     });
     gMap.markers.push(marker);
     //-------------------
@@ -234,11 +239,15 @@
   };
   gMap.select = function (index){
     var obj = {};
-    obj.title = gMap.markers[index].title;
-    obj.position = {};
-    obj.position.lat = gMap.markers[index].getPosition().lat();
-    obj.position.lng = gMap.markers[index].getPosition().lng();
-    return obj;
+    if(gMap.markers[index] !== undefined){
+      obj.title = gMap.markers[index].title;
+      obj.position = {};
+      obj.position.lat = gMap.markers[index].getPosition().lat();
+      obj.position.lng = gMap.markers[index].getPosition().lng();
+      return obj;
+    }else{
+      return undefined;
+    }
   };
   gMap.remove = function (index){
     //To remove we need to remove from the array and redraw
