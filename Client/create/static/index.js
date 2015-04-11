@@ -2,13 +2,13 @@
 
 $(function() {
   $.ajax({
-    url: 'http://play.wettowelreactor.com:3000/hunts',
+    url: 'http://create.wettowelreactor.com:3000/hunts',
     method: 'GET',
   })
   .done(function(data) {
     console.log('data:',data);
     data.forEach(function(item) {
-      $('ul').append('<li>').append('<a href="' + item.url + '">' + item.url + '</a>');
+      $('ul').append('<li>').append('<a href=http://create.wettowelreactor.com:3000/edit/' + item._id + '>' + item.huntDesc + '</a>');
     });
   })
   .fail(function(error) {
