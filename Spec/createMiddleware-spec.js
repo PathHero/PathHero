@@ -51,7 +51,7 @@ describe('Create subdomain middleware', function() {
       getSpy.should.have.been.calledWith('/');
     });
     it('Should add a GET route for "/login"', function() {
-      useSpy.should.have.been.calledWith('/signup');
+      getSpy.should.have.been.calledWith('/signup');
     });
     it('Should add a POST route for "/login/local"', function() {
       postSpy.should.have.been.calledWith('/login/local');
@@ -60,13 +60,13 @@ describe('Create subdomain middleware', function() {
       getSpy.should.have.been.calledWith('/login/:strategy');
     });
     it('Should add a GET route for "/signup"', function() {
-      useSpy.should.have.been.calledWith('/signup');
+      getSpy.should.have.been.calledWith('/signup');
     });
     it('Should add a POST route for "/signup"', function() {
       postSpy.should.have.been.calledWith('/signup');
     });
     it('Should add a GET route for "/create"', function() {
-      useSpy.should.have.been.calledWith('/create');
+      getSpy.should.have.been.calledWith('/create');
     });
     it('Should add a POST route for "/create"', function() {
       postSpy.should.have.been.calledWith('/create');
