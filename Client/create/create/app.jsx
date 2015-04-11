@@ -90,8 +90,8 @@ var ClueBox = React.createClass({
               <h2>Tour Summary</h2>
               <div className="summary-box">
                 <p>Description: [Insert description]</p>
-                <p>Duration: 2 hours</p>
-                <p>Distance: 2.8 miles</p>
+                <p>Duration: {gMap.getDuration()} hours</p>
+                <p>Distance: {gMap.getDistance()} miles</p>
                 <p>Locations: {this.props.data.length}</p>              
               </div>
             <HuntSubmitForm pins={this.state.data} 
