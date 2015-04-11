@@ -34,18 +34,21 @@ var ClueBox = React.createClass({
   getInitialState: function() {
     return {
       data: this.props.data,
-      editBoxMode: false,
+      editTitleMode: false,
       title: 'Discover SFs most beautiful views',
       desc: 'Dummy description'
     };
   },
   componentDidMount: function() {
-    gMap.addEventListener('addMarker', function() {
+    gMap.addEventListener('addMarker', function(LatLng) {
+      var geo = gMap.select(this.props.data.length);
       var pin = {
-        "desc": "",
+        "hiddenName": "",
         "answer": "",
         "clues": [],
-        "geo": [37.8181, 122.3467]
+        "geo": geo.position,
+        "timeToNextPin": 1.2345,
+        "distanceToNextPin": 1.2345,
       };
       this.props.data.push(pin);
       this.setState({data: this.props.data});
@@ -91,7 +94,7 @@ var ClueBox = React.createClass({
                 <p>Distance: 2.8 miles</p>
                 <p>Locations: {this.props.data.length}</p>              
               </div>
-            <HuntSubmitForm clues={this.state.data} 
+            <HuntSubmitForm pins={this.state.data} 
                             name={this.state.title} 
                             desc={this.state.desc} />
             </div>
@@ -108,11 +111,16 @@ var ClueBox = React.createClass({
 
 var HuntSubmitForm = React.createClass({
   handleSubmit: function() {
+    console.log(this.props.pins);
     var newHunt = {
-      name: this.props.title,
-      desc: this.props.desc,
-      clues: this.props.clues,
-      createrId: 1
+      huntName: this.props.title,
+      huntDesc: this.props.desc,
+      huntInfo: {
+        numOfLocations: this.props.pins.length,
+        huntTimeEst: 1234,
+        huntDistance: 1234
+      },
+      pins: this.props.pins
     };
 
     newHunt = JSON.stringify(newHunt);
@@ -121,13 +129,12 @@ var HuntSubmitForm = React.createClass({
       type: 'POST',
       contentType: 'json',
       data: newHunt,
-      success: function(returndata) {
-        console.log('success!', returndata);
+      success: function(data) {
+        console.log('success!', data);
       }
     });
   },
   render: function() {
-    console.log(this.props.hunt);
     return (
       <Btn label={"Submit hunt"} clickHandler={this.handleSubmit} />
     );
@@ -138,7 +145,6 @@ var PinList = React.createClass({
   getInitialState: function() {
     return {
       data: this.props.data,
-      locations: this.props.data
     };
   },
   componentDidMount: function() {
@@ -164,15 +170,14 @@ var Pin = React.createClass({
   getInitialState: function() {
     return {
       data: this.props.data,
-      clues: this.props.clues,
       editLocationMode: false,
       location: this.props.answer
     };
   },
-  handleClue: function() {
+  handleNewClue: function() {
     var newClue = this.refs.clueInput.getDOMNode().value;
-    this.props.clues.push(newClue);
-    this.setState({clues: this.props.clues});
+    this.state.data[this.props.index].clues.push(newClue);
+    this.setState({clues: this.state.data});
     React.findDOMNode(this.refs.clueInput).value = '';
   },
   inputLocation: function(locationName) {
@@ -207,7 +212,7 @@ var Pin = React.createClass({
             header={"Pin " + (index+1) + ": " +this.state.data[index].answer} >
           {clueNodes}
           <textarea col="35" row="30" ref="clueInput" />
-          <Btn label={"Add Clue"} clickHandler={this.handleClue} />
+          <Btn label={"Add Clue"} clickHandler={this.handleNewClue} />
           </Panel>
         </Accordion>  
       </div>
@@ -254,7 +259,6 @@ var Clue = React.createClass({
     return {
       data: this.props.data,
       editMode: false,
-      clueText: this.props.text,
       value: this.props.text
     };
   },
@@ -307,11 +311,12 @@ var Clue = React.createClass({
   }
 });
 
-
+var pins = [];
+/*
 var pins = [
   {
     "answer": "Bay Bridge",
-    "desc": "Landmark used by commuters",
+    "hiddenName": "",
     "clues": ['Refurbished in 2013', 'Not the Golden Gate Bridge'],
     "geo": [37.8181, 122.3467]
   },
@@ -323,6 +328,7 @@ var pins = [
 
   }
 ];
+*/
 
 React.render(
   <HuntBox/>, document.getElementById('app-container')
