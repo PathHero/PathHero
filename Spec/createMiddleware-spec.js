@@ -71,11 +71,11 @@ describe('Create subdomain middleware', function() {
     it('Should add a POST route for "/create"', function() {
       postSpy.should.have.been.calledWith('/create');
     });
-    it('Should add a GET route for "/create/:huntid"', function() {
-      getSpy.should.have.been.calledWith('/create/:huntid');
+    it('Should add a GET route for "/edit/:huntid"', function() {
+      getSpy.should.have.been.calledWith('/edit/:huntid');
     });
-    it('Should add a POST route for "/create/:huntid"', function() {
-      postSpy.should.have.been.calledWith('/create/:huntid');
+    it('Should add a POST route for "/edit/:huntid"', function() {
+      postSpy.should.have.been.calledWith('/edit/:huntid');
     });
   });
 });

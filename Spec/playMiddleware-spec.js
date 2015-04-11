@@ -11,8 +11,9 @@ chai.use(sinonChai);
 // Mock the express app
 var app = {use: sinon.spy()}; // App spy
 var getSpy = sinon.spy();
+var useSpy = sinon.spy();
 var expressMock = {
-  Router: function(){return {get: getSpy};} // Mock Express Router
+  Router: function(){return {get: getSpy, use: useSpy};} // Mock Express Router
 };
 var subdomain = sinon.spy();
 
@@ -20,7 +21,7 @@ var subdomain = sinon.spy();
 var proxyquire =  require('proxyquire');
 var playMiddleware = proxyquire(testPath + 'Server/src/playMiddleware.js', {
   'express': expressMock,
-  'express-subdomain': subdomain
+  'express-subdomain': subdomain,
 });
 
 // Tests

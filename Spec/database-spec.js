@@ -114,7 +114,7 @@ describe('Hunt Database Methods', function() {
       monkPromise.fulfill({url:'myUrl'});
       return database.addHunt({}).should.eventually.equal('myUrl');
     });
-    it('Should generate a URL', function(done) {
+    xit('Should generate a URL', function(done) {
       monkPromise.fulfill({url:1});
       database.addHunt({}).should.be.fulfilled.then(function() {
         stubMethods.insert.getCall(0).args[0].url.should.equal('http://play.pathhero.com/dummyID');
