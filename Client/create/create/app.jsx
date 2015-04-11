@@ -40,7 +40,7 @@ var ClueBox = React.createClass({
     };
   },
   componentDidMount: function() {
-    gMap.addEventListener('addMarker', function(LatLng) {
+    gMap.addEventListener('addMarker', function() {
       var geo = gMap.select(this.props.data.length);
       var pin = {
         "hiddenName": "",
@@ -254,6 +254,25 @@ var NameLocation = React.createClass({
   }
 });
 
+var Btn = React.createClass({
+  propTypes: {
+    clickHandler: React.PropTypes.func,
+    label: React.PropTypes.string,
+    newClass: React.PropTypes.string
+  },
+  render: function() {
+    var classString = 'btn';
+    if (this.props.newClass) {
+      classString += ' ' + this.props.newClass;
+    }
+    return (
+      <button className="btn" type="button" onClick={this.props.clickHandler}>
+        {this.props.label}
+      </button>
+    );
+  }
+});
+
 var Clue = React.createClass({
   getInitialState: function() {
     return {
@@ -310,6 +329,7 @@ var Clue = React.createClass({
     );
   }
 });
+
 
 var pins = [];
 /*
