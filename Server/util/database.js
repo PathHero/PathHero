@@ -200,7 +200,7 @@ exports.updateHunt = function(hunt) {
 // 
 // returns a Promise with an array of hunts
 exports.getUserHunts = function(userid) {
-  var promise = db.get('Hunts').find({createrId: userid});
+  var promise = db.get('Hunts').find({creatorId: userid});
   return resolveMonkPromise(promise);
 };
 

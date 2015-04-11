@@ -6,6 +6,9 @@
 // Aliasing for shorthand reference
 var Accordion = ReactBootstrap.Accordion;
 var Panel = ReactBootstrap.Panel;
+var Nav = ReactBootstrap.Nav;
+var Navbar = ReactBootstrap.Navbar;
+var NavItem = ReactBootstrap.NavItem;
 
 var HuntBox = React.createClass({
   getInitialState: function() {
@@ -14,6 +17,14 @@ var HuntBox = React.createClass({
   render: function() {
     return (
       <div className="huntBox">
+        <Navbar brand="Path Hero">
+          <Nav right>
+            <NavItem eventKey={1} href="#">Create hunt</NavItem>
+            <NavItem eventKey={2} href="/hunts">View hunts</NavItem>
+            <NavItem eventKey={3} href='#'>Profile</NavItem>
+            <NavItem>Logout</NavItem>
+          </Nav>
+        </Navbar>
         <HuntMap />
         <ClueBox data={this.state.data} />
       </div>
@@ -53,6 +64,7 @@ var ClueBox = React.createClass({
       this.props.data.push(pin);
       this.setState({data: this.props.data});
     }.bind(this));
+    
   },
   inputTitle: function(e) {
     this.setState({title: e.target.value});
