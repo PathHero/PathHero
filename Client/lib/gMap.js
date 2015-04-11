@@ -279,9 +279,6 @@
       callback(pos);
     }
   };
-  gMap.highlightMarker = function(index){
-
-  }
   gMap.select = function (index){
     var obj = {};
     if(gMap.markers[index] !== undefined){
