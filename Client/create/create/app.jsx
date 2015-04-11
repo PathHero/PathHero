@@ -31,32 +31,72 @@ var HuntMap = React.createClass({
 });
 
 var ClueBox = React.createClass({
+  getInitialState: function() {
+    return {
+      data: this.props.data,
+      editTitleMode: false,
+      title: 'Discover SFs most beautiful views',
+      desc: 'Dummy description'
+    };
+  },
   componentDidMount: function() {
     gMap.addEventListener('addMarker', function() {
+      var geo = gMap.select(this.props.data.length);
       var pin = {
-        "text": "Another place to go",
-        "answer": "Golden Gate Park",
-        "clues": ['Check out the zen garden', 'Go boating in the lake'],
-        "location": [37.8181, 122.3467]
+        "hiddenName": "",
+        "answer": "",
+        "clues": [],
+        "geo": geo.position,
+        "timeToNextPin": 1.2345,
+        "distanceToNextPin": 1.2345,
       };
       this.props.data.push(pin);
       this.setState({data: this.props.data});
     }.bind(this));
   },
+  inputTitle: function(e) {
+    this.setState({title: e.target.value});
+  },
+  toggleEditTitle: function() {
+    var newTitle;
+    if (this.state.editTitleMode) {
+      newTitle = this.refs.titleEdit.getDOMNode().value;
+      console.log(newTitle);
+      this.setState({title: newTitle, editTitleMode: false});
+    } else {
+      this.setState({editTitleMode: true});
+    }
+  },
   render: function() {
+    var title;
+    var titleBtn;
+    if (this.state.editTitleMode) {
+      title = (<input id="hunt-title" ref="titleEdit"
+                  defaultValue={this.state.title} 
+                  onChange={this.handleInput} />);
+      titleBtn = (<Btn label={"Save"} clickHandler={this.toggleEditTitle} />);
+    } else {
+      title = (<span id="hunt-title">{this.state.title}</span>);
+      titleBtn = (<Btn label={"Edit title"} clickHandler={this.toggleEditTitle} />);
+    }
     return (
       <div>
         <div id="hunt-info-container" className="col-xs-6">
           <div id="hunt-title-container">
-            <h2>Hunt Description</h2>
-            <span id="hunt-title">Discover SFs most beautiful views</span>
+            <h2>Hunt Title</h2>
+              {title}
+              {titleBtn}
             <div className="tour-summary-container">
               <h2>Tour Summary</h2>
               <div className="summary-box">
+                <p>Description: [Insert description]</p>
                 <p>Duration: 2 hours</p>
                 <p>Distance: 2.8 miles</p>
                 <p>Locations: {this.props.data.length}</p>              
               </div>
+            <HuntSubmitForm pins={this.state.data} 
+                            name={this.state.title} 
+                            desc={this.state.desc} />
             </div>
           </div>
           <div id="pin-container">
@@ -69,12 +109,51 @@ var ClueBox = React.createClass({
   }
 });
 
-var PinList = React.createClass({
+var HuntSubmitForm = React.createClass({
+  handleSubmit: function() {
+    var newHunt = {
+      huntName: this.props.title,
+      huntDesc: this.props.desc,
+      huntInfo: {
+        numOfLocations: this.props.pins.length,
+        huntTimeEst: 1234,
+        huntDistance: 1234
+      },
+      pins: this.props.pins
+    };
+
+    newHunt = JSON.stringify(newHunt);
+    $.ajax({
+      url: 'http://create.wettowelreactor.com:3000/create',
+      type: 'POST',
+      contentType: 'json',
+      data: newHunt,
+      success: function(data) {
+        console.log('success!', data);
+      }
+    });
+  },
   render: function() {
-    var pinNodes = this.props.data.map(function(pin, index) {
+    return (
+      <Btn label={"Submit hunt"} clickHandler={this.handleSubmit} />
+    );
+  }
+});
+
+var PinList = React.createClass({
+  getInitialState: function() {
+    return {
+      data: this.props.data,
+    };
+  },
+  componentDidMount: function() {
+    console.log(this.state.data);
+  },
+  render: function() {
+    var pinNodes = this.props.data.map(function(pin, index, data) {
       return (
-        <Pin index={index} answer={pin.answer} clues={pin.clues} 
-             location={pin.location} key={index}>
+        <Pin  data={data} index={index} answer={pin.answer} 
+          clues={pin.clues} key={index}>
         </Pin>
       );
     });
@@ -89,38 +168,50 @@ var PinList = React.createClass({
 var Pin = React.createClass({
   getInitialState: function() {
     return {
-      clues: this.props.clues,
-      showSetLocation: false
+      data: this.props.data,
+      editLocationMode: false,
+      location: this.props.answer
     };
   },
-  handleClue: function() {
+  handleNewClue: function() {
     var newClue = this.refs.clueInput.getDOMNode().value;
-    this.props.clues.push(newClue);
-    this.setState({clues: this.props.clues});
+    this.state.data[this.props.index].clues.push(newClue);
+    this.setState({clues: this.state.data});
     React.findDOMNode(this.refs.clueInput).value = '';
   },
+  inputLocation: function(locationName) {
+    if (this.state.editLocationMode) {
+      this.state.data[this.props.index].answer = locationName;
+      this.setState({editLocationMode: !this.state.editLocationMode, 
+                      data: this.state.data});
+    } else {
+      this.setState({editLocationMode: !this.state.editLocationMode});
+    }
+  },
   deleteClue: function (index) {
-    this.props.clues.splice(index, 1);
-    this.setState({clues: this.props.clues});
+    this.state.data[this.props.index].clues.splice(index, 1);
+    this.setState({data: this.state.data});
   },
   render: function() {
+    var index = this.props.index;
     var clueNodes = this.props.clues.map(function(clue, index) {
       return (
-        <Clue index={index} text={clue} key={index} 
-          editMode={this.state.editMode} toggleEdit={this.toggleEdit}
-          deleteClue={this.deleteClue} />
+        <Clue data={this.state.data} parentIndex={this.props.index} index={index} 
+          text={clue} key={index} editMode={this.state.editMode} 
+          toggleEdit={this.toggleEdit} deleteClue={this.deleteClue} />
       );
     }.bind(this));
 
     return (
       <div className="pinContainer">
+        <NameLocation editLocationMode={this.state.editLocationMode} 
+                         answer={this.state.data[index].name} inputLocation={this.inputLocation} />
         <Accordion>
-          <Panel 
-            header={"Pin " + (this.props.index+1) + ": " + this.props.answer} 
-            eventKey={this.props.index}>
+          <Panel onDoubleClick={this.nameLocation} eventKey={index}
+            header={"Pin " + (index+1) + ": " +this.state.data[index].answer} >
           {clueNodes}
           <textarea col="35" row="30" ref="clueInput" />
-          <Btn label={"Add Clue"} clickHandler={this.handleClue} />
+          <Btn label={"Add Clue"} clickHandler={this.handleNewClue} />
           </Panel>
         </Accordion>  
       </div>
@@ -128,74 +219,36 @@ var Pin = React.createClass({
   }
 });
 
-var Clue = React.createClass({
+var NameLocation = React.createClass({
   getInitialState: function() {
     return {
-      clueText: this.props.text,
-      editMode: false
+      value: this.props.answer
     };
   },
-  toggleEdit: function(editedClue) {
-    if (this.state.editMode === true) {
-      this.setState({clueText: editedClue, editMode: false});
+  inputLocation: function() {
+    var locationName;
+    if (this.props.editLocationMode) {
+      locationName = this.refs.locationName.getDOMNode().value;
+      this.props.inputLocation(locationName);
     } else {
-      this.setState({clueText: this.state.clueText, editMode: true});
+      this.props.inputLocation();
     }
   },
-  deleteClue: function() {
-    this.props.deleteClue(this.props.index);
+  handleLocationName: function(e) {
+    this.setState({location: e.target.value});
   },
   render: function() {
-    return (
-
-          <ClueDetails index={this.props.index} text={this.state.clueText} 
-            editMode={this.state.editMode} 
-            toggleEdit={this.toggleEdit} />
-    );
-  }
-});
-
-var ClueDetails = React.createClass({
-  getInitialState: function() {
-    return {value: this.props.text};
-  },
-  toggleEdit: function() {
-    if (this.props.editMode) {
-      var editedClue = this.refs.clueEdit.getDOMNode().value;
-      this.props.toggleEdit(editedClue);
+    var locationInput;
+    if (this.props.editLocationMode) {
+      locationInput = (<form><input type="text" ref="locationName" 
+                          onChange={this.handleLocationName} 
+                          defaultValue={this.props.answer} />
+                       <Btn label={"Save"} clickHandler={this.inputLocation} /></form>);
     } else {
-      this.props.toggleEdit();
-    }
-  },
-  handleInput: function(e) {
-    this.setState({value: e.target.value});
-  },
-  render: function() {
-    var editBtn;
-    var text;
-    if (this.props.editMode) {
-      editBtn = (<button className="btn" onClick={this.toggleEdit}>Save</button>);
-      text = (<textarea cols="35" ref="clueEdit" defaultValue={this.props.text} 
-                onChange={this.handleInput} />);
-    } else {
-      editBtn = (<button className="btn" onClick={this.toggleEdit}>Edit</button>);
-      text = this.props.text;
+      locationInput = (<Btn label={"Set location name"} clickHandler={this.inputLocation} />);
     }
     return (
-      <div className="clueDetails">
-        <div className="row">
-          <div className="col-xs-2">
-            Clue {this.props.index+1}:
-          </div>
-          <div className="col-xs-6">
-            {text}
-          </div>
-          <div className="col-xs-4"> 
-            {editBtn}
-            <Btn clickHandler={this.deleteClue} label={"Delete"} />
-          </div>
-        </div>
-      </div>
+      (locationInput)
     );
   }
 });
@@ -219,21 +272,82 @@ var Btn = React.createClass({
   }
 });
 
+var Clue = React.createClass({
+  getInitialState: function() {
+    return {
+      data: this.props.data,
+      editMode: false,
+      value: this.props.text
+    };
+  },
+  toggleEdit: function() {
+    if (this.state.editMode === true) {
+      var editedClue = this.refs.clueEdit.getDOMNode().value;
+      this.state.data[this.props.parentIndex].clues[this.props.index] = editedClue;
+      this.setState({data: this.state.data, editMode: false});
+    } else {
+      this.setState({editMode: true});
+    }
+  },
+  handleInput: function(e) {
+    this.setState({value: e.target.value});
+  },
+  deleteClue: function() {
+    this.props.deleteClue(this.props.index);
+  },
+  render: function() {
+    var editBtn;
+    var text;
+    if (this.state.editMode) {
+      editBtn = (<button className="btn" onClick={this.toggleEdit}>Save</button>);
+      text = (<textarea cols="35" ref="clueEdit" defaultValue={this.props.text} 
+                onChange={this.handleInput} />);
+    } else {
+      editBtn = (<button className="btn" onClick={this.toggleEdit}>Edit</button>);
+      text = (this.props.data[this.props.parentIndex].clues[this.props.index]);
+    }
+    if (this.props.editMode) {
+
+    } else {
+    }
+    return (
+      <div className="clueDetails">
+        <div className="row">
+          <div className="col-xs-2">
+            Clue {this.props.index+1}:
+          </div>
+          <div className="col-xs-6">
+          {text}
+          </div>
+          <div className="col-xs-4"> 
+            {editBtn}
+            <Btn clickHandler={this.deleteClue} label={"Delete"} />
+          </div>
+        </div>
+      </div>
+    );
+  }
+});
+
+
+var pins = [];
+/*
 var pins = [
   {
-    "text": "Landmark used by commuters",
     "answer": "Bay Bridge",
+    "hiddenName": "",
     "clues": ['Refurbished in 2013', 'Not the Golden Gate Bridge'],
-    "location": [37.8181, 122.3467]
+    "geo": [37.8181, 122.3467]
   },
   {
-    "text": "Pointed building in SF",
     "answer": "Transamerica Building",
+    "desc": "Pointed building in SF",
     "clues": ['Named after a company', 'In Financial District'],
-    "location": [37.8181, 122.3467]
+    "geo": [37.8181, 122.3467]
 
   }
 ];
+*/
 
 React.render(
   <HuntBox/>, document.getElementById('app-container')
