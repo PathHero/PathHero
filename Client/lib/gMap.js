@@ -235,7 +235,6 @@
   gMap.makeMarker = function (latLng,img){
     img = img || gMap.markerImgDefault;
     var lat = latLng.lat() || 10;
-    console.log(latLng);
     var markerImage = {
       url: img,
       scaledSize: new google.maps.Size(40,40),
@@ -257,7 +256,6 @@
     //events
     //-------------------
     google.maps.event.addListener(marker, 'click', function() {
-      console.log(index);
       gMap.trigger('clickMarker', [index]);
     });
   };
