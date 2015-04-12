@@ -12,7 +12,31 @@ var NavItem = ReactBootstrap.NavItem;
 
 var HuntBox = React.createClass({
   getInitialState: function() {
-    return {data: pins};
+    return {
+      data: pins,
+      _id: '',
+      title: '',
+    };
+  },
+  componentDidMount: function() {
+    var route = window.location.pathname.split('/')[1] || null;
+    var huntID;
+    if (route === 'edit') {
+      huntID =  window.location.pathname.split('/')[2] || null;
+      $.ajax({
+        url: window.location.origin + '/' + huntID,
+        method: 'GET',
+        dataType: 'json',
+        success: function(data) {
+          this.setState({data: data.pins, 
+                        _id: data._id, 
+                        title: data.huntName});
+          this.forceUpdate();
+        }.bind(this),
+        error: function() {
+        }
+      });
+    }
   },
   render: function() {
     return (
@@ -26,7 +50,7 @@ var HuntBox = React.createClass({
           </Nav>
         </Navbar>
         <HuntMap />
-        <ClueBox data={this.state.data} />
+        <ClueBox data={this.state.data} title={this.state.title} _id={this.state._id} />
       </div>
     );
   }
@@ -46,8 +70,9 @@ var ClueBox = React.createClass({
     return {
       data: this.props.data,
       editTitleMode: false,
-      title: 'Discover SFs most beautiful views',
-      desc: 'Dummy description'
+      title: this.props.title,
+      desc: 'Dummy description',
+      _id: this.props._id
     };
   },
   componentDidMount: function() {
@@ -64,7 +89,6 @@ var ClueBox = React.createClass({
       this.props.data.push(pin);
       this.setState({data: this.props.data});
     }.bind(this));
-    
   },
   inputTitle: function(e) {
     this.setState({title: e.target.value});
@@ -73,7 +97,6 @@ var ClueBox = React.createClass({
     var newTitle;
     if (this.state.editTitleMode) {
       newTitle = this.refs.titleEdit.getDOMNode().value;
-      console.log(newTitle);
       this.setState({title: newTitle, editTitleMode: false});
     } else {
       this.setState({editTitleMode: true});
@@ -84,11 +107,11 @@ var ClueBox = React.createClass({
     var titleBtn;
     if (this.state.editTitleMode) {
       title = (<input id="hunt-title" ref="titleEdit"
-                  defaultValue={this.state.title} 
+                  defaultValue={this.props.title} 
                   onChange={this.handleInput} />);
       titleBtn = (<Btn label={"Save"} clickHandler={this.toggleEditTitle} />);
     } else {
-      title = (<span id="hunt-title">{this.state.title}</span>);
+      title = (<span id="hunt-title">{this.props.title}</span>);
       titleBtn = (<Btn label={"Edit title"} clickHandler={this.toggleEditTitle} />);
     }
     return (
@@ -106,9 +129,10 @@ var ClueBox = React.createClass({
                 <p>Distance: {gMap.getDistance()} miles</p>
                 <p>Locations: {this.props.data.length}</p>              
               </div>
-            <HuntSubmitForm pins={this.state.data} 
-                            name={this.state.title} 
-                            desc={this.state.desc} />
+            <HuntSubmitForm pins={this.props.data} 
+                            title={this.props.title} 
+                            desc={this.state.desc} 
+                            _id={this.props._id} />
             </div>
           </div>
           <div id="pin-container">
@@ -123,6 +147,7 @@ var ClueBox = React.createClass({
 
 var HuntSubmitForm = React.createClass({
   handleSubmit: function() {
+
     var newHunt = {
       huntName: this.props.title,
       huntDesc: this.props.desc,
@@ -133,10 +158,12 @@ var HuntSubmitForm = React.createClass({
       },
       pins: this.props.pins
     };
-
+    if (window.location.pathname.split('/')[1] === 'edit') {
+      newHunt._id = this.props._id;
+    }
     newHunt = JSON.stringify(newHunt);
     $.ajax({
-      url: 'http://create.wettowelreactor.com:3000/create',
+      url: window.location.href,
       type: 'POST',
       contentType: 'application/json; charset=utf-8',
       data: newHunt,
