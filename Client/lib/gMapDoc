@@ -15,9 +15,9 @@
   	// get Distance from index number to the end of the Marker chain(Path)
 
   gMap.getDistanceByLocation = function (callback, index, travelMode) 
-	// callback is what happens after the data is received 
-	// index is the Marker index. We will check the users current position with this markers position
-	// travelMode is the GOOGLE Maps travelMode (BICYCLING, DRIVING, TRANSIT, WALKING)
+  	// callback is what happens after the data is received 
+  	// index is the Marker index. We will check the users current position with this markers position
+  	// travelMode is the GOOGLE Maps travelMode (BICYCLING, DRIVING, TRANSIT, WALKING)
 
   gMap.getGeolocation = function (callback)
   	// the callback will happen after the info is received
@@ -30,7 +30,12 @@
   	//it will expect something like this [[37.7908,-122.4035],[37.790,-122.404],[37.72,-122.4],[37.792,-122.4011]]
   	//[ [lat,lng], [lat,lng] ]
   gMap.exportMap()
-  	//exports the markers on the map into the array format the import function expects
+    //exports the markers on the map into the array format the import function expects
+
+  gMap.appImportMap()
+    //import the map by the dataset for the path hero app
+  gMao.appExportMap(index)
+    //takes the marker with the index number of index and returns an object of lat lng of that marker 
 
 
 --------------- EVENTS HANDLING --------------- 

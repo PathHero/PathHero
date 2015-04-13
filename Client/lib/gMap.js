@@ -274,6 +274,7 @@
         callback(pos);
       });
     }else{
+
       callback(pos);
     }
   };
@@ -380,6 +381,20 @@
       exportedArray.push([gMap.markers[i].getPosition().lat(), gMap.markers[i].getPosition().lng()]);
     }
     return exportedArray;
+  };
+  gMap.appImportMap = function(obj){
+    var pins = obj.pins;
+    var pinArray = [];
+    for (var i = 0; i < pins.length; i++) {
+      pinArray.push( [ pins[i].geo.lat, pins[i].geo.lng ] );
+    }
+    gMap.importMap(pinArray);
+  };
+  gMap.appExportMap = function(index){
+    return {
+      lat : gMap.markers[index].getPosition().lat(), 
+      lng : gMap.markers[index].getPosition().lng()
+    };
   };
 
   //EVENTS HANDLING
