@@ -30,7 +30,12 @@
   	//it will expect something like this [[37.7908,-122.4035],[37.790,-122.404],[37.72,-122.4],[37.792,-122.4011]]
   	//[ [lat,lng], [lat,lng] ]
   gMap.exportMap()
-  	//exports the markers on the map into the array format the import function expects
+    //exports the markers on the map into the array format the import function expects
+
+  gMap.appImportMap()
+    //import the map by the dataset for the path hero app
+  gMao.appExportMap(index)
+    //takes the marker with the index number of index and returns an object of lat lng of that marker 
 
 
 --------------- EVENTS HANDLING --------------- 
