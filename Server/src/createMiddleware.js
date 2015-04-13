@@ -208,7 +208,7 @@ module.exports.addSubdomain = function(app) {
   router.post('/edit/:huntid', checkAuth, function(req, res) {
     console.log('Post Create Login for');
     var huntid = req.params.huntid;
-    var hunt = req.body.hunt;
+    var hunt = req.body;
     hunt._id = huntid;
     hunt.creatorId = req.user;
     
