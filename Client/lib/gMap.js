@@ -274,6 +274,7 @@
         callback(pos);
       });
     }else{
+
       callback(pos);
     }
   };
@@ -388,13 +389,6 @@
       pinArray.push( [ pins[i].geo.lat, pins[i].geo.lng ] );
     }
     gMap.importMap(pinArray);
-  };
-  gMap.appImportMap = function(obj){
-    var pins = obj.pins;
-    var pinArray = [];
-    for (var i = 0; i < pins.length; i++) {
-      pinArray.push( [ pins[i].geo.lat, pins[i].geo.lng ] );
-    }
   };
   gMap.appExportMap = function(index){
     return {
