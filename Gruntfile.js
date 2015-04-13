@@ -10,9 +10,19 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-mocha-test');
   grunt.loadNpmTasks('grunt-env');
   grunt.loadNpmTasks('grunt-istanbul');
+  grunt.loadNpmTasks('grunt-react');
 
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
+
+    react: {
+      single_file_output: {
+        files: {
+          'Client/create/static/app.js': 'Client/create/static/app.jsx',
+          'Client/play/static/player.app.js': 'Client/play/static/player.app.jsx',
+        }
+      }
+    },
 
     mochaTest: {
       test: {
@@ -127,7 +137,7 @@ module.exports = function(grunt) {
         options: {
           livereload: true
         },
-        tasks: ['check']
+        tasks: ['react', 'check']
       },
       css: {
         files: [
@@ -160,5 +170,5 @@ module.exports = function(grunt) {
   grunt.registerTask('coverage', ['env:coverage', 'instrument', 'mochaTest:cov',
     'storeCoverage', 'makeReport']);
   grunt.registerTask('default', ['concurrent']);
-  grunt.registerTask('deploy', ['nodemon']);
+  grunt.registerTask('deploy', ['react', 'nodemon']);
 };
