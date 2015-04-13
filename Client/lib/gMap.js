@@ -113,6 +113,9 @@
   //------------------------
   //functions
   //------------------------
+  gMap.setCenter = function(pos) {
+    gMap.map.setCenter(pos);
+  };
 
   gMap.CenterControl = function (position,text, callback, addToList,startAsActive) {
 
@@ -267,13 +270,13 @@
   };
 
   gMap.getGeolocation = function (callback){
-    var pos = new google.maps.LatLng(-33.73, 149.02);
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(function(position){
         pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
         callback(pos);
       });
     }else{
+      var pos = new google.maps.LatLng(-33.73, 149.02);
       callback(pos);
     }
   };

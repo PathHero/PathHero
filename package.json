@@ -52,6 +52,7 @@
     "express-session": "^1.10.4",
     "express-subdomain": "^1.0.3",
     "globule": "^0.1.0",
+    "grunt-react": "^0.12.1",
     "htmlparser2": "^3.8.2",
     "minimatch": "^0.3.0",
     "mongodb": "^1.4.35",
