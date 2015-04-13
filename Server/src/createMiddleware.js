@@ -43,12 +43,24 @@ module.exports.addSubdomain = function(app) {
 
   router.use('/static', express.static(__dirname + '/../../Client/create/static'));
 
-  router.get('/', function(req, res) {
-    res.sendFile(path.resolve(__dirname + '/../../Client/create/index.html'));
+  router.get('/', checkAuth, function(req, res) {
+    var userid = req.user;
+    db.getUserHunts(userid)
+    .then(function(data) {
+      if (data.length === 0) {
+        res.redirect('/create');
+      } else {
+        res.sendFile(path.resolve(__dirname + '/../../Client/create/index.html'));
+      }
+    })
+    .fail(function(error) {
+      console.log(error);
+      res.sendFile(path.resolve(__dirname + '/../../Client/create/index.html'));
+    });
   });  
 
   // returns an array of hunts belonging to the user
-  router.get('/hunts', checkAuth, function(req, res) {
+  router.get('/hunts', function(req, res) {
     console.log('Get Player Hunts');
     var userid = req.user;
     resolvePromise(db.getUserHunts(userid), res);
@@ -135,7 +147,7 @@ module.exports.addSubdomain = function(app) {
     resolvePromise(db.addHunt(hunt), res);
   });
 
-  router.get('/create', function(req, res) {
+  router.get('/create', checkAuth, function(req, res) {
     res.sendFile(path.resolve(__dirname + '/../../Client/create/create.html'));
   });
   
@@ -148,7 +160,7 @@ module.exports.addSubdomain = function(app) {
     resolvePromise(db.getHuntById(huntid), res);
   });
 
-  router.get('/edit/:huntid', function(req, res) {
+  router.get('/edit/:huntid', checkAuth, function(req, res) {
     var huntid = req.params.huntid;
     console.log('getting hunt game:', huntid);
     db.getHuntById(huntid)
