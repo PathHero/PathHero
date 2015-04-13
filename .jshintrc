@@ -1,5 +1,6 @@
 {
     "node": true,
+    "mocha": true,
     "browser": true,
     "esnext": true,
     "bitwise": true,
@@ -20,6 +21,10 @@
     "smarttabs": true,
     "white": true,
     "globals": {
-        "angular": true
+        "React": true,
+        "ReactBootstrap": true,
+        "google": true,
+        "gMap": true,
+        "$": true
     }
 }

@@ -1,29 +1,101 @@
 'use strict';
 module.exports = function(grunt) {
+  grunt.file.setBase(__dirname);
   grunt.loadNpmTasks('grunt-notify');
-  grunt.loadNpmTasks('grunt-contrib-jshint');
+  grunt.loadNpmTasks('grunt-jsxhint');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-nodemon');
   grunt.loadNpmTasks('grunt-concurrent');
   grunt.loadNpmTasks('grunt-contrib-sass');
+  grunt.loadNpmTasks('grunt-mocha-test');
+  grunt.loadNpmTasks('grunt-env');
+  grunt.loadNpmTasks('grunt-istanbul');
 
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
+
+    mochaTest: {
+      test: {
+        options: {
+          reporter: 'nyan',
+          clearRequireCache: true
+        },
+        src: ['Spec/**/*.js']
+      },
+      cov: {
+        options: {
+          reporter: 'min',
+          quite: false,
+          clearRequireCache: true
+        },
+        src: ['Spec/**/*.js']
+      }
+    },
 
     jshint: {
       files: [
         'Gruntfile.js',
         'server.js',
-        'Client/**/*.js',
+        'Client/app/**/*.js',
+        'Client/create/**/*.js',
+        'Client/play/**/*.js',
+        'Client/app/**/*.jsx',
+        'Client/create/**/*.jsx',
+        'Client/play/**/*.jsx',
         'Server/**/*.js',
+        'Spec/**/*.js'
       ],
-      options: {jshintrc: true}
+      options: {
+        jshintrc: true,
+        force: true,
+        ignores: [
+          'Client/bower_components/**/*.js'        ],
+      }
+    },
+
+    env: {
+      coverage: {
+        APP_DIR_FOR_CODE_COVERAGE: '../coverage/instrument/'
+      },
+    },
+
+    instrument: {
+      ignore: ['Client/bower_components/**/*.js'],
+      files: [
+        'Client/app/**/*.js',
+        'Client/create/**/*.js',
+        'Client/play/**/*.js',
+        'Client/app/**/*.jsx',
+        'Client/create/**/*.jsx',
+        'Client/play/**/*.jsx',
+        'Server/**/*.js'
+      ],
+      options: {
+        lazy: true,
+        basePath: 'coverage/instrument/',
+        instrumenter: require('istanbul-react').Instrumenter,
+      }
+    },
+
+    storeCoverage: {
+      options: {
+        dir: 'coverage/reports'
+      }
+    },
+
+    makeReport: {
+      src: 'coverage/**/*.json',
+      options: {
+        type: 'lcov',
+        dir: 'coverage/reports',
+        print: 'detail'
+      }
     },
 
     sass: {
       dev: {
-        src: ['Client/style/*.sass'],
-        dest: 'Client/style/style.css',
+        src: ['Client/style/style.scss'],
+        dest: 'Client/style/style.css'
       },
     },
 
@@ -45,7 +117,12 @@ module.exports = function(grunt) {
     watch: {
       client: {
         files: [
-          'Client/**/*.js',
+          'Client/app/**/*.js',
+          'Client/create/**/*.js',
+          'Client/play/**/*.js',
+          'Client/app/**/*.jsx',
+          'Client/create/**/*.jsx',
+          'Client/play/**/*.jsx',
         ],
         options: {
           livereload: true
@@ -66,6 +143,7 @@ module.exports = function(grunt) {
           'Gruntfile.js',
           'server.js',
           'Server/**/*.js',
+          'Spec/**/*.js'
         ],
         tasks: ['check']
       },
@@ -77,6 +155,10 @@ module.exports = function(grunt) {
     }
   });
 
-  grunt.registerTask('check', 'jshint');
+  grunt.registerTask('test', 'mochaTest:test');
+  grunt.registerTask('check', ['jshint', 'mochaTest:test', 'coverage']);
+  grunt.registerTask('coverage', ['env:coverage', 'instrument', 'mochaTest:cov',
+    'storeCoverage', 'makeReport']);
   grunt.registerTask('default', ['concurrent']);
+  grunt.registerTask('deploy', ['nodemon']);
 };

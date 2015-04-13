@@ -1,3 +1,5 @@
+[![Stories in Ready](https://badge.waffle.io/pathhero/pathhero.png?label=ready&title=Ready)](https://waffle.io/pathhero/pathhero)
+[Build: ](https://circleci.com/gh/PathHero/PathHero/tree/master)[![Circle CI](https://circleci.com/gh/PathHero/PathHero/tree/master.svg?style=svg)](https://circleci.com/gh/PathHero/PathHero/tree/master)
 # Path Hero
 
 > Fast, easy city scavenger hunts.
