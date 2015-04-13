@@ -212,7 +212,13 @@ module.exports.addSubdomain = function(app) {
     hunt._id = huntid;
     hunt.creatorId = req.user;
     
-    resolvePromise(db.updateHunt(hunt), res);
+    resolvePromise(db.updateHunt(hunt), res, function(count) {
+      if (count === 1) {
+        res.send({update: true});
+      } else {
+        res.send({update: false});
+      }
+    });
   });
 
   app.use(subdomain(serverConfig.createSubdomain, router));
