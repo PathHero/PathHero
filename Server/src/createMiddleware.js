@@ -165,7 +165,8 @@ module.exports.addSubdomain = function(app) {
     console.log('getting hunt game:', huntid);
     db.getHuntById(huntid)
     .then(function(data) {
-      if (Object.keys(data).length === 0) {
+      console.log('DEBUG++++++++', typeof data, data);
+      if (typeof data !== 'object' || Object.keys(data).length === 0) {
         res.redirect('/');
       } else {
         res.sendFile(path.resolve(__dirname + '/../../Client/create/create.html'));
