@@ -10,7 +10,7 @@ var Nav = ReactBootstrap.Nav;
 var Navbar = ReactBootstrap.Navbar;
 var NavItem = ReactBootstrap.NavItem;
 
-var HuntBox = React.createClass({
+var HuntBox = React.createClass({displayName: "HuntBox",
   getInitialState: function() {
     return {
       data: pins,
@@ -40,36 +40,36 @@ var HuntBox = React.createClass({
   },
   render: function() {
     return (
-      <div className="huntBox">
-        <Navbar brand="Path Hero">
-          <Nav right>
-            <NavItem eventKey={1} href="#">Create hunt</NavItem>
-            <NavItem eventKey={2} href="/hunts">View hunts</NavItem>
-            <NavItem eventKey={3} href='#'>Profile</NavItem>
-            <NavItem>Logout</NavItem>
-          </Nav>
-        </Navbar>
-        <HuntMap />
-        <ClueBox data={this.state.data} title={this.state.title} _id={this.state._id} />
-      </div>
+      React.createElement("div", {className: "huntBox"}, 
+        React.createElement(Navbar, {brand: "Path Hero"}, 
+          React.createElement(Nav, {right: true}, 
+            React.createElement(NavItem, {eventKey: 1, href: "#"}, "Create hunt"), 
+            React.createElement(NavItem, {eventKey: 2, href: "/hunts"}, "View hunts"), 
+            React.createElement(NavItem, {eventKey: 3, href: "#"}, "Profile"), 
+            React.createElement(NavItem, null, "Logout")
+          )
+        ), 
+        React.createElement(HuntMap, null), 
+        React.createElement(ClueBox, {data: this.state.data, title: this.state.title, _id: this.state._id})
+      )
     );
   }
 });
 
-var HuntMap = React.createClass({
+var HuntMap = React.createClass({displayName: "HuntMap",
   componentDidMount: function() {
     gMap.startGMap({lng: -33.73, lat: 149.02});
     gMap.getGeolocation(gMap.setCenter);
   },
   render: function() {
     return (
-      <div id="gMap" className="col-xs-6">
-      </div>  
+      React.createElement("div", {id: "gMap", className: "col-xs-6"}
+      )  
     );
   }
 });
 
-var ClueBox = React.createClass({
+var ClueBox = React.createClass({displayName: "ClueBox",
   getInitialState: function() {
     return {
       data: this.props.data,
@@ -110,46 +110,46 @@ var ClueBox = React.createClass({
     var title;
     var titleBtn;
     if (this.state.editTitleMode) {
-      title = (<input id="hunt-title" ref="titleEdit"
-                  defaultValue={this.props.title} 
-                  onChange={this.handleInput} />);
-      titleBtn = (<Btn label={"Save"} clickHandler={this.toggleEditTitle} />);
+      title = (React.createElement("input", {id: "hunt-title", ref: "titleEdit", 
+                  defaultValue: this.props.title, 
+                  onChange: this.handleInput}));
+      titleBtn = (React.createElement(Btn, {label: "Save", clickHandler: this.toggleEditTitle}));
     } else {
-      title = (<span id="hunt-title">{this.props.title}</span>);
-      titleBtn = (<Btn label={"Edit title"} clickHandler={this.toggleEditTitle} />);
+      title = (React.createElement("span", {id: "hunt-title"}, this.props.title));
+      titleBtn = (React.createElement(Btn, {label: "Edit title", clickHandler: this.toggleEditTitle}));
     }
     return (
-      <div>
-        <div id="hunt-info-container" className="col-xs-6">
-          <div id="hunt-title-container">
-            <h2>Hunt Title</h2>
-              {title}
-              {titleBtn}
-            <div className="tour-summary-container">
-              <h2>Tour Summary</h2>
-              <div className="summary-box">
-                <p>Description: [Insert description]</p>
-                <p>Duration: {gMap.getDuration()} hours</p>
-                <p>Distance: {gMap.getDistance()} miles</p>
-                <p>Locations: {this.props.data.length}</p>              
-              </div>
-            <HuntSubmitForm pins={this.props.data} 
-                            title={this.props.title} 
-                            desc={this.state.desc} 
-                            _id={this.props._id} />
-            </div>
-          </div>
-          <div id="pin-container">
-            <h2>Pins</h2>
-            <PinList data={this.props.data} /> 
-          </div>
-        </div>
-      </div>
+      React.createElement("div", null, 
+        React.createElement("div", {id: "hunt-info-container", className: "col-xs-6"}, 
+          React.createElement("div", {id: "hunt-title-container"}, 
+            React.createElement("h2", null, "Hunt Title"), 
+              title, 
+              titleBtn, 
+            React.createElement("div", {className: "tour-summary-container"}, 
+              React.createElement("h2", null, "Tour Summary"), 
+              React.createElement("div", {className: "summary-box"}, 
+                React.createElement("p", null, "Description: [Insert description]"), 
+                React.createElement("p", null, "Duration: ", gMap.getDuration(), " hours"), 
+                React.createElement("p", null, "Distance: ", gMap.getDistance(), " miles"), 
+                React.createElement("p", null, "Locations: ", this.props.data.length)
+              ), 
+            React.createElement(HuntSubmitForm, {pins: this.props.data, 
+                            title: this.props.title, 
+                            desc: this.state.desc, 
+                            _id: this.props._id})
+            )
+          ), 
+          React.createElement("div", {id: "pin-container"}, 
+            React.createElement("h2", null, "Pins"), 
+            React.createElement(PinList, {data: this.props.data})
+          )
+        )
+      )
     );
   }
 });
 
-var HuntSubmitForm = React.createClass({
+var HuntSubmitForm = React.createClass({displayName: "HuntSubmitForm",
   handleSubmit: function() {
 
     var newHunt = {
@@ -181,12 +181,12 @@ var HuntSubmitForm = React.createClass({
   },
   render: function() {
     return (
-      <Btn label={"Submit hunt"} clickHandler={this.handleSubmit} />
+      React.createElement(Btn, {label: "Submit hunt", clickHandler: this.handleSubmit})
     );
   }
 });
 
-var PinList = React.createClass({
+var PinList = React.createClass({displayName: "PinList",
   getInitialState: function() {
     return {
       data: this.props.data,
@@ -198,20 +198,20 @@ var PinList = React.createClass({
   render: function() {
     var pinNodes = this.props.data.map(function(pin, index, data) {
       return (
-        <Pin  data={data} index={index} answer={pin.answer} 
-          clues={pin.clues} key={index}>
-        </Pin>
+        React.createElement(Pin, {data: data, index: index, answer: pin.answer, 
+          clues: pin.clues, key: index}
+        )
       );
     });
     return (
-      <div className="pinList">
-        {pinNodes}
-      </div>
+      React.createElement("div", {className: "pinList"}, 
+        pinNodes
+      )
     );
   }
 });
 
-var Pin = React.createClass({
+var Pin = React.createClass({displayName: "Pin",
   getInitialState: function() {
     return {
       data: this.props.data,
@@ -242,30 +242,30 @@ var Pin = React.createClass({
     var index = this.props.index;
     var clueNodes = this.props.clues.map(function(clue, index) {
       return (
-        <Clue data={this.state.data} parentIndex={this.props.index} index={index} 
-          text={clue} key={index} editMode={this.state.editMode} 
-          toggleEdit={this.toggleEdit} deleteClue={this.deleteClue} />
+        React.createElement(Clue, {data: this.state.data, parentIndex: this.props.index, index: index, 
+          text: clue, key: index, editMode: this.state.editMode, 
+          toggleEdit: this.toggleEdit, deleteClue: this.deleteClue})
       );
     }.bind(this));
 
     return (
-      <div className="pinContainer">
-        <NameLocation editLocationMode={this.state.editLocationMode} 
-                         answer={this.state.data[index].name} inputLocation={this.inputLocation} />
-        <Accordion>
-          <Panel onDoubleClick={this.nameLocation} eventKey={index}
-            header={"Pin " + (index+1) + ": " +this.state.data[index].answer} >
-          {clueNodes}
-          <textarea col="35" row="30" ref="clueInput" />
-          <Btn label={"Add Clue"} clickHandler={this.handleNewClue} />
-          </Panel>
-        </Accordion>  
-      </div>
+      React.createElement("div", {className: "pinContainer"}, 
+        React.createElement(NameLocation, {editLocationMode: this.state.editLocationMode, 
+                         answer: this.state.data[index].name, inputLocation: this.inputLocation}), 
+        React.createElement(Accordion, null, 
+          React.createElement(Panel, {onDoubleClick: this.nameLocation, eventKey: index, 
+            header: "Pin " + (index+1) + ": " +this.state.data[index].answer}, 
+          clueNodes, 
+          React.createElement("textarea", {col: "35", row: "30", ref: "clueInput"}), 
+          React.createElement(Btn, {label: "Add Clue", clickHandler: this.handleNewClue})
+          )
+        )
+      )
     );
   }
 });
 
-var NameLocation = React.createClass({
+var NameLocation = React.createClass({displayName: "NameLocation",
   getInitialState: function() {
     return {
       value: this.props.answer
@@ -286,12 +286,12 @@ var NameLocation = React.createClass({
   render: function() {
     var locationInput;
     if (this.props.editLocationMode) {
-      locationInput = (<form><input type="text" ref="locationName" 
-                          onChange={this.handleLocationName} 
-                          defaultValue={this.props.answer} />
-                       <Btn label={"Save"} clickHandler={this.inputLocation} /></form>);
+      locationInput = (React.createElement("form", null, React.createElement("input", {type: "text", ref: "locationName", 
+                          onChange: this.handleLocationName, 
+                          defaultValue: this.props.answer}), 
+                       React.createElement(Btn, {label: "Save", clickHandler: this.inputLocation})));
     } else {
-      locationInput = (<Btn label={"Set location name"} clickHandler={this.inputLocation} />);
+      locationInput = (React.createElement(Btn, {label: "Set location name", clickHandler: this.inputLocation}));
     }
     return (
       (locationInput)
@@ -299,7 +299,7 @@ var NameLocation = React.createClass({
   }
 });
 
-var Btn = React.createClass({
+var Btn = React.createClass({displayName: "Btn",
   propTypes: {
     clickHandler: React.PropTypes.func,
     label: React.PropTypes.string,
@@ -311,14 +311,14 @@ var Btn = React.createClass({
       classString += ' ' + this.props.newClass;
     }
     return (
-      <button className="btn" type="button" onClick={this.props.clickHandler}>
-        {this.props.label}
-      </button>
+      React.createElement("button", {className: "btn", type: "button", onClick: this.props.clickHandler}, 
+        this.props.label
+      )
     );
   }
 });
 
-var Clue = React.createClass({
+var Clue = React.createClass({displayName: "Clue",
   getInitialState: function() {
     return {
       data: this.props.data,
@@ -345,11 +345,11 @@ var Clue = React.createClass({
     var editBtn;
     var text;
     if (this.state.editMode) {
-      editBtn = (<button className="btn" onClick={this.toggleEdit}>Save</button>);
-      text = (<textarea cols="35" ref="clueEdit" defaultValue={this.props.text} 
-                onChange={this.handleInput} />);
+      editBtn = (React.createElement("button", {className: "btn", onClick: this.toggleEdit}, "Save"));
+      text = (React.createElement("textarea", {cols: "35", ref: "clueEdit", defaultValue: this.props.text, 
+                onChange: this.handleInput}));
     } else {
-      editBtn = (<button className="btn" onClick={this.toggleEdit}>Edit</button>);
+      editBtn = (React.createElement("button", {className: "btn", onClick: this.toggleEdit}, "Edit"));
       text = (this.props.data[this.props.parentIndex].clues[this.props.index]);
     }
     if (this.props.editMode) {
@@ -357,20 +357,20 @@ var Clue = React.createClass({
     } else {
     }
     return (
-      <div className="clueDetails">
-        <div className="row">
-          <div className="col-xs-2">
-            Clue {this.props.index+1}:
-          </div>
-          <div className="col-xs-6">
-          {text}
-          </div>
-          <div className="col-xs-4"> 
-            {editBtn}
-            <Btn clickHandler={this.deleteClue} label={"Delete"} />
-          </div>
-        </div>
-      </div>
+      React.createElement("div", {className: "clueDetails"}, 
+        React.createElement("div", {className: "row"}, 
+          React.createElement("div", {className: "col-xs-2"}, 
+            "Clue ", this.props.index+1, ":"
+          ), 
+          React.createElement("div", {className: "col-xs-6"}, 
+          text
+          ), 
+          React.createElement("div", {className: "col-xs-4"}, 
+            editBtn, 
+            React.createElement(Btn, {clickHandler: this.deleteClue, label: "Delete"})
+          )
+        )
+      )
     );
   }
 });
@@ -396,5 +396,5 @@ var pins = [
 */
 
 React.render(
-  <HuntBox/>, document.getElementById('app-container')
+  React.createElement(HuntBox, null), document.getElementById('app-container')
   );
