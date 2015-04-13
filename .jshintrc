@@ -20,11 +20,12 @@
     "trailing": true,
     "smarttabs": true,
     "white": true,
+    "jquery": true,
     "globals": {
         "React": true,
         "ReactBootstrap": true,
         "google": true,
         "gMap": true,
-        "$": true
+        "Reflux": true
     }
 }
