@@ -220,7 +220,6 @@
         if(gMap.directionsDisplay.directions.routes){
           gMap.pathLatLng[0] = gMap.directionsDisplay.directions.routes[0].legs[0].start_location;
         }
-        //debugger
         if(gMap.pathLatLng.length === 1){//this handles an edge case we will need to fix this later
           gMap.pathLatLng[0] = gMap.directionsDisplay.directions.routes[0].legs[0].end_location;
         }
@@ -339,7 +338,6 @@
   gMap.showCurrentLocation = function(){
     setTimeout(function(){
       gMap.getGeolocation(function(latLng){
-
         var markerImage = {
           url: 'https://cdn2.iconfinder.com/data/icons/snipicons/500/map-marker-512.png',
           scaledSize: new google.maps.Size(40,40),
@@ -384,44 +382,32 @@
     }
     return exportedArray;
   };
+  gMap.appImportMap = function(obj){
+    var pins = obj.pins;
+    var pinArray = [];
+    for (var i = 0; i < pins.length; i++) {
+      pinArray.push( [ pins[i].geo.lat, pins[i].geo.lng ] );
+    }
+    gMap.importMap(pinArray);
+  };
+  gMap.appExportMap = function(index){
+    return {
+      lat : gMap.markers[index].getPosition().lat(), 
+      lng : gMap.markers[index].getPosition().lng()
+    };
+  };
 
   //EVENTS HANDLING
-  gMap.events = {};
-  gMap.events.addMarker = [];
-  gMap.events.clickMarker = [];
-
+  gMap.cEvent = new CEvent();
+  gMap.cEvent.events.addMarker = [];
+  gMap.cEvent.events.clickMarker = [];
+  //shorten the function calls for the event handler
   gMap.removeEventListener = function(events, callback){
-    if(gMap.events[events]){
-      for (var i = 0; i < gMap.events[events].length; i++) {
-        if(gMap.events[events][i].toString() === callback.toString()){ 
-          if(i === 0){
-            gMap.events[events].shift();
-          }else if (i === gMap.events[events].length-1){
-            gMap.events[events].pop();
-          }else{
-            gMap.events[events].splice(i,1);
-          }
-          return undefined; 
-        }
-      }
-    }
+    gMap.cEvent.removeEventListener(events,callback);
   };
   gMap.addEventListener = function(events, callback){
-    if(gMap.events[events]){
-      for (var i = 0; i < gMap.events[events].length; i++) {
-        if(gMap.events[events][i].toString() === callback.toString()){ 
-          return undefined; 
-        }
-      }
-      gMap.events[events].push(callback);
-    }
+    gMap.cEvent.addEventListener(events,callback);
   };
   gMap.trigger = function(events,args){
-     if(gMap.events[events]){
-      for (var i = 0; i < gMap.events[events].length; i++) {
-        if(gMap.events[events][i]){
-          gMap.events[events][i].apply(this,args);
-        }
-      }
-    }   
+    gMap.cEvent.trigger(events,args);
   };
