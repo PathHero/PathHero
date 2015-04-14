@@ -129,8 +129,6 @@ module.exports.addSubdomain = function(app) {
   //          lat: Float
   //          lng: Float
   //        }
-  //        timeToNextPin: Float
-  //        distanceToNextPin: Float
   //        clues: [Stirngs]
   //      }
   //      .

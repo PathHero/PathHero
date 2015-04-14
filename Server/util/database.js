@@ -155,8 +155,6 @@ exports.validateUser = function(username, password) {
 //          lat: Float
 //          lng: Float
 //        }
-//        timeToNextPin: Float
-//        distanceToNextPin: Float
 //        clues: [Stirngs]
 //      }
 //      .

@@ -19,8 +19,6 @@ var Hunt = {
         lat: 10.809870897,
         lng: 23.0987070
       },
-      timeToNextPin: 300,
-      distanceToNextPin: 0.87,
       clues: [
         "Lorem ipsum dolor sit amet, consectetur adipisicing elit. In similique corporis vitae minus laborum odio recusandae quibusdam voluptatum error amet, dolore, perferendis, rerum ad officia tempore veritatis nostrum quae nihil.", 
         "Consectetur adipisicing elit. Voluptatum earum atque iusto nesciunt labore non explicabo optio consequuntur, quis aspernatur qui ad architecto, doloribus asperiores deleniti. Quas delectus, ad animi.", 
@@ -34,8 +32,6 @@ var Hunt = {
         lat: 10.742342,
         lng: 23.09870897
       },
-      timeToNextPin: 0.28,
-      distanceToNextPin: 0.53,
       clues: [
         "Lorem ipsum dolor sit amet, consectetur adipisicing elit. In similique corporis vitae minus laborum odio recusandae quibusdam voluptatum error amet, dolore, perferendis, rerum ad officia tempore veritatis nostrum quae nihil.", 
         "Consectetur adipisicing elit. Voluptatum earum atque iusto nesciunt labore non explicabo optio consequuntur, quis aspernatur qui ad architecto, doloribus asperiores deleniti. Quas delectus, ad animi.", 
@@ -49,8 +45,6 @@ var Hunt = {
         lat: 10.87098,
         lng: 23.90808
       },
-      timeToNextPin: 25,
-      distanceToNextPin: 0.45,
       clues: [
         "Lorem ipsum dolor sit amet, consectetur adipisicing elit. In similique corporis vitae minus laborum odio recusandae quibusdam voluptatum error amet, dolore, perferendis, rerum ad officia tempore veritatis nostrum quae nihil.", 
         "Consectetur adipisicing elit. Voluptatum earum atque iusto nesciunt labore non explicabo optio consequuntur, quis aspernatur qui ad architecto, doloribus asperiores deleniti. Quas delectus, ad animi.", 

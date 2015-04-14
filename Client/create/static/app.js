@@ -128,9 +128,7 @@ var ClueBox = React.createClass({displayName: "ClueBox",
         "hiddenName": "",
         "answer": "",
         "clues": [],
-        "geo": '',
-        "timeToNextPin": 1.2345,
-        "distanceToNextPin": 1.2345,
+        "geo": {lat: 12.3, lng: 3.21},
       };
       this.props.data.push(pin);
       if (this.isMounted()) {
@@ -176,8 +174,8 @@ var ClueBox = React.createClass({displayName: "ClueBox",
                 defaultValue: this.props.desc}));
       descBtn = (React.createElement(Btn, {label: "Save", clickHandler: this.toggleDesc}));
     } else {
-      desc = (React.createElement("span", {id: "hunt-desc"}, this.props.desc))
-      descBtn = (React.createElement(Btn, {label: "Edit description", clickHandler: this.toggleDesc}))
+      desc = (React.createElement("span", {id: "hunt-desc"}, this.props.desc));
+      descBtn = (React.createElement(Btn, {label: "Edit description", clickHandler: this.toggleDesc}));
     }
     return (
       React.createElement("div", null, 
