@@ -125,7 +125,6 @@ var ClueBox = React.createClass({
     gMap.addEventListener('addMarker', function() {
       // var geo = gMap.select(this.props.data.length);
       var pin = {
-        "hiddenName": "",
         "answer": "",
         "clues": [],
         "geo": {lat: 12.3, lng: 3.21},
@@ -459,7 +458,6 @@ var pins = [];
 var pins = [
   {
     "answer": "Bay Bridge",
-    "hiddenName": "",
     "clues": ['Refurbished in 2013', 'Not the Golden Gate Bridge'],
     "geo": [37.8181, 122.3467]
   },
