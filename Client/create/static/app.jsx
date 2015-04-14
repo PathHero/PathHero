@@ -18,7 +18,8 @@ var hunt = {
 };
 
 var actions = Reflux.createActions(
-  ["updateTitle"]
+  ["updateTitle"],
+  ["updateDescription"]
 );
 
 var store = Reflux.createStore({
@@ -39,6 +40,7 @@ var HuntBox = React.createClass({
       data: pins,
       _id: hunt._id,
       title: hunt.huntName,
+      desc: hunt.huntDesc
     };
   },
   componentDidMount: function() {
@@ -67,6 +69,9 @@ var HuntBox = React.createClass({
     console.log('newTitle in HuntBox', hunt);
     this.setState({title: hunt.hunt.huntName});
   },
+  onUpdateDescription: function(hunt) {
+    this.setState({huntDesc: hunt.hunt.huntDesc});
+  },
   render: function() {
     return (
       <div className="huntBox">
@@ -79,7 +84,10 @@ var HuntBox = React.createClass({
           </Nav>
         </Navbar>
         <HuntMap />
-        <ClueBox data={this.state.data} title={this.state.title} _id={this.state._id} />
+        <ClueBox data={this.state.data} 
+                  title={this.state.title} 
+                  _id={this.state._id} 
+                  desc={this.state.desc} />
       </div>
     );
   }
@@ -104,7 +112,7 @@ var ClueBox = React.createClass({
     return {
       data: this.props.data,
       editTitleMode: false,
-      title: this.props.title,
+      editDescMode: false,
       desc: 'Dummy description',
       _id: this.props._id
     };
@@ -141,8 +149,8 @@ var ClueBox = React.createClass({
     }
   },
   render: function() {
-    var title;
-    var titleBtn;
+    var title, titleBtn;
+    var desc, descBtn;
     if (this.state.editTitleMode) {
       title = (<input id="hunt-title" ref="titleEdit"
                   defaultValue={this.props.title} 
@@ -151,6 +159,11 @@ var ClueBox = React.createClass({
     } else {
       title = (<span id="hunt-title">{this.props.title}</span>);
       titleBtn = (<Btn label={"Edit title"} clickHandler={this.toggleEditTitle} />);
+    }
+
+    if (this.state.editDescMode) {
+      desc = (<input id="hunt-desc" ref="descEdit"
+                defaultValue={this.props.desc})
     }
     return (
       <div>
