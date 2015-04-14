@@ -9,13 +9,36 @@ var Panel = ReactBootstrap.Panel;
 var Nav = ReactBootstrap.Nav;
 var Navbar = ReactBootstrap.Navbar;
 var NavItem = ReactBootstrap.NavItem;
+var Alert = ReactBootstrap.Alert;
+
+var hunt = {
+  data: [],
+  huntName: 'Stored name',
+  _id: ''
+};
+
+var actions = Reflux.createActions(
+  ["updateTitle"]
+);
+
+var store = Reflux.createStore({
+  listenables: [actions],
+  onUpdateTitle: function(newTitle) {
+      hunt.huntName = newTitle;
+      this.trigger({hunt: hunt});
+  },
+  getInitialState: function () {
+    return {hunt:hunt};
+  }
+});
 
 var HuntBox = React.createClass({displayName: "HuntBox",
+  mixins: [Reflux.ListenerMixin],
   getInitialState: function() {
     return {
       data: pins,
-      _id: '',
-      title: '',
+      _id: hunt._id,
+      title: hunt.huntName,
     };
   },
   componentDidMount: function() {
@@ -37,6 +60,12 @@ var HuntBox = React.createClass({displayName: "HuntBox",
         }
       });
     }
+
+    this.listenTo(store, this.onUpdateTitle);
+  },
+  onUpdateTitle: function(hunt) {
+    console.log('newTitle in HuntBox', hunt);
+    this.setState({title: hunt.hunt.huntName});
   },
   render: function() {
     return (
@@ -70,6 +99,7 @@ var HuntMap = React.createClass({displayName: "HuntMap",
 });
 
 var ClueBox = React.createClass({displayName: "ClueBox",
+  mixins: [Reflux.connect(store)],
   getInitialState: function() {
     return {
       data: this.props.data,
@@ -81,17 +111,19 @@ var ClueBox = React.createClass({displayName: "ClueBox",
   },
   componentDidMount: function() {
     gMap.addEventListener('addMarker', function() {
-      var geo = gMap.select(this.props.data.length);
+      // var geo = gMap.select(this.props.data.length);
       var pin = {
         "hiddenName": "",
         "answer": "",
         "clues": [],
-        "geo": geo.position,
+        "geo": '',
         "timeToNextPin": 1.2345,
         "distanceToNextPin": 1.2345,
       };
       this.props.data.push(pin);
-      this.setState({data: this.props.data});
+      if (this.isMounted()) {
+        this.setState({data: this.props.data});
+      }
     }.bind(this));
   },
   inputTitle: function(e) {
@@ -101,7 +133,9 @@ var ClueBox = React.createClass({displayName: "ClueBox",
     var newTitle;
     if (this.state.editTitleMode) {
       newTitle = this.refs.titleEdit.getDOMNode().value;
-      this.setState({title: newTitle, editTitleMode: false});
+      // this.setState({title: newTitle, editTitleMode: false});
+      actions.updateTitle(newTitle);
+      this.setState({editTitleMode: false});
     } else {
       this.setState({editTitleMode: true});
     }
@@ -150,8 +184,13 @@ var ClueBox = React.createClass({displayName: "ClueBox",
 });
 
 var HuntSubmitForm = React.createClass({displayName: "HuntSubmitForm",
+  getInitialState: function() {
+    return {
+      showAlert: false
+    };
+  },
   handleSubmit: function() {
-
+    var dataType = 'text';
     var newHunt = {
       huntName: this.props.title,
       huntDesc: this.props.desc,
@@ -164,15 +203,23 @@ var HuntSubmitForm = React.createClass({displayName: "HuntSubmitForm",
     };
     if (window.location.pathname.split('/')[1] === 'edit') {
       newHunt._id = this.props._id;
+      dataType = 'json';
     }
+    console.log(newHunt);
     newHunt = JSON.stringify(newHunt);
     $.ajax({
       url: window.location.href,
       type: 'POST',
       contentType: 'application/json; charset=utf-8',
       data: newHunt,
-      success: function(data) {
-        console.log('success!', data);
+      dataType: dataType,
+      success: function() { // ignoring params: data
+        if (window.location.pathname === '/create') {
+          // var newHuntID = data.split('/')[3]; // may use it in the future
+          // window.location.href = window.location.origin + '/edit/' + newHuntID;
+        } else {
+          // insert edit success handling here
+        }
       },
       error: function(error) {
         console.error('Error:', error);
@@ -180,8 +227,18 @@ var HuntSubmitForm = React.createClass({displayName: "HuntSubmitForm",
     });
   },
   render: function() {
+    var alertMsg;
+    if (this.state.showAlert) {
+    alertMsg = (React.createElement(Alert, {bsStyle: "success", dismissAfter: 2000}, 
+          "Successfully created a hunt! You can" + ' ' + 
+          "continue to edit your hunt or send out this link to friends."
+          )); 
+    }
     return (
-      React.createElement(Btn, {label: "Submit hunt", clickHandler: this.handleSubmit})
+      React.createElement("div", null, 
+        alertMsg, 
+        React.createElement(Btn, {label: "Submit hunt", clickHandler: this.handleSubmit})
+      )
     );
   }
 });
