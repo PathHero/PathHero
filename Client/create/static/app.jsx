@@ -14,19 +14,23 @@ var Alert = ReactBootstrap.Alert;
 var hunt = {
   data: [],
   huntName: 'Stored name',
+  huntDesc: '',
   _id: ''
 };
 
 var actions = Reflux.createActions(
-  ["updateTitle"],
-  ["updateDescription"]
+  ["updateTitle", "updateDesc"]
 );
 
 var store = Reflux.createStore({
   listenables: [actions],
   onUpdateTitle: function(newTitle) {
-      hunt.huntName = newTitle;
-      this.trigger({hunt: hunt});
+    hunt.huntName = newTitle;
+    this.trigger({hunt: hunt});
+  },
+  onUpdateDesc: function(newDesc) {
+    hunt.huntDesc = newDesc;
+    this.trigger({hunt: hunt});
   },
   getInitialState: function () {
     return {hunt:hunt};
@@ -64,13 +68,13 @@ var HuntBox = React.createClass({
     }
 
     this.listenTo(store, this.onUpdateTitle);
+    this.listenTo(store, this.onUpdateDesc);
   },
   onUpdateTitle: function(hunt) {
-    console.log('newTitle in HuntBox', hunt);
     this.setState({title: hunt.hunt.huntName});
   },
-  onUpdateDescription: function(hunt) {
-    this.setState({huntDesc: hunt.hunt.huntDesc});
+  onUpdateDesc: function(hunt) {
+    this.setState({desc: hunt.hunt.huntDesc});
   },
   render: function() {
     return (
@@ -134,9 +138,6 @@ var ClueBox = React.createClass({
       }
     }.bind(this));
   },
-  inputTitle: function(e) {
-    this.setState({title: e.target.value});
-  },
   toggleEditTitle: function() {
     var newTitle;
     if (this.state.editTitleMode) {
@@ -148,13 +149,22 @@ var ClueBox = React.createClass({
       this.setState({editTitleMode: true});
     }
   },
+  toggleDesc: function() {
+    var newDesc;
+    if (this.state.editDescMode) {
+      newDesc = this.refs.descEdit.getDOMNode().value;
+      actions.updateDesc(newDesc);
+      this.setState({editDescMode: false});
+    } else {
+      this.setState({editDescMode: true});
+    }
+  },
   render: function() {
     var title, titleBtn;
     var desc, descBtn;
     if (this.state.editTitleMode) {
       title = (<input id="hunt-title" ref="titleEdit"
-                  defaultValue={this.props.title} 
-                  onChange={this.handleInput} />);
+                  defaultValue={this.props.title} />);
       titleBtn = (<Btn label={"Save"} clickHandler={this.toggleEditTitle} />);
     } else {
       title = (<span id="hunt-title">{this.props.title}</span>);
@@ -163,7 +173,11 @@ var ClueBox = React.createClass({
 
     if (this.state.editDescMode) {
       desc = (<input id="hunt-desc" ref="descEdit"
-                defaultValue={this.props.desc})
+                defaultValue={this.props.desc}  />);
+      descBtn = (<Btn label={"Save"} clickHandler={this.toggleDesc} />);
+    } else {
+      desc = (<span id="hunt-desc">{this.props.desc}</span>)
+      descBtn = (<Btn label={"Edit description"} clickHandler={this.toggleDesc} />)
     }
     return (
       <div>
@@ -175,14 +189,14 @@ var ClueBox = React.createClass({
             <div className="tour-summary-container">
               <h2>Tour Summary</h2>
               <div className="summary-box">
-                <p>Description: [Insert description]</p>
+                <p>Description: {desc}{descBtn}</p>
                 <p>Duration: {gMap.getDuration()} hours</p>
                 <p>Distance: {gMap.getDistance()} miles</p>
                 <p>Locations: {this.props.data.length}</p>              
               </div>
             <HuntSubmitForm pins={this.props.data} 
                             title={this.props.title} 
-                            desc={this.state.desc} 
+                            desc={this.props.desc} 
                             _id={this.props._id} />
             </div>
           </div>
@@ -218,7 +232,6 @@ var HuntSubmitForm = React.createClass({
       newHunt._id = this.props._id;
       dataType = 'json';
     }
-    console.log(newHunt);
     newHunt = JSON.stringify(newHunt);
     $.ajax({
       url: window.location.href,
@@ -261,9 +274,6 @@ var PinList = React.createClass({
     return {
       data: this.props.data,
     };
-  },
-  componentDidMount: function() {
-    console.log(this.state.data);
   },
   render: function() {
     var pinNodes = this.props.data.map(function(pin, index, data) {
