@@ -14,18 +14,23 @@ var Alert = ReactBootstrap.Alert;
 var hunt = {
   data: [],
   huntName: 'Stored name',
+  huntDesc: '',
   _id: ''
 };
 
 var actions = Reflux.createActions(
-  ["updateTitle"]
+  ["updateTitle", "updateDesc"]
 );
 
 var store = Reflux.createStore({
   listenables: [actions],
   onUpdateTitle: function(newTitle) {
-      hunt.huntName = newTitle;
-      this.trigger({hunt: hunt});
+    hunt.huntName = newTitle;
+    this.trigger({hunt: hunt});
+  },
+  onUpdateDesc: function(newDesc) {
+    hunt.huntDesc = newDesc;
+    this.trigger({hunt: hunt});
   },
   getInitialState: function () {
     return {hunt:hunt};
@@ -39,6 +44,7 @@ var HuntBox = React.createClass({displayName: "HuntBox",
       data: pins,
       _id: hunt._id,
       title: hunt.huntName,
+      desc: hunt.huntDesc
     };
   },
   componentDidMount: function() {
@@ -62,10 +68,13 @@ var HuntBox = React.createClass({displayName: "HuntBox",
     }
 
     this.listenTo(store, this.onUpdateTitle);
+    this.listenTo(store, this.onUpdateDesc);
   },
   onUpdateTitle: function(hunt) {
-    console.log('newTitle in HuntBox', hunt);
     this.setState({title: hunt.hunt.huntName});
+  },
+  onUpdateDesc: function(hunt) {
+    this.setState({desc: hunt.hunt.huntDesc});
   },
   render: function() {
     return (
@@ -79,7 +88,10 @@ var HuntBox = React.createClass({displayName: "HuntBox",
           )
         ), 
         React.createElement(HuntMap, null), 
-        React.createElement(ClueBox, {data: this.state.data, title: this.state.title, _id: this.state._id})
+        React.createElement(ClueBox, {data: this.state.data, 
+                  title: this.state.title, 
+                  _id: this.state._id, 
+                  desc: this.state.desc})
       )
     );
   }
@@ -104,7 +116,7 @@ var ClueBox = React.createClass({displayName: "ClueBox",
     return {
       data: this.props.data,
       editTitleMode: false,
-      title: this.props.title,
+      editDescMode: false,
       desc: 'Dummy description',
       _id: this.props._id
     };
@@ -126,9 +138,6 @@ var ClueBox = React.createClass({displayName: "ClueBox",
       }
     }.bind(this));
   },
-  inputTitle: function(e) {
-    this.setState({title: e.target.value});
-  },
   toggleEditTitle: function() {
     var newTitle;
     if (this.state.editTitleMode) {
@@ -140,17 +149,35 @@ var ClueBox = React.createClass({displayName: "ClueBox",
       this.setState({editTitleMode: true});
     }
   },
+  toggleDesc: function() {
+    var newDesc;
+    if (this.state.editDescMode) {
+      newDesc = this.refs.descEdit.getDOMNode().value;
+      actions.updateDesc(newDesc);
+      this.setState({editDescMode: false});
+    } else {
+      this.setState({editDescMode: true});
+    }
+  },
   render: function() {
-    var title;
-    var titleBtn;
+    var title, titleBtn;
+    var desc, descBtn;
     if (this.state.editTitleMode) {
       title = (React.createElement("input", {id: "hunt-title", ref: "titleEdit", 
-                  defaultValue: this.props.title, 
-                  onChange: this.handleInput}));
+                  defaultValue: this.props.title}));
       titleBtn = (React.createElement(Btn, {label: "Save", clickHandler: this.toggleEditTitle}));
     } else {
       title = (React.createElement("span", {id: "hunt-title"}, this.props.title));
       titleBtn = (React.createElement(Btn, {label: "Edit title", clickHandler: this.toggleEditTitle}));
+    }
+
+    if (this.state.editDescMode) {
+      desc = (React.createElement("input", {id: "hunt-desc", ref: "descEdit", 
+                defaultValue: this.props.desc}));
+      descBtn = (React.createElement(Btn, {label: "Save", clickHandler: this.toggleDesc}));
+    } else {
+      desc = (React.createElement("span", {id: "hunt-desc"}, this.props.desc))
+      descBtn = (React.createElement(Btn, {label: "Edit description", clickHandler: this.toggleDesc}))
     }
     return (
       React.createElement("div", null, 
@@ -162,14 +189,14 @@ var ClueBox = React.createClass({displayName: "ClueBox",
             React.createElement("div", {className: "tour-summary-container"}, 
               React.createElement("h2", null, "Tour Summary"), 
               React.createElement("div", {className: "summary-box"}, 
-                React.createElement("p", null, "Description: [Insert description]"), 
+                React.createElement("p", null, "Description: ", desc, descBtn), 
                 React.createElement("p", null, "Duration: ", gMap.getDuration(), " hours"), 
                 React.createElement("p", null, "Distance: ", gMap.getDistance(), " miles"), 
                 React.createElement("p", null, "Locations: ", this.props.data.length)
               ), 
             React.createElement(HuntSubmitForm, {pins: this.props.data, 
                             title: this.props.title, 
-                            desc: this.state.desc, 
+                            desc: this.props.desc, 
                             _id: this.props._id})
             )
           ), 
@@ -205,7 +232,6 @@ var HuntSubmitForm = React.createClass({displayName: "HuntSubmitForm",
       newHunt._id = this.props._id;
       dataType = 'json';
     }
-    console.log(newHunt);
     newHunt = JSON.stringify(newHunt);
     $.ajax({
       url: window.location.href,
@@ -248,9 +274,6 @@ var PinList = React.createClass({displayName: "PinList",
     return {
       data: this.props.data,
     };
-  },
-  componentDidMount: function() {
-    console.log(this.state.data);
   },
   render: function() {
     var pinNodes = this.props.data.map(function(pin, index, data) {
