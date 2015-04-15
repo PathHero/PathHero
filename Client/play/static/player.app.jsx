@@ -77,8 +77,13 @@ var PlayerApp = React.createClass({
 
     var display = (<div>Loading...</div>);
 
-    if (this.state.hunt) {
-      display = (<div id="playerApp"><RouteHandler hunt={this.state.hunt}/></div>);
+    if (this.state.hunt.huntName) {
+      display = (<div>
+                  <div id="player-container">
+                    <RouteHandler hunt={this.state.hunt}/>
+                  </div>
+                  <BottomNav/>
+                </div>);
     }
 
     return (
@@ -166,6 +171,13 @@ var HuntSummaryContainer = React.createClass({
 });
 
 var Status = React.createClass({
+  getInitialState: function() {
+
+    return {
+      playerAtLocation: true,
+      huntComplete: true
+    }
+  },  
 
   componentWillMount: function() {
     var nextPinDistance = null;
@@ -181,15 +193,62 @@ var Status = React.createClass({
     var listItemArray = [ numOfLocations + " locations", 
                           huntTimeEst + " hr to completion", 
                           huntDistance + " miles"];
+
+
+    var locationStatus;    
+    var locationSummary = (
+      <TitleBox title="Location Summary">
+        <List listItemArray={listItemArray} />
+      </TitleBox>
+    );
+
+    if (!this.state.playerAtLocation) {
+      locationStatus = locationSummary;
+    } else {
+      locationStatus = <PinSuccess hunt={this.props.hunt}/>
+    }
+
+    var huntStatus = null;
+    if (this.state.huntComplete) {
+      huntStatus = <HuntSuccess/>
+    }
+
     return (
       <div>
-        <TitleBox title="Location Summary">            
-          <List listItemArray={listItemArray} />
-        </TitleBox>
+        {locationStatus}
+        {huntStatus}
         <HuntSummaryContainer hunt={this.props.hunt}/>
-        <BottomNav/>
       </div>
     );
+  }
+});
+
+var PinSuccess = React.createClass({
+  incrementPinInLocalStorage: function() {    
+    this.props.incrementPinInLocalStorage();
+  },
+  render: function () {
+    var currentPin = this.props.hunt.get('currentPin');
+    var answer = this.props.hunt.pins[currentPin].answer;
+
+    return (
+      <div>
+        <h1>Success! You're at the correct location</h1>
+        <p>The answer was {answer}</p>
+        <button className="btn btn-default"><Link to="clues">Start next location</Link></button>
+      </div>
+    )
+  }
+});
+
+var HuntSuccess = React.createClass({
+  render: function () {
+    return (
+      <div>
+        <h1>You've completed the hunt!</h1>
+        <p>Congratulations</p>
+      </div>
+    )    
   }
 });
 
@@ -216,6 +275,7 @@ var Clues = React.createClass({
   clueIndex : null,
   pin: null,
   max: null,  
+  currentLocation: null,
   changeLocalStorage: function(value) {    
     var clueValue = this.clueIndex+value;    
     if (clueValue < this.max && clueValue >= 0) {
@@ -228,6 +288,7 @@ var Clues = React.createClass({
     this.clueIndex = Number.parseInt(this.hunt.get('currentClue'));
     this.pin = this.hunt.pins[this.hunt.get('currentPin')];
     this.max = this.pin.clues.length;
+    
   },
   render: function () {    
     this.init();
@@ -245,18 +306,19 @@ var Clues = React.createClass({
       btnsToDisplay = backBtn;
     }
 
+    console.log(this.hunt)
+
     return (
       <div id="playerContainer">
         <div className="clue-container">
           <div className="clue-header">
-            <h1>Under the Bridge</h1>                
+            <h1></h1>                
           </div>
           <TitleBox title={"Clue " + (this.clueIndex + 1) + " of " +  this.pin.clues.length}>
             {currentClue}
           </TitleBox>
             {btnsToDisplay}        
         </div>
-        <BottomNav/>
       </div>
     );
   }
@@ -272,7 +334,7 @@ var routes = (
 );
 
 Router.run(routes, function (Handler) {
-  React.render(<Handler/>, document.getElementById('player-container'));
+  React.render(<Handler/>, document.getElementById('player-app'));
 });
 
 

@@ -77,8 +77,13 @@ var PlayerApp = React.createClass({displayName: "PlayerApp",
 
     var display = (React.createElement("div", null, "Loading..."));
 
-    if (this.state.hunt) {
-      display = (React.createElement("div", {id: "playerApp"}, React.createElement(RouteHandler, {hunt: this.state.hunt})));
+    if (this.state.hunt.huntName) {
+      display = (React.createElement("div", null, 
+                  React.createElement("div", {id: "player-container"}, 
+                    React.createElement(RouteHandler, {hunt: this.state.hunt})
+                  ), 
+                  React.createElement(BottomNav, null)
+                ));
     }
 
     return (
@@ -166,6 +171,13 @@ var HuntSummaryContainer = React.createClass({displayName: "HuntSummaryContainer
 });
 
 var Status = React.createClass({displayName: "Status",
+  getInitialState: function() {
+
+    return {
+      playerAtLocation: true,
+      huntComplete: true
+    }
+  },  
 
   componentWillMount: function() {
     var nextPinDistance = null;
@@ -181,15 +193,62 @@ var Status = React.createClass({displayName: "Status",
     var listItemArray = [ numOfLocations + " locations", 
                           huntTimeEst + " hr to completion", 
                           huntDistance + " miles"];
-    return (
-      React.createElement("div", null, 
-        React.createElement(TitleBox, {title: "Location Summary"}, 
-          React.createElement(List, {listItemArray: listItemArray})
-        ), 
-        React.createElement(HuntSummaryContainer, {hunt: this.props.hunt}), 
-        React.createElement(BottomNav, null)
+
+
+    var locationStatus;    
+    var locationSummary = (
+      React.createElement(TitleBox, {title: "Location Summary"}, 
+        React.createElement(List, {listItemArray: listItemArray})
       )
     );
+
+    if (!this.state.playerAtLocation) {
+      locationStatus = locationSummary;
+    } else {
+      locationStatus = React.createElement(PinSuccess, {hunt: this.props.hunt})
+    }
+
+    var huntStatus = null;
+    if (this.state.huntComplete) {
+      huntStatus = React.createElement(HuntSuccess, null)
+    }
+
+    return (
+      React.createElement("div", null, 
+        locationStatus, 
+        huntStatus, 
+        React.createElement(HuntSummaryContainer, {hunt: this.props.hunt})
+      )
+    );
+  }
+});
+
+var PinSuccess = React.createClass({displayName: "PinSuccess",
+  incrementPinInLocalStorage: function() {    
+    this.props.incrementPinInLocalStorage();
+  },
+  render: function () {
+    var currentPin = this.props.hunt.get('currentPin');
+    var answer = this.props.hunt.pins[currentPin].answer;
+
+    return (
+      React.createElement("div", null, 
+        React.createElement("h1", null, "Success! You're at the correct location"), 
+        React.createElement("p", null, "The answer was ", answer), 
+        React.createElement("button", {className: "btn btn-default"}, React.createElement(Link, {to: "clues"}, "Start next location"))
+      )
+    )
+  }
+});
+
+var HuntSuccess = React.createClass({displayName: "HuntSuccess",
+  render: function () {
+    return (
+      React.createElement("div", null, 
+        React.createElement("h1", null, "You've completed the hunt!"), 
+        React.createElement("p", null, "Congratulations")
+      )
+    )    
   }
 });
 
@@ -216,6 +275,7 @@ var Clues = React.createClass({displayName: "Clues",
   clueIndex : null,
   pin: null,
   max: null,  
+  currentLocation: null,
   changeLocalStorage: function(value) {    
     var clueValue = this.clueIndex+value;    
     if (clueValue < this.max && clueValue >= 0) {
@@ -228,6 +288,7 @@ var Clues = React.createClass({displayName: "Clues",
     this.clueIndex = Number.parseInt(this.hunt.get('currentClue'));
     this.pin = this.hunt.pins[this.hunt.get('currentPin')];
     this.max = this.pin.clues.length;
+    
   },
   render: function () {    
     this.init();
@@ -245,18 +306,19 @@ var Clues = React.createClass({displayName: "Clues",
       btnsToDisplay = backBtn;
     }
 
+    console.log(this.hunt)
+
     return (
       React.createElement("div", {id: "playerContainer"}, 
         React.createElement("div", {className: "clue-container"}, 
           React.createElement("div", {className: "clue-header"}, 
-            React.createElement("h1", null, "Under the Bridge")
+            React.createElement("h1", null)
           ), 
           React.createElement(TitleBox, {title: "Clue " + (this.clueIndex + 1) + " of " +  this.pin.clues.length}, 
             currentClue
           ), 
             btnsToDisplay
-        ), 
-        React.createElement(BottomNav, null)
+        )
       )
     );
   }
@@ -272,7 +334,7 @@ var routes = (
 );
 
 Router.run(routes, function (Handler) {
-  React.render(React.createElement(Handler, null), document.getElementById('player-container'));
+  React.render(React.createElement(Handler, null), document.getElementById('player-app'));
 });
 
 
