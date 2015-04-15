@@ -59,7 +59,9 @@ var HuntBox = React.createClass({
         success: function(data) {
           this.setState({data: data.pins, 
                         _id: data._id, 
-                        title: data.huntName});
+                        title: data.huntName,
+                        desc: data.huntDesc
+                      });
           this.forceUpdate();
         }.bind(this),
         error: function() {
@@ -169,7 +171,7 @@ var ClueBox = React.createClass({
     }
 
     if (this.state.editDescMode) {
-      desc = (<input id="hunt-desc" ref="descEdit"
+      desc = (<textarea cols="35" row="5" id="hunt-desc" ref="descEdit"
                 defaultValue={this.props.desc}  />);
       descBtn = (<Btn label={"Save"} clickHandler={this.toggleDesc} />);
     } else {
