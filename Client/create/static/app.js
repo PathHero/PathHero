@@ -122,7 +122,6 @@ var ClueBox = React.createClass({displayName: "ClueBox",
       data: this.props.data,
       editTitleMode: false,
       editDescMode: false,
-      desc: 'Dummy description',
       _id: this.props._id,
       url: this.props.url
     };
@@ -308,13 +307,12 @@ var Pin = React.createClass({displayName: "Pin",
     return {
       data: this.props.data,
       editLocationMode: false,
-      location: this.props.answer
     };
   },
   handleNewClue: function() {
     var newClue = this.refs.clueInput.getDOMNode().value;
     this.state.data[this.props.index].clues.push(newClue);
-    this.setState({clues: this.state.data});
+    this.setState({data: this.state.data});
     React.findDOMNode(this.refs.clueInput).value = '';
   },
   inputLocation: function(locationName) {
@@ -343,7 +341,7 @@ var Pin = React.createClass({displayName: "Pin",
     return (
       React.createElement("div", {className: "pinContainer"}, 
         React.createElement(NameLocation, {editLocationMode: this.state.editLocationMode, 
-                         answer: this.state.data[index].name, inputLocation: this.inputLocation}), 
+                         answer: this.state.data[index].answer, inputLocation: this.inputLocation}), 
         React.createElement(Accordion, null, 
           React.createElement(Panel, {onDoubleClick: this.nameLocation, eventKey: index, 
             header: "Pin " + (index+1) + ": " +this.state.data[index].answer}, 
