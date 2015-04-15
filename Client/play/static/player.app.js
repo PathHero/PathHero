@@ -172,18 +172,21 @@ var HuntSummaryContainer = React.createClass({displayName: "HuntSummaryContainer
 
 var Status = React.createClass({displayName: "Status",
   getInitialState: function() {
-
     return {
-      playerAtLocation: true,
-      huntComplete: true
+      playerAtLocation: false,
+      huntComplete: false,
+      distanceToNextPin: 0.00
     }
   },  
 
   componentWillMount: function() {
-    var nextPinDistance = null;
     gMap.getDistanceByLocation(function (value) {
-      nextPinDistance = value;
-    });
+      var playerAtLocation = false;
+      if(value < 0.26){
+        playerAtLocation = true;
+      }
+      this.setState({distanceToNextPin:value,playerAtLocation:playerAtLocation});
+    }.bind(this));
   },
 
   render: function () {
@@ -192,7 +195,7 @@ var Status = React.createClass({displayName: "Status",
     var huntDistance = this.props.hunt.huntInfo.huntDistance;
     var listItemArray = [ numOfLocations + " locations", 
                           huntTimeEst + " hr to completion", 
-                          huntDistance + " miles"];
+                          this.state.distanceToNextPin + " miles"];
 
 
     var locationStatus;    
