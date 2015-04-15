@@ -344,7 +344,6 @@ var Pin = React.createClass({displayName: "Pin",
 
     var resultTextValue;
     if (this.props.data[index].resultText && !resultTextValue) {
-      console.log('hello')
       resultTextValue = this.props.data[index].resultText;
     }
 
