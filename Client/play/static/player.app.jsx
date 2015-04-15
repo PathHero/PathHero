@@ -171,11 +171,11 @@ var HuntSummaryContainer = React.createClass({
 });
 
 var Status = React.createClass({
-
   getInitialState: function() {
 
     return {
-      playerAtLocation: true
+      playerAtLocation: true,
+      huntComplete: true
     }
   },  
 
@@ -202,17 +202,21 @@ var Status = React.createClass({
       </TitleBox>
     );
 
-    console.log(this.state.playerAtLocation)
-
     if (!this.state.playerAtLocation) {
       locationStatus = locationSummary;
     } else {
       locationStatus = <PinSuccess hunt={this.props.hunt}/>
     }
 
+    var huntStatus = null;
+    if (this.state.huntComplete) {
+      huntStatus = <HuntSuccess/>
+    }
+
     return (
       <div>
         {locationStatus}
+        {huntStatus}
         <HuntSummaryContainer hunt={this.props.hunt}/>
       </div>
     );
@@ -242,7 +246,7 @@ var HuntSuccess = React.createClass({
     return (
       <div>
         <h1>You've completed the hunt!</h1>
-        <p>Congratulation</p>
+        <p>Congratulations</p>
       </div>
     )    
   }
