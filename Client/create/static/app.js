@@ -85,10 +85,9 @@ var HuntBox = React.createClass({displayName: "HuntBox",
       React.createElement("div", {className: "huntBox"}, 
         React.createElement(Navbar, {brand: "Path Hero"}, 
           React.createElement(Nav, {right: true}, 
-            React.createElement(NavItem, {eventKey: 1, href: "#"}, "Create hunt"), 
-            React.createElement(NavItem, {eventKey: 2, href: "/hunts"}, "View hunts"), 
-            React.createElement(NavItem, {eventKey: 3, href: "#"}, "Profile"), 
-            React.createElement(NavItem, null, "Logout")
+            React.createElement(NavItem, {href: "/create"}, "Create hunt"), 
+            React.createElement(NavItem, {href: "/"}, "View hunts"), 
+            React.createElement(NavItem, {href: "/logout"}, "Logout")
           )
         ), 
         React.createElement(HuntMap, null), 
@@ -344,7 +343,6 @@ var Pin = React.createClass({displayName: "Pin",
 
     var resultTextValue;
     if (this.props.data[index].resultText && !resultTextValue) {
-      console.log('hello')
       resultTextValue = this.props.data[index].resultText;
     }
 
