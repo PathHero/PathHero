@@ -224,7 +224,7 @@ var ClueBox = React.createClass({displayName: "ClueBox",
 var HuntSubmitForm = React.createClass({displayName: "HuntSubmitForm",
   getInitialState: function() {
     return {
-      showAlert: false
+      showCreateAlert: false
     };
   },
   handleSubmit: function() {
@@ -250,30 +250,36 @@ var HuntSubmitForm = React.createClass({displayName: "HuntSubmitForm",
       contentType: 'application/json; charset=utf-8',
       data: newHunt,
       dataType: dataType,
-      success: function() { // ignoring params: data
+      success: function(data) {
         if (window.location.pathname === '/create') {
-          // var newHuntID = data.split('/')[3]; // may use it in the future
-          // window.location.href = window.location.origin + '/edit/' + newHuntID;
+          this.editURL = data;
+          this.setState({showCreateAlert: true});
         } else {
-          // insert edit success handling here
+          // insert editing logic here
         }
-      },
+      }.bind(this),
       error: function(error) {
+
         console.error('Error:', error);
       }
     });
   },
+  moveToEditScreen: function() {
+    var newHuntID = this.editURL.split('/')[3];
+    window.location.href = window.location.origin + '/edit/' + newHuntID;
+  },
   render: function() {
-    var alertMsg;
-    if (this.state.showAlert) {
-    alertMsg = (React.createElement(Alert, {bsStyle: "success", dismissAfter: 2000}, 
-          "Successfully created a hunt! You can" + ' ' + 
-          "continue to edit your hunt or send out this link to friends."
-          )); 
+    if (this.state.showCreateAlert) {
+    return (React.createElement(Alert, {bsStyle: "success", dismissAfter: 2000}, 
+          React.createElement("p", null, "Successfully created a hunt!"), 
+          React.createElement(Btn, {label: "Click to edit and play this hunt", 
+               clickHandler: this.moveToEditScreen})
+          )
+          );
     }
+
     return (
       React.createElement("div", null, 
-        alertMsg, 
         React.createElement(Btn, {label: "Submit hunt", clickHandler: this.handleSubmit})
       )
     );
