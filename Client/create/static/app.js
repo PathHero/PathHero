@@ -343,10 +343,10 @@ var Pin = React.createClass({displayName: "Pin",
           toggleEdit: this.toggleEdit, deleteClue: this.deleteClue})
       );
     }.bind(this));
-    
-    var resultTextValue = "";
-    if (this.props.data[index].resultText) {
-      console.log("hit the edit mode");
+
+    var resultTextValue;
+    if (this.props.data[index].resultText && !resultTextValue) {
+      console.log('hello')
       resultTextValue = this.props.data[index].resultText;
     }
 
@@ -361,7 +361,7 @@ var Pin = React.createClass({displayName: "Pin",
           React.createElement("textarea", {col: "35", row: "30", ref: "clueInput"}), 
           React.createElement(Btn, {label: "Add Clue", clickHandler: this.handleNewClue}), 
           React.createElement("div", null, "Answer"), 
-          React.createElement("textarea", {col: "35", row: "30", ref: "resultText", value: resultTextValue, onChange: this.resultTextOnChange})
+          React.createElement("textarea", {col: "35", row: "30", ref: "resultText", defaultValue: resultTextValue, onChange: this.resultTextOnChange})
           )
         )
       )

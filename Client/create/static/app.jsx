@@ -343,10 +343,10 @@ var Pin = React.createClass({
           toggleEdit={this.toggleEdit} deleteClue={this.deleteClue} />
       );
     }.bind(this));
-    
-    var resultTextValue = "";
-    if (this.props.data[index].resultText) {
-      console.log("hit the edit mode");
+
+    var resultTextValue;
+    if (this.props.data[index].resultText && !resultTextValue) {
+      console.log('hello')
       resultTextValue = this.props.data[index].resultText;
     }
 
@@ -361,7 +361,7 @@ var Pin = React.createClass({
           <textarea col="35" row="30" ref="clueInput" />
           <Btn label={"Add Clue"} clickHandler={this.handleNewClue} />
           <div>Answer</div>
-          <textarea col="35" row="30" ref="resultText" value={resultTextValue}onChange={this.resultTextOnChange}/>
+          <textarea col="35" row="30" ref="resultText" defaultValue={resultTextValue} onChange={this.resultTextOnChange}/>
           </Panel>
         </Accordion>  
       </div>
