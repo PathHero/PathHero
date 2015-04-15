@@ -220,7 +220,7 @@ var Clues = React.createClass({displayName: "Clues",
     var clueValue = this.clueIndex+value;    
     if (clueValue < this.max && clueValue >= 0) {
       this.hunt.set('currentClue', clueValue);
-      this.setState({hunt:Hunt.storage});
+      this.setState({hunt:this.hunt.storage});
     }  
   },
   init: function() {
