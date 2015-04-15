@@ -172,6 +172,13 @@ var HuntSummaryContainer = React.createClass({displayName: "HuntSummaryContainer
 
 var Status = React.createClass({displayName: "Status",
 
+  getInitialState: function() {
+
+    return {
+      playerAtLocation: true
+    }
+  },  
+
   componentWillMount: function() {
     var nextPinDistance = null;
     gMap.getDistanceByLocation(function (value) {
@@ -186,11 +193,26 @@ var Status = React.createClass({displayName: "Status",
     var listItemArray = [ numOfLocations + " locations", 
                           huntTimeEst + " hr to completion", 
                           huntDistance + " miles"];
+
+
+    var locationStatus;    
+    var locationSummary = (
+      React.createElement(TitleBox, {title: "Location Summary"}, 
+        React.createElement(List, {listItemArray: listItemArray})
+      )
+    );
+
+    console.log(this.state.playerAtLocation)
+
+    if (!this.state.playerAtLocation) {
+      locationStatus = locationSummary;
+    } else {
+      locationStatus = React.createElement(PinSuccess, {hunt: this.props.hunt})
+    }
+
     return (
       React.createElement("div", null, 
-        React.createElement(TitleBox, {title: "Location Summary"}, 
-          React.createElement(List, {listItemArray: listItemArray})
-        ), 
+        locationStatus, 
         React.createElement(HuntSummaryContainer, {hunt: this.props.hunt})
       )
     );
@@ -209,7 +231,7 @@ var PinSuccess = React.createClass({displayName: "PinSuccess",
       React.createElement("div", null, 
         React.createElement("h1", null, "Success! You're at the correct location"), 
         React.createElement("p", null, "The answer was ", answer), 
-        React.createElement("button", {className: "btn btn-default", onClick: this.incrementPinInLocalStorage}, React.createElement(Link, {to: "clues"}, "Start next location"))
+        React.createElement("button", {className: "btn btn-default"}, React.createElement(Link, {to: "clues"}, "Start next location"))
       )
     )
   }
@@ -249,6 +271,7 @@ var Clues = React.createClass({displayName: "Clues",
   clueIndex : null,
   pin: null,
   max: null,  
+  currentLocation: null,
   changeLocalStorage: function(value) {    
     var clueValue = this.clueIndex+value;    
     if (clueValue < this.max && clueValue >= 0) {
@@ -261,6 +284,7 @@ var Clues = React.createClass({displayName: "Clues",
     this.clueIndex = Number.parseInt(this.hunt.get('currentClue'));
     this.pin = this.hunt.pins[this.hunt.get('currentPin')];
     this.max = this.pin.clues.length;
+    
   },
   render: function () {    
     this.init();
@@ -278,11 +302,13 @@ var Clues = React.createClass({displayName: "Clues",
       btnsToDisplay = backBtn;
     }
 
+    console.log(this.hunt)
+
     return (
       React.createElement("div", {id: "playerContainer"}, 
         React.createElement("div", {className: "clue-container"}, 
           React.createElement("div", {className: "clue-header"}, 
-            React.createElement("h1", null, "Under the Bridge")
+            React.createElement("h1", null)
           ), 
           React.createElement(TitleBox, {title: "Clue " + (this.clueIndex + 1) + " of " +  this.pin.clues.length}, 
             currentClue

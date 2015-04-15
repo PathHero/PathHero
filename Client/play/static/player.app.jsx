@@ -172,6 +172,13 @@ var HuntSummaryContainer = React.createClass({
 
 var Status = React.createClass({
 
+  getInitialState: function() {
+
+    return {
+      playerAtLocation: true
+    }
+  },  
+
   componentWillMount: function() {
     var nextPinDistance = null;
     gMap.getDistanceByLocation(function (value) {
@@ -186,11 +193,26 @@ var Status = React.createClass({
     var listItemArray = [ numOfLocations + " locations", 
                           huntTimeEst + " hr to completion", 
                           huntDistance + " miles"];
+
+
+    var locationStatus;    
+    var locationSummary = (
+      <TitleBox title="Location Summary">
+        <List listItemArray={listItemArray} />
+      </TitleBox>
+    );
+
+    console.log(this.state.playerAtLocation)
+
+    if (!this.state.playerAtLocation) {
+      locationStatus = locationSummary;
+    } else {
+      locationStatus = <PinSuccess hunt={this.props.hunt}/>
+    }
+
     return (
       <div>
-        <TitleBox title="Location Summary">            
-          <List listItemArray={listItemArray} />
-        </TitleBox>
+        {locationStatus}
         <HuntSummaryContainer hunt={this.props.hunt}/>
       </div>
     );
@@ -209,7 +231,7 @@ var PinSuccess = React.createClass({
       <div>
         <h1>Success! You're at the correct location</h1>
         <p>The answer was {answer}</p>
-        <button className="btn btn-default" onClick={this.incrementPinInLocalStorage}><Link to="clues">Start next location</Link></button>
+        <button className="btn btn-default"><Link to="clues">Start next location</Link></button>
       </div>
     )
   }
@@ -249,6 +271,7 @@ var Clues = React.createClass({
   clueIndex : null,
   pin: null,
   max: null,  
+  currentLocation: null,
   changeLocalStorage: function(value) {    
     var clueValue = this.clueIndex+value;    
     if (clueValue < this.max && clueValue >= 0) {
@@ -261,6 +284,7 @@ var Clues = React.createClass({
     this.clueIndex = Number.parseInt(this.hunt.get('currentClue'));
     this.pin = this.hunt.pins[this.hunt.get('currentPin')];
     this.max = this.pin.clues.length;
+    
   },
   render: function () {    
     this.init();
@@ -278,11 +302,13 @@ var Clues = React.createClass({
       btnsToDisplay = backBtn;
     }
 
+    console.log(this.hunt)
+
     return (
       <div id="playerContainer">
         <div className="clue-container">
           <div className="clue-header">
-            <h1>Under the Bridge</h1>                
+            <h1></h1>                
           </div>
           <TitleBox title={"Clue " + (this.clueIndex + 1) + " of " +  this.pin.clues.length}>
             {currentClue}
