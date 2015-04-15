@@ -64,6 +64,12 @@ var HuntBox = React.createClass({
                         desc: data.huntDesc,
                         url: data.url
                       });
+          var coordinates = [];
+          for (var i = 0; i < data.pins.length; i++) {
+            var tuple = [data.pins[i].geo.lat, data.pins[i].geo.lng];
+            coordinates.push(tuple);
+          }
+          gMap.importMap(coordinates);
           this.forceUpdate();
         }.bind(this),
         error: function() {
@@ -127,12 +133,12 @@ var ClueBox = React.createClass({
   },
   componentDidMount: function() {
     gMap.addEventListener('addMarker', function() {
-      // var geo = gMap.select(this.props.data.length);
+      var geo = gMap.select(this.props.data.length);
       var pin = {
         "answer": "",
         "resultText": "",
         "clues": [],
-        "geo": {lat: 12.3, lng: 3.21},
+        "geo": geo.position,
       };
       this.props.data.push(pin);
       if (this.isMounted()) {
@@ -228,6 +234,7 @@ var HuntSubmitForm = React.createClass({
     };
   },
   handleSubmit: function() {
+    var route = window.location.pathname.split('/')[1];
     var dataType = 'text';
     var newHunt = {
       huntName: this.props.title,
@@ -239,7 +246,7 @@ var HuntSubmitForm = React.createClass({
       },
       pins: this.props.pins
     };
-    if (window.location.pathname.split('/')[1] === 'edit') {
+    if (route === 'edit') {
       newHunt._id = this.props._id;
       dataType = 'json';
     }
@@ -251,7 +258,7 @@ var HuntSubmitForm = React.createClass({
       data: newHunt,
       dataType: dataType,
       success: function(data) {
-        if (window.location.pathname === '/create') {
+        if (route === 'create') {
           this.editURL = data;
           this.setState({showCreateAlert: true});
         } else {
