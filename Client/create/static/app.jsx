@@ -44,7 +44,8 @@ var HuntBox = React.createClass({
       data: pins,
       _id: hunt._id,
       title: hunt.huntName,
-      desc: hunt.huntDesc
+      desc: hunt.huntDesc,
+      url: hunt.url
     };
   },
   componentDidMount: function() {
@@ -60,7 +61,8 @@ var HuntBox = React.createClass({
           this.setState({data: data.pins, 
                         _id: data._id, 
                         title: data.huntName,
-                        desc: data.huntDesc
+                        desc: data.huntDesc,
+                        url: data.url
                       });
           this.forceUpdate();
         }.bind(this),
@@ -93,7 +95,8 @@ var HuntBox = React.createClass({
         <ClueBox data={this.state.data} 
                   title={this.state.title} 
                   _id={this.state._id} 
-                  desc={this.state.desc} />
+                  desc={this.state.desc} 
+                  url={this.state.url} />
       </div>
     );
   }
@@ -120,7 +123,8 @@ var ClueBox = React.createClass({
       editTitleMode: false,
       editDescMode: false,
       desc: 'Dummy description',
-      _id: this.props._id
+      _id: this.props._id,
+      url: this.props.url
     };
   },
   componentDidMount: function() {
@@ -161,6 +165,7 @@ var ClueBox = React.createClass({
   render: function() {
     var title, titleBtn;
     var desc, descBtn;
+    var url;
     if (this.state.editTitleMode) {
       title = (<input id="hunt-title" ref="titleEdit"
                   defaultValue={this.props.title} />);
@@ -178,10 +183,18 @@ var ClueBox = React.createClass({
       desc = (<span id="hunt-desc">{this.props.desc}</span>);
       descBtn = (<Btn label={"Edit description"} clickHandler={this.toggleDesc} />);
     }
+
+    if (!this.props.url) {
+      url = '';
+    } else {
+      url = (<h2>Hunt URL: <a href={this.props.url}>{this.props.url}</a></h2>);
+    }
+
     return (
       <div>
         <div id="hunt-info-container" className="col-xs-6">
           <div id="hunt-title-container">
+            {url}
             <h2>Hunt Title</h2>
               {title}
               {titleBtn}

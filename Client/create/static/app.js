@@ -44,7 +44,8 @@ var HuntBox = React.createClass({displayName: "HuntBox",
       data: pins,
       _id: hunt._id,
       title: hunt.huntName,
-      desc: hunt.huntDesc
+      desc: hunt.huntDesc,
+      url: hunt.url
     };
   },
   componentDidMount: function() {
@@ -60,7 +61,8 @@ var HuntBox = React.createClass({displayName: "HuntBox",
           this.setState({data: data.pins, 
                         _id: data._id, 
                         title: data.huntName,
-                        desc: data.huntDesc
+                        desc: data.huntDesc,
+                        url: data.url
                       });
           this.forceUpdate();
         }.bind(this),
@@ -93,7 +95,8 @@ var HuntBox = React.createClass({displayName: "HuntBox",
         React.createElement(ClueBox, {data: this.state.data, 
                   title: this.state.title, 
                   _id: this.state._id, 
-                  desc: this.state.desc})
+                  desc: this.state.desc, 
+                  url: this.state.url})
       )
     );
   }
@@ -120,7 +123,8 @@ var ClueBox = React.createClass({displayName: "ClueBox",
       editTitleMode: false,
       editDescMode: false,
       desc: 'Dummy description',
-      _id: this.props._id
+      _id: this.props._id,
+      url: this.props.url
     };
   },
   componentDidMount: function() {
@@ -161,6 +165,7 @@ var ClueBox = React.createClass({displayName: "ClueBox",
   render: function() {
     var title, titleBtn;
     var desc, descBtn;
+    var url;
     if (this.state.editTitleMode) {
       title = (React.createElement("input", {id: "hunt-title", ref: "titleEdit", 
                   defaultValue: this.props.title}));
@@ -178,10 +183,18 @@ var ClueBox = React.createClass({displayName: "ClueBox",
       desc = (React.createElement("span", {id: "hunt-desc"}, this.props.desc));
       descBtn = (React.createElement(Btn, {label: "Edit description", clickHandler: this.toggleDesc}));
     }
+
+    if (!this.props.url) {
+      url = '';
+    } else {
+      url = (React.createElement("h2", null, "Hunt URL: ", React.createElement("a", {href: this.props.url}, this.props.url)));
+    }
+
     return (
       React.createElement("div", null, 
         React.createElement("div", {id: "hunt-info-container", className: "col-xs-6"}, 
           React.createElement("div", {id: "hunt-title-container"}, 
+            url, 
             React.createElement("h2", null, "Hunt Title"), 
               title, 
               titleBtn, 
