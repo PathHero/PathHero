@@ -77,8 +77,13 @@ var PlayerApp = React.createClass({
 
     var display = (<div>Loading...</div>);
 
-    if (this.state.hunt) {
-      display = (<div id="playerApp"><RouteHandler hunt={this.state.hunt}/></div>);
+    if (this.state.hunt.huntName) {
+      display = (<div>
+                  <div id="player-container">
+                    <RouteHandler hunt={this.state.hunt}/>
+                  </div>
+                  <BottomNav/>
+                </div>);
     }
 
     return (
@@ -187,7 +192,6 @@ var Status = React.createClass({
           <List listItemArray={listItemArray} />
         </TitleBox>
         <HuntSummaryContainer hunt={this.props.hunt}/>
-        <BottomNav/>
       </div>
     );
   }
@@ -285,7 +289,6 @@ var Clues = React.createClass({
           </TitleBox>
             {btnsToDisplay}        
         </div>
-        <BottomNav/>
       </div>
     );
   }
@@ -301,7 +304,7 @@ var routes = (
 );
 
 Router.run(routes, function (Handler) {
-  React.render(<Handler/>, document.getElementById('player-container'));
+  React.render(<Handler/>, document.getElementById('player-app'));
 });
 
 

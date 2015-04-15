@@ -3912,24 +3912,28 @@ h2 {
   padding-right: 5px;
   padding-bottom: 5px; }
 
-#player-container #bottomNav {
+#bottomNav {
   position: fixed;
   bottom: 0;
   color: #fff;
   width: 100%;
   text-align: center; }
-  #player-container #bottomNav .row {
+  #bottomNav .row {
     margin: 0; }
-  #player-container #bottomNav .col-xs-4 {
+  #bottomNav .col-xs-4 {
     height: 50px;
     padding-top: 14px;
     background-color: #000; }
-    #player-container #bottomNav .col-xs-4 .active {
-      background-color: yellow; }
-    #player-container #bottomNav .col-xs-4 a {
+    #bottomNav .col-xs-4 .active {
+      background-color: #ccc;
+      color: #000; }
+    #bottomNav .col-xs-4 a {
       color: #fff; }
-  #player-container #bottomNav .col-xs-4:nth-child(2) {
+  #bottomNav .col-xs-4:nth-child(2) {
     border-left: 1px solid #5C5555;
     border-right: 1px solid #5C5555; }
+
+#player-container {
+  padding: 0 15px; }
 
 /*# sourceMappingURL=style.css.map */

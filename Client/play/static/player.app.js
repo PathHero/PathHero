@@ -77,8 +77,13 @@ var PlayerApp = React.createClass({displayName: "PlayerApp",
 
     var display = (React.createElement("div", null, "Loading..."));
 
-    if (this.state.hunt) {
-      display = (React.createElement("div", {id: "playerApp"}, React.createElement(RouteHandler, {hunt: this.state.hunt})));
+    if (this.state.hunt.huntName) {
+      display = (React.createElement("div", null, 
+                  React.createElement("div", {id: "player-container"}, 
+                    React.createElement(RouteHandler, {hunt: this.state.hunt})
+                  ), 
+                  React.createElement(BottomNav, null)
+                ));
     }
 
     return (
@@ -186,8 +191,7 @@ var Status = React.createClass({displayName: "Status",
         React.createElement(TitleBox, {title: "Location Summary"}, 
           React.createElement(List, {listItemArray: listItemArray})
         ), 
-        React.createElement(HuntSummaryContainer, {hunt: this.props.hunt}), 
-        React.createElement(BottomNav, null)
+        React.createElement(HuntSummaryContainer, {hunt: this.props.hunt})
       )
     );
   }
@@ -284,8 +288,7 @@ var Clues = React.createClass({displayName: "Clues",
             currentClue
           ), 
             btnsToDisplay
-        ), 
-        React.createElement(BottomNav, null)
+        )
       )
     );
   }
@@ -301,7 +304,7 @@ var routes = (
 );
 
 Router.run(routes, function (Handler) {
-  React.render(React.createElement(Handler, null), document.getElementById('player-container'));
+  React.render(React.createElement(Handler, null), document.getElementById('player-app'));
 });
 
 
