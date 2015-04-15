@@ -247,7 +247,6 @@ var HuntSubmitForm = React.createClass({
       dataType = 'json';
     }
     newHunt = JSON.stringify(newHunt);
-    console.log(newHunt);
     $.ajax({
       url: window.location.href,
       type: 'POST',
