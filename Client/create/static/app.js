@@ -15,8 +15,7 @@ var hunt = {
   data: [],
   huntName: 'Stored name',
   huntDesc: '',
-  _id: '',
-  answer: []
+  _id: ''
 };
 
 var actions = Reflux.createActions(
