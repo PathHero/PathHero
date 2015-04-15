@@ -93,6 +93,11 @@ module.exports.addSubdomain = function(app) {
     res.sendFile(path.resolve(__dirname + '/../../Client/create/login.html'));
   });
 
+  router.get('/logout', function(req, res) {
+    req.logout();
+    res.redirect('/login');
+  });
+
   // Creates a a local user account for use with local strategy
   // Expects a username and password in the form body
   router.post('/signup', bodyParser.urlencoded({ extended: false }), function(req, res) {

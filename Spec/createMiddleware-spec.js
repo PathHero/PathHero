@@ -50,6 +50,9 @@ describe('Create subdomain middleware', function() {
     it('Should add a GET route for "/"', function() {
       getSpy.should.have.been.calledWith('/');
     });
+    it('Should add a GET route for "/logout"', function() {
+      getSpy.should.have.been.calledWith('/logout');
+    });
     it('Should add a GET route for "/login"', function() {
       getSpy.should.have.been.calledWith('/signup');
     });
