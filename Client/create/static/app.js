@@ -132,7 +132,7 @@ var ClueBox = React.createClass({displayName: "ClueBox",
       // var geo = gMap.select(this.props.data.length);
       var pin = {
         "answer": "",
-        "answerField": "",
+        "resultText": "",
         "clues": [],
         "geo": {lat: 12.3, lng: 3.21},
       };
@@ -331,8 +331,8 @@ var Pin = React.createClass({displayName: "Pin",
     this.state.data[this.props.index].clues.splice(index, 1);
     this.setState({data: this.state.data});
   },
-  answerFieldOnChange: function(){
-    this.props.data[this.props.index].answerField = this.refs.resultText.getDOMNode().value;
+  resultTextOnChange: function(){
+    this.state.data[this.props.index].resultText = this.refs.resultText.getDOMNode().value;
   },
   render: function() {
     var index = this.props.index;
@@ -343,6 +343,12 @@ var Pin = React.createClass({displayName: "Pin",
           toggleEdit: this.toggleEdit, deleteClue: this.deleteClue})
       );
     }.bind(this));
+    
+    var resultTextValue = "";
+    if (this.props.data[index].resultText) {
+      console.log("hit the edit mode");
+      resultTextValue = this.props.data[index].resultText;
+    }
 
     return (
       React.createElement("div", {className: "pinContainer"}, 
@@ -355,7 +361,7 @@ var Pin = React.createClass({displayName: "Pin",
           React.createElement("textarea", {col: "35", row: "30", ref: "clueInput"}), 
           React.createElement(Btn, {label: "Add Clue", clickHandler: this.handleNewClue}), 
           React.createElement("div", null, "Answer"), 
-          React.createElement("textarea", {col: "35", row: "30", ref: "resultText", onChange: this.answerFieldOnChange})
+          React.createElement("textarea", {col: "35", row: "30", ref: "resultText", value: resultTextValue, onChange: this.resultTextOnChange})
           )
         )
       )
