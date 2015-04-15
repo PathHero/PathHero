@@ -176,7 +176,7 @@ var Status = React.createClass({
       playerAtLocation: false,
       huntComplete: false,
       distanceToNextPin: 0.00
-    }
+    };
   },  
 
   componentWillMount: function() {
@@ -192,7 +192,6 @@ var Status = React.createClass({
   render: function () {
     var numOfLocations = this.props.hunt.huntInfo.numOfLocations;
     var huntTimeEst = this.props.hunt.huntInfo.huntTimeEst;
-    var huntDistance = this.props.hunt.huntInfo.huntDistance;
     var listItemArray = [ numOfLocations + " locations", 
                           huntTimeEst + " hr to completion", 
                           this.state.distanceToNextPin + " miles"];
@@ -208,12 +207,12 @@ var Status = React.createClass({
     if (!this.state.playerAtLocation) {
       locationStatus = locationSummary;
     } else {
-      locationStatus = <PinSuccess hunt={this.props.hunt}/>
+      locationStatus = <PinSuccess hunt={this.props.hunt}/>;
     }
 
     var huntStatus = null;
     if (this.state.huntComplete) {
-      huntStatus = <HuntSuccess/>
+      huntStatus = <HuntSuccess/>;
     }
 
     return (
@@ -240,7 +239,7 @@ var PinSuccess = React.createClass({
         <p>The answer was {answer}</p>
         <button className="btn btn-default"><Link to="clues">Start next location</Link></button>
       </div>
-    )
+    );
   }
 });
 
@@ -251,7 +250,7 @@ var HuntSuccess = React.createClass({
         <h1>You've completed the hunt!</h1>
         <p>Congratulations</p>
       </div>
-    )    
+    );
   }
 });
 
@@ -309,8 +308,6 @@ var Clues = React.createClass({
       btnsToDisplay = backBtn;
     }
 
-    console.log(this.hunt)
-
     return (
       <div id="playerContainer">
         <div className="clue-container">
@@ -327,22 +324,27 @@ var Clues = React.createClass({
   }
 });
 
-var _H = {
-  height: window.innerHeight
-}
-
 var Map = React.createClass({
-  
+  getInitialState: function() {
+    return {
+      style: {
+          height: window.innerHeight,
+          width: window.innerWidth,
+          position: 'absolute',
+          top: 0,
+          left: 0
+        }
+    };
+  }, 
   componentDidMount: function() {
     gMap.startGMap({lng:-33.73, lat:149.02});
     gMap.getGeolocation(gMap.setCenter);
+    gMap.showCurrentLocation();
   },
 
   render: function () {
     return (
-      <div id="gMap" style={_H}>
-        
-      </div>
+      <div id="gMap" style={this.state.style}></div>
     );
   }
 });

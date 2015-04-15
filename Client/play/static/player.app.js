@@ -176,7 +176,7 @@ var Status = React.createClass({displayName: "Status",
       playerAtLocation: false,
       huntComplete: false,
       distanceToNextPin: 0.00
-    }
+    };
   },  
 
   componentWillMount: function() {
@@ -192,7 +192,6 @@ var Status = React.createClass({displayName: "Status",
   render: function () {
     var numOfLocations = this.props.hunt.huntInfo.numOfLocations;
     var huntTimeEst = this.props.hunt.huntInfo.huntTimeEst;
-    var huntDistance = this.props.hunt.huntInfo.huntDistance;
     var listItemArray = [ numOfLocations + " locations", 
                           huntTimeEst + " hr to completion", 
                           this.state.distanceToNextPin + " miles"];
@@ -208,12 +207,12 @@ var Status = React.createClass({displayName: "Status",
     if (!this.state.playerAtLocation) {
       locationStatus = locationSummary;
     } else {
-      locationStatus = React.createElement(PinSuccess, {hunt: this.props.hunt})
+      locationStatus = React.createElement(PinSuccess, {hunt: this.props.hunt});
     }
 
     var huntStatus = null;
     if (this.state.huntComplete) {
-      huntStatus = React.createElement(HuntSuccess, null)
+      huntStatus = React.createElement(HuntSuccess, null);
     }
 
     return (
@@ -240,7 +239,7 @@ var PinSuccess = React.createClass({displayName: "PinSuccess",
         React.createElement("p", null, "The answer was ", answer), 
         React.createElement("button", {className: "btn btn-default"}, React.createElement(Link, {to: "clues"}, "Start next location"))
       )
-    )
+    );
   }
 });
 
@@ -251,7 +250,7 @@ var HuntSuccess = React.createClass({displayName: "HuntSuccess",
         React.createElement("h1", null, "You've completed the hunt!"), 
         React.createElement("p", null, "Congratulations")
       )
-    )    
+    );
   }
 });
 
@@ -309,8 +308,6 @@ var Clues = React.createClass({displayName: "Clues",
       btnsToDisplay = backBtn;
     }
 
-    console.log(this.hunt)
-
     return (
       React.createElement("div", {id: "playerContainer"}, 
         React.createElement("div", {className: "clue-container"}, 
@@ -327,22 +324,27 @@ var Clues = React.createClass({displayName: "Clues",
   }
 });
 
-var _H = {
-  height: window.innerHeight
-}
-
 var Map = React.createClass({displayName: "Map",
-  
+  getInitialState: function() {
+    return {
+      style: {
+          height: window.innerHeight,
+          width: window.innerWidth,
+          position: 'absolute',
+          top: 0,
+          left: 0
+        }
+    };
+  }, 
   componentDidMount: function() {
     gMap.startGMap({lng:-33.73, lat:149.02});
     gMap.getGeolocation(gMap.setCenter);
+    gMap.showCurrentLocation();
   },
 
   render: function () {
     return (
-      React.createElement("div", {id: "gMap", style: _H}
-        
-      )
+      React.createElement("div", {id: "gMap", style: this.state.style})
     );
   }
 });
