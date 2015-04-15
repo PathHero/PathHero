@@ -155,6 +155,7 @@ exports.validateUser = function(username, password) {
 //          lng: Float
 //        }
 //        clues: [Stirngs]
+//        resultText: String 
 //      }
 //      .
 //      .
