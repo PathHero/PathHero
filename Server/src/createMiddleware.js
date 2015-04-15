@@ -112,30 +112,7 @@ module.exports.addSubdomain = function(app) {
     res.sendFile(path.resolve(__dirname + '/../../Client/create/signup.html'));
   });
 
-  // Expects a hunt json object in the body as follows:
-  // {
-  //    huntName: String
-  //    huntDesc: String
-  //    huntInfo: {
-  //      numOfLocations: Int
-  //      huntTimeEst: Float
-  //      huntDistance: Float
-  //    }
-  //    pins: [ 
-  //      {
-  //        hiddenName: String
-  //        answer: String
-  //        geo: {
-  //          lat: Float
-  //          lng: Float
-  //        }
-  //        clues: [Stirngs]
-  //      }
-  //      .
-  //      .
-  //      .
-  //    ]
-  // }
+  // Expects a hunt json object in the body as defined in database.js
   // 
   //  Returns the hunt url on success
   router.post('/create', checkAuth, function(req, res) {
@@ -176,32 +153,7 @@ module.exports.addSubdomain = function(app) {
     });
   });
 
-  // Expects a hunt json object in the body as follows:
-  // {
-  //    huntName: String
-  //    huntDesc: String
-  //    huntInfo: {
-  //      numOfLocations: Int
-  //      huntTimeEst: Float
-  //      huntDistance: Float
-  //    }
-  //    pins: [ 
-  //      {
-  //        hiddenName: String
-  //        answer: String
-  //        geo: {
-  //          lat: Float
-  //          lng: Float
-  //        }
-  //        timeToNextPin: Float
-  //        distanceToNextPin: Float
-  //        clues: [Stirngs]
-  //      }
-  //      .
-  //      .
-  //      .
-  //    ]
-  // }
+  // Expects a hunt json object in the body as defined in database.js
   // 
   // Returns a copy of the updated hunt on success
   router.post('/edit/:huntid', checkAuth, function(req, res) {

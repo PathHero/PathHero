@@ -13,7 +13,6 @@ var Hunt = {
   }, 
   pins: [
     {
-      hiddenName: "Under The Bridge", 
       answer: "Bay Bridge",
       geo: {
         lat: 10.809870897,
@@ -26,7 +25,6 @@ var Hunt = {
       ]                    
     },
     {
-      hiddenName: "Next to the Bay",
       answer: "Golden Gate Bridge",
       geo: {
         lat: 10.742342,
@@ -39,7 +37,6 @@ var Hunt = {
       ]                    
     },
     {
-      hiddenName: "Amazing View",
       answer: "In the Park",
       geo: {
         lat: 10.87098,

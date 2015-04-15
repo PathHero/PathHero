@@ -149,7 +149,6 @@ exports.validateUser = function(username, password) {
 //    }
 //    pins: [ 
 //      {
-//        hiddenName: String
 //        answer: String
 //        geo: {
 //          lat: Float
