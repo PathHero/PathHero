@@ -15,7 +15,8 @@ var hunt = {
   data: [],
   huntName: 'Stored name',
   huntDesc: '',
-  _id: ''
+  _id: '',
+  answer: []
 };
 
 var actions = Reflux.createActions(
@@ -132,6 +133,7 @@ var ClueBox = React.createClass({displayName: "ClueBox",
       // var geo = gMap.select(this.props.data.length);
       var pin = {
         "answer": "",
+        "answerField": "",
         "clues": [],
         "geo": {lat: 12.3, lng: 3.21},
       };
@@ -245,6 +247,7 @@ var HuntSubmitForm = React.createClass({displayName: "HuntSubmitForm",
       dataType = 'json';
     }
     newHunt = JSON.stringify(newHunt);
+    console.log(newHunt);
     $.ajax({
       url: window.location.href,
       type: 'POST',
@@ -330,6 +333,9 @@ var Pin = React.createClass({displayName: "Pin",
     this.state.data[this.props.index].clues.splice(index, 1);
     this.setState({data: this.state.data});
   },
+  answerFieldOnChange: function(){
+    this.props.data[this.props.index].answerField = this.refs.resultText.getDOMNode().value;
+  },
   render: function() {
     var index = this.props.index;
     var clueNodes = this.props.clues.map(function(clue, index) {
@@ -349,7 +355,9 @@ var Pin = React.createClass({displayName: "Pin",
             header: "Pin " + (index+1) + ": " +this.state.data[index].answer}, 
           clueNodes, 
           React.createElement("textarea", {col: "35", row: "30", ref: "clueInput"}), 
-          React.createElement(Btn, {label: "Add Clue", clickHandler: this.handleNewClue})
+          React.createElement(Btn, {label: "Add Clue", clickHandler: this.handleNewClue}), 
+          React.createElement("div", null, "Answer"), 
+          React.createElement("textarea", {col: "35", row: "30", ref: "resultText", onChange: this.answerFieldOnChange})
           )
         )
       )
