@@ -175,9 +175,9 @@ var Status = React.createClass({displayName: "Status",
   },
 
   render: function () {
-    var numOfLocations = this.state.hunt.huntInfo.numOfLocations;
-    var huntTimeEst = this.state.hunt.huntInfo.huntTimeEst;
-    var huntDistance = this.state.hunt.huntInfo.huntDistance;
+    var numOfLocations = this.props.hunt.huntInfo.numOfLocations;
+    var huntTimeEst = this.props.hunt.huntInfo.huntTimeEst;
+    var huntDistance = this.props.hunt.huntInfo.huntDistance;
     var listItemArray = [ numOfLocations + " locations", 
                           huntTimeEst + " hr to completion", 
                           huntDistance + " miles"];
