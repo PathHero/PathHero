@@ -35,94 +35,128 @@ $screen-md-max:              ($screen-lg-min - 1) !default;
 
 
 
-  h2 {
-    color: #848484;
-    font-size: 12px;
-    font-weight: bold;
-    text-transform: uppercase;      
+h2 {
+  color: #848484;
+  font-size: 12px;
+  font-weight: bold;
+  text-transform: uppercase;      
+}
+
+#gMap {
+  width: 50%;
+  height: 800px;
+}
+
+#hunt-info-container {
+  padding-right: 40px;
+
+  #hunt-title-container {
+    margin: 20px 0 25px;     
+    #hunt-title {
+      margin: 0px 0;
+      font-size: 30px;          
+    }
   }
 
-  #gMap {
-    width: 50%;
-    height: 800px;
-  }
+  .tour-summary-container {
+    
+    h2 {
+      color: #676767;
+    }
 
-  #hunt-info-container {
-    padding-right: 40px;
+    .summary-box {
+      background-color: #F4F4F4;
+      border: 1px solid #ccc;
+      padding: 15px 20px 15px;        
 
-    #hunt-title-container {
-      margin: 20px 0 25px;     
-      #hunt-title {
-        margin: 0px 0;
-        font-size: 30px;          
+      p {
+        font-size: 15px;
+        font-weight: bold;
+        margin-bottom: 0px;
       }
     }
+  }
+
+  #pin-container {
+
+    .clue-hint-container {
+      margin-bottom: 10px;
+    }
+  }
+}
+
+.gMapInactiveButton {
+  background: rgba(70,70,70,0.5);
+  width : 35px;
+  height : 35px;
+  margin-bottom : 22px;
+  margin-left : 10px;
+  text-align : center;
+  margin-top : 10px;
+  border : 2px solid #fff;
+  border-radius : 200px;
+  box-shadow : 0 2px 6px rgba(0,0,0,.3);
+  cursor : 'pointer';
+}
+.gMapInactiveButton:hover {
+  background: rgba(33,33,33,0.6);
+}
+.gMapActiveButton {
+  background: rgba(33,33,33,0.9);
+  width : 35px;
+  height : 35px;
+  margin-bottom : 22px;
+  margin-left : 10px;
+  text-align : center;
+  margin-top : 10px;
+  border : 2px solid #fff;
+  border-radius : 200px;
+  box-shadow : 0 2px 6px rgba(0,0,0,.3);
+  cursor : 'pointer';
+}
+
+
+.gMapText{
+  color : rgb(255,255,255);
+  font-family : 'Roboto Arial,sans-serif';
+  font-size : 16px;
+  line-height : 38px;
+  padding-left : 5px;
+  padding-right : 5px;
+  padding-bottom : 5px;
+}
+
+#player-container {
   
-    .tour-summary-container {
-      
-      h2 {
-        color: #676767;
+  #bottomNav {
+    position: fixed;
+    bottom: 0;
+    color: #fff;
+    width: 100%;
+    text-align: center;
+    .row {
+      margin: 0;
+    }
+    .col-xs-4 {
+      height: 50px;
+      padding-top: 14px;
+      background-color: #000;
+
+      .active {
+        background-color: yellow;
+      }
+      a {
+        color: #fff;
       }
 
-      .summary-box {
-        background-color: #F4F4F4;
-        border: 1px solid #ccc;
-        padding: 15px 20px 15px;        
-
-        p {
-          font-size: 15px;
-          font-weight: bold;
-          margin-bottom: 0px;
-        }
-      }
+    }
+    .col-xs-4:nth-child(2) {
+      border-left: 1px solid #5C5555;
+      border-right: 1px solid #5C5555;
     }
 
-    #pin-container {
-
-      .clue-hint-container {
-        margin-bottom: 10px;
-      }
-    }
+    
+    
   }
 
-  .gMapInactiveButton {
-    background: rgba(70,70,70,0.5);
-    width : 35px;
-    height : 35px;
-    margin-bottom : 22px;
-    margin-left : 10px;
-    text-align : center;
-    margin-top : 10px;
-    border : 2px solid #fff;
-    border-radius : 200px;
-    box-shadow : 0 2px 6px rgba(0,0,0,.3);
-    cursor : 'pointer';
-  }
-  .gMapInactiveButton:hover {
-    background: rgba(33,33,33,0.6);
-  }
-  .gMapActiveButton {
-    background: rgba(33,33,33,0.9);
-    width : 35px;
-    height : 35px;
-    margin-bottom : 22px;
-    margin-left : 10px;
-    text-align : center;
-    margin-top : 10px;
-    border : 2px solid #fff;
-    border-radius : 200px;
-    box-shadow : 0 2px 6px rgba(0,0,0,.3);
-    cursor : 'pointer';
-  }
-
-
-  .gMapText{
-    color : rgb(255,255,255);
-    font-family : 'Roboto Arial,sans-serif';
-    font-size : 16px;
-    line-height : 38px;
-    padding-left : 5px;
-    padding-right : 5px;
-    padding-bottom : 5px;
-  }
-
+}

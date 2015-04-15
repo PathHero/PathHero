@@ -193,6 +193,35 @@ var Status = React.createClass({
   }
 });
 
+var PinSuccess = React.createClass({
+  incrementPinInLocalStorage: function() {    
+    this.props.incrementPinInLocalStorage();
+  },
+  render: function () {
+    var currentPin = this.props.hunt.get('currentPin');
+    var answer = this.props.hunt.pins[currentPin].answer;
+
+    return (
+      <div>
+        <h1>Success! You're at the correct location</h1>
+        <p>The answer was {answer}</p>
+        <button className="btn btn-default" onClick={this.incrementPinInLocalStorage}><Link to="clues">Start next location</Link></button>
+      </div>
+    )
+  }
+});
+
+var HuntSuccess = React.createClass({
+  render: function () {
+    return (
+      <div>
+        <h1>You've completed the hunt!</h1>
+        <p>Congratulation</p>
+      </div>
+    )    
+  }
+});
+
 var Welcome = React.createClass({
   render: function () {      
     return (

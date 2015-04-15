@@ -193,6 +193,35 @@ var Status = React.createClass({displayName: "Status",
   }
 });
 
+var PinSuccess = React.createClass({displayName: "PinSuccess",
+  incrementPinInLocalStorage: function() {    
+    this.props.incrementPinInLocalStorage();
+  },
+  render: function () {
+    var currentPin = this.props.hunt.get('currentPin');
+    var answer = this.props.hunt.pins[currentPin].answer;
+
+    return (
+      React.createElement("div", null, 
+        React.createElement("h1", null, "Success! You're at the correct location"), 
+        React.createElement("p", null, "The answer was ", answer), 
+        React.createElement("button", {className: "btn btn-default", onClick: this.incrementPinInLocalStorage}, React.createElement(Link, {to: "clues"}, "Start next location"))
+      )
+    )
+  }
+});
+
+var HuntSuccess = React.createClass({displayName: "HuntSuccess",
+  render: function () {
+    return (
+      React.createElement("div", null, 
+        React.createElement("h1", null, "You've completed the hunt!"), 
+        React.createElement("p", null, "Congratulation")
+      )
+    )    
+  }
+});
+
 var Welcome = React.createClass({displayName: "Welcome",
   render: function () {      
     return (
