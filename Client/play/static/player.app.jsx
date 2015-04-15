@@ -141,7 +141,6 @@ var List = React.createClass({
 
 var HuntSummaryContainer = React.createClass({
   render: function () {
-    console.log("THISSSS ", this.props)
     var numOfLocations = this.props.hunt.huntInfo.numOfLocations;
     var huntTimeEst = this.props.hunt.huntInfo.huntTimeEst;
     var huntDistance = this.props.hunt.huntInfo.huntDistance;
@@ -176,7 +175,6 @@ var Status = React.createClass({
   },
 
   render: function () {
-  console.log("STATUS", this.props)
     var numOfLocations = this.state.hunt.huntInfo.numOfLocations;
     var huntTimeEst = this.state.hunt.huntInfo.huntTimeEst;
     var huntDistance = this.state.hunt.huntInfo.huntDistance;
@@ -188,11 +186,7 @@ var Status = React.createClass({
         <TitleBox title="Location Summary">            
           <List listItemArray={listItemArray} />
         </TitleBox>
-
-
-
         <HuntSummaryContainer hunt={this.props.hunt}/>
-
         <BottomNav/>
       </div>
     );
@@ -211,9 +205,7 @@ var Welcome = React.createClass({
             <button><Link to="clues">Start</Link></button>
           </div>          
         </div>
-
         <HuntSummaryContainer hunt={this.props.hunt}/>
-
       </div>
     );
   }

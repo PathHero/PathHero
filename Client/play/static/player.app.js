@@ -141,7 +141,6 @@ var List = React.createClass({displayName: "List",
 
 var HuntSummaryContainer = React.createClass({displayName: "HuntSummaryContainer",
   render: function () {
-    console.log("THISSSS ", this.props)
     var numOfLocations = this.props.hunt.huntInfo.numOfLocations;
     var huntTimeEst = this.props.hunt.huntInfo.huntTimeEst;
     var huntDistance = this.props.hunt.huntInfo.huntDistance;
@@ -176,7 +175,6 @@ var Status = React.createClass({displayName: "Status",
   },
 
   render: function () {
-  console.log("STATUS", this.props)
     var numOfLocations = this.state.hunt.huntInfo.numOfLocations;
     var huntTimeEst = this.state.hunt.huntInfo.huntTimeEst;
     var huntDistance = this.state.hunt.huntInfo.huntDistance;
@@ -188,11 +186,7 @@ var Status = React.createClass({displayName: "Status",
         React.createElement(TitleBox, {title: "Location Summary"}, 
           React.createElement(List, {listItemArray: listItemArray})
         ), 
-
-
-
         React.createElement(HuntSummaryContainer, {hunt: this.props.hunt}), 
-
         React.createElement(BottomNav, null)
       )
     );
@@ -211,9 +205,7 @@ var Welcome = React.createClass({displayName: "Welcome",
             React.createElement("button", null, React.createElement(Link, {to: "clues"}, "Start"))
           )
         ), 
-
         React.createElement(HuntSummaryContainer, {hunt: this.props.hunt})
-
       )
     );
   }
