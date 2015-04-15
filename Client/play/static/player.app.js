@@ -3,53 +3,6 @@
 /* jshint expr: true */
 /* jshint latedef: false */
 
-var Hunt = {
-  huntName: "Discover SFs most beautiful views",
-  huntDesc: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Incidunt, quidem tenetur dolorem ea eaque at explicabo. Necessitatibus quaerat aliquam repellendus, ipsam cum deleniti, voluptatem culpa nostrum recusandae sed iure architecto.",
-  huntInfo: {
-    numOfLocations: 3,
-    huntTimeEst: 3,    
-    huntDistance: 2,
-  }, 
-  pins: [
-    {
-      answer: "Bay Bridge",
-      geo: {
-        lat: 10.809870897,
-        lng: 23.0987070
-      },
-      clues: [
-        "Lorem ipsum dolor sit amet, consectetur adipisicing elit. In similique corporis vitae minus laborum odio recusandae quibusdam voluptatum error amet, dolore, perferendis, rerum ad officia tempore veritatis nostrum quae nihil.", 
-        "Consectetur adipisicing elit. Voluptatum earum atque iusto nesciunt labore non explicabo optio consequuntur, quis aspernatur qui ad architecto, doloribus asperiores deleniti. Quas delectus, ad animi.", 
-        "Amet, consectetur adipisicing elit. Dignissimos exercitationem totam magni sequi fugiat in quam perspiciatis minima reprehenderit repellat dolores, dolore eos, aspernatur inventore et architecto doloremque. Porro, modi."
-      ]                    
-    },
-    {
-      answer: "Golden Gate Bridge",
-      geo: {
-        lat: 10.742342,
-        lng: 23.09870897
-      },
-      clues: [
-        "Lorem ipsum dolor sit amet, consectetur adipisicing elit. In similique corporis vitae minus laborum odio recusandae quibusdam voluptatum error amet, dolore, perferendis, rerum ad officia tempore veritatis nostrum quae nihil.", 
-        "Consectetur adipisicing elit. Voluptatum earum atque iusto nesciunt labore non explicabo optio consequuntur, quis aspernatur qui ad architecto, doloribus asperiores deleniti. Quas delectus, ad animi.", 
-        "Amet, consectetur adipisicing elit. Dignissimos exercitationem totam magni sequi fugiat in quam perspiciatis minima reprehenderit repellat dolores, dolore eos, aspernatur inventore et architecto doloremque. Porro, modi."
-      ]                    
-    },
-    {
-      answer: "In the Park",
-      geo: {
-        lat: 10.87098,
-        lng: 23.90808
-      },
-      clues: [
-        "Lorem ipsum dolor sit amet, consectetur adipisicing elit. In similique corporis vitae minus laborum odio recusandae quibusdam voluptatum error amet, dolore, perferendis, rerum ad officia tempore veritatis nostrum quae nihil.", 
-        "Consectetur adipisicing elit. Voluptatum earum atque iusto nesciunt labore non explicabo optio consequuntur, quis aspernatur qui ad architecto, doloribus asperiores deleniti. Quas delectus, ad animi.", 
-        "Amet, consectetur adipisicing elit. Dignissimos exercitationem totam magni sequi fugiat in quam perspiciatis minima reprehenderit repellat dolores, dolore eos, aspernatur inventore et architecto doloremque. Porro, modi."
-      ]                    
-    },
-  ],
-};
 
 var Router = window.ReactRouter;
 var DefaultRoute = Router.DefaultRoute;
@@ -59,16 +12,38 @@ var RouteHandler = Router.RouteHandler;
 
 
 var PlayerApp = React.createClass({displayName: "PlayerApp",  
-  getInitialState: function() {    
-    return {hunt: false};
+  getInitialState: function() { 
+    var hunt = {
+      huntName: null,
+      huntDesc: null,
+      huntInfo: {
+        numOfLocations: null,
+        huntTimeEst: null,    
+        huntDistance: null,
+      }, 
+      pins: [
+        {
+          hiddenName: null, 
+          answer: null,
+          geo: {
+            lat: null,
+            lng: null
+          },
+          timeToNextPin: null,
+          distanceToNextPin: null,
+          clues: []                    
+        }
+      ]
+    };
+    hunt.storage = {};
+    return {hunt: hunt};
   },
 
   componentWillMount: function() {
     
     $.ajax({
       method: 'GET',
-      url: 'http://create.wettowelreactor.com'+window.location.pathname,
-      context: document.body
+      url: 'http://create.wettowelreactor.com:3000'+window.location.pathname
     }).done(function(data) {
                   
       data.storage = {};
@@ -93,7 +68,7 @@ var PlayerApp = React.createClass({displayName: "PlayerApp",
 
       this.setState({hunt: data});
 
-    }).bind(this);
+    }.bind(this));
 
     gMap.importMap([[37.7902554,-122.42340160000003],[37.7902554,-122.42340160000003]]);
   },
@@ -165,13 +140,10 @@ var List = React.createClass({displayName: "List",
 });
 
 var HuntSummaryContainer = React.createClass({displayName: "HuntSummaryContainer",
-  getInitialState: function() {    
-    return {hunt: Hunt};
-  },
   render: function () {
-    var numOfLocations = this.state.hunt.huntInfo.numOfLocations;
-    var huntTimeEst = this.state.hunt.huntInfo.huntTimeEst;
-    var huntDistance = this.state.hunt.huntInfo.huntDistance;
+    var numOfLocations = this.props.hunt.huntInfo.numOfLocations;
+    var huntTimeEst = this.props.hunt.huntInfo.huntTimeEst;
+    var huntDistance = this.props.hunt.huntInfo.huntDistance;
     var listItemArray = [ numOfLocations + " locations", 
                           huntTimeEst + " hr to completion", 
                           huntDistance + " miles"];
@@ -183,7 +155,7 @@ var HuntSummaryContainer = React.createClass({displayName: "HuntSummaryContainer
         React.createElement("div", {id: "hunt-description-container"}, 
           React.createElement(TitleBox, {title: "Hunt Description"}, 
             React.createElement("div", null, 
-              this.state.hunt.huntDesc, 
+              this.props.hunt.huntDesc, 
               this.numOfLocations
             )
           )
@@ -194,11 +166,6 @@ var HuntSummaryContainer = React.createClass({displayName: "HuntSummaryContainer
 });
 
 var Status = React.createClass({displayName: "Status",
-  getInitialState: function() {    
-    return {
-      hunt: Hunt
-    };
-  },
 
   componentWillMount: function() {
     var nextPinDistance = null;
@@ -208,9 +175,9 @@ var Status = React.createClass({displayName: "Status",
   },
 
   render: function () {
-    var numOfLocations = this.state.hunt.huntInfo.numOfLocations;
-    var huntTimeEst = this.state.hunt.huntInfo.huntTimeEst;
-    var huntDistance = this.state.hunt.huntInfo.huntDistance;
+    var numOfLocations = this.props.hunt.huntInfo.numOfLocations;
+    var huntTimeEst = this.props.hunt.huntInfo.huntTimeEst;
+    var huntDistance = this.props.hunt.huntInfo.huntDistance;
     var listItemArray = [ numOfLocations + " locations", 
                           huntTimeEst + " hr to completion", 
                           huntDistance + " miles"];
@@ -219,11 +186,7 @@ var Status = React.createClass({displayName: "Status",
         React.createElement(TitleBox, {title: "Location Summary"}, 
           React.createElement(List, {listItemArray: listItemArray})
         ), 
-
-
-
-        React.createElement(HuntSummaryContainer, null), 
-
+        React.createElement(HuntSummaryContainer, {hunt: this.props.hunt}), 
         React.createElement(BottomNav, null)
       )
     );
@@ -242,9 +205,7 @@ var Welcome = React.createClass({displayName: "Welcome",
             React.createElement("button", null, React.createElement(Link, {to: "clues"}, "Start"))
           )
         ), 
-
-        React.createElement(HuntSummaryContainer, null)
-
+        React.createElement(HuntSummaryContainer, {hunt: this.props.hunt})
       )
     );
   }
