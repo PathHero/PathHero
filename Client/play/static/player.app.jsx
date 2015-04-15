@@ -327,6 +327,27 @@ var Clues = React.createClass({
   }
 });
 
+var _H = {
+  height: window.innerHeight
+}
+
+var Map = React.createClass({
+  
+  componentDidMount: function() {
+    gMap.startGMap({lng:-33.73, lat:149.02});
+    gMap.getGeolocation(gMap.setCenter);
+  },
+
+  render: function () {
+    return (
+      <div id="gMap" style={_H}>
+        
+      </div>
+    );
+  }
+});
+
+
 var routes = (
   <Route handler={PlayerApp}>
     <DefaultRoute handler={Welcome}/>
