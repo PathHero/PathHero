@@ -376,14 +376,17 @@ var Map = React.createClass({
   }, 
   componentDidMount: function() {
     gMap.startGMap({lng:-33.73, lat:149.02});
-    var pins = this.props.hunt.pins;
+    var hunt = this.props.hunt;
     gMap.getGeolocation(function(value){
       gMap.setCenter(value);
       gMap.showCurrentLocation();
-      for (var i = 0; i < pins.length; i++) {
-        console.log(pins[i].geo)
-        gMap.makeMarker(pins[i].geo);
+      var mapArray = [];
+      for (var i = 0; i < hunt.pins.length && i < hunt.get('currentPin'); i++) {
+        mapArray.push([hunt.pins[i].geo.lat,hunt.pins[i].geo.lng]);
       };
+      if(mapArray.length > 0){
+        gMap.importMap(mapArray);
+      }
     });
   },
 
