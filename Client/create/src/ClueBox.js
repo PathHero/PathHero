@@ -29,6 +29,9 @@ module.exports = React.createClass({displayName: "exports",
       };
       Actions.addPin(pin);
     });
+    gMap.addEventListener('directionsChanged', function() {
+      this.setState({editTitleMode: this.state.editTitleMode});
+    }.bind(this));
   },
   toggleEditTitle: function() {
     var newTitle;
