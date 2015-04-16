@@ -108,14 +108,22 @@ var HuntBox = React.createClass({displayName: "HuntBox",
 });
 
 var HuntMap = React.createClass({displayName: "HuntMap",
+  getInitialState: function() {
+    return {
+      style: {
+          height: window.innerHeight,
+          width: '50%'
+        }
+    };
+  },
   componentDidMount: function() {
     gMap.startGMap({lng: -33.73, lat: 149.02});
     gMap.getGeolocation(gMap.setCenter);
   },
   render: function() {
     return (
-      React.createElement("div", {id: "gMap", className: "col-xs-6"}
-      )  
+      React.createElement("div", {id: "gMap", style: this.state.style, className: "col-xs-6"}
+      )
     );
   }
 });
