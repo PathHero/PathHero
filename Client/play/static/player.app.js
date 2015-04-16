@@ -331,7 +331,6 @@ var Clues = React.createClass({displayName: "Clues",
 
     this.pin = this.hunt.pins[currentPin];
     this.max = this.pin.clues.length;
-    
   },
   render: function () {    
     this.init();
