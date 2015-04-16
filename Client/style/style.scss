@@ -42,10 +42,18 @@ h2 {
   text-transform: uppercase;      
 }
 
-#gMap {
-  width: 50%;
-  height: 800px;
+#app-container {
+    #gMap {
+    width: 100%;    
+  }  
 }
+
+#player-container {
+    #gMap {
+    width: 100%;    
+  }  
+}
+
 
 #hunt-info-container {
   padding-right: 40px;

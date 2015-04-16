@@ -175,18 +175,52 @@ var Status = React.createClass({
     return {
       playerAtLocation: false,
       huntComplete: false,
-      distanceToNextPin: 0.00
-    };
-  },  
+      distanceToNextPin: 0.00,
+      currentPin: null
+    }
+  },
+
+  getHuntStatus: function() {
+    var currentPin = Number.parseInt(this.props.hunt.get('currentPin'));   
+  },
+
+  getCurrentPin: function() {
+    var currentPin = Number.parseInt(this.props.hunt.get('currentPin'));
+    this.setState({currentPin: currentPin})
+     
+  },
+
+  visitedPins: [],  
 
   componentWillMount: function() {
     gMap.getDistanceByLocation(function (value) {
       var playerAtLocation = false;
-      if(value < 0.26){
+      
+      var currentPin = Number.parseInt(this.props.hunt.get('currentPin'));
+      var nextPin = currentPin + 1;
+      var pinsLength = this.props.hunt.pins.length;
+      var huntComplete = false;
+
+      if (value < 26){
         playerAtLocation = true;
+        
+        if (nextPin <= pinsLength) {
+          this.props.hunt.set('currentPin', nextPin);        
+        }
+
+        if (nextPin > pinsLength) {
+          huntComplete = true;
+        }
+
       }
-      this.setState({distanceToNextPin:value,playerAtLocation:playerAtLocation});
+
+      this.setState({
+        distanceToNextPin:value,
+        playerAtLocation:playerAtLocation,
+        huntComplete: huntComplete
+      });
     }.bind(this));
+
   },
 
   render: function () {
@@ -195,8 +229,6 @@ var Status = React.createClass({
     var listItemArray = [ numOfLocations + " locations", 
                           huntTimeEst + " hr to completion", 
                           this.state.distanceToNextPin + " miles"];
-
-
     var locationStatus;    
     var locationSummary = (
       <TitleBox title="Location Summary">
@@ -207,8 +239,9 @@ var Status = React.createClass({
     if (!this.state.playerAtLocation) {
       locationStatus = locationSummary;
     } else {
-      locationStatus = <PinSuccess hunt={this.props.hunt}/>;
+      locationStatus = <PinSuccess hunt={this.props.hunt}/>    
     }
+    
 
     var huntStatus = null;
     if (this.state.huntComplete) {
@@ -230,8 +263,10 @@ var PinSuccess = React.createClass({
     this.props.incrementPinInLocalStorage();
   },
   render: function () {
-    var currentPin = this.props.hunt.get('currentPin');
-    var answer = this.props.hunt.pins[currentPin].answer;
+    var currentPin = Number.parseInt(this.props.hunt.get('currentPin'));
+    var currentPinIndex = currentPin - 1;
+    console.log("CURRENT PIN ", currentPin)
+    var answer = this.props.hunt.pins[currentPinIndex].answer;
 
     return (
       <div>
@@ -278,7 +313,7 @@ var Clues = React.createClass({
   pin: null,
   max: null,  
   currentLocation: null,
-  changeLocalStorage: function(value) {    
+  changeLocalStoragePin: function(value) {    
     var clueValue = this.clueIndex+value;    
     if (clueValue < this.max && clueValue >= 0) {
       this.hunt.set('currentClue', clueValue);
@@ -288,16 +323,22 @@ var Clues = React.createClass({
   init: function() {
     this.hunt = this.props.hunt;
     this.clueIndex = Number.parseInt(this.hunt.get('currentClue'));
-    this.pin = this.hunt.pins[this.hunt.get('currentPin')];
+    var currentPin = this.hunt.get('currentPin');
+
+    if (currentPin === this.hunt.pins.length) {
+      currentPin = currentPin - 1;
+    }
+
+    this.pin = this.hunt.pins[currentPin];
     this.max = this.pin.clues.length;
     
   },
   render: function () {    
     this.init();
     var currentClue = this.pin.clues[this.clueIndex];    
-    var backBtn = (<button onClick={this.changeLocalStorage.bind(this, -1)} className="btn btn-default">Back</button>);                    
-    var nextBtn = (<button onClick={this.changeLocalStorage.bind(this, 1)} className="btn btn-default">Next</button>);
-    var twoButtons = (<div><button onClick={this.changeLocalStorage.bind(this, -1)} className="btn btn-default">Back</button><button onClick={this.changeLocalStorage.bind(this, 1)} className="btn btn-default">Next</button></div>);
+    var backBtn = (<button onClick={this.changeLocalStoragePin.bind(this, -1)} className="btn btn-default">Back</button>);                    
+    var nextBtn = (<button onClick={this.changeLocalStoragePin.bind(this, 1)} className="btn btn-default">Next</button>);
+    var twoButtons = (<div><button onClick={this.changeLocalStoragePin.bind(this, -1)} className="btn btn-default">Back</button><button onClick={this.changeLocalStoragePin.bind(this, 1)} className="btn btn-default">Next</button></div>);
     var btnsToDisplay;
 
     if (this.clueIndex < this.max && this.clueIndex === 0) {
