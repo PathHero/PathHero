@@ -236,7 +236,12 @@
 
   gMap.makeMarker = function (latLng,img){
     img = img || gMap.markerImgDefault;
-    var lat = latLng.lat() || 10;
+    var lat;
+    if(typeof latLng.lat === 'function'){
+      lat = latLng.lat();
+    }else{
+      lat = 10;
+    }
     var markerImage = {
       url: img,
       scaledSize: new google.maps.Size(40,40),

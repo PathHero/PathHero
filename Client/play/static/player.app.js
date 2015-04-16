@@ -69,8 +69,6 @@ var PlayerApp = React.createClass({displayName: "PlayerApp",
       this.setState({hunt: data});
 
     }.bind(this));
-
-    gMap.importMap([[37.7902554,-122.42340160000003],[37.7902554,-122.42340160000003]]);
   },
 
   render: function () {
@@ -378,8 +376,15 @@ var Map = React.createClass({displayName: "Map",
   }, 
   componentDidMount: function() {
     gMap.startGMap({lng:-33.73, lat:149.02});
-    gMap.getGeolocation(gMap.setCenter);
-    gMap.showCurrentLocation();
+    var pins = this.props.hunt.pins;
+    gMap.getGeolocation(function(value){
+      gMap.setCenter(value);
+      gMap.showCurrentLocation();
+      for (var i = 0; i < pins.length; i++) {
+        console.log(pins[i].geo)
+        gMap.makeMarker(pins[i].geo);
+      };
+    });
   },
 
   render: function () {
