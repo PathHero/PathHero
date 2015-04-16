@@ -11,16 +11,32 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-env');
   grunt.loadNpmTasks('grunt-istanbul');
   grunt.loadNpmTasks('grunt-react');
+  grunt.loadNpmTasks('grunt-browserify');
 
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
 
+    browserify: {
+      'Client/create/static/createBundle.js': [
+        'Client/create/src/create.js',
+      ],
+      browserifyOptions: {
+        debug: true
+      }
+    },
+
     react: {
       single_file_output: {
         files: {
-          'Client/create/static/app.js': 'Client/create/static/app.jsx',
           'Client/play/static/player.app.js': 'Client/play/static/player.app.jsx',
         }
+      },
+      createFiles: {
+        expand: true,
+        cwd: 'Client/create/src',
+        src: ['**/*.jsx'],
+        dest: 'Client/create/src',
+        ext: '.js'
       }
     },
 
@@ -46,20 +62,16 @@ module.exports = function(grunt) {
       files: [
         'Gruntfile.js',
         'server.js',
-        'Client/app/**/*.js',
-        'Client/create/**/*.js',
-        'Client/play/**/*.js',
-        'Client/app/**/*.jsx',
-        'Client/create/**/*.jsx',
-        'Client/play/**/*.jsx',
+        'Client/create/src/**/*.js',
+        'Client/play/src/**/*.js',
+        'Client/create/src/**/*.jsx',
+        'Client/play/src/**/*.jsx',
         'Server/**/*.js',
         'Spec/**/*.js'
       ],
       options: {
         jshintrc: true,
         force: true,
-        ignores: [
-          'Client/bower_components/**/*.js'        ],
       }
     },
 
@@ -72,10 +84,8 @@ module.exports = function(grunt) {
     instrument: {
       ignore: ['Client/bower_components/**/*.js'],
       files: [
-        'Client/app/**/*.js',
         'Client/create/**/*.js',
         'Client/play/**/*.js',
-        'Client/app/**/*.jsx',
         'Client/create/**/*.jsx',
         'Client/play/**/*.jsx',
         'Server/**/*.js'
@@ -127,17 +137,16 @@ module.exports = function(grunt) {
     watch: {
       client: {
         files: [
-          'Client/app/**/*.js',
-          'Client/create/**/*.js',
-          'Client/play/**/*.js',
-          'Client/app/**/*.jsx',
-          'Client/create/**/*.jsx',
-          'Client/play/**/*.jsx',
+          'Client/lib/**/*.js',
+          'Client/create/src/**/*.js',
+          'Client/play/src/**/*.js',
+          'Client/create/src/**/*.jsx',
+          'Client/play/src/**/*.jsx',
         ],
         options: {
           livereload: true
         },
-        tasks: ['react', 'check']
+        tasks: ['jshint', 'react', 'browserify']
       },
       css: {
         files: [
@@ -170,5 +179,5 @@ module.exports = function(grunt) {
   grunt.registerTask('coverage', ['env:coverage', 'instrument', 'mochaTest:cov',
     'storeCoverage', 'makeReport']);
   grunt.registerTask('default', ['concurrent']);
-  grunt.registerTask('deploy', ['react', 'nodemon']);
+  grunt.registerTask('deploy', ['nodemon']);
 };
