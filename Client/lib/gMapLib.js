@@ -303,7 +303,7 @@ gMap.select = function (index){
     return undefined;
   }
 };
-gMap.remove = function (index){
+gMap.remove = function (index, callback){
   //this removes the markers however it correct for the path system recreating a marker if there is only one
   //if there is only one then it will remove that marker and empty the markers else it will remove the one and rerender
   index = index || 0;
@@ -319,7 +319,7 @@ gMap.remove = function (index){
   }
   if(!emptied){
     map.splice(index,1);
-    gMap.importMap(map);
+    gMap.importMap(map, callback);
   }
 };
 gMap.getDistance = function (index, total){
@@ -407,12 +407,12 @@ gMap.getDuration = function (index){
   total = (total / 60) / 60;
   return Math.round(total*100)/100;
 };
-gMap.importMap = function (markerArray){
+gMap.importMap = function (markerArray,callback){
   gMap.pathLatLng=[];
   for (var i = 0; i < markerArray.length; i++) {
     gMap.pathLatLng.push(new google.maps.LatLng(markerArray[i][0], markerArray[i][1]));
   }
-  gMap.createPath();
+  gMap.createPath(callback);
 };
 gMap.exportMap = function (){
   var exportedArray = [];
