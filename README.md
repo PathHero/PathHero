@@ -1,4 +1,9 @@
 [![Stories in Ready](https://badge.waffle.io/pathhero/pathhero.png?label=ready&title=Ready)](https://waffle.io/pathhero/pathhero)
+[![Stories in Ready](https://badge.waffle.io/pathhero/pathhero.png?label=In%20Progress&title=In%20Progress)](https://waffle.io/pathhero/pathhero)
+[![Stories in Ready](https://badge.waffle.io/pathhero/pathhero.png?label=Needs%20Review&title=Needs%20Review)](https://waffle.io/pathhero/pathhero)
+
+
+
 [Build: ](https://circleci.com/gh/PathHero/PathHero/tree/master)[![Circle CI](https://circleci.com/gh/PathHero/PathHero/tree/master.svg?style=svg)](https://circleci.com/gh/PathHero/PathHero/tree/master)
 # Path Hero
 
