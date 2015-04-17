@@ -13,24 +13,14 @@ var PlayerMap = require('./PlayerMap');
 
 
 var routes = (
-  <Route handler={PlayerApp}>
-    <DefaultRoute handler={Welcome}/>
-    <Route name="status" handler={Status}/>
-    <Route name="clues" handler={Clues}/>
-    <Route name="map" handler={PlayerMap}/>
-  </Route>
+  React.createElement(Route, {handler: PlayerApp}, 
+    React.createElement(DefaultRoute, {handler: Welcome}), 
+    React.createElement(Route, {name: "status", handler: Status}), 
+    React.createElement(Route, {name: "clues", handler: Clues}), 
+    React.createElement(Route, {name: "map", handler: PlayerMap})
+  )
 );
 
 Router.run(routes, function (Handler) {
-  React.render(<Handler/>, document.getElementById('player-app'));
+  React.render(React.createElement(Handler, null), document.getElementById('player-app'));
 });
-
-
-
-
-
-
-
-
-
-
