@@ -111,18 +111,6 @@ gMap.startGMap = function (pos){
     gMap.map.setZoom(gMap.map.getZoom()+1);
   });
 
-  new gMap.CenterControl('BOTTOM_LEFT', 'W', function(){
-    gMap.travelMode = 'WALKING';
-  },true,true);
-
-  new gMap.CenterControl('BOTTOM_LEFT', 'B', function(){
-    gMap.travelMode = 'BICYCLING';
-  },true);
-
-  new gMap.CenterControl('BOTTOM_LEFT', 'D', function(){
-    gMap.travelMode = 'DRIVING';
-  },true);
-
   // new gMap.CenterControl('BOTTOM_LEFT', 'T', function(){
   //   gMap.travelMode= 'TRANSIT';
   // },true);
