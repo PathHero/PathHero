@@ -7,12 +7,12 @@ module.exports = Reflux.createStore({
   listenables: [actions],
   onUpdateHuntAtKey: function(data, key) {
     this.hunt[key] = data;
-    localStorage.setItem('hunt', JSON.stringify(this.hunt));
+    localStorage[this.huntID] = JSON.stringify(this.hunt);
     this.trigger(this.hunt);
   },
   onUpdatePinAtKey: function(data, index, key) {
     this.hunt.pins[index][key] = data;
-    localStorage.setItem('hunt', JSON.stringify(this.hunt));
+    localStorage[this.huntID] = JSON.stringify(this.hunt);
     this.trigger(this.hunt);
   },
   // Add a pin at index. Appends to end if no index is provided.
@@ -22,7 +22,7 @@ module.exports = Reflux.createStore({
     } else {
       this.hunt.pins.splice(index, 0, pin);
     }
-    localStorage.setItem('hunt', JSON.stringify(this.hunt));
+    localStorage[this.huntID] = JSON.stringify(this.hunt);
     this.trigger(this.hunt);
   },
   // Removes pin at index, pop the last pin if no index is provided.
@@ -32,12 +32,12 @@ module.exports = Reflux.createStore({
     } else {
       this.hunt.pins.splice(index, 1);
     }
-    localStorage.setItem('hunt', JSON.stringify(this.hunt));
+    localStorage[this.huntID] = JSON.stringify(this.hunt);
     this.trigger(this.hunt);
   },
   onUpdateClue: function(data, pinIndex, clueIndex) {
     this.hunt.pins[pinIndex].clues[clueIndex] = data;
-    localStorage.setItem('hunt', JSON.stringify(this.hunt));
+    localStorage[this.huntID] = JSON.stringify(this.hunt);
     this.trigger(this.hunt);
   },
   onAddClue: function(clue, pinIndex, clueIndex) {
@@ -46,7 +46,7 @@ module.exports = Reflux.createStore({
     } else {
       this.hunt.pins[pinIndex].clues.splice(clueIndex, 0, clue);
     }
-    localStorage.setItem('hunt', JSON.stringify(this.hunt));
+    localStorage[this.huntID] = JSON.stringify(this.hunt);
     this.trigger(this.hunt);
   },
   onRemoveClue: function(pinIndex, clueIndex) {
@@ -55,7 +55,7 @@ module.exports = Reflux.createStore({
     } else {
       this.hunt.pins[pinIndex].clues.splice(clueIndex, 1);
     }
-    localStorage.setItem('hunt', JSON.stringify(this.hunt));
+    localStorage[this.huntID] = JSON.stringify(this.hunt);
     this.trigger(this.hunt);
   },
   onReplaceHunt: function(hunt) {
@@ -68,11 +68,12 @@ module.exports = Reflux.createStore({
       hunt.currentClueIndex = 0;
     }
     this.hunt = hunt;
-    localStorage.setItem('hunt', JSON.stringify(this.hunt));
+    localStorage[this.huntID] = JSON.stringify(this.hunt);
     this.trigger(this.hunt);
   },
   getInitialState: function () {
-    var storedHunt = localStorage.hunt;
+    this.huntID = window.location.pathname.slice(1);
+    var storedHunt = localStorage[this.huntID];
     if (storedHunt) {
       this.hunt = JSON.parse(storedHunt);
     } else {
@@ -80,12 +81,11 @@ module.exports = Reflux.createStore({
         currentPinIndex: 0,
         currentClueIndex: 0,
         _id: null,
-        creatorID: null,
+        creatorId: null,
         url: null,
         huntName: '',
         huntDesc: '',
         huntInfo: {
-          numOfLocations: 0,
           huntTimeEst: 0,
           huntDistance: 0
         },

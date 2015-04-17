@@ -8,7 +8,7 @@ var List = require('./List');
 
 module.exports = React.createClass({
   render: function () {
-    var numOfLocations = this.props.hunt.huntInfo.numOfLocations;
+    var numOfLocations = this.props.hunt.pins.length;
     var huntTimeEst = this.props.hunt.huntInfo.huntTimeEst;
     var huntDistance = this.props.hunt.huntInfo.huntDistance;
     var listItemArray = [ numOfLocations + " locations", 
@@ -23,9 +23,8 @@ module.exports = React.createClass({
           <TitleBox title="Hunt Description">
             <div>
               {this.props.hunt.huntDesc}
-              {this.numOfLocations}
             </div>
-          </TitleBox>          
+          </TitleBox>            
         </div>
       </div>
     ); 
