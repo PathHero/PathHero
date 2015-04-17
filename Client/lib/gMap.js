@@ -321,6 +321,7 @@
   };
   gMap.getDistanceByLocation = function (callback, index, travelMode){
     index = index || 0;
+
     travelMode = travelMode || 'WALKING';
 
     gMap.getGeolocation(function(latLng){
@@ -328,6 +329,27 @@
       var request = {
           origin : latLng,
           destination : gMap.markers[index].position, // can be latLng or string (this is required)
+          travelMode : google.maps.TravelMode[travelMode],
+      };
+      directionsService.route(request, function(response, status) {
+        if (status === google.maps.DirectionsStatus.OK) {
+          callback(gMap.getDistance(0, response.routes[0].legs[0].distance.value));
+        }else{
+          console.error('Error with gMap.getDistanceByLocation: Status:', google.maps.DirectionsStatus, ': Response:',response);
+          callback(-1);
+        }
+      });
+    });
+  };
+  gMap.getDistanceToLatLng = function (callback, latLng, travelMode){
+    latLng = latLng || {lat:0.0,lng:0.0};
+    travelMode = travelMode || 'WALKING';
+
+    gMap.getGeolocation(function(currLatLng){
+      var directionsService = new google.maps.DirectionsService();
+      var request = {
+          origin : currLatLng,
+          destination : latLng, // can be latLng or string (this is required)
           travelMode : google.maps.TravelMode[travelMode],
       };
       directionsService.route(request, function(response, status) {

@@ -374,6 +374,7 @@ gMap.remove = function (index){
 gMap.getDistance = function (index, total){
   index = index || 0;
   if(!total){
+
     total = 0;
     for (var i = index; i < gMap.distance.length; i++) {
       total += gMap.distance[i];
@@ -386,7 +387,6 @@ gMap.getDistance = function (index, total){
 gMap.getDistanceByLocation = function (callback, index, travelMode){
   index = index || 0;
   travelMode = travelMode || 'WALKING';
-
   gMap.getGeolocation(function(latLng){
     var directionsService = new google.maps.DirectionsService();
     var request = {
@@ -397,6 +397,27 @@ gMap.getDistanceByLocation = function (callback, index, travelMode){
     directionsService.route(request, function(response, status) {
       if (status === google.maps.DirectionsStatus.OK) {
         callback(gMap.getDistance(0, response.routes[0].legs[0].distance.value));
+      }else{
+        console.error('Error with gMap.getDistanceByLocation: Status:', google.maps.DirectionsStatus, ': Response:',response);
+        callback(-1);
+      }
+    });
+  });
+};
+gMap.getDistanceToLatLng = function (callback, latLng, travelMode){
+  travelMode = travelMode || 'WALKING';
+  gMap.getGeolocation(function(currLatLng){
+    var directionsService = new google.maps.DirectionsService();
+    var request = {
+        origin : currLatLng,
+        destination : new google.maps.LatLng(latLng.lat, latLng.lng), // can be latLng or string (this is required)
+        travelMode : google.maps.TravelMode[travelMode],
+    };
+    directionsService.route(request, function(response, status) {
+      if (status === google.maps.DirectionsStatus.OK) {
+        var total = response.routes[0].legs[0].distance.value;
+        total = total / 1609.34;
+        callback(Math.round(total*100)/100);
       }else{
         console.error('Error with gMap.getDistanceByLocation: Status:', google.maps.DirectionsStatus, ': Response:',response);
         callback(-1);
@@ -427,6 +448,7 @@ gMap.showCurrentLocation = function(){
     });
   },5000);
 };
+
 gMap.getDuration = function (index){
   index = index || 0;
   var total = 0;
