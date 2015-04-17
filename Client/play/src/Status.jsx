@@ -10,7 +10,7 @@ var HuntSuccess = require('./HuntSuccess');
 var HuntSummaryContainer = require('./HuntSummaryContainer');
 var Actions = require('../RefluxActions');
 
-var HITDISTANCE = 1;
+var HITDISTANCE = 26;
 
 module.exports = React.createClass({
   getInitialState: function() {
@@ -48,7 +48,7 @@ module.exports = React.createClass({
   },
 
   render: function () {
-    var numOfLocations = this.props.hunt.huntInfo.numOfLocations;
+    var numOfLocations = this.props.hunt.pins.length;
     var listItemArray = [ numOfLocations + " locations left", 
                           this.state.distanceToNextPin + " miles to next location"];
     var locationStatus;    
