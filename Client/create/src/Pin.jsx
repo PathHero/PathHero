@@ -33,10 +33,7 @@ module.exports = React.createClass({
   },
   removePin:function(){
     Actions.removePin(this.props.pinIndex);
-    gMap.remove(this.props.pinIndex,function(){
-      var huntInfo = { huntTimeEst: gMap.getDuration(), huntDistance: gMap.getDistance() }; 
-      Actions.updateHuntAtKey(huntInfo, 'huntInfo');
-    });
+    gMap.remove(this.props.pinIndex);
   },
   render: function() {
     var pinHeader;

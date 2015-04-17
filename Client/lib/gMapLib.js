@@ -222,6 +222,7 @@ gMap.createPath = function (callback){
 
     //CALLBACK
     callback();
+    gMap.trigger('dragEvent', [gMap.pathLatLng]);
 
     //EVENTS
     google.maps.event.addListener(gMap.directionsDisplay, 'directions_changed', function() {
