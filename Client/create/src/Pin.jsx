@@ -6,6 +6,7 @@ var Clue = require('./Clue');
 var Btn = require('./Btn');
 var Panel = require('react-bootstrap').Panel;
 var Actions = require('../RefluxActions');
+var gMap = require('../../../lib/gMapLib');
 
 module.exports = React.createClass({
   componentDidMount: function() {
@@ -29,6 +30,12 @@ module.exports = React.createClass({
       Actions.updatePinAtKey(locationName, this.props.pinIndex, 'answer');
       this.setState({editLocationMode: false});
     }
+  },
+  removePin:function(){
+    Actions.removePin(this.props.pinIndex);
+    gMap.remove(this.props.pinIndex);
+    var huntInfo = { huntTimeEst: gMap.getDuration(), huntDistance: gMap.getDistance() }; 
+    Actions.updateHuntAtKey(huntInfo, 'huntInfo'); 
   },
   render: function() {
     var pinHeader;
@@ -61,6 +68,9 @@ module.exports = React.createClass({
         <textarea col="35" row="30" ref="resultText" 
                   defaultValue={this.props.pin.resultText} 
                   onChange={this.resultTextOnChange}/>
+        <div>
+          <Btn label="Delete Pin" clickHandler={this.removePin}   />
+        </div>
         </Panel>
       </div>
     );
