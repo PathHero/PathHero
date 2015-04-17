@@ -7,7 +7,8 @@ module.exports = React.createClass({
   propTypes: {
     clickHandler: React.PropTypes.func,
     label: React.PropTypes.string,
-    newClass: React.PropTypes.string
+    newClass: React.PropTypes.string,
+    newStyle: React.PropTypes.object
   },
   render: function() {
     var classString = 'btn';
@@ -15,7 +16,7 @@ module.exports = React.createClass({
       classString += ' ' + this.props.newClass;
     }
     return (
-      <button className="btn" type="button" onClick={this.props.clickHandler}>
+      <button style={this.props.newStyle} className={classString} type="button" onClick={this.props.clickHandler}>
         {this.props.label}
       </button>
     );

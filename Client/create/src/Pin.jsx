@@ -8,48 +8,41 @@ var Panel = require('react-bootstrap').Panel;
 var Actions = require('../RefluxActions');
 
 module.exports = React.createClass({
-  getInitialState: function() {
-    return {
-      editLocationMode: true,
-    };
+  componentDidMount: function() {
+    if (this.props.editMode) {
+      React.findDOMNode(this.refs.locationName).focus();
+    }
   },
   handleNewClue: function() {
     var newClue = this.refs.clueInput.getDOMNode().value;
     React.findDOMNode(this.refs.clueInput).value = '';
-    React.findDOMNode(this.refs.clueInput).focus();
     Actions.addClue(newClue, this.props.pinIndex);
+    React.findDOMNode(this.refs.clueInput).focus();  
   },
   resultTextOnChange: function(){
     var newResultText = this.refs.resultText.getDOMNode().value;
     Actions.updatePinAtKey(newResultText, this.props.pinIndex, 'resultText');
   },
-  inputLocation: function() {
-    if (this.state.editLocationMode) {
+  onLocationChange: function() {
+    if (this.props.editMode) {
       var locationName = this.refs.locationName.getDOMNode().value;
       Actions.updatePinAtKey(locationName, this.props.pinIndex, 'answer');
       this.setState({editLocationMode: false});
-    } else {
-      this.setState({editLocationMode: true});
     }
   },
   render: function() {
-    var pinHeader, btnLabel;
-
-    if (this.state.editLocationMode) {
-      btnLabel = "Set location";
-      pinHeader = (<span>Pin {this.props.pinIndex+1}: 
-                     <input type="text" ref="locationName" 
-                             defaultValue={this.props.pin.answer} />
+    var pinHeader;
+    if (this.props.editMode) {
+      pinHeader = (<span>
+                     Pin {this.props.pinIndex+1}: 
+                     <input type="text" ref="locationName" onChange={this.onLocationChange}
+                            value={this.props.pin.answer} />
                    </span>);
     } else {
-      btnLabel = "Edit location";
       pinHeader = (<span>Pin {this.props.pinIndex+1}: {this.props.pin.answer}
                    </span>);
     }
 
-    pinHeader = (<span>{pinHeader}
-                   <Btn label={btnLabel} clickHandler={this.inputLocation} />
-                 </span>);
 
     var clueNodes = this.props.pin.clues.map(function(clue, clueIndex) {
       return (
