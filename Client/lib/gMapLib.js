@@ -376,27 +376,24 @@ gMap.getDistanceToLatLng = function (callback, latLng, travelMode){
   });
 };
 gMap.showCurrentLocation = function(){
-  setTimeout(function(){
-    gMap.getGeolocation(function(latLng){
-      var markerImage = {
-        url: 'https://cdn2.iconfinder.com/data/icons/snipicons/500/map-marker-512.png',
-        scaledSize: new google.maps.Size(40,40),
-        origin: new google.maps.Point(0,0),
-        anchor: new google.maps.Point(20,50)
-      };
-      var marker = new google.maps.Marker({
-        map: gMap.map,
-        icon: markerImage,
-        position: latLng,
-        title: 'Current Location'
-      });
-      if (gMap.currentLocationMarker){
-        gMap.currentLocationMarker.setMap(null);
-      }
-      gMap.currentLocationMarker = marker;
-      gMap.showCurrentLocation();
+  gMap.getGeolocation(function(latLng){
+    var markerImage = {
+      url: 'https://cdn2.iconfinder.com/data/icons/snipicons/500/map-marker-512.png',
+      scaledSize: new google.maps.Size(40,40),
+      origin: new google.maps.Point(0,0),
+      anchor: new google.maps.Point(20,50)
+    };
+    var marker = new google.maps.Marker({
+      map: gMap.map,
+      icon: markerImage,
+      position: latLng,
+      title: 'Current Location'
     });
-  },5000);
+    if (gMap.currentLocationMarker){
+      gMap.currentLocationMarker.setMap(null);
+    }
+    gMap.currentLocationMarker = marker;
+  });
 };
 
 gMap.getDuration = function (index){
