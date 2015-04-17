@@ -55,6 +55,10 @@ module.exports = Reflux.createStore({
     this.hunt = hunt;
     this.trigger(this.hunt);
   },
+  onToggleEditMode: function(editMode) {
+    this.hunt.editMode = editMode;
+    this.trigger(this.hunt);
+  },
   getInitialState: function () {
     this.hunt = {
        _id: null,
@@ -66,7 +70,8 @@ module.exports = Reflux.createStore({
          huntTimeEst: 0,
          huntDistance: 0
        },
-       pins: []
+       pins: [],
+       editMode: true
     };
     return this.hunt;
   }

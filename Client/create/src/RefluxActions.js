@@ -11,5 +11,6 @@ module.exports = Reflux.createActions([
   'addClue',
   'removeClue',
   'fetchHunt',
-  'replaceHunt'
+  'replaceHunt',
+  'toggleEditMode'
 ]);

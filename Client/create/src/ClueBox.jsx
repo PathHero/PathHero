@@ -4,17 +4,10 @@
 var React = require('react');
 var PinList = require('./PinList');
 var HuntSubmitForm = require('./HuntSubmitForm');
-var Btn = require('./Btn');
 var gMap = require('../../../lib/gMapLib');
 var Actions = require('../RefluxActions');
 
 module.exports = React.createClass({
-  getInitialState: function() {
-    return {
-      editTitleMode: false,
-      editDescMode: false,
-    };
-  },
   componentDidMount: function() {
     gMap.addEventListener('addMarker', function(latLng) {
       var geo = {
@@ -34,48 +27,36 @@ module.exports = React.createClass({
       };
       Actions.updateHuntAtKey(huntInfo, 'huntInfo');
     });
-  },
-  toggleEditTitle: function() {
-    var newTitle;
-    if (this.state.editTitleMode) {
-      newTitle = this.refs.titleEdit.getDOMNode().value;
-      // this.setState({title: newTitle, editTitleMode: false});
-      Actions.updateHuntAtKey(newTitle, 'huntName');
-      this.setState({editTitleMode: false});
-    } else {
-      this.setState({editTitleMode: true});
+
+    if (window.location.pathname.split('/')[1] === 'create') {
+      if (this.props.hunt.editMode) {
+        this.refs.titleEdit.getDOMNode().focus();
+      }
     }
   },
-  toggleDesc: function() {
-    var newDesc;
-    if (this.state.editDescMode) {
-      newDesc = this.refs.descEdit.getDOMNode().value;
-      Actions.updateHuntAtKey(newDesc, 'huntDesc');
-      this.setState({editDescMode: false});
-    } else {
-      this.setState({editDescMode: true});
-    }
+  onChangeTitle: function() {
+    var newTitle = this.refs.titleEdit.getDOMNode().value;
+    Actions.updateHuntAtKey(newTitle, 'huntName');
+  },
+  onChangeDesc: function() {
+    var newDesc = this.refs.descEdit.getDOMNode().value;
+    Actions.updateHuntAtKey(newDesc, 'huntDesc');
   },
   render: function() {
-    var title, titleBtn;
-    var desc, descBtn;
-    var url;
-    if (this.state.editTitleMode) {
-      title = (<input id="hunt-title" ref="titleEdit"
-                  defaultValue={this.props.hunt.huntName} />);
-      titleBtn = (<Btn label={"Save"} clickHandler={this.toggleEditTitle} />);
+    var title, desc, url;
+    if (this.props.hunt.editMode) {
+      title = (<input id="hunt-title" ref="titleEdit" onChange={this.onChangeTitle}
+                      value={this.props.hunt.huntName} key={this.props.hunt._id} />);
     } else {
       title = (<span id="hunt-title">{this.props.hunt.huntName}</span>);
-      titleBtn = (<Btn label={"Edit title"} clickHandler={this.toggleEditTitle} />);
     }
 
-    if (this.state.editDescMode) {
-      desc = (<textarea cols="35" row="5" id="hunt-desc" ref="descEdit"
-                defaultValue={this.props.hunt.huntDesc}  />);
-      descBtn = (<Btn label={"Save"} clickHandler={this.toggleDesc} />);
+    if (this.props.hunt.editMode) {
+      desc = (<textarea id="hunt-desc" ref="descEdit" onChange={this.onChangeDesc} 
+                        cols="35" row="5" value={this.props.hunt.huntDesc} 
+                        key={this.props.hunt._id} />);
     } else {
       desc = (<span id="hunt-desc">{this.props.hunt.huntDesc}</span>);
-      descBtn = (<Btn label={"Edit description"} clickHandler={this.toggleDesc} />);
     }
 
     if (!this.props.hunt.url) {
@@ -87,25 +68,25 @@ module.exports = React.createClass({
     return (
       <div>
         <div id="hunt-info-container" className="col-xs-6">
+          <HuntSubmitForm hunt={this.props.hunt} editMode={this.props.hunt.editMode} />
           <div id="hunt-title-container">
             {url}
             <h2>Hunt Title</h2>
               {title}
-              {titleBtn}
             <div className="tour-summary-container">
               <h2>Tour Summary</h2>
               <div className="summary-box">
-                <p>Description: {desc}{descBtn}</p>
+                <p>Description: {desc}</p>
                 <p>Duration: {this.props.hunt.huntInfo.huntTimeEst} hours</p>
                 <p>Distance: {this.props.hunt.huntInfo.huntDistance} miles</p>
+
                 <p>Locations: {this.props.hunt.pins.length}</p>              
               </div>
-            <HuntSubmitForm hunt={this.props.hunt} />
             </div>
           </div>
           <div id="pin-container">
             <h2>Pins</h2>
-            <PinList pins={this.props.hunt.pins} /> 
+            <PinList pins={this.props.hunt.pins} editMode={this.props.hunt.editMode} /> 
           </div>
         </div>
       </div>

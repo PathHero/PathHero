@@ -8,7 +8,7 @@ module.exports = React.createClass({
   render: function() {
     var pinNodes = this.props.pins.map(function(pin, index) {
       return (
-        <Pin pinIndex={index} pin={pin} key={index}>
+        <Pin pinIndex={index} pin={pin} key={index} editMode={this.props.editMode}>
         </Pin>
       );
     }, this);
