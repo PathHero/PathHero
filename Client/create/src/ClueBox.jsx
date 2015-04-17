@@ -28,6 +28,11 @@ module.exports = React.createClass({
         "geo": geo,
       };
       Actions.addPin(pin);
+      var huntInfo = {
+        huntTimeEst: gMap.getDuration(),
+        huntDistance: gMap.getDistance()
+      };
+      Actions.updateHuntAtKey(huntInfo, 'huntInfo');
     });
   },
   toggleEditTitle: function() {
@@ -91,8 +96,8 @@ module.exports = React.createClass({
               <h2>Tour Summary</h2>
               <div className="summary-box">
                 <p>Description: {desc}{descBtn}</p>
-                <p>Duration: {gMap.getDuration()} hours</p>
-                <p>Distance: {gMap.getDistance()} miles</p>
+                <p>Duration: {this.props.hunt.huntInfo.huntTimeEst} hours</p>
+                <p>Distance: {this.props.hunt.huntInfo.huntDistance} miles</p>
                 <p>Locations: {this.props.hunt.pins.length}</p>              
               </div>
             <HuntSubmitForm hunt={this.props.hunt} />

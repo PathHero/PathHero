@@ -58,12 +58,11 @@ module.exports = Reflux.createStore({
   getInitialState: function () {
     this.hunt = {
        _id: null,
-       creatorID: null,
+       creatorId: null,
        url: null,
        huntName: '',
        huntDesc: '',
        huntInfo: {
-         numOfLocations: 0,
          huntTimeEst: 0,
          huntDistance: 0
        },

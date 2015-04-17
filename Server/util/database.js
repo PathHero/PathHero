@@ -138,12 +138,11 @@ exports.validateUser = function(username, password) {
 // Hunts Collection
 // {
 //    _id = BSON_ID (auto generated)
-//    creatorID = session user (auto generated)
+//    creatorId = session user (auto generated)
 //    hunt.url = URL for player (auto generated)
 //    huntName: String
 //    huntDesc: String
 //    huntInfo: {
-//      numOfLocations: Int
 //      huntTimeEst: Float
 //      huntDistance: Float
 //    }
