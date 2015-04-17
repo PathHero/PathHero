@@ -18,6 +18,7 @@ module.exports = React.createClass({
   }, 
   componentDidMount: function() {
     gMap.startGMap({lng:-33.73, lat:149.02});
+    gMap.disableAddPins = true;
     var hunt = this.props.hunt;
     gMap.getGeolocation(function(value){
       gMap.setCenter(value);
