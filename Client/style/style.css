@@ -3915,27 +3915,66 @@ h2 {
   padding-bottom: 5px; }
 
 #bottomNav {
-  position: fixed;
-  bottom: 0;
-  color: #fff;
-  width: 100%;
-  text-align: center; }
-  #bottomNav .row {
-    margin: 0; }
-  #bottomNav .col-xs-4 {
-    height: 50px;
-    padding-top: 14px;
-    background-color: #000; }
-    #bottomNav .col-xs-4 .active {
-      background-color: #ccc;
-      color: #000; }
-    #bottomNav .col-xs-4 a {
+  color: #fff; }
+  #bottomNav .test1, #bottomNav .test2, #bottomNav .test3 {
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-color: dimGray;
+    border-radius: 50%;
+    position: absolute;
+    color: white;
+    text-align: center;
+    line-height: 70px;
+    z-index: 1;
+    transition: all 275ms cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    position: absolute; }
+    #bottomNav .test1 a, #bottomNav .test2 a, #bottomNav .test3 a {
+      font-size: 10px;
       color: #fff; }
-  #bottomNav .col-xs-4:nth-child(2) {
-    border-left: 1px solid #5C5555;
-    border-right: 1px solid #5C5555; }
+      #bottomNav .test1 a i, #bottomNav .test2 a i, #bottomNav .test3 a i {
+        font-size: 20px;
+        display: block;
+        margin-bottom: -24px;
+        margin-top: 9px; }
+  #bottomNav .mask i {
+    position: absolute;
+    top: 15px;
+    left: 17px; }
 
 #player-container {
   padding: 0 15px; }
+
+.parent2, .mask {
+  bottom: 20px;
+  right: 20px;
+  width: 60px;
+  height: 60px; }
+
+.mask {
+  background: darkSlateGray;
+  border-radius: 50%;
+  position: absolute;
+  z-index: 21;
+  color: white;
+  text-align: center;
+  line-height: 120px;
+  cursor: pointer;
+  position: fixed; }
+
+.parent2 {
+  position: fixed;
+  display: block;
+  background-color: transparent;
+  border-radius: 50%;
+  z-index: 20;
+  -webkit-box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.75);
+  box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.75); }
+
+.transformNavItemOne {
+  background-color: gray;
+  transform: translate(0px, -125px); }
 
 /*# sourceMappingURL=style.css.map */

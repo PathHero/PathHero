@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="http://create.wettowelreactor.com:3000/style/style.css">
     <!-- vendor scripts -->
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
   </head>
   <body>
     <div id="player-app">
@@ -18,3 +20,34 @@
     <script src="http://play.wettowelreactor.com:3000/static/playBundle.js"></script>
   </body>
 </html>
+
+<script type="text/javascript">
+
+    var active = false;
+    
+      $('.parent2').on('click', function() {
+
+        var navItem1 = $("#navItem1")
+        var navItem2 = $("#navItem2")
+        var navItem3 = $("#navItem3")
+
+        var test1 = $(".test1")
+        var test2 = $(".test2")
+        var test3 = $(".test3")
+
+        if (!active) {
+          test1.css({'background-color': 'gray', 'transform': 'translate(-105px,-60px)'});
+          test2.css({'background-color': 'gray', 'transform': 'translate(-60px,-105px)'})
+          test3.css({'background-color': 'gray', 'transform': 'translate(0px,-125px )'});
+
+        } else {
+          test1.css({'background-color': 'dimGray', 'transform': 'none'});
+          test2.css({'background-color': 'darkGray', 'transform': 'none'}); 
+          test3.css({'background-color': 'silver', 'transform': 'none'});
+        }
+
+      active = !active;
+      
+    });
+
+</script>
