@@ -17,19 +17,24 @@ module.exports = function(grunt) {
     pkg: grunt.file.readJSON('package.json'),
 
     browserify: {
-      'Client/create/static/createBundle.js': [
-        'Client/create/src/create.js',
-      ],
       browserifyOptions: {
         debug: true
-      }
+      },
+      'Client/play/static/playBundle.js': [
+        'Client/play/src/play.js'
+      ],
+      'Client/create/static/createBundle.js': [
+        'Client/create/src/create.js',
+      ]
     },
 
     react: {
-      single_file_output: {
-        files: {
-          'Client/play/static/player.app.js': 'Client/play/static/player.app.jsx',
-        }
+      playFiles: {
+        expand: true,
+        cwd: 'Client/play/src',
+        src: ['**/*.jsx'],
+        dest: 'Client/play/src',
+        ext: '.js'
       },
       createFiles: {
         expand: true,
