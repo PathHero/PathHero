@@ -3,7 +3,7 @@
 
 var React = require('react');
 var TitleBox = require('./TitleBox');
-var Actions = require('./RefluxActions');
+var Actions = require('../RefluxActions');
 
 module.exports = React.createClass({
   numOfClues: function() {

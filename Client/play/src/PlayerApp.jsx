@@ -4,8 +4,8 @@
 var React = require('react');
 var RouteHandler = require('react-router').RouteHandler;
 var BottomNav = require('./BottomNav');
-var Actions = require('./RefluxActions');
-var playStore = require('./RefluxStore');
+var Actions = require('../RefluxActions');
+var playStore = require('../RefluxStore');
 var Reflux = require('reflux');
 var $ = require('jquery');
 

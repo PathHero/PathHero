@@ -2,13 +2,13 @@
 /* jshint quotmark: false */
 
 var React = require('react');
-var gMap = require('../../lib/gMapLib');
+var gMap = require('../../../lib/gMapLib');
 var TitleBox = require('./TitleBox');
 var List = require('./List');
 var PinSuccess = require('./PinSuccess');
 var HuntSuccess = require('./HuntSuccess');
 var HuntSummaryContainer = require('./HuntSummaryContainer');
-var Actions = require('./RefluxActions');
+var Actions = require('../RefluxActions');
 
 var HITDISTANCE = 26;
 

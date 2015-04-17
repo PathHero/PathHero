@@ -2,7 +2,7 @@
 /* jshint quotmark: false */
 
 var React = require('react');
-var gMap = require('../../lib/gMapLib');
+var gMap = require('../../../lib/gMapLib');
 
 module.exports = React.createClass({
   getInitialState: function() {
