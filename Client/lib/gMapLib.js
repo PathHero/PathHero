@@ -91,7 +91,7 @@ gMap.startGMap = function (pos){
   google.maps.event.addListener(gMap.map, 'click', function(event) {
     //makeMarker(event.latLng);
     if(!gMap.disableAddPins){
-      if(gMap.pathLatLng.length < 10){
+      if(gMap.pathLatLng.length < 9){
         gMap.pathLatLng.push(event.latLng);
         gMap.createPath(function(){
             gMap.trigger('addMarker', [event.latLng]);
