@@ -22,7 +22,6 @@ module.exports = React.createClass({
     var hunt = this.props.hunt;
     gMap.getGeolocation(function(value){
       gMap.setCenter(value);
-      gMap.showCurrentLocation();
       var mapArray = [];
       for (var i = 0; i < hunt.pins.length && i < hunt.currentPin; i++) {
         mapArray.push([hunt.pins[i].geo.lat,hunt.pins[i].geo.lng]);
@@ -31,6 +30,13 @@ module.exports = React.createClass({
         gMap.importMap(mapArray);
       }
     });
+    gMap.showCurrentLocation();
+    this.updatePosInterval = setInterval(function(){
+      gMap.showCurrentLocation();
+    },5000);
+  },
+  componentWillUnmount: function() {
+    clearInterval(this.updatePosInterval);
   },
 
   render: function () {
