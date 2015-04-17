@@ -32,6 +32,7 @@ gMap.directionsDisplay = null;
 gMap.directionsService = null;
 gMap.currentLocationMarker = null;
 gMap.highlightedMarker = null;
+gMap.disableAddPins = false;
 
 gMap.markerImgList = [
   'http://static.iconsplace.com/icons/preview/orange/number-1-filled-256.png',
@@ -89,11 +90,13 @@ gMap.startGMap = function (pos){
   //----------------------------------
   google.maps.event.addListener(gMap.map, 'click', function(event) {
     //makeMarker(event.latLng);
-    if(gMap.pathLatLng.length < 10){
-      gMap.pathLatLng.push(event.latLng);
-      gMap.createPath(function(){
-          gMap.trigger('addMarker', [event.latLng]);
-      });
+    if(!gMap.disableAddPins){
+      if(gMap.pathLatLng.length < 10){
+        gMap.pathLatLng.push(event.latLng);
+        gMap.createPath(function(){
+            gMap.trigger('addMarker', [event.latLng]);
+        });
+      }
     }
   });
   //----------------------------------
