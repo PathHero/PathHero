@@ -8,6 +8,13 @@ var gMap = require('../../../lib/gMapLib');
 var Actions = require('../RefluxActions');
 
 module.exports = React.createClass({
+  updateHuntInfo: function() {
+    var huntInfo = {
+      huntTimeEst: gMap.getDuration(),
+      huntDistance: gMap.getDistance()
+    };
+    Actions.updateHuntAtKey(huntInfo, 'huntInfo');
+  },
   componentDidMount: function() {
     gMap.addEventListener('addMarker', function(latLng) {
       var geo = {
@@ -21,12 +28,19 @@ module.exports = React.createClass({
         "geo": geo,
       };
       Actions.addPin(pin);
-      var huntInfo = {
-        huntTimeEst: gMap.getDuration(),
-        huntDistance: gMap.getDistance()
-      };
-      Actions.updateHuntAtKey(huntInfo, 'huntInfo');
-    });
+      this.updateHuntInfo();
+    }.bind(this));
+
+    gMap.addEventListener('dragEvent', function(latLngArray) {
+      latLngArray.forEach(function(latLng, index) {
+        var geo = {
+          lat: latLng.lat(),
+          lng: latLng.lng(),
+        };
+        Actions.updatePinAtKey(geo, index, 'geo');
+      });
+      this.updateHuntInfo();
+    }.bind(this));
 
     if (window.location.pathname.split('/')[1] === 'create') {
       if (this.props.hunt.editMode) {

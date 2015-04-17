@@ -6,6 +6,7 @@ var gMap = {};
 //EVENTS HANDLING
 gMap.cEvent = new CEvent();
 gMap.cEvent.events.addMarker = [];
+gMap.cEvent.events.dragEvent = [];
 gMap.cEvent.events.clickMarker = [];
 //shorten the function calls for the event handler
 gMap.removeEventListener = function(events, callback){
@@ -236,7 +237,9 @@ gMap.createPath = function (callback){
         }
       }
       gMap.emptyMarkers();
-      gMap.createPath();
+      gMap.createPath(function() {
+        gMap.trigger('dragEvent', [gMap.pathLatLng]);
+      });
     });
   });
 };
