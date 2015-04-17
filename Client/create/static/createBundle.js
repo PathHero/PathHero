@@ -111,6 +111,9 @@ module.exports = React.createClass({displayName: "exports",
       };
       Actions.addPin(pin);
     });
+    gMap.addEventListener('directionsChanged', function() {
+      this.setState({editTitleMode: this.state.editTitleMode});
+    }.bind(this));
   },
   toggleEditTitle: function() {
     var newTitle;
@@ -613,6 +616,8 @@ var gMap = {};
 gMap.cEvent = new CEvent();
 gMap.cEvent.events.addMarker = [];
 gMap.cEvent.events.clickMarker = [];
+gMap.cEvent.events.directionsChanged = [];
+
 //shorten the function calls for the event handler
 gMap.removeEventListener = function(events, callback){
   gMap.cEvent.removeEventListener(events,callback);
@@ -850,6 +855,7 @@ gMap.createPath = function (callback){
           gMap.pathLatLng[i] = gMap.directionsDisplay.directions.routes[0].legs[i-1].end_location;
         }
       }
+      gMap.trigger('directionsChanged', []);
       gMap.emptyMarkers();
       gMap.createPath();
     });
