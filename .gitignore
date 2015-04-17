@@ -38,3 +38,11 @@ db
 Server/util/secrets.js
 dummy.js
 dummy.html
+
+# Ignore Bundles
+Client/create/static/createBundle.js
+Client/play/static/playBundle.js
+
+# Ignore generated code
+Client/create/src/compiled/
+Client/play/src/compiled/

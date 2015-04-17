@@ -4,9 +4,8 @@
 var React = require('react');
 var Clue = require('./Clue');
 var Btn = require('./Btn');
-var Accordion = require('react-bootstrap').Accordion;
 var Panel = require('react-bootstrap').Panel;
-var Actions = require('./RefluxActions');
+var Actions = require('../RefluxActions');
 
 module.exports = React.createClass({
   getInitialState: function() {

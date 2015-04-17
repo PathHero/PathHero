@@ -5,8 +5,8 @@ var React = require('react');
 var PinList = require('./PinList');
 var HuntSubmitForm = require('./HuntSubmitForm');
 var Btn = require('./Btn');
-var gMap = require('../../lib/gMapLib');
-var Actions = require('./RefluxActions');
+var gMap = require('../../../lib/gMapLib');
+var Actions = require('../RefluxActions');
 
 module.exports = React.createClass({
   getInitialState: function() {

@@ -21,10 +21,10 @@ module.exports = function(grunt) {
         debug: true
       },
       'Client/play/static/playBundle.js': [
-        'Client/play/src/play.js'
+        'Client/play/src/compiled/play.js'
       ],
       'Client/create/static/createBundle.js': [
-        'Client/create/src/create.js',
+        'Client/create/src/compiled/create.js',
       ]
     },
 
@@ -33,14 +33,14 @@ module.exports = function(grunt) {
         expand: true,
         cwd: 'Client/play/src',
         src: ['**/*.jsx'],
-        dest: 'Client/play/src',
+        dest: 'Client/play/src/compiled',
         ext: '.js'
       },
       createFiles: {
         expand: true,
         cwd: 'Client/create/src',
         src: ['**/*.jsx'],
-        dest: 'Client/create/src',
+        dest: 'Client/create/src/compiled',
         ext: '.js'
       }
     },
@@ -67,10 +67,10 @@ module.exports = function(grunt) {
       files: [
         'Gruntfile.js',
         'server.js',
-        'Client/create/src/**/*.js',
-        'Client/play/src/**/*.js',
-        'Client/create/src/**/*.jsx',
-        'Client/play/src/**/*.jsx',
+        'Client/create/src/*.js',
+        'Client/play/src/*.js',
+        'Client/create/src/*.jsx',
+        'Client/play/src/*.jsx',
         'Server/**/*.js',
         'Spec/**/*.js'
       ],
@@ -91,8 +91,6 @@ module.exports = function(grunt) {
       files: [
         'Client/create/**/*.js',
         'Client/play/**/*.js',
-        'Client/create/**/*.jsx',
-        'Client/play/**/*.jsx',
         'Server/**/*.js'
       ],
       options: {
@@ -184,5 +182,5 @@ module.exports = function(grunt) {
   grunt.registerTask('coverage', ['env:coverage', 'instrument', 'mochaTest:cov',
     'storeCoverage', 'makeReport']);
   grunt.registerTask('default', ['concurrent']);
-  grunt.registerTask('deploy', ['nodemon']);
+  grunt.registerTask('deploy', ['react', 'browserify', 'nodemon']);
 };

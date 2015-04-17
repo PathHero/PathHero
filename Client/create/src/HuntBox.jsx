@@ -9,9 +9,9 @@ var NavItem =require('react-bootstrap').NavItem;
 var HuntMap = require('./HuntMap');
 var ClueBox = require('./ClueBox');
 var Reflux = require('reflux');
-var huntStore = require('./RefluxStore');
-var Actions = require('./RefluxActions');
-var gMap = require('../../lib/gMapLib');
+var huntStore = require('../RefluxStore');
+var Actions = require('../RefluxActions');
+var gMap = require('../../../lib/gMapLib');
 
 module.exports = React.createClass({
   mixins: [Reflux.ListenerMixin],
