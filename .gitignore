@@ -39,9 +39,9 @@ Server/util/secrets.js
 dummy.js
 dummy.html
 
-# Ignore Bundles
-Client/create/static/createBundle.js
-Client/play/static/playBundle.js
+# Include bundles for azure
+#Client/create/static/createBundle.js
+#Client/play/static/playBundle.js
 
 # Ignore generated code
 Client/create/src/compiled/
