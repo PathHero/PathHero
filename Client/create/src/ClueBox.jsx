@@ -80,7 +80,7 @@ module.exports = React.createClass({
     }
 
     return (
-      <div>
+      <div className="clueBox">
         <div id="hunt-info-container" className="col-xs-6">
           <HuntSubmitForm hunt={this.props.hunt} editMode={this.props.hunt.editMode} />
           <div id="hunt-title-container">

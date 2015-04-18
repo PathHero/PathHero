@@ -261,7 +261,7 @@ module.exports = React.createClass({displayName: "exports",
     }
 
     return (
-      React.createElement("div", null, 
+      React.createElement("div", {className: "clueBox"}, 
         React.createElement("div", {id: "hunt-info-container", className: "col-xs-6"}, 
           React.createElement(HuntSubmitForm, {hunt: this.props.hunt, editMode: this.props.hunt.editMode}), 
           React.createElement("div", {id: "hunt-title-container"}, 
@@ -338,7 +338,7 @@ module.exports = React.createClass({displayName: "exports",
   render: function() {
     return (
       React.createElement("div", {className: "huntBox"}, 
-        React.createElement(Navbar, {brand: "Path Hero"}, 
+        React.createElement(Navbar, {fixedTop: true, brand: "Path Hero"}, 
           React.createElement(Nav, {right: true}, 
             React.createElement(NavItem, {href: "/create"}, "Create hunt"), 
             React.createElement(NavItem, {href: "/"}, "View hunts"), 
@@ -364,7 +364,7 @@ module.exports = React.createClass({displayName: "exports",
     return {
       style: {
         height: window.innerHeight,
-        width: '50%'
+        position: 'fixed'
       }
     };
   },
@@ -374,7 +374,9 @@ module.exports = React.createClass({displayName: "exports",
   },
   render: function() {
     return (
-      React.createElement("div", {id: "gMap", style: this.state.style, className: "col-xs-6"}
+      React.createElement("div", {id: "map-container", className: "col-xs-6"}, 
+        React.createElement("div", {id: "gMap", style: this.state.style}
+        )
       )
     );
   }

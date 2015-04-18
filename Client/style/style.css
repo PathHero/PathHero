@@ -3850,14 +3850,19 @@ h2 {
   font-weight: bold;
   text-transform: uppercase; }
 
-#app-container #gMap {
+#app-container #map-container {
+  position: fixed;
   width: 100%; }
+#app-container #gMap {
+  width: 50%; }
 
 #player-container #gMap {
   width: 100%; }
 
 #hunt-info-container {
-  padding-right: 40px; }
+  padding-right: 40px;
+  float: right;
+  margin-top: 50px; }
   #hunt-info-container #hunt-title-container {
     margin: 20px 0 25px; }
     #hunt-info-container #hunt-title-container #hunt-title {
