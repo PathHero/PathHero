@@ -23,7 +23,7 @@ module.exports = React.createClass({
     gMap.getGeolocation(function(value){
       gMap.setCenter(value);
       var mapArray = [];
-      for (var i = 0; i < hunt.pins.length && i < hunt.currentPin; i++) {
+      for (var i = 0; i < hunt.pins.length && i < hunt.currentPinIndex; i++) {
         mapArray.push([hunt.pins[i].geo.lat,hunt.pins[i].geo.lng]);
       }
       if(mapArray.length > 0){
