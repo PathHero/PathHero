@@ -14,12 +14,6 @@ module.exports = {
     clientSecret: 'GITHUB_CLIENT_SECRET',
     callbackUrl: 'http://www.example.com/login/github/'
   },
-  google: {
-    consumerKey: 'GOOGLE_CONSUMER_KEY',
-    consumerSecret: 'GOOGLE_CONSUMER_SECRET',
-    callbackURL: 'http://www.example.com/login/google/',
-    redirect_uri: 'http://www.example.com/login/google/'
-  },
   twitter: {
     consumerKey: 'TWITTER_CONSUMER_KEY',
     consumerSecret: 'TWITTER_CONSUMER_SECRET',

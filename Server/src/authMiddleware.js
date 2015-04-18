@@ -5,7 +5,6 @@ var db = require('../util/database');
 var secrets = require('../util/serverConfig.js');
 var FacebookStrategy = require('passport-facebook').Strategy;
 var GitHubStrategy = require('passport-github').Strategy;
-var GoogleStrategy = require('passport-google-oauth').Strategy;
 var TwitterStrategy = require('passport-twitter').Strategy;
 var LocalStrategy = require('passport-local').Strategy;
 
@@ -35,7 +34,6 @@ var localLogin = function(username, password, done) {
 var initalizeStrategies = function() {
   passport.use(new FacebookStrategy(secrets.facebook, oauthLogin));
   passport.use(new GitHubStrategy(secrets.github, oauthLogin));
-  passport.use(new GoogleStrategy(secrets.google, oauthLogin));
   passport.use(new TwitterStrategy(secrets.twitter, oauthLogin));
   passport.use(new LocalStrategy(localLogin));
 };

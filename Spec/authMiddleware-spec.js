@@ -19,7 +19,6 @@ var passport = {
 };
 var FacebookStrategy = {Strategy: sinon.spy()};
 var GitHubStrategy = {Strategy: sinon.spy()};
-var GoogleStrategy = {Strategy: sinon.spy()};
 var TwitterStrategy = {Strategy: sinon.spy()};
 var LocalStrategy = {Strategy: sinon.spy()};
 
@@ -29,7 +28,6 @@ var authMiddleware = proxyquire(testPath + 'Server/src/authMiddleware.js', {
   'passport': passport,
   'passport-facebook': FacebookStrategy,
   'passport-github': GitHubStrategy,
-  'passport-google-oauth': GoogleStrategy,
   'passport-twitter': TwitterStrategy,
   'passport-local': LocalStrategy
 });
@@ -51,9 +49,6 @@ describe('Auth middleware', function() {
     });
     it('Should add a github strategy', function() {
       GitHubStrategy.Strategy.should.have.been.calledWithNew;
-    });
-    it('Should add a google strategy', function() {
-      GoogleStrategy.Strategy.should.have.been.calledWithNew;
     });
     it('Should add a twitter strategy', function() {
       TwitterStrategy.Strategy.should.have.been.calledWithNew;

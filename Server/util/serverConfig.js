@@ -20,13 +20,6 @@ var github = secrets.github || {
   callbackUrl: 'http://create.pathhero.com/login/github/callback'
 };
 
-var google = secrets.google || {
-  consumerKey: process.env.GOOGLE_CONSUMER_KEY,
-  consumerSecret: process.env.GOOGLE_CONSUMER_SECRET,
-  callbackURL: 'http://create.pathhero.com/login/google/callback',
-  redirect_uri: 'http://create.pathhero.com/login/google/callback'
-};
-
 var twitter = secrets.twitter || {
   consumerKey: process.env.TWITTER_CONSUMER_KEY,
   consumerSecret: process.env.TWITTER_CONSUMER_SECRET,
@@ -41,7 +34,6 @@ module.exports = {
   playSubdomain: 'play',
   facebook: facebook,
   github: github,
-  google: google,
   twitter: twitter,
   sessionKey: sessionKey
 };
