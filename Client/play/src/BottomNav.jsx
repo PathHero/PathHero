@@ -9,10 +9,10 @@ module.exports = React.createClass({
   getInitialState: function() {
     return {
       active: false
-    }
+    };
   },
 
-  handleClick: function(event) {
+  handleClick: function() { //ignoring params:  event
     this.setState({active: !this.state.active});
   },
   

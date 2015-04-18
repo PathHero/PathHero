@@ -621,10 +621,10 @@ module.exports = React.createClass({displayName: "exports",
   getInitialState: function() {
     return {
       active: false
-    }
+    };
   },
 
-  handleClick: function(event) {
+  handleClick: function() { //ignoring params:  event
     this.setState({active: !this.state.active});
   },
   
@@ -875,10 +875,11 @@ module.exports = React.createClass({displayName: "exports",
     this.listenTo(playStore, this.onStatusChange, this.onStatusChange);
   },
   componentDidMount: function(){
+    var url = window.location.origin.replace('play', 'create');
     if (!this.state.hunt.huntName) {
       $.ajax({
         method: 'GET',
-        url: 'http://create.pathhero.com'+window.location.pathname
+        url: url+window.location.pathname
       })
       .done(function(data) {
         Actions.replaceHunt(data);
