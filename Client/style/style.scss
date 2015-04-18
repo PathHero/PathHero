@@ -43,8 +43,12 @@ h2 {
 }
 
 #app-container {
+    #map-container {
+      position: fixed;
+      width: 100%;
+    }
     #gMap {
-    width: 100%;    
+    width: 50%;
   }  
 }
 
@@ -57,6 +61,8 @@ h2 {
 
 #hunt-info-container {
   padding-right: 40px;
+  float: right;
+  margin-top: 50px;
 
   #hunt-title-container {
     margin: 20px 0 25px;     

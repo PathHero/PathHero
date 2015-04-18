@@ -9,7 +9,7 @@ module.exports = React.createClass({
     return {
       style: {
         height: window.innerHeight,
-        width: '50%'
+        position: 'fixed'
       }
     };
   },
@@ -19,7 +19,9 @@ module.exports = React.createClass({
   },
   render: function() {
     return (
-      <div id="gMap" style={this.state.style} className="col-xs-6" >
+      <div id="map-container" className="col-xs-6">
+        <div id="gMap" style={this.state.style}>
+        </div>
       </div>
     );
   }

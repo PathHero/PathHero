@@ -46,7 +46,7 @@ module.exports = React.createClass({
   render: function() {
     return (
       <div className="huntBox">
-        <Navbar brand="Path Hero">
+        <Navbar fixedTop brand="Path Hero">
           <Nav right>
             <NavItem href="/create">Create hunt</NavItem>
             <NavItem href="/">View hunts</NavItem>
