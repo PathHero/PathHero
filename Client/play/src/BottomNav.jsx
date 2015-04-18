@@ -3,8 +3,6 @@
 
 var React = require('react');
 var Link = require('react-router').Link;
-var fA = require('font-awesome');
-
 
 module.exports = React.createClass({
 
