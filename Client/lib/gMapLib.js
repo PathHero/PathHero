@@ -35,19 +35,7 @@ gMap.currentLocationMarker = null;
 gMap.highlightedMarker = null;
 gMap.disableAddPins = false;
 
-gMap.markerImgList = [
-  'http://static.iconsplace.com/icons/preview/orange/number-1-filled-256.png',
-  'http://static.iconsplace.com/icons/preview/orange/number-2-filled-256.png',
-  'http://static.iconsplace.com/icons/preview/orange/number-3-filled-256.png',
-  'http://static.iconsplace.com/icons/preview/orange/number-4-filled-256.png',
-  'http://static.iconsplace.com/icons/preview/orange/number-5-filled-256.png',
-  'http://static.iconsplace.com/icons/preview/orange/number-6-filled-256.png',
-  'http://static.iconsplace.com/icons/preview/orange/number-7-filled-256.png',
-  'http://static.iconsplace.com/icons/preview/orange/number-8-filled-256.png',
-  'http://static.iconsplace.com/icons/preview/orange/number-9-filled-256.png',
-  'http://static.iconsplace.com/icons/preview/orange/number-10-filled-256.png',
-  'http://static.iconsplace.com/icons/preview/orange/number-11-filled-256.png'
-];
+gMap.markerImgList = require('./mapMarkers');
 gMap.markerImgDefault = gMap.markerImgList[0];
 
 gMap.startGMap = function (pos){
