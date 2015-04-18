@@ -222,6 +222,7 @@ gMap.createPath = function (callback){
 
     //CALLBACK
     callback();
+    gMap.trigger('dragEvent', [gMap.pathLatLng]);
 
     //EVENTS
     google.maps.event.addListener(gMap.directionsDisplay, 'directions_changed', function() {
@@ -275,6 +276,8 @@ gMap.emptyMarkers = function (){
   for (var i = 0; i < gMap.markers.length; i++) {
     gMap.markers[i].setMap(null);
   }
+  gMap.distance.length = 0;
+  gMap.duration.length = 0;
   gMap.markers.length = 0;
 };
 
@@ -302,15 +305,23 @@ gMap.select = function (index){
   }
 };
 gMap.remove = function (index){
-  //To remove we need to remove from the array and redraw
-  //This is so by default you remove index 0
+  //this removes the markers however it correct for the path system recreating a marker if there is only one
+  //if there is only one then it will remove that marker and empty the markers else it will remove the one and rerender
   index = index || 0;
-  //this exports the Map so we have all the data we need in a clean way
-  var array = gMap.exportMap();
-  //this will remove the element we want to remove
-  array.splice(index,1);
-  //this will clean the  board and redraw with the new data
-  gMap.importMap(array);
+  var map = gMap.exportMap();
+  var emptied = false;
+  if(map.length === 2){
+    if(map[0][0] === map[1][0] && map[0][1] === map[1][1]){
+      gMap.emptyMarkers();
+      gMap.pathLatLng.length = 0;
+      gMap.directionsDisplay.setMap(null);
+      emptied = true;
+    }
+  }
+  if(!emptied){
+    map.splice(index,1);
+    gMap.importMap(map);
+  }
 };
 gMap.getDistance = function (index, total){
   index = index || 0;
