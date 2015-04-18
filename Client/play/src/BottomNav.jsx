@@ -34,7 +34,7 @@ module.exports = React.createClass({
         transform: 'translate(0px,-95px )'
       };
       maskTransform = {
-        background: '#ccc'
+        background: '#D53D06'
       };
     } else {
       statusNavTransform = {
@@ -47,13 +47,15 @@ module.exports = React.createClass({
         transform: 'none'
       };
       maskTransform = {
-        background:'darkSlateGray'
+        background:'#D53D06'
       };
     }
 
     return (                   
       <div id="bottomNav">
-        <div className="nav-item-container" onClick={this.handleClick}>
+        <div className="nav-item-container" onTouchStart={this.handleClick}> 
+      {/* onClick={this.handleClick}*/}
+        
             <div className="status-nav" style={statusNavTransform}>
               <Link to="status">
               <i className="fa fa-list-ul"></i>

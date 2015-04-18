@@ -143,6 +143,15 @@ h2 {
   padding-bottom : 5px;
 }
 
+#player-app {
+  
+}
+
+#player-container {
+  padding: 0;
+
+}
+
 #bottomNav {
   color: #fff;
 
@@ -160,7 +169,7 @@ h2 {
     z-index:1;
     transition: all 200ms cubic-bezier(0.680, 0, 0.265, 0);
     position:absolute;
-    background-color: gray;
+    background-color: #ffa600;
     
     a {
       font-size: 10px;
@@ -200,49 +209,48 @@ h2 {
       left: 17px;
     } 
   }
+  
+  .nav-item-container, .mask {
+    bottom: 20px;
+    right: 20px;
+    width: 60px;
+    height: 60px;
+  }
+
+
+  .mask {
+    border-radius:50%;
+    position:absolute;
+    z-index:21;
+    color:white;
+    text-align:center;
+    line-height:120px;
+    cursor:pointer;
+    position:fixed;
+  }
+
+
+
+  .nav-item-container {
+    position:fixed;
+    display:block;
+    background-color:transparent;
+    border-radius:50%;
+    z-index:20;
+    -webkit-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+  -moz-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+  box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+  }
+
+  .transformNavItemOne {
+    background-color: gray;
+    transform: translate(0px,-125px);
+  }
+
+
 }
 
-#player-container {
-  padding: 0 15px;
-}
 
-
-.nav-item-container, .mask {
-  bottom: 20px;
-  right: 20px;
-  width: 60px;
-  height: 60px;
-}
-
-
-.mask {
-  border-radius:50%;
-  position:absolute;
-  z-index:21;
-  color:white;
-  text-align:center;
-  line-height:120px;
-  cursor:pointer;
-  position:fixed;
-}
-
-
-
-.nav-item-container {
-  position:fixed;
-  display:block;
-  background-color:transparent;
-  border-radius:50%;
-  z-index:20;
-  -webkit-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
--moz-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
-}
-
-.transformNavItemOne {
-  background-color: gray;
-  transform: translate(0px,-125px);
-}
 
 #welcome-msg-container {
   background: url(../static/golden-gate-bridge.jpg) no-repeat center center fixed; 
@@ -250,6 +258,44 @@ box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
+
+  padding-top: 120px;
+
+
+  #welcome-text {
+    background-color: rgba(0,0,0,0.45);
+    text-align: center; 
+    padding: 10px 20px 40px; 
+    
+    h2 {
+      font-size: 2em;
+      color: #fff;
+      font-family: 'Ubuntu', arial;
+      line-height: 1.4;
+      margin-bottom: 20px;
+      font-weight: 400;
+    }
+
+    #hunt-name {
+      margin-bottom: 20px;
+    }
+    
+    #start-btn {
+      .btn {
+        background-color: #ffa600;
+        border-radius: 2px;
+        font-size: 1.5em;
+        font-weight: bold;
+
+        a {
+          color: #fff;
+        }
+
+      }
+    }
+  }
+
+
 }
 
 .navbar-brand{

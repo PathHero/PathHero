@@ -646,7 +646,7 @@ module.exports = React.createClass({displayName: "exports",
         transform: 'translate(0px,-95px )'
       };
       maskTransform = {
-        background: '#ccc'
+        background: '#D53D06'
       };
     } else {
       statusNavTransform = {
@@ -659,13 +659,15 @@ module.exports = React.createClass({displayName: "exports",
         transform: 'none'
       };
       maskTransform = {
-        background:'darkSlateGray'
+        background:'#D53D06'
       };
     }
 
     return (                   
       React.createElement("div", {id: "bottomNav"}, 
-        React.createElement("div", {className: "nav-item-container", onClick: this.handleClick}, 
+        React.createElement("div", {className: "nav-item-container", onTouchStart: this.handleClick}, 
+      /* onClick={this.handleClick}*/
+        
             React.createElement("div", {className: "status-nav", style: statusNavTransform}, 
               React.createElement(Link, {to: "status"}, 
               React.createElement("i", {className: "fa fa-list-ul"}), 
@@ -1129,18 +1131,24 @@ var HuntSummaryContainer = require('./HuntSummaryContainer');
 var Link = require('react-router').Link;
 
 module.exports = React.createClass({displayName: "exports",
-  render: function () {      
+  render: function () {
+
+    var windowHeight = {
+      height: window.innerHeight
+    }
+
     return (
       React.createElement("div", null, 
-        React.createElement("div", {id: "welcome-msg-container"}, 
+        React.createElement("div", {id: "welcome-msg-container", style: windowHeight}, 
           React.createElement("div", {id: "welcome-text"}, 
-            React.createElement(Title, {title: this.props.hunt.huntName})
-          ), 
-          React.createElement("div", {id: "start-btn"}, 
-            React.createElement("button", null, React.createElement(Link, {to: "clues"}, "Start"))
+            React.createElement(Title, {title: this.props.hunt.huntName}), 
+            React.createElement("div", {id: "start-btn"}, 
+              React.createElement("button", {className: "btn"}, React.createElement(Link, {to: "status"}, "Start Hunt"))
+            )
           )
-        ), 
-        React.createElement(HuntSummaryContainer, {hunt: this.props.hunt})
+          /*<HuntSummaryContainer hunt={this.props.hunt}/> */
+        
+        )
       )
     );
   }
