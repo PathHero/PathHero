@@ -3928,16 +3928,22 @@ h2 {
     text-align: center;
     line-height: 70px;
     z-index: 1;
-    transition: all 275ms cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    transition: all 200ms cubic-bezier(0.68, 0, 0.265, 0);
     position: absolute; }
     #bottomNav .test1 a, #bottomNav .test2 a, #bottomNav .test3 a {
       font-size: 10px;
       color: #fff; }
       #bottomNav .test1 a i, #bottomNav .test2 a i, #bottomNav .test3 a i {
-        font-size: 20px;
         display: block;
-        margin-bottom: -24px;
         margin-top: 9px; }
+  #bottomNav .test1 a i {
+    font-size: 22px;
+    margin-top: 10px;
+    margin-bottom: -26px; }
+  #bottomNav .test2 a i, #bottomNav .test3 a i {
+    font-size: 25px;
+    margin-top: 9px;
+    margin-bottom: -27px; }
   #bottomNav .mask i {
     position: absolute;
     top: 15px;
