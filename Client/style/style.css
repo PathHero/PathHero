@@ -3845,10 +3845,13 @@ button.close {
   border: 0;
   -webkit-appearance: none; }
 
+html body {
+  font-family: 'Ubuntu', sans-serif; }
+
 h2 {
   color: #848484;
   font-size: 12px;
-  font-weight: bold;
+  font-weight: 300;
   text-transform: uppercase; }
 
 #app-container #map-container {
@@ -3995,5 +3998,8 @@ h2 {
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover; }
+
+.navbar-brand {
+  font-weight: 500; }
 
 /*# sourceMappingURL=style.css.map */
