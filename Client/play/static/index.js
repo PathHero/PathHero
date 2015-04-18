@@ -2,7 +2,7 @@
 
 $(function() {
   $.ajax({
-    url: 'http://play.pathhero.com/hunts',
+    url: window.location.origin+'/hunts',
     method: 'GET',
   })
   .done(function(data) {
