@@ -7,18 +7,24 @@ var HuntSummaryContainer = require('./HuntSummaryContainer');
 var Link = require('react-router').Link;
 
 module.exports = React.createClass({
-  render: function () {      
+  render: function () {
+
+    var windowHeight = {
+      height: window.innerHeight
+    }
+
     return (
       <div>
-        <div id="welcome-msg-container"> 
+        <div id="welcome-msg-container" style={windowHeight}> 
           <div id="welcome-text">
             <Title title={this.props.hunt.huntName}/>
-          </div>      
-          <div id="start-btn">
-            <button><Link to="clues">Start</Link></button>
-          </div>          
+            <div id="start-btn">
+              <button className="btn"><Link to="status">Start Hunt</Link></button>
+            </div>          
+          </div>
+          {/*<HuntSummaryContainer hunt={this.props.hunt}/> */}      
+        
         </div>
-        <HuntSummaryContainer hunt={this.props.hunt}/>
       </div>
     );
   }
