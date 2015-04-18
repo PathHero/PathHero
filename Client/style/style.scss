@@ -137,7 +137,7 @@ h2 {
 #bottomNav {
   color: #fff;
 
-  .test1, .test2, .test3 {
+  .status-nav, .clues-nav, .map-nav {
     width: 100%;
     height: 100%;
     top:0;
@@ -164,7 +164,7 @@ h2 {
     }
   }
 
-  .test1 {  
+  .status-nav {  
     a {
       i {
         font-size: 22px;
@@ -174,7 +174,7 @@ h2 {
     }    
   }
 
-  .test2, .test3 { 
+  .clues-nav, .map-nav { 
     a {
       i {
         font-size: 25px;
@@ -184,19 +184,13 @@ h2 {
     }    
   }
 
-
-
   .mask {
-    
     i {
       position: absolute;
       top: 15px;
       left: 17px;
-    }
-    
+    } 
   }
-
-
 }
 
 #player-container {
@@ -204,7 +198,7 @@ h2 {
 }
 
 
-.parent2, .mask {
+.nav-item-container, .mask {
   bottom: 20px;
   right: 20px;
   width: 60px;
@@ -225,7 +219,7 @@ h2 {
 
 
 
-.parent2 {
+.nav-item-container {
   position:fixed;
   display:block;
   background-color:transparent;

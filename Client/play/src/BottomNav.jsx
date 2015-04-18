@@ -18,32 +18,32 @@ module.exports = React.createClass({
   
   render: function () {
 
-    var test1Transform;
-    var test2Transform;
-    var test3Transform;
+    var statusNavTransform;
+    var cluesNavTransform;
+    var mapNavTransform;
     var maskTransform;
 
     if (this.state.active) {
-      test1Transform = {
+      statusNavTransform = {
         transform: 'translate(-95px, 0px)'
       };
-      test2Transform = {
+      cluesNavTransform = {
         transform: 'translate(-75px,-75px)'
       };
-      test3Transform = {
+      mapNavTransform = {
         transform: 'translate(0px,-95px )'
       };
       maskTransform = {
         background: '#ccc'
       };
     } else {
-      test1Transform = {
+      statusNavTransform = {
         transform: 'none'
       };
-      test2Transform = {
+      cluesNavTransform = {
         transform: 'none'
       };
-      test3Transform = {
+      mapNavTransform = {
         transform: 'none'
       };
       maskTransform = {
@@ -53,19 +53,19 @@ module.exports = React.createClass({
 
     return (                   
       <div id="bottomNav">
-        <div className="parent2" onClick={this.handleClick}>
-            <div className="test1" style={test1Transform}>
+        <div className="nav-item-container" onClick={this.handleClick}>
+            <div className="status-nav" style={statusNavTransform}>
               <Link to="status">
               <i className="fa fa-list-ul"></i>
               STATUS</Link>            
             </div>
-            <div className="test2" style={test2Transform}>
+            <div className="clues-nav" style={cluesNavTransform}>
               <Link to="clues">
                 <i className="fa fa-question"></i>
                 CLUES  
               </Link>
             </div>
-            <div className="test3" style={test3Transform}>
+            <div className="map-nav" style={mapNavTransform}>
               <Link to="map">
                 <i className="fa fa-map-marker"></i>
                 MAP
