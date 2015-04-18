@@ -32,7 +32,7 @@ module.exports = React.createClass({
     var hiker = {
       width: '32px',
       height: '32px',
-      background: 'url("http://wettowelreactor.com:3000/static/Hiker.png")',
+      background: 'url("http://pathhero.com/static/Hiker.png")',
       backgroundSize: '100%',
       backgroundColor: 'transparent',
       backgroundRepeat: 'no-repeat',

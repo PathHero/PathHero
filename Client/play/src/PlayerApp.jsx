@@ -21,7 +21,7 @@ module.exports = React.createClass({
     if (!this.state.hunt.huntName) {
       $.ajax({
         method: 'GET',
-        url: 'http://create.wettowelreactor.com:3000'+window.location.pathname
+        url: 'http://create.pathhero.com'+window.location.pathname
       })
       .done(function(data) {
         Actions.replaceHunt(data);

@@ -2,7 +2,7 @@
 
 $(function() {
   $.ajax({
-    url: 'http://play.wettowelreactor.com:3000/hunts',
+    url: 'http://play.pathhero.com/hunts',
     method: 'GET',
   })
   .done(function(data) {
