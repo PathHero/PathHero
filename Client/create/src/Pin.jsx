@@ -7,6 +7,7 @@ var Btn = require('./Btn');
 var Panel = require('react-bootstrap').Panel;
 var Actions = require('../RefluxActions');
 var gMap = require('../../../lib/gMapLib');
+var mapImg = require('../../../lib/mapMarkers.js');
 
 module.exports = React.createClass({
   componentDidMount: function() {
@@ -39,9 +40,12 @@ module.exports = React.createClass({
     var pinHeader;
     if (this.props.editMode) {
       pinHeader = (<span>
-                     Pin {this.props.pinIndex+1}: 
+                     <img src={mapImg[this.props.pinIndex]} width="42" />
                      <input type="text" ref="locationName" onChange={this.onLocationChange}
                             value={this.props.pin.answer} />
+                      <span>
+                        <Btn label="X" clickHandler={this.removePin}/>
+                      </span>
                    </span>);
     } else {
       pinHeader = (<span>Pin {this.props.pinIndex+1}: {this.props.pin.answer}
@@ -67,7 +71,7 @@ module.exports = React.createClass({
                   defaultValue={this.props.pin.resultText} 
                   onChange={this.resultTextOnChange}/>
         <div>
-          <Btn label="Delete Pin" clickHandler={this.removePin}   />
+          
         </div>
         </Panel>
       </div>
