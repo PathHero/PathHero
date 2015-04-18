@@ -3983,4 +3983,11 @@ h2 {
   background-color: gray;
   transform: translate(0px, -125px); }
 
+#welcome-msg-container {
+  background: url(../static/golden-gate-bridge.jpg) no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover; }
+
 /*# sourceMappingURL=style.css.map */

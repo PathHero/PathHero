@@ -241,3 +241,11 @@ box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
   transform: translate(0px,-125px);
 }
 
+#welcome-msg-container {
+  background: url(../static/golden-gate-bridge.jpg) no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
