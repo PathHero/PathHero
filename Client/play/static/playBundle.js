@@ -617,21 +617,77 @@ var React = require('react');
 var Link = require('react-router').Link;
 
 module.exports = React.createClass({displayName: "exports",
+
+  getInitialState: function() {
+    return {
+      active: false
+    }
+  },
+
+  handleClick: function(event) {
+    this.setState({active: !this.state.active});
+  },
+  
   render: function () {
+
+    var statusNavTransform;
+    var cluesNavTransform;
+    var mapNavTransform;
+    var maskTransform;
+
+    if (this.state.active) {
+      statusNavTransform = {
+        transform: 'translate(-95px, 0px)'
+      };
+      cluesNavTransform = {
+        transform: 'translate(-75px,-75px)'
+      };
+      mapNavTransform = {
+        transform: 'translate(0px,-95px )'
+      };
+      maskTransform = {
+        background: '#ccc'
+      };
+    } else {
+      statusNavTransform = {
+        transform: 'none'
+      };
+      cluesNavTransform = {
+        transform: 'none'
+      };
+      mapNavTransform = {
+        transform: 'none'
+      };
+      maskTransform = {
+        background:'darkSlateGray'
+      };
+    }
+
     return (                   
       React.createElement("div", {id: "bottomNav"}, 
-        React.createElement("div", {className: "row"}, 
-          React.createElement("div", {className: "col-xs-4"}, 
-            React.createElement("span", null, React.createElement(Link, {to: "status"}, "Status"))
-          ), 
-          React.createElement("div", {className: "col-xs-4"}, 
-            React.createElement("span", null, React.createElement(Link, {to: "clues"}, "Clues"))
-          ), 
-          React.createElement("div", {className: "col-xs-4"}, 
-            React.createElement("span", null, React.createElement(Link, {to: "map"}, "Map"))
+        React.createElement("div", {className: "nav-item-container", onClick: this.handleClick}, 
+            React.createElement("div", {className: "status-nav", style: statusNavTransform}, 
+              React.createElement(Link, {to: "status"}, 
+              React.createElement("i", {className: "fa fa-list-ul"}), 
+              "STATUS")
+            ), 
+            React.createElement("div", {className: "clues-nav", style: cluesNavTransform}, 
+              React.createElement(Link, {to: "clues"}, 
+                React.createElement("i", {className: "fa fa-question"}), 
+                "CLUES"  
+              )
+            ), 
+            React.createElement("div", {className: "map-nav", style: mapNavTransform}, 
+              React.createElement(Link, {to: "map"}, 
+                React.createElement("i", {className: "fa fa-map-marker"}), 
+                "MAP"
+              )
+            ), 
+          React.createElement("div", {className: "mask", style: maskTransform}, 
+           React.createElement("i", {className: "fa fa-bars fa-2x"})
           )
         )
-      )      
+      ) 
     );
   }
 });
@@ -1102,7 +1158,6 @@ var Welcome = require('./Welcome');
 var Status = require('./Status');
 var Clues = require('./Clues');
 var PlayerMap = require('./PlayerMap');
-
 
 var routes = (
   React.createElement(Route, {handler: PlayerApp}, 
