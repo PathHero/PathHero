@@ -34,10 +34,14 @@ $screen-xs-max:              ($screen-sm-min - 1) !default;
 $screen-sm-max:              ($screen-md-min - 1) !default;
 $screen-md-max:              ($screen-lg-min - 1) !default;
 
+html body{
+  font-family: 'Ubuntu', sans-serif;
+}
+
 h2 {
   color: #848484;
   font-size: 12px;
-  font-weight: bold;
+  font-weight: 300;
   text-transform: uppercase;
 }
 
@@ -248,3 +252,6 @@ box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
   background-size: cover;
 }
 
+.navbar-brand{
+  font-weight: 500;
+}
