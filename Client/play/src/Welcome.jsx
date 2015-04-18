@@ -10,7 +10,7 @@ module.exports = React.createClass({
   render: function () {      
     return (
       <div>
-        <div id="welcome-msg-container">  
+        <div id="welcome-msg-container"> 
           <div id="welcome-text">
             <Title title={this.props.hunt.huntName}/>
           </div>      

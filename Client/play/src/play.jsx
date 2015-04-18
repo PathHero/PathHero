@@ -11,7 +11,6 @@ var Status = require('./Status');
 var Clues = require('./Clues');
 var PlayerMap = require('./PlayerMap');
 
-
 var routes = (
   <Route handler={PlayerApp}>
     <DefaultRoute handler={Welcome}/>
