@@ -1,5 +1,6 @@
 // Import bootstrap styles
 @import 'bootstrap-custom';
+@import url(http://fonts.googleapis.com/css?family=Ubuntu:300,400,500);
 
 ///////////////////////////////
 // VARIABLES 
@@ -33,13 +34,11 @@ $screen-xs-max:              ($screen-sm-min - 1) !default;
 $screen-sm-max:              ($screen-md-min - 1) !default;
 $screen-md-max:              ($screen-lg-min - 1) !default;
 
-
-
 h2 {
   color: #848484;
   font-size: 12px;
   font-weight: bold;
-  text-transform: uppercase;      
+  text-transform: uppercase;
 }
 
 #app-container {
