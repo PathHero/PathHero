@@ -10,7 +10,8 @@ catch(err) {
 var facebook = secrets.facebook || {
   clientID: process.env.FACEBOOK_CLIENT_ID,
   clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
-  callbackUrl: 'http://create.pathhero.com/login/facebook/callback'
+  callbackUrl: 'http://create.pathhero.com/login/facebook/callback',
+  redirect_uri: 'http://create.pathhero.com/login/facebook/callback'
 };
 
 var github = secrets.github || {
@@ -22,7 +23,8 @@ var github = secrets.github || {
 var google = secrets.google || {
   consumerKey: process.env.GOOGLE_CONSUMER_KEY,
   consumerSecret: process.env.GOOGLE_CONSUMER_SECRET,
-  callbackUrl: 'http://create.pathhero.com/login/google/callback'
+  callbackUrl: 'http://create.pathhero.com/login/google/callback',
+  redirect_uri: 'http://create.pathhero.com/login/google/callback'
 };
 
 var twitter = secrets.twitter || {
