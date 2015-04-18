@@ -3929,7 +3929,8 @@ h2 {
     line-height: 70px;
     z-index: 1;
     transition: all 200ms cubic-bezier(0.68, 0, 0.265, 0);
-    position: absolute; }
+    position: absolute;
+    background-color: gray; }
     #bottomNav .test1 a, #bottomNav .test2 a, #bottomNav .test3 a {
       font-size: 10px;
       color: #fff; }
