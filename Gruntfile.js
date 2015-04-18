@@ -18,14 +18,28 @@ module.exports = function(grunt) {
 
     browserify: {
       browserifyOptions: {
-        debug: true
+        debug: true,
       },
-      'Client/play/static/playBundle.js': [
-        'Client/play/src/compiled/play.js'
-      ],
-      'Client/create/static/createBundle.js': [
-        'Client/create/src/compiled/create.js',
-      ]
+      create: {
+        files: {
+          'Client/create/static/createBundle.js': [
+            'Client/create/src/compiled/create.js'
+          ]
+        },
+        options: {
+          transform: [['uglifyify', {global: true}]]
+        }
+      },
+      play: {
+        files: {
+          'Client/play/static/playBundle.js': [
+            'Client/play/src/compiled/play.js'
+          ]
+        },
+        options: {
+          transform: [['uglifyify', {global: true}]]
+        }
+      },
     },
 
     react: {
@@ -162,12 +176,17 @@ module.exports = function(grunt) {
       },
       server: {
         files: [
-          'Gruntfile.js',
           'server.js',
           'Server/**/*.js',
           'Spec/**/*.js'
         ],
         tasks: ['check']
+      },
+      gruntConfig: {
+        files: [
+          'Gruntfile.js',
+        ],
+        tasks: ['jshint', 'react', 'browserify']
       },
       sass: {
         // We watch and compile sass files as normal but don't live reload here
@@ -181,6 +200,6 @@ module.exports = function(grunt) {
   grunt.registerTask('check', ['jshint', 'mochaTest:test', 'coverage']);
   grunt.registerTask('coverage', ['env:coverage', 'instrument', 'mochaTest:cov',
     'storeCoverage', 'makeReport']);
-  grunt.registerTask('default', ['concurrent']);
+  grunt.registerTask('default', ['react', 'browserify', 'concurrent']);
   grunt.registerTask('deploy', ['react', 'browserify', 'nodemon']);
 };
