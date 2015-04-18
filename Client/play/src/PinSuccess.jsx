@@ -8,6 +8,8 @@ var Link = require('react-router').Link;
 module.exports = React.createClass({
   render: function () {
     var currentPinIndex = this.props.hunt.currentPinIndex;
+    var numOfPins = this.props.hunt.pins.length;
+    currentPinIndex = Math.min(currentPinIndex, numOfPins-1);
     var currentPin = this.props.hunt.pins[currentPinIndex];
     var answer = currentPin.answer;
     var resultText = currentPin.resultText;

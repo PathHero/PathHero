@@ -9,6 +9,7 @@ var PinSuccess = require('./PinSuccess');
 var HuntSuccess = require('./HuntSuccess');
 var HuntSummaryContainer = require('./HuntSummaryContainer');
 var Actions = require('../RefluxActions');
+var ProgressBar = require('./ProgressBar');
 
 var HITDISTANCE = 26;
 
@@ -22,16 +23,19 @@ module.exports = React.createClass({
   },
   componentWillMount: function() {
     var currentPinIndex = this.props.hunt.currentPinIndex;
+    var numOfPins = this.props.hunt.pins.length;
+    currentPinIndex = Math.min(currentPinIndex, numOfPins-1);
     var currentPin = this.props.hunt.pins[currentPinIndex];
     var nextGeo = currentPin.geo;
     gMap.getDistanceToLatLng(function (value) {
       var playerAtLocation = false;
       var huntComplete = false;
       if (value < HITDISTANCE) {
+        Actions.updateHuntAtKey(this.props.hunt.currentPinIndex + 1, 'currentPinIndex');
         playerAtLocation = true;
         value = 0;
       }
-      if (playerAtLocation && this.props.hunt.currentPinIndex === (this.props.hunt.pins.length - 1)) {
+      if (playerAtLocation && this.props.hunt.currentPinIndex >= (this.props.hunt.pins.length - 1)) {
         huntComplete = true;
       }
       this.setState({
@@ -41,12 +45,6 @@ module.exports = React.createClass({
       });
     }.bind(this), nextGeo);
   },
-  componentWillUnmount: function() {
-    if (this.state.playerAtLocation && !this.state.huntComplete) {
-      Actions.updateHuntAtKey(this.props.hunt.currentPinIndex + 1, 'currentPinIndex');
-    }
-  },
-
   render: function () {
     var numOfLocations = this.props.hunt.pins.length;
     var listItemArray = [ numOfLocations + " locations left", 
@@ -74,6 +72,7 @@ module.exports = React.createClass({
         {locationStatus}
         {huntStatus}
         <HuntSummaryContainer hunt={this.props.hunt}/>
+        <ProgressBar hunt={this.props.hunt}/>
       </div>
     );
   }

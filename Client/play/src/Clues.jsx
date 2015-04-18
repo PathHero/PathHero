@@ -7,7 +7,10 @@ var Actions = require('../RefluxActions');
 
 module.exports = React.createClass({
   numOfClues: function() {
-    var currentPin = this.props.hunt.pins[this.props.hunt.currentPinIndex];
+    var currentPinIndex = this.props.hunt.currentPinIndex;
+    var numOfPins = this.props.hunt.pins.length;
+    currentPinIndex = Math.min(currentPinIndex, numOfPins-1);
+    var currentPin = this.props.hunt.pins[currentPinIndex];
     return currentPin.clues.length;
   },
   hasPrevClue: function() {
@@ -23,7 +26,10 @@ module.exports = React.createClass({
     Actions.updateHuntAtKey(this.props.hunt.currentClueIndex + 1, 'currentClueIndex');
   },
   render: function () {  
-    var currentPin = this.props.hunt.pins[this.props.hunt.currentPinIndex];
+    var currentPinIndex = this.props.hunt.currentPinIndex;
+    var numOfPins = this.props.hunt.pins.length;
+    currentPinIndex = Math.min(currentPinIndex, numOfPins-1);
+    var currentPin = this.props.hunt.pins[currentPinIndex];
     var currentClue = currentPin.clues[this.props.hunt.currentClueIndex];
 
     var backBtn = null;
