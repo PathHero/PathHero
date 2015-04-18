@@ -3960,7 +3960,6 @@ h2 {
   height: 60px; }
 
 .mask {
-  background: darkSlateGray;
   border-radius: 50%;
   position: absolute;
   z-index: 21;

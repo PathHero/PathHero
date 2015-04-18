@@ -3,7 +3,8 @@
 
 var React = require('react');
 var Link = require('react-router').Link;
-var $ = require('jquery');
+var fA = require('font-awesome');
+
 
 module.exports = React.createClass({
 
@@ -22,6 +23,7 @@ module.exports = React.createClass({
     var test1Transform;
     var test2Transform;
     var test3Transform;
+    var maskTransform;
 
     if (this.state.active) {
       test1Transform = {
@@ -33,6 +35,9 @@ module.exports = React.createClass({
       test3Transform = {
         transform: 'translate(0px,-95px )'
       };
+      maskTransform = {
+        background: '#ccc'
+      };
     } else {
       test1Transform = {
         transform: 'none'
@@ -42,6 +47,9 @@ module.exports = React.createClass({
       };
       test3Transform = {
         transform: 'none'
+      };
+      maskTransform = {
+        background:'darkSlateGray'
       };
     }
 
@@ -65,8 +73,8 @@ module.exports = React.createClass({
                 MAP
               </Link>
             </div>
-          <div className="mask">
-            <i className="fa fa-home fa-2x"></i>
+          <div className="mask" style={maskTransform}>
+           <i className="fa fa-bars fa-2x"></i>
           </div>
         </div>
       </div> 
