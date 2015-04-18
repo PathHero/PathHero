@@ -10,6 +10,8 @@ var Welcome = require('./Welcome');
 var Status = require('./Status');
 var Clues = require('./Clues');
 var PlayerMap = require('./PlayerMap');
+var $ = require('jquery');
+
 
 
 var routes = (
