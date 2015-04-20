@@ -805,6 +805,7 @@ module.exports = React.createClass({displayName: "exports",
         React.createElement(TitleBox, {title: "Hunt Summary"}, 
           React.createElement(List, {listItemArray: listItemArray})
         ), 
+        React.createElement("hr", null), 
         React.createElement("div", {id: "hunt-description-container"}, 
           React.createElement(TitleBox, {title: "Hunt Description"}, 
             React.createElement("div", null, 
@@ -1112,6 +1113,7 @@ module.exports = React.createClass({displayName: "exports",
       React.createElement("div", null, 
         locationStatus, 
         huntStatus, 
+  
         React.createElement(HuntSummaryContainer, {hunt: this.props.hunt}), 
         React.createElement(ProgressBar, {hunt: this.props.hunt})
       )

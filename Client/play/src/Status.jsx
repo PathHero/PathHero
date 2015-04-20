@@ -85,6 +85,7 @@ module.exports = React.createClass({
       <div>
         {locationStatus}
         {huntStatus}
+  
         <HuntSummaryContainer hunt={this.props.hunt}/>
         <ProgressBar hunt={this.props.hunt}/>
       </div>

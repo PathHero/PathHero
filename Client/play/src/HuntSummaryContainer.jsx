@@ -19,6 +19,7 @@ module.exports = React.createClass({
         <TitleBox title="Hunt Summary">            
           <List listItemArray={listItemArray} />
         </TitleBox>
+        <hr></hr>
         <div id="hunt-description-container">
           <TitleBox title="Hunt Description">
             <div>
