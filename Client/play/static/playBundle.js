@@ -667,25 +667,24 @@ module.exports = React.createClass({displayName: "exports",
       React.createElement("div", {id: "bottomNav"}, 
         React.createElement("div", {className: "nav-item-container", onTouchStart: this.handleClick}, 
           /* onClick={this.handleClick}*/
+          React.createElement("div", {className: "status-nav", style: statusNavTransform}, 
+            React.createElement(Link, {to: "status"}, 
+            React.createElement("i", {className: "fa fa-list-ul"}), 
+            "STATUS")
+          ), 
+          React.createElement("div", {className: "clues-nav", style: cluesNavTransform}, 
+            React.createElement(Link, {to: "clues"}, 
+            React.createElement("i", {className: "fa fa-question"}), 
+            "CLUES")
+          ), 
+          React.createElement("div", {className: "map-nav", style: mapNavTransform}, 
+          React.createElement(Link, {to: "map"}, 
+            React.createElement("i", {className: "fa fa-map-marker"}), 
+            "MAP")
+          ), 
           React.createElement("div", {className: "mask", style: maskTransform}, 
            React.createElement("i", {className: "fa fa-bars fa-2x"})
-          ), 
-
-          React.createElement(Link, {to: "status", className: "status-nav", style: statusNavTransform}, 
-            React.createElement("i", {className: "fa fa-list-ul"}), 
-            "STATUS"
-          ), 
-
-          React.createElement(Link, {to: "clues", className: "clues-nav", style: cluesNavTransform}, 
-            React.createElement("i", {className: "fa fa-question"}), 
-            "CLUES"
-          ), 
-
-          React.createElement(Link, {to: "map", className: "map-nav", style: mapNavTransform}, 
-            React.createElement("i", {className: "fa fa-map-marker"}), 
-            "MAP"          
           )
-
         )
       ) 
     );
