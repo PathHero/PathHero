@@ -986,23 +986,21 @@ var ProgressBar = require('./ProgressBar');
 var HITDISTANCE = 0.20;
 
 module.exports = React.createClass({displayName: "exports",
-  getInitialState: function() {
-    return {
-      playerAtLocation: false,
-      huntComplete: false,
-      distanceToNextPin: 0.00,
-    };
-  },
-  componentWillMount: function() {
+  getCurrentPinIndex: function() {
     var currentPinIndex = this.props.hunt.currentPinIndex;
     var numOfPins = this.props.hunt.pins.length;
-    currentPinIndex = Math.min(currentPinIndex, numOfPins-1);
+    return Math.min(currentPinIndex, numOfPins-1);
+  },
+  updateDistance: function() {
+    var currentPinIndex = this.getCurrentPinIndex();
     var currentPin = this.props.hunt.pins[currentPinIndex];
     var nextGeo = currentPin.geo;
+
     gMap.getDistanceToLatLng(function (value) {
       var playerAtLocation = false;
       var huntComplete = false;
       if (value < HITDISTANCE) {
+        clearInterval(this.updateInterval);
         Actions.updateHuntAtKey(this.props.hunt.currentPinIndex + 1, 'currentPinIndex');
         playerAtLocation = true;
         value = 0;
@@ -1016,6 +1014,22 @@ module.exports = React.createClass({displayName: "exports",
         huntComplete: huntComplete
       });
     }.bind(this), nextGeo);
+  },
+  getInitialState: function() {
+    return {
+      playerAtLocation: false,
+      huntComplete: false,
+      distanceToNextPin: 0.00,
+    };
+  },
+  componentWillMount: function() {
+    this.updateDistance();
+    if (!this.state.playerAtLocation) {
+      this.updateInterval = setInterval(this.updateDistance, 5000);
+    }
+  },
+  componentWillUnmount: function() {
+    clearInterval(this.updateInterval);
   },
   render: function () {
     var numOfLocations = this.props.hunt.pins.length;
@@ -1085,7 +1099,6 @@ module.exports = React.createClass({displayName: "exports",
 
 var React = require('react');
 var Title = require('./Title');
-var HuntSummaryContainer = require('./HuntSummaryContainer');
 var Link = require('react-router').Link;
 
 module.exports = React.createClass({displayName: "exports",
@@ -1093,7 +1106,7 @@ module.exports = React.createClass({displayName: "exports",
 
     var windowHeight = {
       height: window.innerHeight
-    }
+    };
 
     return (
       React.createElement("div", null, 
@@ -1112,7 +1125,7 @@ module.exports = React.createClass({displayName: "exports",
   }
 });
 
-},{"./HuntSummaryContainer":9,"./Title":16,"react":215,"react-router":46}],19:[function(require,module,exports){
+},{"./Title":16,"react":215,"react-router":46}],19:[function(require,module,exports){
 'use strict';
 /* jshint quotmark: false */
 

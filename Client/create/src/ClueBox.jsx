@@ -60,6 +60,7 @@ module.exports = React.createClass({
     var title, desc, url;
     if (this.props.hunt.editMode) {
       title = (<input id="hunt-title" ref="titleEdit" onChange={this.onChangeTitle}
+                      placeholder="Ex: Secrets of San Francisco" size="39"
                       value={this.props.hunt.huntName} key={this.props.hunt._id} />);
     } else {
       title = (<span id="hunt-title">{this.props.hunt.huntName}</span>);
@@ -67,7 +68,10 @@ module.exports = React.createClass({
 
     if (this.props.hunt.editMode) {
       desc = (<textarea id="hunt-desc" ref="descEdit" onChange={this.onChangeDesc} 
-                        cols="35" row="5" value={this.props.hunt.huntDesc} 
+                        placeholder="Ex: This adventurous challenge takes you from the
+                        the inner streets of San Francisco to the tranquil peace of local parks, 
+                        and ends back in the city after weaving around the coastline."
+                        cols="83" rows="6" value={this.props.hunt.huntDesc} 
                         key={this.props.hunt._id} />);
     } else {
       desc = (<span id="hunt-desc">{this.props.hunt.huntDesc}</span>);
@@ -85,16 +89,17 @@ module.exports = React.createClass({
           <HuntSubmitForm hunt={this.props.hunt} editMode={this.props.hunt.editMode} />
           <div id="hunt-title-container">
             {url}
+            <div className="tour-summary-container">
             <h2>Hunt Title</h2>
               {title}
-            <div className="tour-summary-container">
-              <h2>Tour Summary</h2>
-              <div className="summary-box">
-                <p>Description: {desc}</p>
-                <p>Duration: {this.props.hunt.huntInfo.huntTimeEst} hours</p>
-                <p>Distance: {this.props.hunt.huntInfo.huntDistance} miles</p>
-
-                <p>Locations: {this.props.hunt.pins.length}</p>              
+              <h2>Hunt Description</h2>
+              <p>{desc}</p>
+              <div>
+              <ul>
+                <li>{this.props.hunt.huntInfo.huntTimeEst} hours walk</li>
+                <li>{' '+this.props.hunt.huntInfo.huntDistance} miles</li>
+                <li>{' '+this.props.hunt.pins.length} locations</li>
+              </ul>
               </div>
             </div>
           </div>
