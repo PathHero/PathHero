@@ -3,7 +3,6 @@
 
 var React = require('react');
 var Title = require('./Title');
-var HuntSummaryContainer = require('./HuntSummaryContainer');
 var Link = require('react-router').Link;
 
 module.exports = React.createClass({
@@ -11,7 +10,7 @@ module.exports = React.createClass({
 
     var windowHeight = {
       height: window.innerHeight
-    }
+    };
 
     return (
       <div>
