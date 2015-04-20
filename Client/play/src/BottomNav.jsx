@@ -66,7 +66,7 @@ module.exports = React.createClass({
             CLUES</Link>    
           </div>   
           <div className="map-nav" style={mapNavTransform}>    
-          <Link to="map">    
+            <Link to="map">    
             <i className="fa fa-map-marker"></i>   
             MAP</Link>    
           </div>
