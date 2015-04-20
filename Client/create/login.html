@@ -1,20 +1,46 @@
 <html>
   <head>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
   </head>
   <body>
+    <div class="container-fluid">
+    <h1>Login</h1>
     <form method="post" action="login/local">
-      <label> Username:
-        <input name="username" required="required">
-      </label><br>
-      <label> Password:
-        <input name="password" type="password" required="required">
-      </label><br>
-      <button type="submit">Sign In</button><br>
+      <div class="input-group input-group-lg">
+        <span class="input-group-addon" id="sizing-addon1">Username</span>
+        <input type="text" name="username" class="form-control" placeholder="Username" required="required" aria-describedby="sizing-addon1">
+      </div>
+      <div class="input-group input-group-lg">
+        <span class="input-group-addon" id="sizing-addon1">Password</span>
+        <input type="password" name="password" class="form-control" placeholder="Username" required="required" aria-describedby="sizing-addon1">
+      </div>
+      <button class="btn btn-success" type="submit">Sign In</button>
     </form>
-    <a href="/signup">Signup for an account</a><br>
-    <a href="/login/facebook">Login with Facebook</a><br>
-    <a href="/login/github">Login with Github</a><br>
-    <a href="/login/google">Login with Google</a><br>
-    <a href="/login/twitter">Login with Twitter</a><br>
+  </div>
+
+
+    <a href="/signup"><button class="btn btn-info" type="submit">Create an Account</button></a>
+    <div class="col-xs-3 media">
+      <a href="/login/facebook">
+        <img class="media center-block" src="static/fb.png" alt="Facebook Logo"/>
+        <p class="text-center">Login w/ Facebook</p>
+      </a>
+    </div>
+    <div class="col-xs-1">
+    </div>
+    <div class="col-xs-3 media">
+      <a href="/login/twitter">
+        <img class="media center-block" src="static/twitter.png" alt="Twitter Logo"/>
+        <p class="text-center">Login w/ Twitter</p>
+      </a>
+    </div>
+    <div class="col-xs-1">
+    </div>
+    <div class="col-xs-3 media">
+      <img class="media center-block" src="static/github.png" alt="Github Logo"/>
+      <a href="/login/github">
+        <p class="text-center">Login w/ Github</p>
+      </a>
+    </div>
   </body>
 </html>
