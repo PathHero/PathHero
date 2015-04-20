@@ -14,7 +14,7 @@ $screen-xs-min:              $screen-xs !default;
 
 
 // Small screen / tablet
-//** Deprecated `$screen-sm` as of v3.0.1
+//** Deprecated `$screeclue-containern-sm` as of v3.0.1
 $screen-sm:                  768px !default;
 $screen-sm-min:              $screen-sm !default;
 
@@ -317,10 +317,68 @@ h2 {
       }
     }
   }
-
-
 }
 
 .navbar-brand{
   font-weight: 500;
 }
+
+
+#playerContainer {
+  #clue-container {
+    padding: 0 10px;
+
+    h1 {
+      text-align: center;
+      font-size: 25px;
+      margin-bottom: 10px;
+    }
+
+    h2 {
+      font-size: 15px;
+    }
+
+    .clue-num-container {
+      margin-bottom: 10px;
+      
+      .next-prev-link-container {
+        display: inline;
+        float: right; 
+
+        a {
+          margin: 5px;
+        }
+
+        .no-prev-clue, 
+        .no-next-clue {
+          color: #ccc;
+        }
+        
+        .has-prev-clue, 
+        .has-next-clue {
+          background-color: #fff;
+
+        }
+
+        .current-clue-txt {
+          display: block;
+        }
+      }
+    }
+
+    h2:first-child {
+      display: inline; 
+    }
+
+
+  }
+}
+
+
+
+
+
+
+
+
+

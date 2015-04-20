@@ -697,6 +697,7 @@ module.exports = React.createClass({displayName: "exports",
 
 var React = require('react');
 var TitleBox = require('./TitleBox');
+var Status = require('./Status');
 var Actions = require('../RefluxActions');
 
 module.exports = React.createClass({displayName: "exports",
@@ -726,31 +727,46 @@ module.exports = React.createClass({displayName: "exports",
     var currentPin = this.props.hunt.pins[currentPinIndex];
     var currentClue = currentPin.clues[this.props.hunt.currentClueIndex];
 
-    var backBtn = null;
-    var nextBtn = null;
+    var backBtn = (React.createElement("a", {onClick: this.prevClue, className: "no-prev-clue"}, "Back"));                    ;
+    var nextBtn = (React.createElement("a", {onClick: this.nextClue, className: "no-next-clue"}, "Next"));
+
     if (this.hasPrevClue()) {
-      backBtn = (React.createElement("button", {onClick: this.prevClue, className: "btn btn-default"}, "Back"));                    
+      backBtn = (React.createElement("a", {onClick: this.prevClue, className: "has-prev-clue"}, "Back"));                    
     }
     if (this.hasNextClue()) {
-      nextBtn = (React.createElement("button", {onClick: this.nextClue, className: "btn btn-default"}, "Next"));
+      nextBtn = (React.createElement("a", {onClick: this.nextClue, className: "has-next-clue"}, "Next"));
     }
     return (
       React.createElement("div", {id: "playerContainer"}, 
-        React.createElement("div", {className: "clue-container"}, 
+        React.createElement("div", {id: "clue-container"}, 
           React.createElement("div", {className: "clue-header"}, 
-            React.createElement("h1", null)
+            React.createElement("h1", null, "Location ", currentPinIndex+1)
           ), 
-          React.createElement(TitleBox, {title: "Clue " + (this.props.hunt.currentClueIndex + 1) + " of " +  this.numOfClues()}, 
+ 
+          React.createElement("div", {className: "clue-num-container"}, 
+            React.createElement("h2", null, "Clue ", this.props.hunt.currentClueIndex + 1, " of ", this.numOfClues()), 
+              React.createElement("div", {className: "next-prev-link-container"}, 
+                backBtn, nextBtn
+              )
+          ), 
+  
+          React.createElement("div", {className: "current-clue-txt"}, 
             currentClue
           ), 
-            backBtn, nextBtn
+            
+          React.createElement("hr", null), 
+
+          React.createElement(Status, {hunt: this.props.hunt})
+
         )
+      
+
       )
     );
   }
 });
 
-},{"../RefluxActions":4,"./TitleBox":17,"react":215}],8:[function(require,module,exports){
+},{"../RefluxActions":4,"./Status":15,"./TitleBox":17,"react":215}],8:[function(require,module,exports){
 'use strict';
 /* jshint quotmark: false */
 
@@ -1076,7 +1092,7 @@ module.exports = React.createClass({displayName: "exports",
                           this.state.distanceToNextPin + " miles to next location"];
     var locationStatus;    
     var locationSummary = (
-      React.createElement(TitleBox, {title: "Location Summary"}, 
+      React.createElement(TitleBox, {title: "Status"}, 
         React.createElement(List, {listItemArray: listItemArray})
       )
     );

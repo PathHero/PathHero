@@ -65,7 +65,7 @@ module.exports = React.createClass({
                           this.state.distanceToNextPin + " miles to next location"];
     var locationStatus;    
     var locationSummary = (
-      <TitleBox title="Location Summary">
+      <TitleBox title="Status">
         <List listItemArray={listItemArray} />
       </TitleBox>
     );

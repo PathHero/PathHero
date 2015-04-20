@@ -4046,4 +4046,30 @@ h2 {
 .navbar-brand {
   font-weight: 500; }
 
+#playerContainer #clue-container {
+  padding: 0 10px; }
+  #playerContainer #clue-container h1 {
+    text-align: center;
+    font-size: 25px;
+    margin-bottom: 10px; }
+  #playerContainer #clue-container h2 {
+    font-size: 15px; }
+  #playerContainer #clue-container .clue-num-container {
+    margin-bottom: 10px; }
+    #playerContainer #clue-container .clue-num-container .next-prev-link-container {
+      display: inline;
+      float: right; }
+      #playerContainer #clue-container .clue-num-container .next-prev-link-container a {
+        margin: 5px; }
+      #playerContainer #clue-container .clue-num-container .next-prev-link-container .no-prev-clue,
+      #playerContainer #clue-container .clue-num-container .next-prev-link-container .no-next-clue {
+        color: #ccc; }
+      #playerContainer #clue-container .clue-num-container .next-prev-link-container .has-prev-clue,
+      #playerContainer #clue-container .clue-num-container .next-prev-link-container .has-next-clue {
+        background-color: #fff; }
+      #playerContainer #clue-container .clue-num-container .next-prev-link-container .current-clue-txt {
+        display: block; }
+  #playerContainer #clue-container h2:first-child {
+    display: inline; }
+
 /*# sourceMappingURL=style.css.map */
