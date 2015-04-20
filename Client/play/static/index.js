@@ -8,7 +8,11 @@ $(function() {
   .done(function(data) {
     console.log('data:',data);
     data.forEach(function(item) {
-      $('ul').append('<li>').append('<a href="' + item.url + '">' + item.url + '</a>');
+      $('.HuntList').append('<div>').append(
+        '<a href="' + item.url + '" class="list-group-item">' + 
+          '<h5>' + item.huntName + '</h5>' + 
+          item.huntDesc + 
+        '</a>');
     });
   })
   .fail(function(error) {
