@@ -11,7 +11,7 @@ var HuntSummaryContainer = require('./HuntSummaryContainer');
 var Actions = require('../RefluxActions');
 var ProgressBar = require('./ProgressBar');
 
-var HITDISTANCE = 26;
+var HITDISTANCE = 0.20;
 
 module.exports = React.createClass({
   getInitialState: function() {

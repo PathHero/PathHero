@@ -54,28 +54,25 @@ module.exports = React.createClass({
     return (                   
       <div id="bottomNav">
         <div className="nav-item-container" onTouchStart={this.handleClick}> 
-      {/* onClick={this.handleClick}*/}
-        
-            <div className="status-nav" style={statusNavTransform}>
-              <Link to="status">
-              <i className="fa fa-list-ul"></i>
-              STATUS</Link>            
-            </div>
-            <div className="clues-nav" style={cluesNavTransform}>
-              <Link to="clues">
-                <i className="fa fa-question"></i>
-                CLUES  
-              </Link>
-            </div>
-            <div className="map-nav" style={mapNavTransform}>
-              <Link to="map">
-                <i className="fa fa-map-marker"></i>
-                MAP
-              </Link>
-            </div>
+          {/* onClick={this.handleClick}*/}
+          <div className="status-nav" style={statusNavTransform}>   
+            <Link to="status">   
+            <i className="fa fa-list-ul"></i>    
+            STATUS</Link>                
+          </div>   
+          <div className="clues-nav" style={cluesNavTransform}>    
+            <Link to="clues">    
+            <i className="fa fa-question"></i>   
+            CLUES</Link>    
+          </div>   
+          <div className="map-nav" style={mapNavTransform}>    
+            <Link to="map">    
+            <i className="fa fa-map-marker"></i>   
+            MAP</Link>    
+          </div>
           <div className="mask" style={maskTransform}>
            <i className="fa fa-bars fa-2x"></i>
-          </div>
+          </div>          
         </div>
       </div> 
     );

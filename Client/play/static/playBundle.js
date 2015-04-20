@@ -666,25 +666,22 @@ module.exports = React.createClass({displayName: "exports",
     return (                   
       React.createElement("div", {id: "bottomNav"}, 
         React.createElement("div", {className: "nav-item-container", onTouchStart: this.handleClick}, 
-      /* onClick={this.handleClick}*/
-        
-            React.createElement("div", {className: "status-nav", style: statusNavTransform}, 
-              React.createElement(Link, {to: "status"}, 
-              React.createElement("i", {className: "fa fa-list-ul"}), 
-              "STATUS")
-            ), 
-            React.createElement("div", {className: "clues-nav", style: cluesNavTransform}, 
-              React.createElement(Link, {to: "clues"}, 
-                React.createElement("i", {className: "fa fa-question"}), 
-                "CLUES"  
-              )
-            ), 
-            React.createElement("div", {className: "map-nav", style: mapNavTransform}, 
-              React.createElement(Link, {to: "map"}, 
-                React.createElement("i", {className: "fa fa-map-marker"}), 
-                "MAP"
-              )
-            ), 
+          /* onClick={this.handleClick}*/
+          React.createElement("div", {className: "status-nav", style: statusNavTransform}, 
+            React.createElement(Link, {to: "status"}, 
+            React.createElement("i", {className: "fa fa-list-ul"}), 
+            "STATUS")
+          ), 
+          React.createElement("div", {className: "clues-nav", style: cluesNavTransform}, 
+            React.createElement(Link, {to: "clues"}, 
+            React.createElement("i", {className: "fa fa-question"}), 
+            "CLUES")
+          ), 
+          React.createElement("div", {className: "map-nav", style: mapNavTransform}, 
+          React.createElement(Link, {to: "map"}, 
+            React.createElement("i", {className: "fa fa-map-marker"}), 
+            "MAP")
+          ), 
           React.createElement("div", {className: "mask", style: maskTransform}, 
            React.createElement("i", {className: "fa fa-bars fa-2x"})
           )
@@ -1025,7 +1022,7 @@ var HuntSummaryContainer = require('./HuntSummaryContainer');
 var Actions = require('../RefluxActions');
 var ProgressBar = require('./ProgressBar');
 
-var HITDISTANCE = 26;
+var HITDISTANCE = 0.20;
 
 module.exports = React.createClass({displayName: "exports",
   getInitialState: function() {
