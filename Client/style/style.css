@@ -3874,13 +3874,20 @@ h2 {
       font-size: 30px; }
   #hunt-info-container .tour-summary-container h2 {
     color: #676767; }
+  #hunt-info-container .tour-summary-container ul {
+    list-style-type: none;
+    padding-left: 0; }
+  #hunt-info-container .tour-summary-container ul li {
+    display: inline;
+    border-radius: 3px;
+    border: 1px solid #c0d4db;
+    padding: 5px; }
   #hunt-info-container .tour-summary-container .summary-box {
     background-color: #F4F4F4;
     border: 1px solid #ccc;
     padding: 15px 20px 15px; }
     #hunt-info-container .tour-summary-container .summary-box p {
-      font-size: 15px;
-      font-weight: bold;
+      font-size: 12px;
       margin-bottom: 0px; }
   #hunt-info-container #pin-container .clue-hint-container {
     margin-bottom: 10px; }

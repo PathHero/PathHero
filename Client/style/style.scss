@@ -52,7 +52,8 @@ h2 {
     }
     #gMap {
     width: 50%;
-  }  
+  }    
+
 }
 
 #player-container {
@@ -81,14 +82,25 @@ h2 {
       color: #676767;
     }
 
+    ul {
+      list-style-type: none;
+      padding-left: 0;
+    }
+
+    ul li {
+      display: inline;
+      border-radius: 3px;
+      border: 1px solid #c0d4db;
+      padding: 5px;
+    }
+
     .summary-box {
       background-color: #F4F4F4;
       border: 1px solid #ccc;
       padding: 15px 20px 15px;        
 
       p {
-        font-size: 15px;
-        font-weight: bold;
+        font-size: 12px;
         margin-bottom: 0px;
       }
     }
