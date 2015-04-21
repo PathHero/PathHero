@@ -7,6 +7,7 @@ var Clues = require('./Clues');
 var gMap = require('../../../lib/gMapLib');
 var Status = require('./Status');
 var PinSuccess = require('./PinSuccess');
+var HuntSuccess = require('./HuntSuccess');
 var Actions = require('../RefluxActions');
 
 var HITDISTANCE = 26;
@@ -54,16 +55,23 @@ module.exports = React.createClass({
                           
     var locationStatus;
     var clues = (<Clues hunt={this.props.hunt} />);
-
+    
     if (!this.state.playerAtLocation) {
       locationStatus = clues;
     } else {
-      locationStatus = (<PinSuccess hunt={this.props.hunt} huntComplete={this.state.huntComplete}/>);
+      locationStatus = (
+        <PinSuccess hunt={this.props.hunt} huntComplete={this.state.huntComplete}/>);
+    }
+
+    var huntStatus = null;
+    if (this.state.huntComplete) {
+      huntStatus = (<HuntSuccess/>);
     }
 
     return (
       <div id="playerContainer" style={windowHeight}>
         {locationStatus}
+        {huntStatus}
       </div>
 
     );

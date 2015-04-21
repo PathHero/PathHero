@@ -627,63 +627,24 @@ module.exports = React.createClass({displayName: "exports",
   handleClick: function() { //ignoring params:  event
     this.setState({active: !this.state.active});
   },
-  
+
   render: function () {
-
-    var statusNavTransform;
-    var cluesNavTransform;
-    var mapNavTransform;
-    var maskTransform;
-
-    if (this.state.active) {
-      statusNavTransform = {
-        transform: 'translate(-95px, 0px)'
-      };
-      cluesNavTransform = {
-        transform: 'translate(-75px,-75px)'
-      };
-      mapNavTransform = {
-        transform: 'translate(0px,-95px )'
-      };
-      maskTransform = {
-        background: '#D53D06'
-      };
-    } else {
-      statusNavTransform = {
-        transform: 'none'
-      };
-      cluesNavTransform = {
-        transform: 'none'
-      };
-      mapNavTransform = {
-        transform: 'none'
-      };
-      maskTransform = {
-        background:'#D53D06'
-      };
-    }
-
     return (                   
       React.createElement("div", {id: "bottomNav"}, 
-        React.createElement("div", {className: "nav-item-container", onTouchStart: this.handleClick}, 
-          /* onClick={this.handleClick}*/
-          React.createElement("div", {className: "status-nav", style: statusNavTransform}, 
-            React.createElement(Link, {to: "status"}, 
+        React.createElement("div", {className: "navButton navButtonStatus"}, 
+          React.createElement(Link, {to: "clues"}, 
             React.createElement("i", {className: "fa fa-list-ul"}), 
-            "STATUS")
-          ), 
-          React.createElement("div", {className: "clues-nav", style: cluesNavTransform}, 
-            React.createElement(Link, {to: "clues"}, 
-            React.createElement("i", {className: "fa fa-question"}), 
-            "CLUES")
-          ), 
-          React.createElement("div", {className: "map-nav", style: mapNavTransform}, 
-            React.createElement(Link, {to: "map"}, 
+            React.createElement("span", null, 
+                "CLUES"
+            )
+          )
+        ), 
+        React.createElement("div", {className: "navButton navButtonMap"}, 
+          React.createElement(Link, {to: "map"}, 
             React.createElement("i", {className: "fa fa-map-marker"}), 
-            "MAP")
-          ), 
-          React.createElement("div", {className: "mask", style: maskTransform}, 
-           React.createElement("i", {className: "fa fa-bars fa-2x"})
+            React.createElement("span", null, 
+              "MAP"
+            )
           )
         )
       ) 
@@ -775,6 +736,7 @@ var Clues = require('./Clues');
 var gMap = require('../../../lib/gMapLib');
 var Status = require('./Status');
 var PinSuccess = require('./PinSuccess');
+var HuntSuccess = require('./HuntSuccess');
 var Actions = require('../RefluxActions');
 
 var HITDISTANCE = 26;
@@ -822,23 +784,30 @@ module.exports = React.createClass({displayName: "exports",
                           
     var locationStatus;
     var clues = (React.createElement(Clues, {hunt: this.props.hunt}));
-
+    
     if (!this.state.playerAtLocation) {
       locationStatus = clues;
     } else {
-      locationStatus = (React.createElement(PinSuccess, {hunt: this.props.hunt, huntComplete: this.state.huntComplete}));
+      locationStatus = (
+        React.createElement(PinSuccess, {hunt: this.props.hunt, huntComplete: this.state.huntComplete}));
+    }
+
+    var huntStatus = null;
+    if (this.state.huntComplete) {
+      huntStatus = (React.createElement(HuntSuccess, null));
     }
 
     return (
       React.createElement("div", {id: "playerContainer", style: windowHeight}, 
-        locationStatus
+        locationStatus, 
+        huntStatus
       )
 
     );
   }
 });
 
-},{"../../../lib/gMapLib":2,"../RefluxActions":4,"./Clues":7,"./PinSuccess":12,"./Status":16,"./TitleBox":18,"react":216}],9:[function(require,module,exports){
+},{"../../../lib/gMapLib":2,"../RefluxActions":4,"./Clues":7,"./HuntSuccess":9,"./PinSuccess":12,"./Status":16,"./TitleBox":18,"react":216}],9:[function(require,module,exports){
 'use strict';
 /* jshint quotmark: false */
 
