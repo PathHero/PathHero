@@ -18,7 +18,7 @@ module.exports = React.createClass({
           <div id="welcome-text">
             <Title title={this.props.hunt.huntName}/>
             <div id="start-btn">
-              <button className="btn"><Link to="status">Start Hunt</Link></button>
+              <button className="btn"><Link to="clues">Start Hunt</Link></button>
             </div>          
           </div>
           {/*<HuntSummaryContainer hunt={this.props.hunt}/> */}      

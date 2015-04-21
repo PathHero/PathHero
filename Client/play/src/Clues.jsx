@@ -27,6 +27,7 @@ module.exports = React.createClass({
     Actions.updateHuntAtKey(this.props.hunt.currentClueIndex + 1, 'currentClueIndex');
   },
   render: function () {  
+
     var currentPinIndex = this.props.hunt.currentPinIndex;
     var numOfPins = this.props.hunt.pins.length;
     currentPinIndex = Math.min(currentPinIndex, numOfPins-1);
@@ -42,11 +43,12 @@ module.exports = React.createClass({
     if (this.hasNextClue()) {
       nextBtn = (<a onClick={this.nextClue} className="has-next-clue">Next</a>);
     }
+
     return (
-      <div id="playerContainer">
+      
         <div id="clue-container">
           <div className="clue-header">
-            <h1>Location {currentPinIndex+1}</h1>                
+            <h1>Target {currentPinIndex+1}</h1>                
           </div>
  
           <div className="clue-num-container">
@@ -63,11 +65,8 @@ module.exports = React.createClass({
           <hr></hr>
 
           <Status hunt={this.props.hunt}/>
-
-        </div>
+        </div>      
       
-
-      </div>
     );
   }
 });

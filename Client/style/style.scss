@@ -38,6 +38,7 @@ $screen-md-max:              ($screen-lg-min - 1) !default;
 
 // FONT COLORS ///////////////////////
 $orange: #ffa600;
+$red-orange: #D53D06;
 
 
 html body{
@@ -312,14 +313,13 @@ h2 {
     #start-btn {
       .btn {
         background-color: #ffa600;
-        border-radius: 2px;
+        border-radius: 1px;
         font-size: 1.5em;
         font-weight: bold;
 
         a {
           color: #fff;
         }
-
       }
     }
   }
@@ -331,59 +331,90 @@ h2 {
 
 
 #playerContainer {
-  #clue-container {
-    padding: 0 10px;
+  background: url(../static/golden-gate-brdige-blurred2.jpg) no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  overflow: auto;  
+  padding: 0 10px;
 
-    h1 {
-      text-align: center;
-      font-size: 25px;
-      margin-bottom: 20px;
+  h1 {
+    text-align: center;
+    font-size: 25px;
+    margin-bottom: 20px;
+    margin-top: 0;
+    padding-top: 20px;
+    color: $red-orange;
+  }
+
+  h2 {
+    font-size: 13px;
+    color: $red-orange;
+    font-weight: 500;
+  }
+
+  .btn {
+    background-color: #ffa600;
+    border-radius: 1px;
+    font-size: 1.5em;
+    font-weight: bold;
+    text-align: center;
+    padding: 4px 12px 6px;
+    
+    a {
+      color: #fff;
+      font-size: 0.9em;
     }
+  }
 
-    h2 {
-      font-size: 13px;
-      color: $orange;
-      font-weight: 500;
-    }
+  hr {
+    border-top: 1px solid #E8E5E5;
+  }
 
-    .clue-num-container {
-      margin-bottom: 10px;
+  .clue-num-container {
+    margin-bottom: 10px;
+    
+    .next-prev-link-container {
+      display: inline;
+      float: right; 
+
+      a {
+        margin: 11px;
+        color: $red-orange;
+        font-size: 13px;
+        text-transform: uppercase;
+      }
+
+      .no-prev-clue, 
+      .no-next-clue {
+        color: #818181;
+        text-decoration: none;
+        pointer-events: none;
+      }
       
-      .next-prev-link-container {
-        display: inline;
-        float: right; 
+      .has-prev-clue, 
+      .has-next-clue {
+        text-decoration: underline;
 
-        a {
-          margin: 11px;
-          color: #4A38B8;
-          font-size: 15px;
-        }
+      }
 
-        .no-prev-clue, 
-        .no-next-clue {
-          color: #ccc;
-          text-decoration: none;
-        }
-        
-        .has-prev-clue, 
-        .has-next-clue {
-          background-color: #fff;
-          text-decoration: underline;
-
-        }
-
-        .current-clue-txt {
-          display: block;
-        }
+      .current-clue-txt {
+        display: block;
       }
     }
-
-    h2:first-child {
-      display: inline; 
-    }
-
-
   }
+
+  #progress-bar {
+    height: 30px;
+  }
+
+  h2:first-child {
+    display: inline; 
+  }
+
+
+  
 }
 
 
