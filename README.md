@@ -42,16 +42,13 @@
 From within the root directory:
 
 ```sh
-sudo npm install -g bower
-sudo npm install -g nodemon
+sudo npm install -g nodemon react-tools browserify grunt-cli mocha istanbul sass
 npm install
-bower install
 ```
 
 ### Roadmap
 
 View the project roadmap [here](https://github.com/PathHero/PathHero/issues)
-
 
 ## Contributing
 
