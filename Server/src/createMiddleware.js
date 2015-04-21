@@ -166,7 +166,11 @@ module.exports.addSubdomain = function(app) {
     var huntid = req.params.huntid;
     var hunt = req.body;
     hunt._id = huntid;
-    hunt.creatorId = req.user;
+    if (hunt.creatorId !== req.user) {
+      console.log('user tried to modify a hunt they don\'t own');
+      res.send({update: false});
+      return;
+    }
     
     resolvePromise(db.updateHunt(hunt), res, function(count) {
       if (count === 1) {
