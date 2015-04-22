@@ -42,7 +42,7 @@ module.exports = React.createClass({
     };
 
     return (
-      <div>
+      <div id="progress-bar">
         <div style={outerBar}></div>
         <div style={innerBar}></div>
         <div style={hiker}></div>

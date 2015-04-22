@@ -2,7 +2,7 @@
 /* jshint quotmark: false */
 
 var React = require('react');
-var TitleBox = require('./TitleBox');
+var Status = require('./Status');
 var Actions = require('../RefluxActions');
 
 module.exports = React.createClass({
@@ -26,32 +26,46 @@ module.exports = React.createClass({
     Actions.updateHuntAtKey(this.props.hunt.currentClueIndex + 1, 'currentClueIndex');
   },
   render: function () {  
+
     var currentPinIndex = this.props.hunt.currentPinIndex;
     var numOfPins = this.props.hunt.pins.length;
     currentPinIndex = Math.min(currentPinIndex, numOfPins-1);
     var currentPin = this.props.hunt.pins[currentPinIndex];
     var currentClue = currentPin.clues[this.props.hunt.currentClueIndex];
 
-    var backBtn = null;
-    var nextBtn = null;
+    var backBtn = (<a onClick={this.prevClue} className="no-prev-clue">Back</a>);                    ;
+    var nextBtn = (<a onClick={this.nextClue} className="no-next-clue">Next</a>);
+
     if (this.hasPrevClue()) {
-      backBtn = (<button onClick={this.prevClue} className="btn btn-default">Back</button>);                    
+      backBtn = (<a onClick={this.prevClue} className="has-prev-clue">Back</a>);                    
     }
     if (this.hasNextClue()) {
-      nextBtn = (<button onClick={this.nextClue} className="btn btn-default">Next</button>);
+      nextBtn = (<a onClick={this.nextClue} className="has-next-clue">Next</a>);
     }
+
     return (
-      <div id="playerContainer">
-        <div className="clue-container">
+      
+        <div id="clue-container">
           <div className="clue-header">
-            <h1></h1>                
+            <h1>Target {currentPinIndex+1}</h1>                
           </div>
-          <TitleBox title={"Clue " + (this.props.hunt.currentClueIndex + 1) + " of " +  this.numOfClues()}>
+ 
+          <div className="clue-num-container">
+            <h2>Clue {this.props.hunt.currentClueIndex + 1} of {this.numOfClues()}</h2>
+              <div className="next-prev-link-container">
+                {backBtn}{nextBtn}   
+              </div>
+          </div>         
+  
+          <div className="current-clue-txt">
             {currentClue}
-          </TitleBox>
-            {backBtn}{nextBtn}        
-        </div>
-      </div>
+          </div>
+            
+          <hr></hr>
+
+          <Status hunt={this.props.hunt}/>
+        </div>      
+      
     );
   }
 });

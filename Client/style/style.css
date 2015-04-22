@@ -4037,7 +4037,7 @@ h2 {
       margin-bottom: 20px; }
     #welcome-msg-container #welcome-text #start-btn .btn {
       background-color: #ffa600;
-      border-radius: 2px;
+      border-radius: 1px;
       font-size: 1.5em;
       font-weight: bold; }
       #welcome-msg-container #welcome-text #start-btn .btn a {
@@ -4045,5 +4045,61 @@ h2 {
 
 .navbar-brand {
   font-weight: 500; }
+
+#playerContainer {
+  background: url(../static/golden-gate-brdige-blurred2.jpg) no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  overflow: auto;
+  padding: 0 10px; }
+  #playerContainer h1 {
+    text-align: center;
+    font-size: 25px;
+    margin-bottom: 20px;
+    margin-top: 0;
+    padding-top: 20px;
+    color: #D53D06; }
+  #playerContainer h2 {
+    font-size: 13px;
+    color: #D53D06;
+    font-weight: 500; }
+  #playerContainer .btn {
+    background-color: #ffa600;
+    border-radius: 1px;
+    font-size: 1.5em;
+    font-weight: bold;
+    text-align: center;
+    padding: 2px 12px 6px; }
+    #playerContainer .btn a {
+      color: #fff;
+      font-size: 0.8em; }
+  #playerContainer hr {
+    border-top: 1px solid #E8E5E5; }
+  #playerContainer .clue-num-container {
+    margin-bottom: 10px; }
+    #playerContainer .clue-num-container .next-prev-link-container {
+      display: inline;
+      float: right; }
+      #playerContainer .clue-num-container .next-prev-link-container a {
+        margin: 11px;
+        color: #D53D06;
+        font-size: 13px;
+        text-transform: uppercase; }
+      #playerContainer .clue-num-container .next-prev-link-container .no-prev-clue,
+      #playerContainer .clue-num-container .next-prev-link-container .no-next-clue {
+        color: #818181;
+        text-decoration: none;
+        pointer-events: none; }
+      #playerContainer .clue-num-container .next-prev-link-container .has-prev-clue,
+      #playerContainer .clue-num-container .next-prev-link-container .has-next-clue {
+        text-decoration: underline; }
+      #playerContainer .clue-num-container .next-prev-link-container .current-clue-txt {
+        display: block; }
+  #playerContainer #progress-bar {
+    height: 30px; }
+  #playerContainer h2:first-child {
+    display: inline; }
 
 /*# sourceMappingURL=style.css.map */

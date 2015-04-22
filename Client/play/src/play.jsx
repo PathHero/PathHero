@@ -8,14 +8,14 @@ var Route = require('react-router').Route;
 var PlayerApp = require('./PlayerApp');
 var Welcome = require('./Welcome');
 var Status = require('./Status');
-var Clues = require('./Clues');
+var CluesContainer = require('./CluesContainer');
 var PlayerMap = require('./PlayerMap');
 
 var routes = (
   <Route handler={PlayerApp}>
     <DefaultRoute handler={Welcome}/>
     <Route name="status" handler={Status}/>
-    <Route name="clues" handler={Clues}/>
+    <Route name="clues" handler={CluesContainer}/>
     <Route name="map" handler={PlayerMap}/>
   </Route>
 );

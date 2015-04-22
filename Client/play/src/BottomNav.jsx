@@ -20,10 +20,10 @@ module.exports = React.createClass({
     return (                   
       <div id="bottomNav">
         <div className="navButton navButtonStatus">
-          <Link to="status">
+          <Link to="clues">
             <i className="fa fa-list-ul"></i>
             <span>
-                STATUS
+                CLUES
             </span>
           </Link>
         </div>

@@ -5,13 +5,7 @@ var React = require('react');
 var gMap = require('../../../lib/gMapLib');
 var TitleBox = require('./TitleBox');
 var List = require('./List');
-var PinSuccess = require('./PinSuccess');
-var HuntSuccess = require('./HuntSuccess');
 var HuntSummaryContainer = require('./HuntSummaryContainer');
-var Actions = require('../RefluxActions');
-var ProgressBar = require('./ProgressBar');
-
-var HITDISTANCE = 0.20;
 
 module.exports = React.createClass({
   getCurrentPinIndex: function() {
@@ -24,69 +18,40 @@ module.exports = React.createClass({
     var currentPin = this.props.hunt.pins[currentPinIndex];
     var nextGeo = currentPin.geo;
 
-    gMap.getDistanceToLatLng(function (value) {
-      var playerAtLocation = false;
-      var huntComplete = false;
-      if (value < HITDISTANCE) {
-        clearInterval(this.updateInterval);
-        Actions.updateHuntAtKey(this.props.hunt.currentPinIndex + 1, 'currentPinIndex');
-        playerAtLocation = true;
-        value = 0;
-      }
-      if (playerAtLocation && this.props.hunt.currentPinIndex >= (this.props.hunt.pins.length - 1)) {
-        huntComplete = true;
-      }
+    gMap.getDistanceToLatLng(function (value) {   
       this.setState({
-        playerAtLocation: playerAtLocation, 
         distanceToNextPin: value,
-        huntComplete: huntComplete
       });
     }.bind(this), nextGeo);
   },
   getInitialState: function() {
-    return {
-      playerAtLocation: false,
-      huntComplete: false,
-      distanceToNextPin: 0.00,
+    return {      
+      distanceToNextPin: 0.00
     };
   },
   componentWillMount: function() {
-    this.updateDistance();
-    if (!this.state.playerAtLocation) {
-      this.updateInterval = setInterval(this.updateDistance, 5000);
-    }
+    this.updateInterval = setInterval(this.updateDistance, 5000);    
   },
   componentWillUnmount: function() {
     clearInterval(this.updateInterval);
   },
   render: function () {
     var numOfLocations = this.props.hunt.pins.length;
-    var listItemArray = [ numOfLocations + " locations left", 
-                          this.state.distanceToNextPin + " miles to next location"];
-    var locationStatus;    
+    var listItemArray = [ this.state.distanceToNextPin + " miles from target", numOfLocations + " locations left" ];
+                          
+    
     var locationSummary = (
-      <TitleBox title="Location Summary">
+      <TitleBox title="Status">
         <List listItemArray={listItemArray} />
       </TitleBox>
     );
 
-    if (!this.state.playerAtLocation) {
-      locationStatus = locationSummary;
-    } else {
-      locationStatus = (<PinSuccess hunt={this.props.hunt} huntComplete={this.state.huntComplete}/>);
-    }
-    
-    var huntStatus = null;
-    if (this.state.huntComplete) {
-      huntStatus = (<HuntSuccess/>);
-    }
-
+        
     return (
       <div>
-        {locationStatus}
-        {huntStatus}
+        {locationSummary}
+        <hr></hr>
         <HuntSummaryContainer hunt={this.props.hunt}/>
-        <ProgressBar hunt={this.props.hunt}/>
       </div>
     );
   }
