@@ -5,12 +5,7 @@ var React = require('react');
 var gMap = require('../../../lib/gMapLib');
 var TitleBox = require('./TitleBox');
 var List = require('./List');
-var PinSuccess = require('./PinSuccess');
-var HuntSuccess = require('./HuntSuccess');
 var HuntSummaryContainer = require('./HuntSummaryContainer');
-var Actions = require('../RefluxActions');
-
-var HITDISTANCE = 26;
 
 module.exports = React.createClass({
   getCurrentPinIndex: function() {
@@ -23,22 +18,9 @@ module.exports = React.createClass({
     var currentPin = this.props.hunt.pins[currentPinIndex];
     var nextGeo = currentPin.geo;
 
-    gMap.getDistanceToLatLng(function (value) {
-      var playerAtLocation = false;
-      var huntComplete = false;
-      if (value < HITDISTANCE) {
-        clearInterval(this.updateInterval);
-        Actions.updateHuntAtKey(this.props.hunt.currentPinIndex + 1, 'currentPinIndex');
-        playerAtLocation = true;
-        value = 0;
-      }
-      if (playerAtLocation && this.props.hunt.currentPinIndex >= (this.props.hunt.pins.length - 1)) {
-        huntComplete = true;
-      }
+    gMap.getDistanceToLatLng(function (value) {   
       this.setState({
-        playerAtLocation: playerAtLocation, 
         distanceToNextPin: value,
-        huntComplete: huntComplete
       });
     }.bind(this), nextGeo);
   },
@@ -62,28 +44,17 @@ module.exports = React.createClass({
     var numOfLocations = this.props.hunt.pins.length;
     var listItemArray = [ this.state.distanceToNextPin + " miles from target", numOfLocations + " locations left" ];
                           
-    var locationStatus;    
+    
     var locationSummary = (
       <TitleBox title="Status">
         <List listItemArray={listItemArray} />
       </TitleBox>
     );
 
-    if (!this.state.playerAtLocation) {
-      locationStatus = locationSummary;
-    } else {
-      locationStatus = (<PinSuccess hunt={this.props.hunt} huntComplete={this.state.huntComplete}/>);
-    }
-    
-    var huntStatus = null;
-    if (this.state.huntComplete) {
-      huntStatus = (<HuntSuccess/>);
-    }
-
+        
     return (
       <div>
-        {locationStatus}
-        {huntStatus}
+        {locationSummary}
         <hr></hr>
         <HuntSummaryContainer hunt={this.props.hunt}/>
       </div>

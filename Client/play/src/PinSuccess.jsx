@@ -15,12 +15,12 @@ module.exports = React.createClass({
     var resultText = currentPin.resultText;
     var nextClue = null;
     if (!this.props.huntComplete) {
-      nextClue = (<button className="btn"><Link to="clues">Start next location</Link></button>);
+      nextClue = (<button className="btn"><Link to="clues" onClick={this.props.togglePlayerAtLocation}>Start next location</Link></button>);
     }
     return (
       <div>
         <h1>Success! You're at the correct location</h1>
-        <h2>{answer}</h2>
+        <h2>{this.props.answer}</h2>
         <p>{resultText}</p>
         {nextClue}
       </div>

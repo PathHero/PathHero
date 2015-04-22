@@ -8,7 +8,6 @@ var Route = require('react-router').Route;
 var PlayerApp = require('./PlayerApp');
 var Welcome = require('./Welcome');
 var Status = require('./Status');
-var Clues = require('./Clues');
 var CluesContainer = require('./CluesContainer');
 var PlayerMap = require('./PlayerMap');
 

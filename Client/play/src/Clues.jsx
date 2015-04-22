@@ -2,7 +2,6 @@
 /* jshint quotmark: false */
 
 var React = require('react');
-var TitleBox = require('./TitleBox');
 var Status = require('./Status');
 var Actions = require('../RefluxActions');
 

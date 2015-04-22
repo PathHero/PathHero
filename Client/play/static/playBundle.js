@@ -657,7 +657,6 @@ module.exports = React.createClass({displayName: "exports",
 /* jshint quotmark: false */
 
 var React = require('react');
-var TitleBox = require('./TitleBox');
 var Status = require('./Status');
 var Actions = require('../RefluxActions');
 
@@ -726,7 +725,7 @@ module.exports = React.createClass({displayName: "exports",
   }
 });
 
-},{"../RefluxActions":4,"./Status":16,"./TitleBox":18,"react":216}],8:[function(require,module,exports){
+},{"../RefluxActions":4,"./Status":16,"react":216}],8:[function(require,module,exports){
 'use strict';
 /* jshint quotmark: false */
 
@@ -739,16 +738,27 @@ var PinSuccess = require('./PinSuccess');
 var HuntSuccess = require('./HuntSuccess');
 var Actions = require('../RefluxActions');
 
-var HITDISTANCE = 26;
+var HITDISTANCE = 4;
 var windowHeight = { height: window.innerHeight }; 
 
 module.exports = React.createClass({displayName: "exports",
 
   getInitialState: function() {
+
+    var currentPinIndex = this.props.hunt.currentPinIndex;
+    var numOfPins = this.props.hunt.pins.length;
+    currentPinIndex = Math.min(currentPinIndex, numOfPins-1);
+    var currentPin = this.props.hunt.pins[currentPinIndex];
+    var answer = currentPin.answer;
+    var resultText = currentPin.resultText;
+
     return {
       playerAtLocation: false,
       huntComplete: false,
       distanceToNextPin: 0.00,
+      answer: answer,
+      resultText: resultText
+
     };
   },
   componentWillMount: function() {
@@ -775,8 +785,46 @@ module.exports = React.createClass({displayName: "exports",
       });
     }.bind(this), nextGeo);
   },
-  
 
+  togglePlayerAtLocation: function() {
+    this.setState({playerAtLocation: false});
+
+
+    var currentPinIndex = this.props.hunt.currentPinIndex;
+    var numOfPins = this.props.hunt.pins.length;
+    currentPinIndex = Math.min(currentPinIndex, numOfPins-1);
+    var currentPin = this.props.hunt.pins[currentPinIndex];
+    var nextGeo = currentPin.geo;
+    gMap.getDistanceToLatLng(function (value) {
+      var playerAtLocation = false;
+      var huntComplete = false;
+      if (value < HITDISTANCE) {
+        Actions.updateHuntAtKey(this.props.hunt.currentPinIndex + 1, 'currentPinIndex');
+        playerAtLocation = true;
+        value = 0;
+      }
+      if (playerAtLocation && this.props.hunt.currentPinIndex >= (this.props.hunt.pins.length - 1)) {
+        huntComplete = true;
+      }
+      this.setState({
+        playerAtLocation: playerAtLocation, 
+        distanceToNextPin: value,
+        huntComplete: huntComplete
+      });
+    }.bind(this), nextGeo);
+
+    var currentPinIndex = this.props.hunt.currentPinIndex;
+    var numOfPins = this.props.hunt.pins.length;
+    currentPinIndex = Math.min(currentPinIndex, numOfPins-1);
+    var currentPin = this.props.hunt.pins[currentPinIndex];
+    var answer = currentPin.answer;
+    var resultText = currentPin.resultText;
+
+    this.setState({answer: answer});
+
+
+  },
+  
   render: function () { 
 
     var numOfLocations = this.props.hunt.pins.length;
@@ -789,7 +837,7 @@ module.exports = React.createClass({displayName: "exports",
       locationStatus = clues;
     } else {
       locationStatus = (
-        React.createElement(PinSuccess, {hunt: this.props.hunt, huntComplete: this.state.huntComplete}));
+        React.createElement(PinSuccess, {hunt: this.props.hunt, huntComplete: this.state.huntComplete, togglePlayerAtLocation: this.togglePlayerAtLocation, answer: this.state.answer, resultText: this.state.resultText}));
     }
 
     var huntStatus = null;
@@ -806,6 +854,8 @@ module.exports = React.createClass({displayName: "exports",
     );
   }
 });
+
+
 
 },{"../../../lib/gMapLib":2,"../RefluxActions":4,"./Clues":7,"./HuntSuccess":9,"./PinSuccess":12,"./Status":16,"./TitleBox":18,"react":216}],9:[function(require,module,exports){
 'use strict';
@@ -900,12 +950,12 @@ module.exports = React.createClass({displayName: "exports",
     var resultText = currentPin.resultText;
     var nextClue = null;
     if (!this.props.huntComplete) {
-      nextClue = (React.createElement("button", {className: "btn"}, React.createElement(Link, {to: "clues"}, "Start next location")));
+      nextClue = (React.createElement("button", {className: "btn"}, React.createElement(Link, {to: "clues", onClick: this.props.togglePlayerAtLocation}, "Start next location")));
     }
     return (
       React.createElement("div", null, 
         React.createElement("h1", null, "Success! You're at the correct location"), 
-        React.createElement("h2", null, answer), 
+        React.createElement("h2", null, this.props.answer), 
         React.createElement("p", null, resultText), 
         nextClue
       )
@@ -1076,12 +1126,7 @@ var React = require('react');
 var gMap = require('../../../lib/gMapLib');
 var TitleBox = require('./TitleBox');
 var List = require('./List');
-var PinSuccess = require('./PinSuccess');
-var HuntSuccess = require('./HuntSuccess');
 var HuntSummaryContainer = require('./HuntSummaryContainer');
-var Actions = require('../RefluxActions');
-
-var HITDISTANCE = 26;
 
 module.exports = React.createClass({displayName: "exports",
   getCurrentPinIndex: function() {
@@ -1094,22 +1139,9 @@ module.exports = React.createClass({displayName: "exports",
     var currentPin = this.props.hunt.pins[currentPinIndex];
     var nextGeo = currentPin.geo;
 
-    gMap.getDistanceToLatLng(function (value) {
-      var playerAtLocation = false;
-      var huntComplete = false;
-      if (value < HITDISTANCE) {
-        clearInterval(this.updateInterval);
-        Actions.updateHuntAtKey(this.props.hunt.currentPinIndex + 1, 'currentPinIndex');
-        playerAtLocation = true;
-        value = 0;
-      }
-      if (playerAtLocation && this.props.hunt.currentPinIndex >= (this.props.hunt.pins.length - 1)) {
-        huntComplete = true;
-      }
+    gMap.getDistanceToLatLng(function (value) {   
       this.setState({
-        playerAtLocation: playerAtLocation, 
         distanceToNextPin: value,
-        huntComplete: huntComplete
       });
     }.bind(this), nextGeo);
   },
@@ -1133,28 +1165,17 @@ module.exports = React.createClass({displayName: "exports",
     var numOfLocations = this.props.hunt.pins.length;
     var listItemArray = [ this.state.distanceToNextPin + " miles from target", numOfLocations + " locations left" ];
                           
-    var locationStatus;    
+    
     var locationSummary = (
       React.createElement(TitleBox, {title: "Status"}, 
         React.createElement(List, {listItemArray: listItemArray})
       )
     );
 
-    if (!this.state.playerAtLocation) {
-      locationStatus = locationSummary;
-    } else {
-      locationStatus = (React.createElement(PinSuccess, {hunt: this.props.hunt, huntComplete: this.state.huntComplete}));
-    }
-    
-    var huntStatus = null;
-    if (this.state.huntComplete) {
-      huntStatus = (React.createElement(HuntSuccess, null));
-    }
-
+        
     return (
       React.createElement("div", null, 
-        locationStatus, 
-        huntStatus, 
+        locationSummary, 
         React.createElement("hr", null), 
         React.createElement(HuntSummaryContainer, {hunt: this.props.hunt})
       )
@@ -1162,7 +1183,7 @@ module.exports = React.createClass({displayName: "exports",
   }
 });
 
-},{"../../../lib/gMapLib":2,"../RefluxActions":4,"./HuntSuccess":9,"./HuntSummaryContainer":10,"./List":11,"./PinSuccess":12,"./TitleBox":18,"react":216}],17:[function(require,module,exports){
+},{"../../../lib/gMapLib":2,"./HuntSummaryContainer":10,"./List":11,"./TitleBox":18,"react":216}],17:[function(require,module,exports){
 'use strict';
 /* jshint quotmark: false */
 
@@ -1234,7 +1255,6 @@ var Route = require('react-router').Route;
 var PlayerApp = require('./PlayerApp');
 var Welcome = require('./Welcome');
 var Status = require('./Status');
-var Clues = require('./Clues');
 var CluesContainer = require('./CluesContainer');
 var PlayerMap = require('./PlayerMap');
 
@@ -1251,7 +1271,7 @@ Router.run(routes, function (Handler) {
   React.render(React.createElement(Handler, null), document.getElementById('player-app'));
 });
 
-},{"./Clues":7,"./CluesContainer":8,"./PlayerApp":13,"./PlayerMap":14,"./Status":16,"./Welcome":19,"react":216,"react-router":47}],21:[function(require,module,exports){
+},{"./CluesContainer":8,"./PlayerApp":13,"./PlayerMap":14,"./Status":16,"./Welcome":19,"react":216,"react-router":47}],21:[function(require,module,exports){
 // shim for using process in browser
 
 var process = module.exports = {};
