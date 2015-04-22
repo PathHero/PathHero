@@ -25,17 +25,12 @@ module.exports = React.createClass({
     }.bind(this), nextGeo);
   },
   getInitialState: function() {
-    return {
-      playerAtLocation: false,
-      huntComplete: false,
-      distanceToNextPin: 0.00,
+    return {      
+      distanceToNextPin: 0.00
     };
   },
   componentWillMount: function() {
-    this.updateDistance();
-    if (!this.state.playerAtLocation) {
-      this.updateInterval = setInterval(this.updateDistance, 5000);
-    }
+    this.updateInterval = setInterval(this.updateDistance, 5000);    
   },
   componentWillUnmount: function() {
     clearInterval(this.updateInterval);

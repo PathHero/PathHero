@@ -16,11 +16,7 @@ var windowHeight = { height: window.innerHeight };
 module.exports = React.createClass({
 
   getInitialState: function() {
-
-    var currentPinIndex = this.props.hunt.currentPinIndex;
-    var numOfPins = this.props.hunt.pins.length;
-    currentPinIndex = Math.min(currentPinIndex, numOfPins-1);
-    var currentPin = this.props.hunt.pins[currentPinIndex];
+    var currentPin = this.getCurrentPin();
     var answer = currentPin.answer;
     var resultText = currentPin.resultText;
 
@@ -33,19 +29,23 @@ module.exports = React.createClass({
 
     };
   },
-  componentWillMount: function() {
+  getCurrentPin: function() {
     var currentPinIndex = this.props.hunt.currentPinIndex;
     var numOfPins = this.props.hunt.pins.length;
     currentPinIndex = Math.min(currentPinIndex, numOfPins-1);
-    var currentPin = this.props.hunt.pins[currentPinIndex];
+    return this.props.hunt.pins[currentPinIndex];
+  },
+
+  updatePlayerStatus: function() {
+    var currentPin = this.getCurrentPin();
     var nextGeo = currentPin.geo;
     gMap.getDistanceToLatLng(function (value) {
       var playerAtLocation = false;
       var huntComplete = false;
       if (value < HITDISTANCE) {
+        clearInterval(this.playerStatusInterval);
         Actions.updateHuntAtKey(this.props.hunt.currentPinIndex + 1, 'currentPinIndex');
         playerAtLocation = true;
-        value = 0;
       }
       if (playerAtLocation && this.props.hunt.currentPinIndex >= (this.props.hunt.pins.length - 1)) {
         huntComplete = true;
@@ -53,48 +53,27 @@ module.exports = React.createClass({
       this.setState({
         playerAtLocation: playerAtLocation, 
         distanceToNextPin: value,
-        huntComplete: huntComplete
+        huntComplete: huntComplete,
+        answer: currentPin.answer,
+        resultText: currentPin.resultText
       });
     }.bind(this), nextGeo);
   },
 
+  componentWillMount: function() {
+    this.updatePlayerStatus();
+    if (!this.state.playerAtLocation) {
+      this.playerStatusInterval = setInterval(this.updatePlayerStatus, 5000);
+    }
+  },
+
+  componentWillUnmount: function() {
+    clearInterval(this.playerStatusInterval);
+  },
+
   togglePlayerAtLocation: function() {
     this.setState({playerAtLocation: false});
-
-
-    var currentPinIndex = this.props.hunt.currentPinIndex;
-    var numOfPins = this.props.hunt.pins.length;
-    currentPinIndex = Math.min(currentPinIndex, numOfPins-1);
-    var currentPin = this.props.hunt.pins[currentPinIndex];
-    var nextGeo = currentPin.geo;
-    gMap.getDistanceToLatLng(function (value) {
-      var playerAtLocation = false;
-      var huntComplete = false;
-      if (value < HITDISTANCE) {
-        Actions.updateHuntAtKey(this.props.hunt.currentPinIndex + 1, 'currentPinIndex');
-        playerAtLocation = true;
-        value = 0;
-      }
-      if (playerAtLocation && this.props.hunt.currentPinIndex >= (this.props.hunt.pins.length - 1)) {
-        huntComplete = true;
-      }
-      this.setState({
-        playerAtLocation: playerAtLocation, 
-        distanceToNextPin: value,
-        huntComplete: huntComplete
-      });
-    }.bind(this), nextGeo);
-
-    var currentPinIndex = this.props.hunt.currentPinIndex;
-    var numOfPins = this.props.hunt.pins.length;
-    currentPinIndex = Math.min(currentPinIndex, numOfPins-1);
-    var currentPin = this.props.hunt.pins[currentPinIndex];
-    var answer = currentPin.answer;
-    var resultText = currentPin.resultText;
-
-    this.setState({answer: answer});
-
-
+    this.playerStatusInterval = setInterval(this.updatePlayerStatus, 5000);
   },
   
   render: function () { 
