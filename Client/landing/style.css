@@ -1,0 +1,32 @@
+
+
+h1{
+	line-height: 4 !important;
+}
+
+a{
+	color: white;
+	margin: 50px;
+	line-height: 5;
+	padding: 10px;
+	padding-left: 25px;
+	padding-right: 25px;
+	font-size: 26px;
+	background-color: #333 !important;	
+}
+
+.center{
+	text-align: center;
+}
+
+.mainTitle{
+	font-size: 46px !important;
+}
+
+.profilePic{
+	border-radius: 200px;
+	width: 120px;
+	height: 120px;
+	margin-left: 2%;
+	margin-right: 2%;
+}
