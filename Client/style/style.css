@@ -4142,7 +4142,8 @@ h2 {
         pointer-events: none; }
       #playerContainer .clue-num-container .next-prev-link-container .has-prev-clue,
       #playerContainer .clue-num-container .next-prev-link-container .has-next-clue {
-        text-decoration: underline; }
+        text-decoration: underline;
+        pointer-events: auto; }
       #playerContainer .clue-num-container .next-prev-link-container .current-clue-txt {
         display: block; }
   #playerContainer #progress-bar {
