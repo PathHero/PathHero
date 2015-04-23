@@ -127,7 +127,6 @@ module.exports = React.createClass({displayName: "exports",
 /* jshint quotmark: false */
 
 var React = require('react');
-var Btn = require('./Btn');
 var Actions = require('../RefluxActions');
 
 
@@ -178,7 +177,7 @@ module.exports = React.createClass({displayName: "exports",
   }
 });
 
-},{"../RefluxActions":1,"./Btn":3,"react":232}],5:[function(require,module,exports){
+},{"../RefluxActions":1,"react":232}],5:[function(require,module,exports){
 'use strict';
 /* jshint quotmark: false */
 
@@ -190,7 +189,7 @@ var Actions = require('../RefluxActions');
 
 var windowHeight = {
   minHeight: window.innerHeight
-}
+};
 
 module.exports = React.createClass({displayName: "exports",
   updateHuntInfo: function() {

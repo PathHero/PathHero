@@ -2,15 +2,14 @@
 /* jshint quotmark: false */
 
 var React = require('react');
-var TitleBox = require('./TitleBox');
 var Clues = require('./Clues');
 var gMap = require('../../../lib/gMapLib');
-var Status = require('./Status');
 var PinSuccess = require('./PinSuccess');
 var HuntSuccess = require('./HuntSuccess');
 var Actions = require('../RefluxActions');
 
 var HITDISTANCE = 0.1;
+
 var windowHeight = { height: window.innerHeight }; 
 
 module.exports = React.createClass({
@@ -29,11 +28,13 @@ module.exports = React.createClass({
 
     };
   },
-  getCurrentPin: function() {
+  getCurrentPinIndex: function() {
     var currentPinIndex = this.props.hunt.currentPinIndex;
     var numOfPins = this.props.hunt.pins.length;
-    currentPinIndex = Math.min(currentPinIndex, numOfPins-1);
-    return this.props.hunt.pins[currentPinIndex];
+    return Math.min(currentPinIndex, numOfPins-1);
+  },
+  getCurrentPin: function() {
+    return this.props.hunt.pins[this.getCurrentPinIndex()];
   },
 
   updatePlayerStatus: function() {
@@ -77,10 +78,6 @@ module.exports = React.createClass({
   },
   
   render: function () { 
-
-    var numOfLocations = this.props.hunt.pins.length;
-    var listItemArray = [ this.state.distanceToNextPin + " miles from target", numOfLocations + " locations left" ];
-                          
     var locationStatus;
     var clues = (<Clues hunt={this.props.hunt} />);
     

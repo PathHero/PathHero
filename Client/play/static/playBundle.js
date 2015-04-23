@@ -688,7 +688,7 @@ module.exports = React.createClass({displayName: "exports",
     var currentPin = this.props.hunt.pins[currentPinIndex];
     var currentClue = currentPin.clues[this.props.hunt.currentClueIndex];
 
-    var backBtn = (React.createElement("a", {onClick: this.prevClue, className: "no-prev-clue"}, "Back"));                    ;
+    var backBtn = (React.createElement("a", {onClick: this.prevClue, className: "no-prev-clue"}, "Back"));
     var nextBtn = (React.createElement("a", {onClick: this.nextClue, className: "no-next-clue"}, "Next"));
 
     if (this.hasPrevClue()) {
@@ -730,15 +730,14 @@ module.exports = React.createClass({displayName: "exports",
 /* jshint quotmark: false */
 
 var React = require('react');
-var TitleBox = require('./TitleBox');
 var Clues = require('./Clues');
 var gMap = require('../../../lib/gMapLib');
-var Status = require('./Status');
 var PinSuccess = require('./PinSuccess');
 var HuntSuccess = require('./HuntSuccess');
 var Actions = require('../RefluxActions');
 
 var HITDISTANCE = 0.1;
+
 var windowHeight = { height: window.innerHeight }; 
 
 module.exports = React.createClass({displayName: "exports",
@@ -757,11 +756,13 @@ module.exports = React.createClass({displayName: "exports",
 
     };
   },
-  getCurrentPin: function() {
+  getCurrentPinIndex: function() {
     var currentPinIndex = this.props.hunt.currentPinIndex;
     var numOfPins = this.props.hunt.pins.length;
-    currentPinIndex = Math.min(currentPinIndex, numOfPins-1);
-    return this.props.hunt.pins[currentPinIndex];
+    return Math.min(currentPinIndex, numOfPins-1);
+  },
+  getCurrentPin: function() {
+    return this.props.hunt.pins[this.getCurrentPinIndex()];
   },
 
   updatePlayerStatus: function() {
@@ -805,10 +806,6 @@ module.exports = React.createClass({displayName: "exports",
   },
   
   render: function () { 
-
-    var numOfLocations = this.props.hunt.pins.length;
-    var listItemArray = [ this.state.distanceToNextPin + " miles from target", numOfLocations + " locations left" ];
-                          
     var locationStatus;
     var clues = (React.createElement(Clues, {hunt: this.props.hunt}));
     
@@ -836,7 +833,7 @@ module.exports = React.createClass({displayName: "exports",
 
 
 
-},{"../../../lib/gMapLib":2,"../RefluxActions":4,"./Clues":7,"./HuntSuccess":9,"./PinSuccess":12,"./Status":16,"./TitleBox":18,"react":216}],9:[function(require,module,exports){
+},{"../../../lib/gMapLib":2,"../RefluxActions":4,"./Clues":7,"./HuntSuccess":9,"./PinSuccess":12,"react":216}],9:[function(require,module,exports){
 'use strict';
 /* jshint quotmark: false */
 
@@ -925,7 +922,6 @@ module.exports = React.createClass({displayName: "exports",
     var numOfPins = this.props.hunt.pins.length;
     currentPinIndex = Math.min(currentPinIndex, numOfPins-1);
     var currentPin = this.props.hunt.pins[currentPinIndex];
-    var answer = currentPin.answer;
     var resultText = currentPin.resultText;
     var nextClue = null;
     if (!this.props.huntComplete) {
@@ -1136,7 +1132,7 @@ module.exports = React.createClass({displayName: "exports",
     clearInterval(this.updateInterval);
   },
   render: function () {
-    var numOfLocations = this.props.hunt.pins.length;
+    var numOfLocations = this.props.hunt.pins.length - this.getCurrentPinIndex();
     var listItemArray = [ this.state.distanceToNextPin + " miles from target", numOfLocations + " locations left" ];
                           
     
