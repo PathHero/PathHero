@@ -3932,6 +3932,10 @@ h2 {
     width: 330px; }
   #app-container #hunt-info-container #pin-container .clue-hint-container {
     margin-bottom: 10px; }
+  #app-container #hunt-info-container #pin-container .clueDetails a {
+    color: #ffa600;
+    text-decoration: underline;
+    margin-right: 10px; }
 
 #player-container #gMap {
   width: 100%; }

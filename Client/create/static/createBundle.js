@@ -156,7 +156,7 @@ module.exports = React.createClass({displayName: "exports",
       editBtn = (React.createElement("button", {className: "btn", onClick: this.toggleEdit}, "Save"));
       text = (React.createElement("textarea", {cols: "35", ref: "clueEdit", defaultValue: this.props.clue}));
     } else {
-      editBtn = (React.createElement("button", {className: "btn", onClick: this.toggleEdit}, "Edit"));
+      editBtn = (React.createElement("a", {onClick: this.toggleEdit}, "Edit"));
       text = this.props.clue;
     }
     return (
@@ -170,7 +170,7 @@ module.exports = React.createClass({displayName: "exports",
           ), 
           React.createElement("div", {className: "col-xs-4"}, 
             editBtn, 
-            React.createElement(Btn, {clickHandler: this.deleteClue, label: "Delete"})
+            React.createElement("a", {clickHandler: this.deleteClue}, "Delete")
           )
         )
       )
@@ -455,7 +455,8 @@ module.exports = React.createClass({displayName: "exports",
       backgroundColor: '#ffa600',
       color: '#fff',
       fontWeight: '500',
-      borderRadius: '2px'
+      borderRadius: '2px',
+      fontSize: '1em'
 
     };
     if (this.state.showCreateAlert) {

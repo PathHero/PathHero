@@ -188,10 +188,20 @@ h2 {
       .clue-hint-container {
         margin-bottom: 10px;
       }
+    
+      .clueDetails {
+        a {
+          color: $orange;
+          text-decoration: underline;
+          margin-right: 10px;
+      }
+    }
+
     }
   }
-
 }
+
+
 
 #player-container {
     #gMap {
@@ -492,11 +502,12 @@ h2 {
 
   h2:first-child {
     display: inline; 
-  }
-
-
-  
+  } 
 }
+
+
+
+
 
 
 

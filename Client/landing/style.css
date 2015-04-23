@@ -2,25 +2,30 @@
 
 h1{
 	line-height: 4 !important;
+  font-family: 'ubuntu', arial; 
 }
 
 a{
 	color: white;
-	margin: 50px;
+	margin: 0;
 	line-height: 5;
 	padding: 10px;
 	padding-left: 25px;
 	padding-right: 25px;
-	font-size: 26px;
-	background-color: #333 !important;	
+	font-size: 18px;
+	background-color: #ffa600 !important;	
 }
 
 .center{
 	text-align: center;
 }
 
-.mainTitle{
-	font-size: 46px !important;
+.mainTitle {
+  font-size: 73px !important;
+  margin: -117px;
+  padding: 50px 0 16px;
+  color: #fff;
+  background-color: rgba(0,0,0,0.6);
 }
 
 .profilePic{
@@ -30,3 +35,15 @@ a{
 	margin-left: 2%;
 	margin-right: 2%;
 }
+
+
+#homepage-container {
+  background: url(../static/homepage-cropped.jpg) no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  margin-top: -20px;
+  min-height: 1000px;
+}
+
