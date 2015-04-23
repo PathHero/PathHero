@@ -692,10 +692,10 @@ module.exports = React.createClass({displayName: "exports",
     var nextBtn = (React.createElement("a", {className: "no-next-clue"}, "Next"));
 
     if (this.hasPrevClue()) {
-      backBtn = (React.createElement("a", {href: "#", onClick: this.prevClue, className: "has-prev-clue"}, "Back"));                    
+      backBtn = (React.createElement("a", {href: "javascript:;", onClick: this.prevClue, className: "has-prev-clue"}, "Back")); // jshint ignore:line                   
     }
     if (this.hasNextClue()) {
-      nextBtn = (React.createElement("a", {href: "#", onClick: this.nextClue, className: "has-next-clue"}, "Next"));
+      nextBtn = (React.createElement("a", {href: "javascript:;", onClick: this.nextClue, className: "has-next-clue"}, "Next")); // jshint ignore:line
     }
 
     return (
