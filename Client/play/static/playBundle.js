@@ -111,7 +111,7 @@ gMap.startGMap = function (pos){
   //----------------------------------
   var mapStyles = [
     {
-      stylers: [ { hue: '#00ffe6' }, { saturation: -20 } ]
+      stylers: [ { hue: '#afe0df' }, { saturation: -20 } ]
     },{
       featureType: 'road',
       elementType: 'geometry',
@@ -738,7 +738,7 @@ var PinSuccess = require('./PinSuccess');
 var HuntSuccess = require('./HuntSuccess');
 var Actions = require('../RefluxActions');
 
-var HITDISTANCE = 4;
+var HITDISTANCE = 26;
 var windowHeight = { height: window.innerHeight }; 
 
 module.exports = React.createClass({displayName: "exports",

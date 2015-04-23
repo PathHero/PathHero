@@ -10,7 +10,7 @@ var PinSuccess = require('./PinSuccess');
 var HuntSuccess = require('./HuntSuccess');
 var Actions = require('../RefluxActions');
 
-var HITDISTANCE = 4;
+var HITDISTANCE = 26;
 var windowHeight = { height: window.innerHeight }; 
 
 module.exports = React.createClass({

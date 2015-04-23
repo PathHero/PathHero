@@ -52,14 +52,144 @@ h2 {
   text-transform: uppercase;
 }
 
+
+
+
+.navbar-default {
+  background-color: #73bcba; 
+  border-color: #6AA5A3;
+
+      .container {
+      width: 93%;
+    }  
+
+  .navbar-nav > li > a {
+    color: #FFF;
+  }
+
+  .navbar-brand {
+    color: #fff;
+  }
+}
+
+
+
 #app-container {
-    #map-container {
-      position: fixed;
-      width: 100%;
-    }
-    #gMap {
+
+  h2 {
+    color: #D55A2D;
+    font-size: 12px;
+    font-weight: 500;
+    text-transform: uppercase;
+  }
+
+  #map-container {
+    position: fixed;
+    width: 100%;
+    padding: 0;
+
+  }
+  #gMap {
     width: 50%;
   }    
+
+  @media (min-width: 1200px) {
+    .container {
+      width: 93%;
+    }    
+  }
+
+  #hunt-info-container {
+    padding-right: 40px;
+    float: right;
+    margin-top: 50px;
+    background-color: #FDFBFB;
+    padding-left: 20px;
+
+
+
+    #hunt-details {
+      padding-left: 0;
+      margin-top: 19px;
+
+      li {
+        list-style: none;
+        display: inline;
+        margin-right: 2.5em;
+        font-size: 1.6em;
+        color: #73bcba;
+        font-weight: 600;
+      }
+    }
+
+    #hunt-title-container {
+      margin: 20px 0 25px;     
+      
+      #hunt-title {
+        margin: 0px 0;
+        font-size: 30px; 
+      }
+    }
+
+    input, textarea {
+      padding-left: 7px;
+      border: 1px solid #ccc;
+    }
+
+    .tour-summary-container {
+
+      input, textarea {
+        width: 100%;
+      }
+
+      textarea {
+        font-size: 1.15em;
+      }
+      
+      ul {
+        list-style-type: none;
+        padding-left: 0;
+      }
+
+      ul li {
+        display: inline;
+        border-radius: 3px;
+        border: 1px solid #c0d4db;
+        padding: 5px;
+      }
+
+      .summary-box {
+        background-color: #F4F4F4;
+        border: 1px solid #ccc;
+        padding: 15px 20px 15px;        
+
+        p {
+          font-size: 12px;
+          margin-bottom: 0px;
+        }
+      }
+    }
+
+    #pin-container {
+
+      input {
+        font-size: 1.6em;
+        position: relative;
+        left: 9px;
+        top: 5px;
+        width: 330px;
+      }
+
+      textarea {
+        font-size: 1.15em;
+        width: 330px;
+      }
+
+      .clue-hint-container {
+        margin-bottom: 10px;
+      }
+    }
+  }
 
 }
 
@@ -70,56 +200,7 @@ h2 {
 }
 
 
-#hunt-info-container {
-  padding-right: 40px;
-  float: right;
-  margin-top: 50px;
 
-  #hunt-title-container {
-    margin: 20px 0 25px;     
-    #hunt-title {
-      margin: 0px 0;
-      font-size: 30px;          
-    }
-  }
-
-  .tour-summary-container {
-    
-    h2 {
-      color: #676767;
-    }
-
-    ul {
-      list-style-type: none;
-      padding-left: 0;
-    }
-
-    ul li {
-      display: inline;
-      border-radius: 3px;
-      border: 1px solid #c0d4db;
-      padding: 5px;
-    }
-
-    .summary-box {
-      background-color: #F4F4F4;
-      border: 1px solid #ccc;
-      padding: 15px 20px 15px;        
-
-      p {
-        font-size: 12px;
-        margin-bottom: 0px;
-      }
-    }
-  }
-
-  #pin-container {
-
-    .clue-hint-container {
-      margin-bottom: 10px;
-    }
-  }
-}
 
 .gMapInactiveButton {
   background: rgba(70,70,70,0.5);

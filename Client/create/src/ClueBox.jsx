@@ -7,6 +7,10 @@ var HuntSubmitForm = require('./HuntSubmitForm');
 var gMap = require('../../../lib/gMapLib');
 var Actions = require('../RefluxActions');
 
+var windowHeight = {
+  minHeight: window.innerHeight
+}
+
 module.exports = React.createClass({
   updateHuntInfo: function() {
     var huntInfo = {
@@ -85,21 +89,22 @@ module.exports = React.createClass({
 
     return (
       <div className="clueBox">
-        <div id="hunt-info-container" className="col-xs-6">
+        <div id="hunt-info-container" className="col-xs-6" style={windowHeight}>
           <HuntSubmitForm hunt={this.props.hunt} editMode={this.props.hunt.editMode} />
+          <ul id="hunt-details">
+            <li>{' '+this.props.hunt.pins.length} locations</li>
+            <li>{' '+this.props.hunt.huntInfo.huntDistance} miles</li>
+            <li>{this.props.hunt.huntInfo.huntTimeEst} hours walk</li>
+          </ul>
+          
           <div id="hunt-title-container">
             {url}
             <div className="tour-summary-container">
-            <h2>Hunt Title</h2>
+              <h2>Hunt Title</h2>
               {title}
               <h2>Hunt Description</h2>
               <p>{desc}</p>
               <div>
-              <ul>
-                <li>{this.props.hunt.huntInfo.huntTimeEst} hours walk</li>
-                <li>{' '+this.props.hunt.huntInfo.huntDistance} miles</li>
-                <li>{' '+this.props.hunt.pins.length} locations</li>
-              </ul>
               </div>
             </div>
           </div>

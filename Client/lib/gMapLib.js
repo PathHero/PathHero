@@ -58,7 +58,7 @@ gMap.startGMap = function (pos){
   //----------------------------------
   var mapStyles = [
     {
-      stylers: [ { hue: '#00ffe6' }, { saturation: -20 } ]
+      stylers: [ { hue: '#afe0df' }, { saturation: -20 } ]
     },{
       featureType: 'road',
       elementType: 'geometry',

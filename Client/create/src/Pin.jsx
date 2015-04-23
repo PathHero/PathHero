@@ -60,12 +60,18 @@ module.exports = React.createClass({
       );
     }, this);
 
+    var addClue = {
+      position: 'relative',
+      top: '-22',
+      left: '10',
+    };
+
     return (
       <div className="pinContainer">
         <Panel header={pinHeader}>
         {clueNodes}
         <textarea col="35" row="30" ref="clueInput" />
-        <Btn label={"Add Clue"} clickHandler={this.handleNewClue} />
+        <Btn label={"Add Clue"} newStyle={addClue} clickHandler={this.handleNewClue} />
         <div>Answer</div>
         <textarea col="35" row="30" ref="resultText" 
                   defaultValue={this.props.pin.resultText} 
