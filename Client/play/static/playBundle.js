@@ -688,14 +688,14 @@ module.exports = React.createClass({displayName: "exports",
     var currentPin = this.props.hunt.pins[currentPinIndex];
     var currentClue = currentPin.clues[this.props.hunt.currentClueIndex];
 
-    var backBtn = (React.createElement("a", {onClick: this.prevClue, className: "no-prev-clue"}, "Back"));
-    var nextBtn = (React.createElement("a", {onClick: this.nextClue, className: "no-next-clue"}, "Next"));
+    var backBtn = (React.createElement("a", {className: "no-prev-clue"}, "Back"));
+    var nextBtn = (React.createElement("a", {className: "no-next-clue"}, "Next"));
 
     if (this.hasPrevClue()) {
-      backBtn = (React.createElement("a", {onClick: this.prevClue, className: "has-prev-clue"}, "Back"));                    
+      backBtn = (React.createElement("a", {href: "#", onClick: this.prevClue, className: "has-prev-clue"}, "Back"));                    
     }
     if (this.hasNextClue()) {
-      nextBtn = (React.createElement("a", {onClick: this.nextClue, className: "has-next-clue"}, "Next"));
+      nextBtn = (React.createElement("a", {href: "#", onClick: this.nextClue, className: "has-next-clue"}, "Next"));
     }
 
     return (
