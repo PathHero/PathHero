@@ -9,7 +9,7 @@ var Actions = require('../RefluxActions');
 
 var windowHeight = {
   minHeight: window.innerHeight
-}
+};
 
 module.exports = React.createClass({
   updateHuntInfo: function() {

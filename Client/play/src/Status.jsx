@@ -36,7 +36,7 @@ module.exports = React.createClass({
     clearInterval(this.updateInterval);
   },
   render: function () {
-    var numOfLocations = this.props.hunt.pins.length;
+    var numOfLocations = this.props.hunt.pins.length - this.getCurrentPinIndex();
     var listItemArray = [ this.state.distanceToNextPin + " miles from target", numOfLocations + " locations left" ];
                           
     

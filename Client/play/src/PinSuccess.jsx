@@ -11,7 +11,6 @@ module.exports = React.createClass({
     var numOfPins = this.props.hunt.pins.length;
     currentPinIndex = Math.min(currentPinIndex, numOfPins-1);
     var currentPin = this.props.hunt.pins[currentPinIndex];
-    var answer = currentPin.answer;
     var resultText = currentPin.resultText;
     var nextClue = null;
     if (!this.props.huntComplete) {

@@ -33,7 +33,7 @@ module.exports = React.createClass({
     var currentPin = this.props.hunt.pins[currentPinIndex];
     var currentClue = currentPin.clues[this.props.hunt.currentClueIndex];
 
-    var backBtn = (<a onClick={this.prevClue} className="no-prev-clue">Back</a>);                    ;
+    var backBtn = (<a onClick={this.prevClue} className="no-prev-clue">Back</a>);
     var nextBtn = (<a onClick={this.nextClue} className="no-next-clue">Next</a>);
 
     if (this.hasPrevClue()) {
