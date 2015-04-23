@@ -788,7 +788,7 @@ module.exports = React.createClass({displayName: "exports",
     }.bind(this), nextGeo);
   },
 
-  componentWillMount: function() {
+  componentDidMount: function() {
     this.updatePlayerStatus();
     if (!this.state.playerAtLocation) {
       this.playerStatusInterval = setInterval(this.updatePlayerStatus, 5000);
@@ -1129,7 +1129,7 @@ module.exports = React.createClass({displayName: "exports",
       distanceToNextPin: 0.00
     };
   },
-  componentWillMount: function() {
+  componentDidMount: function() {
     this.updateInterval = setInterval(this.updateDistance, 5000);    
   },
   componentWillUnmount: function() {

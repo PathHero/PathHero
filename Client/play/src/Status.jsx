@@ -29,7 +29,7 @@ module.exports = React.createClass({
       distanceToNextPin: 0.00
     };
   },
-  componentWillMount: function() {
+  componentDidMount: function() {
     this.updateInterval = setInterval(this.updateDistance, 5000);    
   },
   componentWillUnmount: function() {
