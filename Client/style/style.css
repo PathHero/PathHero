@@ -4150,11 +4150,4 @@ h2 {
   #playerContainer h2:first-child {
     display: inline; }
 
-#homepage-container {
-  background: url(../static/homepage-cropped.jpg) no-repeat center center fixed;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover; }
-
 /*# sourceMappingURL=style.css.map */
