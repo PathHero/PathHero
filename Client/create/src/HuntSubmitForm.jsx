@@ -53,7 +53,15 @@ module.exports = React.createClass({
   render: function() {
     var btnLabel = "Edit hunt";
     var btnStyle = {
-      float: 'right'
+      float: 'right',
+      position: 'absolute',
+      right: '40px',
+      top: '20px',
+      backgroundColor: '#ffa600',
+      color: '#fff',
+      fontWeight: '500',
+      borderRadius: '2px'
+
     };
     if (this.state.showCreateAlert) {
       return (

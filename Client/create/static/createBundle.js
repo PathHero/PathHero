@@ -188,6 +188,10 @@ var HuntSubmitForm = require('./HuntSubmitForm');
 var gMap = require('../../../lib/gMapLib');
 var Actions = require('../RefluxActions');
 
+var windowHeight = {
+  minHeight: window.innerHeight
+}
+
 module.exports = React.createClass({displayName: "exports",
   updateHuntInfo: function() {
     var huntInfo = {
@@ -266,21 +270,22 @@ module.exports = React.createClass({displayName: "exports",
 
     return (
       React.createElement("div", {className: "clueBox"}, 
-        React.createElement("div", {id: "hunt-info-container", className: "col-xs-6"}, 
+        React.createElement("div", {id: "hunt-info-container", className: "col-xs-6", style: windowHeight}, 
           React.createElement(HuntSubmitForm, {hunt: this.props.hunt, editMode: this.props.hunt.editMode}), 
+          React.createElement("ul", {id: "hunt-details"}, 
+            React.createElement("li", null, ' '+this.props.hunt.pins.length, " locations"), 
+            React.createElement("li", null, ' '+this.props.hunt.huntInfo.huntDistance, " miles"), 
+            React.createElement("li", null, this.props.hunt.huntInfo.huntTimeEst, " hours walk")
+          ), 
+          
           React.createElement("div", {id: "hunt-title-container"}, 
             url, 
             React.createElement("div", {className: "tour-summary-container"}, 
-            React.createElement("h2", null, "Hunt Title"), 
+              React.createElement("h2", null, "Hunt Title"), 
               title, 
               React.createElement("h2", null, "Hunt Description"), 
               React.createElement("p", null, desc), 
-              React.createElement("div", null, 
-              React.createElement("ul", null, 
-                React.createElement("li", null, this.props.hunt.huntInfo.huntTimeEst, " hours walk"), 
-                React.createElement("li", null, ' '+this.props.hunt.huntInfo.huntDistance, " miles"), 
-                React.createElement("li", null, ' '+this.props.hunt.pins.length, " locations")
-              )
+              React.createElement("div", null
               )
             )
           ), 
@@ -443,7 +448,15 @@ module.exports = React.createClass({displayName: "exports",
   render: function() {
     var btnLabel = "Edit hunt";
     var btnStyle = {
-      float: 'right'
+      float: 'right',
+      position: 'absolute',
+      right: '40px',
+      top: '20px',
+      backgroundColor: '#ffa600',
+      color: '#fff',
+      fontWeight: '500',
+      borderRadius: '2px'
+
     };
     if (this.state.showCreateAlert) {
       return (
@@ -537,12 +550,18 @@ module.exports = React.createClass({displayName: "exports",
       );
     }, this);
 
+    var addClue = {
+      position: 'relative',
+      top: '-22',
+      left: '10',
+    };
+
     return (
       React.createElement("div", {className: "pinContainer"}, 
         React.createElement(Panel, {header: pinHeader}, 
         clueNodes, 
         React.createElement("textarea", {col: "35", row: "30", ref: "clueInput"}), 
-        React.createElement(Btn, {label: "Add Clue", clickHandler: this.handleNewClue}), 
+        React.createElement(Btn, {label: "Add Clue", newStyle: addClue, clickHandler: this.handleNewClue}), 
         React.createElement("div", null, "Answer"), 
         React.createElement("textarea", {col: "35", row: "30", ref: "resultText", 
                   defaultValue: this.props.pin.resultText, 
@@ -702,7 +721,7 @@ gMap.startGMap = function (pos){
   //----------------------------------
   var mapStyles = [
     {
-      stylers: [ { hue: '#00ffe6' }, { saturation: -20 } ]
+      stylers: [ { hue: '#afe0df' }, { saturation: -20 } ]
     },{
       featureType: 'road',
       elementType: 'geometry',
