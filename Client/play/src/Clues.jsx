@@ -37,10 +37,10 @@ module.exports = React.createClass({
     var nextBtn = (<a className="no-next-clue">Next</a>);
 
     if (this.hasPrevClue()) {
-      backBtn = (<a href="#" onClick={this.prevClue} className="has-prev-clue">Back</a>);                    
+      backBtn = (<a href="javascript:;" onClick={this.prevClue} className="has-prev-clue">Back</a>); // jshint ignore:line                   
     }
     if (this.hasNextClue()) {
-      nextBtn = (<a href="#" onClick={this.nextClue} className="has-next-clue">Next</a>);
+      nextBtn = (<a href="javascript:;" onClick={this.nextClue} className="has-next-clue">Next</a>); // jshint ignore:line
     }
 
     return (
