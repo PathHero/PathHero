@@ -61,7 +61,7 @@ module.exports = React.createClass({
     }.bind(this), nextGeo);
   },
 
-  componentWillMount: function() {
+  componentDidMount: function() {
     this.updatePlayerStatus();
     if (!this.state.playerAtLocation) {
       this.playerStatusInterval = setInterval(this.updatePlayerStatus, 5000);
