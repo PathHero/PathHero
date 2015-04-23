@@ -31,7 +31,7 @@ module.exports = React.createClass({
       editBtn = (<button className="btn" onClick={this.toggleEdit}>Save</button>);
       text = (<textarea cols="35" ref="clueEdit" defaultValue={this.props.clue}/>);
     } else {
-      editBtn = (<button className="btn" onClick={this.toggleEdit}>Edit</button>);
+      editBtn = (<a onClick={this.toggleEdit}>Edit</a>);
       text = this.props.clue;
     }
     return (
@@ -45,7 +45,7 @@ module.exports = React.createClass({
           </div>
           <div className="col-xs-4"> 
             {editBtn}
-            <Btn clickHandler={this.deleteClue} label={"Delete"} />
+            <a clickHandler={this.deleteClue}>Delete</a>
           </div>
         </div>
       </div>

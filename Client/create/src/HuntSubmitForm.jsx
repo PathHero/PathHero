@@ -60,7 +60,8 @@ module.exports = React.createClass({
       backgroundColor: '#ffa600',
       color: '#fff',
       fontWeight: '500',
-      borderRadius: '2px'
+      borderRadius: '2px',
+      fontSize: '1em'
 
     };
     if (this.state.showCreateAlert) {

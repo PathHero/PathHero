@@ -188,10 +188,20 @@ h2 {
       .clue-hint-container {
         margin-bottom: 10px;
       }
+    
+      .clueDetails {
+        a {
+          color: $orange;
+          text-decoration: underline;
+          margin-right: 10px;
+      }
+    }
+
     }
   }
-
 }
+
+
 
 #player-container {
     #gMap {
@@ -492,10 +502,17 @@ h2 {
 
   h2:first-child {
     display: inline; 
-  }
+  } 
+}
 
 
-  
+
+#homepage-container {
+  background: url(../static/homepage-cropped.jpg) no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
 }
 
 
