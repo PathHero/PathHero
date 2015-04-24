@@ -3937,8 +3937,10 @@ h2 {
     text-decoration: underline;
     margin-right: 10px; }
 
-#player-container #gMap {
-  width: 100%; }
+#player-container {
+  margin-bottom: 50px; }
+  #player-container #gMap {
+    width: 100%; }
 
 .gMapInactiveButton {
   background: rgba(70, 70, 70, 0.5);
@@ -3982,7 +3984,7 @@ h2 {
   padding: 0; }
 
 #bottomNav {
-  position: absolute;
+  position: fixed;
   bottom: 0px;
   left: 0px;
   margin: 0px;

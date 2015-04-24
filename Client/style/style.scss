@@ -204,6 +204,7 @@ h2 {
 
 
 #player-container {
+    margin-bottom: 50px;
     #gMap {
     width: 100%;    
   }  
@@ -262,7 +263,7 @@ h2 {
 
 }
 #bottomNav {
-  position: absolute;
+  position: fixed;
   bottom: 0px;
   left: 0px;
   margin: 0px;
