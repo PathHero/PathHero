@@ -814,9 +814,9 @@ gMap.createPath = function (callback){
   if(gMap.directionsDisplay instanceof google.maps.DirectionsRenderer){
     var oldPath = gMap.directionsDisplay;
   }
-  gMap.directionsDisplay = new google.maps.DirectionsRenderer({
+  var directionsRendererConfig = {
     map: gMap.map,
-    draggable: true,
+    draggable : false,
     preserveViewport: true,
     markerOptions: {
         title: 'Marker',
@@ -828,7 +828,11 @@ gMap.createPath = function (callback){
           zIndex: 0
         }
     }
-  });
+  };
+  if(!gMap.disableAddPins){
+    directionsRendererConfig.draggable = true;
+  }
+  gMap.directionsDisplay = new google.maps.DirectionsRenderer(directionsRendererConfig);
   //creating waypoints to place on the map
   var waypoints = [];
   for (var i = 1; i < gMap.pathLatLng.length-1; i++) {
