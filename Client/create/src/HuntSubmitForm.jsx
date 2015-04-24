@@ -56,14 +56,14 @@ module.exports = React.createClass({
       float: 'right',
       position: 'absolute',
       right: '40px',
-      top: '20px',
+      top: '16px',
       backgroundColor: '#ffa600',
       color: '#fff',
       fontWeight: '500',
       borderRadius: '2px',
-      fontSize: '1em'
-
+      fontSize: '1.4em'
     };
+    
     if (this.state.showCreateAlert) {
       return (
         <Alert bsStyle='success'>

@@ -452,14 +452,14 @@ module.exports = React.createClass({displayName: "exports",
       float: 'right',
       position: 'absolute',
       right: '40px',
-      top: '20px',
+      top: '16px',
       backgroundColor: '#ffa600',
       color: '#fff',
       fontWeight: '500',
       borderRadius: '2px',
-      fontSize: '1em'
-
+      fontSize: '1.4em'
     };
+    
     if (this.state.showCreateAlert) {
       return (
         React.createElement(Alert, {bsStyle: "success"}, 
@@ -594,7 +594,7 @@ module.exports = React.createClass({displayName: "exports",
   render: function() {
     var pinNodes;
     if (this.props.pins.length === 0) {
-      pinNodes = (React.createElement("h2", null, "Click on the map to add locations."));
+      pinNodes = (React.createElement("div", {id: "pin-prompt", className: "row"}, React.createElement("div", {className: "col-sm-1"}, React.createElement("i", {className: "fa fa-arrow-left"})), React.createElement("div", {className: "col-sm-11"}, React.createElement("span", null, "Click on the map to add your first pin"))));
     } else {
       pinNodes = this.props.pins.map(function(pin, index) {
         return (
