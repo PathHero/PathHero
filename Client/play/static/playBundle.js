@@ -1055,6 +1055,10 @@ module.exports = React.createClass({displayName: "exports",
     var numOfPins = this.props.hunt.pins.length;
     var progress = Math.min(((pinIndex / numOfPins) * 80), 80);
 
+    var barContainer = {
+      position: 'relative'
+    };
+
     var outerBar = {
       borderRadius: '8px',
       border: '2px solid DarkGrey',
@@ -1088,7 +1092,7 @@ module.exports = React.createClass({displayName: "exports",
     };
 
     return (
-      React.createElement("div", {id: "progress-bar"}, 
+      React.createElement("div", {id: "progress-bar", style: barContainer}, 
         React.createElement("div", {style: outerBar}), 
         React.createElement("div", {style: innerBar}), 
         React.createElement("div", {style: hiker})
