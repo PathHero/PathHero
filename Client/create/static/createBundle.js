@@ -153,7 +153,9 @@ module.exports = React.createClass({displayName: "exports",
     var text;
     if (this.state.editMode) {
       editBtn = (React.createElement("button", {className: "btn", onClick: this.toggleEdit}, "Save"));
-      text = (React.createElement("textarea", {cols: "35", ref: "clueEdit", defaultValue: this.props.clue}));
+      text = (React.createElement("textarea", {cols: "35", ref: "clueEdit", 
+        defaultValue: this.props.clue, 
+        placeholder: "Ex: A former defensive point"}));
     } else {
       editBtn = (React.createElement("a", {onClick: this.toggleEdit}, "Edit"));
       text = this.props.clue;
@@ -532,6 +534,7 @@ module.exports = React.createClass({displayName: "exports",
       pinHeader = (React.createElement("span", null, 
                      React.createElement("img", {src: mapImg[this.props.pinIndex], width: "42"}), 
                      React.createElement("input", {type: "text", ref: "locationName", onChange: this.onLocationChange, 
+                            placeholder: "Location Name", 
                             value: this.props.pin.answer}), 
                       React.createElement("span", null, 
                         React.createElement(Btn, {label: "X", clickHandler: this.removePin})
@@ -560,11 +563,12 @@ module.exports = React.createClass({displayName: "exports",
       React.createElement("div", {className: "pinContainer"}, 
         React.createElement(Panel, {header: pinHeader}, 
         clueNodes, 
-        React.createElement("textarea", {col: "35", row: "30", ref: "clueInput"}), 
+        React.createElement("textarea", {col: "35", row: "30", ref: "clueInput", placeholder: "Ex: A former defensive point"}), 
         React.createElement(Btn, {label: "Add Clue", newStyle: addClue, clickHandler: this.handleNewClue}), 
         React.createElement("div", null, "Answer"), 
         React.createElement("textarea", {col: "35", row: "30", ref: "resultText", 
                   defaultValue: this.props.pin.resultText, 
+                  placeholder: "Ex: Great job! The bar on the corner has the best martinis.", 
                   onChange: this.resultTextOnChange}), 
         React.createElement("div", null
           

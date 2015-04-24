@@ -42,6 +42,7 @@ module.exports = React.createClass({
       pinHeader = (<span>
                      <img src={mapImg[this.props.pinIndex]} width="42" />
                      <input type="text" ref="locationName" onChange={this.onLocationChange}
+                            placeholder="Location Name"
                             value={this.props.pin.answer} />
                       <span>
                         <Btn label="X" clickHandler={this.removePin}/>
@@ -70,11 +71,12 @@ module.exports = React.createClass({
       <div className="pinContainer">
         <Panel header={pinHeader}>
         {clueNodes}
-        <textarea col="35" row="30" ref="clueInput" />
+        <textarea col="35" row="30" ref="clueInput" placeholder="Ex: A former defensive point"/>
         <Btn label={"Add Clue"} newStyle={addClue} clickHandler={this.handleNewClue} />
         <div>Answer</div>
         <textarea col="35" row="30" ref="resultText" 
-                  defaultValue={this.props.pin.resultText} 
+                  defaultValue={this.props.pin.resultText}
+                  placeholder="Ex: Great job! The bar on the corner has the best martinis."
                   onChange={this.resultTextOnChange}/>
         <div>
           
