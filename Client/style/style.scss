@@ -506,6 +506,67 @@ h2 {
   } 
 }
 
+#homepage-container {
+
+  background: url(../static/homepage-cropped.jpg) no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  margin-top: -20px;
+  min-height: 1000px;
+
+
+  #hero {
+    background-color: rgba(29, 2, 2, 0.6);
+    padding: 50px;
+    
+    h1{
+      font-family: 'ubuntu', arial; 
+      font-size: 73px;
+      color: #fff;
+      margin-bottom: 22px;
+    }
+
+    a {
+      color: #fff;
+    }
+
+    a:hover {
+      text-decoration: none;
+    }
+
+    .hero-btns {
+      color: white;
+      margin: 0;
+      font-size: 1.3em;
+      background-color: $orange; 
+      font-weight: 500;
+      -webkit-border-radius: 1px;
+      -moz-border-radius: 1px;
+      border-radius: 1px;
+      width: 110px;
+    }
+
+    .hero-btns:hover {
+      background-color: #CE4A1F; 
+    } 
+  }
+
+  .center{
+    text-align: center;
+  }
+
+  .profilePic{
+    border-radius: 200px;
+    width: 120px;
+    height: 120px;
+    margin-left: 2%;
+    margin-right: 2%;
+  }
+
+}
+
 
 
 
