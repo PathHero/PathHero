@@ -28,7 +28,9 @@ module.exports = React.createClass({
     var text;
     if (this.state.editMode) {
       editBtn = (<button className="btn" onClick={this.toggleEdit}>Save</button>);
-      text = (<textarea cols="35" ref="clueEdit" defaultValue={this.props.clue}/>);
+      text = (<textarea cols="35" ref="clueEdit" 
+        defaultValue={this.props.clue} 
+        placeholder="Ex: A former defensive point"/>);
     } else {
       editBtn = (<a onClick={this.toggleEdit}>Edit</a>);
       text = this.props.clue;
