@@ -37,6 +37,7 @@ gMap.disableAddPins = false;
 
 gMap.markerImgList = require('./mapMarkers');
 gMap.markerImgDefault = gMap.markerImgList[0];
+gMap.pointImg = 'http://pathhero.com/lib/point.png';
 
 gMap.startGMap = function (pos){
   //can be -> BICYCLING, DRIVING, TRANSIT, WALKING
@@ -58,15 +59,12 @@ gMap.startGMap = function (pos){
   //----------------------------------
   var mapStyles = [
     {
-      stylers: [ { hue: '#afe0df' }, { saturation: -20 } ]
-    },{
-      featureType: 'road',
-      elementType: 'geometry',
-      stylers: [ { lightness: 100 }, { visibility: 'simplified' } ]
-    },{
-      featureType: 'road',
-      elementType: 'labels',
-      stylers: [ { visibility: 'on' } ]
+      'featureType': 'road.highway',
+      'stylers': [
+        { 'hue': '#ffa200' },
+        { 'saturation': -13 },
+        { 'lightness': 44 }
+      ]
     }
   ];
 
@@ -158,10 +156,10 @@ gMap.createPath = function (callback){
     markerOptions: {
         title: 'Marker',
         icon: {
-          url: 'https://s3.amazonaws.com/old.cdn.content/pb/f85b4a1ca1094d22e6c6839e934f048b.png',
-          scaledSize: new google.maps.Size(20,20),
+          url: gMap.pointImg,
+          scaledSize: new google.maps.Size(15,15),
           origin: new google.maps.Point(0,0),
-          anchor: new google.maps.Point(10,10),
+          anchor: new google.maps.Point(5,5),
           zIndex: 0
         }
     }
