@@ -692,38 +692,38 @@ module.exports = React.createClass({displayName: "exports",
     var currentPin = this.props.hunt.pins[currentPinIndex];
     var currentClue = currentPin.clues[this.props.hunt.currentClueIndex];
 
-    var backBtn = (React.createElement("a", {className: "no-prev-clue"}, "Back"));
-    var nextBtn = (React.createElement("a", {className: "no-next-clue"}, "Next"));
+    var backBtn = (React.createElement("a", {className: "btn no-prev-clue"}, "Back"));
+    var nextBtn = (React.createElement("a", {className: "btn no-next-clue"}, "Next"));
 
     if (this.hasPrevClue()) {
-      backBtn = (React.createElement("a", {href: "javascript:;", onClick: this.prevClue, className: "has-prev-clue"}, "Back")); // jshint ignore:line                   
+      backBtn = (React.createElement("a", {href: "javascript:;", onClick: this.prevClue, className: "btn has-prev-clue"}, "Back")); // jshint ignore:line                   
     }
     if (this.hasNextClue()) {
-      nextBtn = (React.createElement("a", {href: "javascript:;", onClick: this.nextClue, className: "has-next-clue"}, "Next")); // jshint ignore:line
+      nextBtn = (React.createElement("a", {href: "javascript:;", onClick: this.nextClue, className: "btn has-next-clue"}, "Next")); // jshint ignore:line
     }
 
     return (
       
-        React.createElement("div", {id: "clue-container"}, 
-          React.createElement("div", {className: "clue-header"}, 
-            React.createElement("h1", null, "Target ", currentPinIndex+1)
-          ), 
- 
-          React.createElement("div", {className: "clue-num-container"}, 
-            React.createElement("h2", null, "Clue ", this.props.hunt.currentClueIndex + 1, " of ", this.numOfClues()), 
-              React.createElement("div", {className: "next-prev-link-container"}, 
-                backBtn, nextBtn
-              )
-          ), 
-  
-          React.createElement("div", {className: "current-clue-txt"}, 
-            currentClue
-          ), 
-            
-          React.createElement("hr", null), 
+      React.createElement("div", {id: "clue-container"}, 
+        React.createElement("div", {className: "clue-header"}, 
+          React.createElement("h1", null, "Target ", currentPinIndex+1)
+        ), 
+        React.createElement("hr", null), 
+        React.createElement("div", {className: "clue-num-container"}, 
+          React.createElement("h2", null, "Clue ", this.props.hunt.currentClueIndex + 1, " of ", this.numOfClues()), 
+            React.createElement("div", {className: "next-prev-link-container"}, 
+              backBtn, nextBtn
+            )
+        ), 
 
-          React.createElement(Status, {hunt: this.props.hunt})
-        )      
+        React.createElement("div", {className: "current-clue-txt"}, 
+          currentClue
+        ), 
+          
+        React.createElement("hr", null), 
+
+        React.createElement(Status, {hunt: this.props.hunt})
+      )      
       
     );
   }
@@ -881,7 +881,7 @@ module.exports = React.createClass({displayName: "exports",
         React.createElement("hr", null), 
         React.createElement("div", {id: "hunt-description-container"}, 
           React.createElement(TitleBox, {title: "Hunt Description"}, 
-            React.createElement("div", null, 
+            React.createElement("p", null, 
               this.props.hunt.huntDesc
             )
           )
@@ -1182,7 +1182,7 @@ var React = require('react');
 module.exports = React.createClass({displayName: "exports",
   render: function () {
     return (
-      React.createElement("div", null, 
+      React.createElement("div", {className: "section"}, 
         React.createElement("h2", null, this.props.title), 
         React.createElement("div", null, this.props.children)
       )

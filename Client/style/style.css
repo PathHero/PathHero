@@ -3993,7 +3993,8 @@ h2 {
   width: 100%;
   text-align: center;
   height: 50px;
-  size: 24px; }
+  size: 24px;
+  z-index: 10; }
   #bottomNav .navButton {
     float: left;
     border: solid 0px rgba(0, 0, 0, 0.7);
@@ -4030,26 +4031,11 @@ h2 {
   margin-top: 9px;
   margin-bottom: -27px; }
 
-.mask i {
-  position: absolute;
-  top: 15px;
-  left: 17px; }
-
 .nav-item-container, .mask {
   bottom: 20px;
   right: 20px;
   width: 60px;
   height: 60px; }
-
-.mask {
-  border-radius: 50%;
-  position: absolute;
-  z-index: 21;
-  color: white;
-  text-align: center;
-  line-height: 120px;
-  cursor: pointer;
-  position: fixed; }
 
 .nav-item-container {
   position: fixed;
@@ -4106,15 +4092,25 @@ h2 {
   padding: 0 10px; }
   #playerContainer h1 {
     text-align: center;
-    font-size: 25px;
+    font-size: 2em;
     margin-bottom: 20px;
     margin-top: 0;
-    padding-top: 20px;
-    color: #D53D06; }
-  #playerContainer h2 {
-    font-size: 13px;
+    padding-top: 10px;
     color: #D53D06;
-    font-weight: 500; }
+    margin-bottom: -7px; }
+  #playerContainer h2 {
+    font-size: 1.3em;
+    color: #D53D06;
+    font-weight: 500;
+    margin-bottom: 20px; }
+  #playerContainer .current-clue-txt,
+  #playerContainer ul,
+  #playerContainer section {
+    font-size: 1.2em; }
+  #playerContainer ul {
+    margin-top: 8px; }
+  #playerContainer .section p {
+    margin-top: 10px; }
   #playerContainer .btn {
     background-color: #ffa600;
     border-radius: 1px;
@@ -4126,25 +4122,30 @@ h2 {
       color: #fff;
       font-size: 0.8em; }
   #playerContainer hr {
-    border-top: 1px solid #E8E5E5; }
+    border-top: 1px solid #B59191; }
   #playerContainer .clue-num-container {
-    margin-bottom: 10px; }
+    margin-bottom: 10px;
+    position: relative; }
     #playerContainer .clue-num-container .next-prev-link-container {
-      display: inline;
-      float: right; }
+      position: absolute;
+      top: -12px;
+      right: 4px; }
       #playerContainer .clue-num-container .next-prev-link-container a {
-        margin: 11px;
-        color: #D53D06;
-        font-size: 13px;
-        text-transform: uppercase; }
+        margin: 6px;
+        color: #fff;
+        font-size: 1.3em;
+        font-weight: 500;
+        text-transform: uppercase;
+        text-decoration: none;
+        padding: 2px 6px 2px; }
       #playerContainer .clue-num-container .next-prev-link-container .no-prev-clue,
       #playerContainer .clue-num-container .next-prev-link-container .no-next-clue {
         color: #818181;
         text-decoration: none;
-        pointer-events: none; }
+        pointer-events: none;
+        background-color: #ccc; }
       #playerContainer .clue-num-container .next-prev-link-container .has-prev-clue,
       #playerContainer .clue-num-container .next-prev-link-container .has-next-clue {
-        text-decoration: underline;
         pointer-events: auto; }
       #playerContainer .clue-num-container .next-prev-link-container .current-clue-txt {
         display: block; }

@@ -6,7 +6,7 @@ var React = require('react');
 module.exports = React.createClass({
   render: function () {
     return (
-      <div>
+      <div className="section">
         <h2>{this.props.title}</h2>
         <div>{this.props.children}</div>
       </div>
