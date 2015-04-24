@@ -1,13 +1,14 @@
 'use strict';
 /* jshint quotmark: false */
 
-var React = require('react');
+var React = require('react/addons');
 var Clue = require('./Clue');
 var Btn = require('./Btn');
 var Panel = require('react-bootstrap').Panel;
 var Actions = require('../RefluxActions');
 var gMap = require('../../../lib/gMapLib');
 var mapImg = require('../../../lib/mapMarkers.js');
+var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 
 module.exports = React.createClass({
   componentDidMount: function() {
@@ -70,7 +71,9 @@ module.exports = React.createClass({
     return (
       <div className="pinContainer">
         <Panel header={pinHeader}>
+        <ReactCSSTransitionGroup transitionName="dynamicListItem">
         {clueNodes}
+        </ReactCSSTransitionGroup>
         <textarea col="35" row="30" ref="clueInput" placeholder="Ex: A former defensive point"/>
         <Btn label={"Add Clue"} newStyle={addClue} clickHandler={this.handleNewClue} />
         <div>Answer</div>

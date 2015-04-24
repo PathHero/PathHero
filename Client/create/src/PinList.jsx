@@ -1,8 +1,9 @@
 'use strict';
 /* jshint quotmark: false */
 
-var React = require('react');
+var React = require('react/addons');
 var Pin = require('./Pin');
+var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 
 module.exports = React.createClass({
   render: function() {
@@ -19,7 +20,9 @@ module.exports = React.createClass({
     }
     return (
       <div className="pinList">
+        <ReactCSSTransitionGroup transitionName="dynamicListItem">
         {pinNodes}
+        </ReactCSSTransitionGroup>
       </div>
     );
   }

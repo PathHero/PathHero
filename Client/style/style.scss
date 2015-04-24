@@ -53,8 +53,6 @@ h2 {
 }
 
 
-
-
 .navbar-default {
   background-color: #73bcba; 
   border-color: #6AA5A3;
@@ -578,7 +576,27 @@ h2 {
 
 
 
+// list item animations
+.dynamicListItem-enter {
+  opacity: 0.01;
+  
+}
 
+.dynamicListItem-enter.dynamicListItem-enter-active {
+  opacity: 1;
+  transition: opacity .5s ease-in;
+  -webkit-transition: opacity .5s ease-in;
+}
+
+.dynamicListItem-leave {
+  opacity: 1;
+  transition: opacity .5s ease-in;
+  -webkit-transition: opacity .5s ease-in;
+}
+
+.dynamicListItem-leave.dynamicListItem-leave-active {
+  opacity: 0.01;
+}
 
 
 

@@ -4200,4 +4200,20 @@ h2 {
   margin-left: 2%;
   margin-right: 2%; }
 
+.dynamicListItem-enter {
+  opacity: 0.01; }
+
+.dynamicListItem-enter.dynamicListItem-enter-active {
+  opacity: 1;
+  transition: opacity .5s ease-in;
+  -webkit-transition: opacity .5s ease-in; }
+
+.dynamicListItem-leave {
+  opacity: 1;
+  transition: opacity .5s ease-in;
+  -webkit-transition: opacity .5s ease-in; }
+
+.dynamicListItem-leave.dynamicListItem-leave-active {
+  opacity: 0.01; }
+
 /*# sourceMappingURL=style.css.map */
