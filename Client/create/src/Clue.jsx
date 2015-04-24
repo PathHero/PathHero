@@ -32,7 +32,7 @@ module.exports = React.createClass({
         defaultValue={this.props.clue} 
         placeholder="Ex: A former defensive point"/>);
     } else {
-      editBtn = (<a onClick={this.toggleEdit}>Edit</a>);
+      editBtn = (<a href="javascript:;" onClick={this.toggleEdit}>Edit</a>);
       text = this.props.clue;
     }
     return (
@@ -46,7 +46,7 @@ module.exports = React.createClass({
           </div>
           <div className="col-xs-4"> 
             {editBtn}
-            <a clickHandler={this.deleteClue}>Delete</a>
+            <a href="javascript:;" onClick={this.deleteClue}>Delete</a>
           </div>
         </div>
       </div>

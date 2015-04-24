@@ -157,7 +157,7 @@ module.exports = React.createClass({displayName: "exports",
         defaultValue: this.props.clue, 
         placeholder: "Ex: A former defensive point"}));
     } else {
-      editBtn = (React.createElement("a", {onClick: this.toggleEdit}, "Edit"));
+      editBtn = (React.createElement("a", {href: "javascript:;", onClick: this.toggleEdit}, "Edit"));
       text = this.props.clue;
     }
     return (
@@ -171,7 +171,7 @@ module.exports = React.createClass({displayName: "exports",
           ), 
           React.createElement("div", {className: "col-xs-4"}, 
             editBtn, 
-            React.createElement("a", {clickHandler: this.deleteClue}, "Delete")
+            React.createElement("a", {href: "javascript:;", onClick: this.deleteClue}, "Delete")
           )
         )
       )
