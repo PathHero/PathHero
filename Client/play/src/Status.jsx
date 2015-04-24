@@ -30,6 +30,7 @@ module.exports = React.createClass({
     };
   },
   componentDidMount: function() {
+    this.updateDistance();
     this.updateInterval = setInterval(this.updateDistance, 5000);    
   },
   componentWillUnmount: function() {
