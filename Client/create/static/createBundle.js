@@ -588,12 +588,17 @@ var Pin = require('./Pin');
 
 module.exports = React.createClass({displayName: "exports",
   render: function() {
-    var pinNodes = this.props.pins.map(function(pin, index) {
-      return (
-        React.createElement(Pin, {pinIndex: index, pin: pin, key: index, editMode: this.props.editMode}
-        )
-      );
-    }, this);
+    var pinNodes;
+    if (this.props.pins.length === 0) {
+      pinNodes = (React.createElement("h2", null, "Click on the map to add locations."));
+    } else {
+      pinNodes = this.props.pins.map(function(pin, index) {
+        return (
+          React.createElement(Pin, {pinIndex: index, pin: pin, key: index, editMode: this.props.editMode}
+          )
+        );
+      }, this);
+    }
     return (
       React.createElement("div", {className: "pinList"}, 
         pinNodes
