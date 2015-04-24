@@ -3878,6 +3878,12 @@ h2 {
   padding: 0; }
 #app-container #gMap {
   width: 50%; }
+#app-container .fa-remove {
+  font-size: x-large;
+  position: relative;
+  left: 18px;
+  bottom: -3px;
+  color: #ffa600; }
 @media (min-width: 1200px) {
   #app-container .container {
     width: 93%; } }
@@ -3929,16 +3935,25 @@ h2 {
     position: relative;
     left: 9px;
     top: 5px;
-    width: 330px; }
+    width: 400px; }
   #app-container #hunt-info-container #pin-container textarea {
     font-size: 1.15em;
-    width: 330px; }
+    width: 90%; }
+  #app-container #hunt-info-container #pin-container .pin-text-area {
+    width: 90%; }
+  #app-container #hunt-info-container #pin-container .pin-button-area {
+    width: 10%; }
   #app-container #hunt-info-container #pin-container .clue-hint-container {
     margin-bottom: 10px; }
+  #app-container #hunt-info-container #pin-container .bold-title {
+    font-weight: bold; }
   #app-container #hunt-info-container #pin-container .clueDetails a {
     color: #ffa600;
     text-decoration: underline;
     margin-right: 10px; }
+  #app-container #hunt-info-container #pin-container .clueDetails .edit-clue {
+    text-align: right;
+    left: 10px; }
   #app-container #hunt-info-container #pin-prompt {
     color: #ccc;
     margin-top: 50px;

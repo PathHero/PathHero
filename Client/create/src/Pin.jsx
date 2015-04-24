@@ -46,7 +46,7 @@ module.exports = React.createClass({
                             placeholder="Location Name"
                             value={this.props.pin.answer} />
                       <span>
-                        <Btn label="X" clickHandler={this.removePin}/>
+                        <i className="fa fa-remove" onClick={this.removePin}></i>
                       </span>
                    </span>);
     } else {
@@ -64,8 +64,13 @@ module.exports = React.createClass({
 
     var addClue = {
       position: 'relative',
-      top: '-22',
-      left: '10',
+      top: '10',
+      left: '-55',
+      backgroundColor: '#ffa600',
+      color: '#fff',
+      fontWeight: '500',
+      borderRadius: '2px',
+      fontSize: '1em'
     };
 
     return (
@@ -74,10 +79,19 @@ module.exports = React.createClass({
         <ReactCSSTransitionGroup transitionName="dynamicListItem">
         {clueNodes}
         </ReactCSSTransitionGroup>
-        <textarea col="35" row="30" ref="clueInput" placeholder="Ex: A former defensive point"/>
-        <Btn label={"Add Clue"} newStyle={addClue} clickHandler={this.handleNewClue} />
-        <div>Answer</div>
-        <textarea col="35" row="30" ref="resultText" 
+        <div className="bold-title">
+          Clue {this.props.pin.clues.length + 1}
+        </div>
+        <div className="row">
+          <div className="col-xs-10 pin-text-area">
+            <textarea rows="2" ref="clueInput" placeholder="Ex: A former defensive point"/>
+          </div>
+          <div className="col-xs-1 pin-button-area">
+            <Btn label={"Add Clue"} newStyle={addClue} clickHandler={this.handleNewClue} />
+          </div>       
+        </div>
+        <div className="bold-title">Answer</div>
+        <textarea col="38" rows="4" ref="resultText" 
                   defaultValue={this.props.pin.resultText}
                   placeholder="Ex: Great job! The bar on the corner has the best martinis."
                   onChange={this.resultTextOnChange}/>

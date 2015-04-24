@@ -29,22 +29,29 @@ module.exports = React.createClass({
     if (this.state.editMode) {
       editBtn = (<button className="btn" onClick={this.toggleEdit}>Save</button>);
       text = (<textarea cols="35" ref="clueEdit" 
-        defaultValue={this.props.clue} 
-        placeholder="Ex: A former defensive point"/>);
+                        defaultValue={this.props.clue}
+                        placeholder="Ex: A former defensive point" />);
     } else {
       editBtn = (<a href="javascript:;" onClick={this.toggleEdit}>Edit</a>);
       text = this.props.clue;
     }
+
+    var clueStyle = {
+      marginBottom: '10'
+    }
+
     return (
-      <div className="clueDetails">
+      <div style={clueStyle} className="clueDetails">
         <div className="row">
-          <div className="col-xs-2">
-            Clue {this.props.clueIndex + 1}:
+          <div className="col-xs-12 bold-title">
+          Clue {this.props.clueIndex + 1}
           </div>
-          <div className="col-xs-6">
+        </div>
+        <div className="row">
+          <div className="col-xs-9">
           {text}
           </div>
-          <div className="col-xs-4"> 
+          <div className="col-xs-3 edit-clue">
             {editBtn}
             <a href="javascript:;" onClick={this.deleteClue}>Delete</a>
           </div>
