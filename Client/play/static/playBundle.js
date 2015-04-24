@@ -128,17 +128,34 @@ gMap.startGMap = function (pos){
   //----------------------------------
   //events
   //----------------------------------
+  var clickStack = [];
+  var runClickStack = function(){
+    if(clickStack.length === 0){
+      runClickStack.running = false;
+      return;
+    }
+    var stackPiece = clickStack.shift();
+    if(gMap.pathLatLng.length < 9){
+      gMap.pathLatLng.push(stackPiece);
+      gMap.createPath(function(){
+        gMap.trigger('addMarker', [stackPiece]);
+        console.log('added Marker');
+        runClickStack();
+      });
+    }
+  };
+  runClickStack.running = false;
   google.maps.event.addListener(gMap.map, 'click', function(event) {
     //makeMarker(event.latLng);
     if(!gMap.disableAddPins){
-      if(gMap.pathLatLng.length < 9){
-        gMap.pathLatLng.push(event.latLng);
-        gMap.createPath(function(){
-            gMap.trigger('addMarker', [event.latLng]);
-        });
+      clickStack.push(event.latLng);
+      if(!runClickStack.running){
+        runClickStack.running = true;
+        runClickStack();
       }
     }
   });
+
   //----------------------------------
   //adding custom GUI elements
   //----------------------------------
@@ -210,9 +227,9 @@ gMap.createPath = function (callback){
         title: 'Marker',
         icon: {
           url: gMap.pointImg,
-          scaledSize: new google.maps.Size(15,15),
+          scaledSize: new google.maps.Size(16,16),
           origin: new google.maps.Point(0,0),
-          anchor: new google.maps.Point(5,5),
+          anchor: new google.maps.Point(8,8),
           zIndex: 0
         }
     }
