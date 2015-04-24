@@ -46,7 +46,7 @@ module.exports = React.createClass({
           </div>
           <div className="col-xs-4"> 
             {editBtn}
-            <a clickHandler={this.deleteClue}>Delete</a>
+            <a onClick={this.deleteClue}>Delete</a>
           </div>
         </div>
       </div>

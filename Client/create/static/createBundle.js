@@ -171,7 +171,7 @@ module.exports = React.createClass({displayName: "exports",
           ), 
           React.createElement("div", {className: "col-xs-4"}, 
             editBtn, 
-            React.createElement("a", {clickHandler: this.deleteClue}, "Delete")
+            React.createElement("a", {onClick: this.deleteClue}, "Delete")
           )
         )
       )
