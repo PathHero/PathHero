@@ -506,27 +506,36 @@ h2 {
   } 
 }
 
-#homepage-container {
-
+#homepage-body {
   background: url(../static/homepage-cropped.jpg) no-repeat center center fixed; 
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
   margin-top: -20px;
-  min-height: 1000px;
+}
 
 
+#homepage-container {
   #hero {
     background-color: rgba(29, 2, 2, 0.6);
-    padding: 50px;
+    padding: 4% 11%;
+    
     
     h1{
       font-family: 'ubuntu', arial; 
       font-size: 73px;
       color: #fff;
       margin-bottom: 22px;
+      display: inline;
     }
+
+  }
+
+  #action-btns {  
+    display: inline;
+    float: right;
+    margin-top: 26px;
 
     a {
       color: #fff;
@@ -538,23 +547,20 @@ h2 {
 
     .hero-btns {
       color: white;
-      margin: 0;
-      font-size: 1.3em;
-      background-color: $orange; 
+      margin: 0 4px;
+      font-size: 1.8em;
+      background-color: #ffa600;
       font-weight: 500;
       -webkit-border-radius: 1px;
       -moz-border-radius: 1px;
       border-radius: 1px;
-      width: 110px;
+      width: 130px;
     }
 
     .hero-btns:hover {
       background-color: #CE4A1F; 
     } 
-  }
-
-  .center{
-    text-align: center;
+    
   }
 
   .profilePic{
