@@ -1,25 +1,35 @@
 <html>
   <head>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+  <link rel="stylesheet" href="http://create.pathhero.com/style/style.css">
   </head>
   <body>
-    <div class="container-fluid">
-    <h1>Path Hero</h1>
-    <h2>Login</h2>
-    <form method="post" action="login/local">
-      <div class="input-group input-group-lg">
-        <span class="input-group-addon" id="sizing-addon1">Username</span>
-        <input type="text" name="username" class="form-control" placeholder="Username" required="required" aria-describedby="sizing-addon1">
-      </div>
-      <div class="input-group input-group-lg">
-        <span class="input-group-addon" id="sizing-addon1">Password</span>
-        <input type="password" name="password" class="form-control" placeholder="Username" required="required" aria-describedby="sizing-addon1">
-      </div>
-      <button class="btn btn-success" type="submit">Sign In</button>
-    </form>
-    <a href="/signup"><button class="btn btn-info" type="submit">Create an Account</button></a>
-  </div>
 
+    <nav role="navigation" class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <span class="navbar-brand">Path Hero</span>
+        </div>
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="/signup"><button class="btn btn-info" type="submit">Create an Account</button></a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <div class="container-fluid account">
+      <h2>Login</h2>
+      <form method="post" action="login/local">
+        <div class="input-group input-group-lg">
+          <span class="input-group-addon" id="sizing-addon1">Username</span>
+          <input type="text" name="username" class="form-control" placeholder="Username" required="required" aria-describedby="sizing-addon1">
+        </div>
+        <div class="input-group input-group-lg">
+          <span class="input-group-addon" id="sizing-addon1">Password</span>
+          <input type="password" name="password" class="form-control" placeholder="Username" required="required" aria-describedby="sizing-addon1">
+        </div>
+        <button class="btn btn-success" type="submit">Sign In</button>
+      </form>
+    </div>
 
     <div class="col-xs-2 media">
       <a href="/login/facebook">

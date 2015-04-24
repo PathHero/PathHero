@@ -3937,6 +3937,9 @@ h2 {
     text-decoration: underline;
     margin-right: 10px; }
 
+.account {
+  margin-top: 60px; }
+
 #player-container {
   margin-bottom: 50px; }
   #player-container #gMap {
