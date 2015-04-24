@@ -33,38 +33,38 @@ module.exports = React.createClass({
     var currentPin = this.props.hunt.pins[currentPinIndex];
     var currentClue = currentPin.clues[this.props.hunt.currentClueIndex];
 
-    var backBtn = (<a className="no-prev-clue">Back</a>);
-    var nextBtn = (<a className="no-next-clue">Next</a>);
+    var backBtn = (<a className="btn no-prev-clue">Back</a>);
+    var nextBtn = (<a className="btn no-next-clue">Next</a>);
 
     if (this.hasPrevClue()) {
-      backBtn = (<a href="javascript:;" onClick={this.prevClue} className="has-prev-clue">Back</a>); // jshint ignore:line                   
+      backBtn = (<a href="javascript:;" onClick={this.prevClue} className="btn has-prev-clue">Back</a>); // jshint ignore:line                   
     }
     if (this.hasNextClue()) {
-      nextBtn = (<a href="javascript:;" onClick={this.nextClue} className="has-next-clue">Next</a>); // jshint ignore:line
+      nextBtn = (<a href="javascript:;" onClick={this.nextClue} className="btn has-next-clue">Next</a>); // jshint ignore:line
     }
 
     return (
       
-        <div id="clue-container">
-          <div className="clue-header">
-            <h1>Target {currentPinIndex+1}</h1>                
-          </div>
- 
-          <div className="clue-num-container">
-            <h2>Clue {this.props.hunt.currentClueIndex + 1} of {this.numOfClues()}</h2>
-              <div className="next-prev-link-container">
-                {backBtn}{nextBtn}   
-              </div>
-          </div>         
-  
-          <div className="current-clue-txt">
-            {currentClue}
-          </div>
-            
-          <hr></hr>
+      <div id="clue-container">
+        <div className="clue-header">
+          <h1>Target {currentPinIndex+1}</h1>                
+        </div>
+        <hr></hr>
+        <div className="clue-num-container">
+          <h2>Clue {this.props.hunt.currentClueIndex + 1} of {this.numOfClues()}</h2>
+            <div className="next-prev-link-container">
+              {backBtn}{nextBtn}   
+            </div>
+        </div>         
 
-          <Status hunt={this.props.hunt}/>
-        </div>      
+        <div className="current-clue-txt">
+          {currentClue}
+        </div>
+          
+        <hr></hr>
+
+        <Status hunt={this.props.hunt}/>
+      </div>      
       
     );
   }

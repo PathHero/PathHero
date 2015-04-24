@@ -24,9 +24,9 @@ module.exports = React.createClass({
         <hr></hr>
         <div id="hunt-description-container">
           <TitleBox title="Hunt Description">
-            <div>
+            <p>
               {this.props.hunt.huntDesc}
-            </div>
+            </p>
           </TitleBox>            
         </div>
       </div>

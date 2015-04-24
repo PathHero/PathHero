@@ -260,8 +260,8 @@ h2 {
 
 #player-container {
   padding: 0;
-
 }
+
 #bottomNav {
   position: fixed;
   bottom: 0px;
@@ -273,6 +273,8 @@ h2 {
   text-align: center;
   height: 50px;
   size:24px;
+  z-index: 10;
+
   .navButton{
     float:left;
     border: solid 0px rgba(0,0,0,0.7);
@@ -305,73 +307,48 @@ h2 {
   color : #ffa600;
 }
 
-  .status-nav {  
-    a {
-      i {
-        font-size: 22px;
-        margin-top: 10px;
-        margin-bottom: -26px;
-      }  
-    }    
-  }
-
-  .clues-nav, .map-nav { 
-    a {
-      i {
-        font-size: 25px;
-        margin-top: 9px;
-        margin-bottom: -27px;
-      }  
-    }    
-  }
-
-  .mask {
+.status-nav {  
+  a {
     i {
-      position: absolute;
-      top: 15px;
-      left: 17px;
-    } 
-  }
-  
-  .nav-item-container, .mask {
-    bottom: 20px;
-    right: 20px;
-    width: 60px;
-    height: 60px;
-  }
+      font-size: 22px;
+      margin-top: 10px;
+      margin-bottom: -26px;
+    }  
+  }    
+}
 
+.clues-nav, .map-nav { 
+  a {
+    i {
+      font-size: 25px;
+      margin-top: 9px;
+      margin-bottom: -27px;
+    }  
+  }    
+}
 
-  .mask {
-    border-radius:50%;
-    position:absolute;
-    z-index:21;
-    color:white;
-    text-align:center;
-    line-height:120px;
-    cursor:pointer;
-    position:fixed;
-  }
+.nav-item-container, .mask {
+  bottom: 20px;
+  right: 20px;
+  width: 60px;
+  height: 60px;
+}
 
-
-
-  .nav-item-container {
-    position:fixed;
-    display:block;
-    background-color:transparent;
-    border-radius:50%;
-    z-index:20;
-    -webkit-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+.nav-item-container {
+  position:fixed;
+  display:block;
+  background-color:transparent;
+  border-radius:50%;
+  z-index:20;
+  -webkit-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
   -moz-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
   box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
-  }
+}
 
-  .transformNavItemOne {
-    background-color: gray;
-    transform: translate(0px,-125px);
-  }
-
-
-
+.transformNavItemOne {
+  background-color: gray;
+  transform: translate(0px,-125px);
+}
 
 
 #welcome-msg-container {
@@ -433,18 +410,37 @@ h2 {
 
   h1 {
     text-align: center;
-    font-size: 25px;
+    font-size: 2em;
     margin-bottom: 20px;
     margin-top: 0;
-    padding-top: 20px;
+    padding-top: 10px;
     color: $red-orange;
+    margin-bottom: -7px;
   }
 
   h2 {
-    font-size: 13px;
+    font-size: 1.3em;
     color: $red-orange;
     font-weight: 500;
+    margin-bottom: 20px;
   }
+
+  .current-clue-txt, 
+  ul,
+  section {
+    font-size: 1.2em;
+  } 
+
+  ul {
+    margin-top: 8px;
+  }
+
+  .section {
+    p {
+      margin-top: 10px;
+    }
+  }
+
 
   .btn {
     background-color: #ffa600;
@@ -461,21 +457,26 @@ h2 {
   }
 
   hr {
-    border-top: 1px solid #E8E5E5;
+    border-top: 1px solid #B59191;
   }
 
   .clue-num-container {
     margin-bottom: 10px;
+    position: relative;
     
     .next-prev-link-container {
-      display: inline;
-      float: right; 
+      position: absolute;
+      top: -12px;
+      right: 4px;
 
       a {
-        margin: 11px;
-        color: $red-orange;
-        font-size: 13px;
+        margin: 6px;
+        color: #fff;
+        font-size: 1.3em;
+        font-weight: 500;
         text-transform: uppercase;
+        text-decoration: none;
+        padding: 2px 6px 2px;
       }
 
       .no-prev-clue, 
@@ -483,11 +484,11 @@ h2 {
         color: #818181;
         text-decoration: none;
         pointer-events: none;
+        background-color: #ccc;
       }
       
       .has-prev-clue, 
       .has-next-clue {
-        text-decoration: underline;
         pointer-events: auto;
       }
 
@@ -505,6 +506,12 @@ h2 {
     display: inline; 
   } 
 }
+
+
+
+
+
+
 
 #homepage-body {
   background: url(../static/homepage-cropped.jpg) no-repeat center center fixed; 
