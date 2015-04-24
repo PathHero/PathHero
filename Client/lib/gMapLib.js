@@ -75,17 +75,34 @@ gMap.startGMap = function (pos){
   //----------------------------------
   //events
   //----------------------------------
+  var clickStack = [];
+  var runClickStack = function(){
+    if(clickStack.length === 0){
+      runClickStack.running = false;
+      return;
+    }
+    var stackPiece = clickStack.shift();
+    if(gMap.pathLatLng.length < 9){
+      gMap.pathLatLng.push(stackPiece);
+      gMap.createPath(function(){
+        gMap.trigger('addMarker', [stackPiece]);
+        console.log('added Marker');
+        runClickStack();
+      });
+    }
+  };
+  runClickStack.running = false;
   google.maps.event.addListener(gMap.map, 'click', function(event) {
     //makeMarker(event.latLng);
     if(!gMap.disableAddPins){
-      if(gMap.pathLatLng.length < 9){
-        gMap.pathLatLng.push(event.latLng);
-        gMap.createPath(function(){
-            gMap.trigger('addMarker', [event.latLng]);
-        });
+      clickStack.push(event.latLng);
+      if(!runClickStack.running){
+        runClickStack.running = true;
+        runClickStack();
       }
     }
   });
+
   //----------------------------------
   //adding custom GUI elements
   //----------------------------------
