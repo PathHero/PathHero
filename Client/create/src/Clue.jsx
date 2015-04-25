@@ -33,17 +33,17 @@ module.exports = React.createClass({
 
     return (
       <div style={clueStyle} className="clueDetails">
-        <div className="row">
-          <div className="col-xs-12 bold-title">
-            Clue {this.props.clueIndex + 1}
-          </div>
-          <div className="col-xs-10 clue-hint-container">
-            {clueText}
-          </div>
-          <div className="col-xs-1 clue-button-area">
-            <i style={removeStyle} className="fa fa-remove remove-shifted" onClick={this.deleteClue}></i>
-          </div>
+        
+        <div className="bold-title">
+          Clue {this.props.clueIndex + 1}
         </div>
+        
+        {clueText}
+        
+        <div className="clue-button-area">
+          <i style={removeStyle} className="fa fa-remove remove-shifted" onClick={this.deleteClue}></i>
+        </div>
+        
       </div>
     );
   }

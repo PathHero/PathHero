@@ -11,7 +11,7 @@ module.exports = React.createClass({
   },
   render: function() {
     return (
-      <div>
+      <div id="arrival-msg">
         <div className="bold-title">Arrival Message</div>
         <textarea 
           col="38" 

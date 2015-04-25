@@ -51,36 +51,26 @@ module.exports = React.createClass({
       );
     }, this);
 
-    var addClue = {
-      position: 'relative',
-      top: '10',
-      left: '-55',
-      backgroundColor: '#ffa600',
-      color: '#fff',
-      fontWeight: '500',
-      borderRadius: '2px',
-      fontSize: '1em'
-    };
-
     return (
-      <div className="pinContainer">
+      <div>
         <Panel header={pinHeader}>
-        <ReactCSSTransitionGroup transitionName="dynamicListItem">
-        {clueNodes}
-        </ReactCSSTransitionGroup>
+        <div id="clue-container">
+          <ReactCSSTransitionGroup transitionName="dynamicListItem">
+          {clueNodes}
+          </ReactCSSTransitionGroup>
 
-        <div className="bold-title">
-          Clue {this.props.pin.clues.length + 1}
-        </div>
-        <div className="row">
-          <div className="col-xs-10 addClue-text-area">
-            <textarea rows="2" ref="clueInput" placeholder="Ex: A former defensive point"/>
+          <div className="bold-title">
+            Clue {this.props.pin.clues.length + 1}
           </div>
-          <div className="col-xs-1 addClue-button-area">
-            <Btn label={"Add Clue"} newStyle={addClue} clickHandler={this.handleNewClue} />
-          </div>       
+          
+            <div className="addClue-text-area">
+              <textarea rows="2" ref="clueInput" placeholder="Ex: A former defensive point"/>
+              <div className="addClue-button-area">
+                <Btn label={"Add Clue"} clickHandler={this.handleNewClue} />
+              </div>       
+            </div>
+          
         </div>
-
         <PinArrivalMessage pin={this.props.pin} pinIndex={this.props.pinIndex}/>
         </Panel>
       </div>
