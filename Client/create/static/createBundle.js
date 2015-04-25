@@ -266,7 +266,11 @@ module.exports = React.createClass({displayName: "exports",
     if (!this.props.hunt.url) {
       url = '';
     } else {
-      url = (React.createElement("h2", null, "Hunt URL: ", React.createElement("a", {href: this.props.hunt.url}, this.props.hunt.url)));
+      url = (
+        React.createElement("div", {className: "tour-summary-container"}, 
+          React.createElement("h2", null, "Hunt URL:"), 
+          React.createElement("a", {className: "editModeURL", href: this.props.hunt.url}, this.props.hunt.url)
+        ));
     }
 
     return (

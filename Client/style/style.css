@@ -3864,6 +3864,9 @@ h2 {
   .navbar-default .navbar-brand {
     color: #fff; }
 
+.editModeURL {
+  font-size: 1.5em; }
+
 #app-container h2 {
   color: #D55A2D;
   font-size: 12px;
