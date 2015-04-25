@@ -84,7 +84,11 @@ module.exports = React.createClass({
     if (!this.props.hunt.url) {
       url = '';
     } else {
-      url = (<h2>Hunt URL: <a href={this.props.hunt.url}>{this.props.hunt.url}</a></h2>);
+      url = (
+        <div className="tour-summary-container">
+          <h2>Hunt URL:</h2>
+          <a className="editModeURL" href={this.props.hunt.url}>{this.props.hunt.url}</a>
+        </div>);
     }
 
     return (
