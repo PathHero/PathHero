@@ -3930,6 +3930,12 @@ h2 {
       background-color: #E6F4E9;
       padding: 21px 30px 55px 26px;
       border-radius: 5px; }
+      @media (max-width: 1250px) {
+        #app-container #hunt-info-container #hunt-url .editModeURL {
+          font-size: 1.3em; } }
+    @media (max-width: 1250px) {
+      #app-container #hunt-info-container #hunt-url a {
+        font-size: 1.3em; } }
     #app-container #hunt-info-container #hunt-url p {
       color: #488381;
       margin-top: 10px;

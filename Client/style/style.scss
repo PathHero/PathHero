@@ -173,6 +173,17 @@ h2 {
         background-color: #E6F4E9;
         padding: 21px 30px 55px 26px;
         border-radius: 5px;
+      
+        @media (max-width: 1250px) {
+          font-size: 1.3em;
+        }
+
+      }
+
+      a {
+        @media (max-width: 1250px) {
+          font-size: 1.3em;
+        }
       }
 
       p {
