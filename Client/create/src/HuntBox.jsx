@@ -34,7 +34,6 @@ module.exports = React.createClass({
             coordinates.push(tuple);
           }
           gMap.importMap(coordinates);
-          data.editMode = false;
           Actions.replaceHunt(data);
         },
         error: function(error) {

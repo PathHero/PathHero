@@ -13,8 +13,7 @@ module.exports = React.createClass({
     } else {
       pinNodes = this.props.pins.map(function(pin, index) {
         return (
-          <Pin pinIndex={index} pin={pin} key={index} editMode={this.props.editMode}>
-          </Pin>
+          <Pin pinIndex={index} pin={pin} key={index}></Pin>
         );
       }, this);
     }
