@@ -44,17 +44,7 @@ module.exports = React.createClass({
   },
   render: function() {
     var btnLabel = "Save hunt";
-    var btnStyle = {
-      float: 'right',
-      position: 'absolute',
-      right: '40px',
-      top: '16px',
-      backgroundColor: '#ffa600',
-      color: '#fff',
-      fontWeight: '500',
-      borderRadius: '2px',
-      fontSize: '1.4em'
-    };
+
 
     if (this.state.showSaveAlert) {
       return (
@@ -64,8 +54,8 @@ module.exports = React.createClass({
       );
     } else {
         return (
-        <div>
-          <Btn label={btnLabel} newStyle={btnStyle} clickHandler={this.handleSubmit} />
+        <div id="save-btn">
+          <Btn label={btnLabel} clickHandler={this.handleSubmit} />
         </div>
       );
     }
