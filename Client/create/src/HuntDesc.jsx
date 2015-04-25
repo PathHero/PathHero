@@ -5,7 +5,7 @@ var React = require('react');
 var Actions = require('../RefluxActions');
 
 module.exports = React.createClass({
-  onChangeDesc: function() {
+  onBlur: function() {
     var newDesc = this.refs.descEdit.getDOMNode().value;
     Actions.updateHuntAtKey(newDesc, 'huntDesc');
   },
@@ -14,13 +14,13 @@ module.exports = React.createClass({
       <textarea 
         id="hunt-desc" 
         ref="descEdit" 
-        onChange={this.onChangeDesc} 
+        onBlur={this.onBlur} 
         placeholder="Ex: This adventurous challenge takes you from the
-          the inner streets of San Francisco to the tranquil peace of local parks, 
+          the inner streets of San Francisco to the tranquil peace of local parks,
           and ends back in the city after weaving around the coastline."
-        cols="83" 
-        rows="6" 
-        value={this.props.hunt.huntDesc} 
+        cols="83"
+        rows="6"
+        defaultValue={this.props.hunt.huntDesc} 
         key={this.props.hunt._id} 
       />
     );
