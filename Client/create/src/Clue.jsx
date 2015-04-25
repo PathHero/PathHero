@@ -17,9 +17,13 @@ module.exports = React.createClass({
       marginBottom: '10'
     };
 
+    var removeStyle = {
+      textAlign: 'left'
+    }
+
     var clueText = (
-      <textarea 
-        cols="35" 
+      <textarea
+        className="clue-text-area"
         ref="clueEdit" 
         value={this.props.clue}
         onChange={this.onClueChange}
@@ -33,11 +37,11 @@ module.exports = React.createClass({
           <div className="col-xs-12 bold-title">
             Clue {this.props.clueIndex + 1}
           </div>
-          <div className="col-xs-7">
+          <div className="col-xs-10 clue-hint-container">
             {clueText}
           </div>
-          <div className="col-xs-1">
-            <i className="fa fa-remove" onClick={this.deleteClue}></i>
+          <div className="col-xs-1 clue-button-area">
+            <i style={removeStyle} className="fa fa-remove remove-shifted" onClick={this.deleteClue}></i>
           </div>
         </div>
       </div>

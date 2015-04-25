@@ -100,6 +100,11 @@ h2 {
     color: #ffa600;
   }
 
+  .remove-shifted {
+    left: -80px;
+    top: 10px;
+  }
+
   @media (min-width: 1200px) {
     .container {
       width: 93%;
@@ -261,7 +266,7 @@ h2 {
         position: relative;
         left: 9px;
         top: 5px;
-        width: 400px;
+        width: 71%;
       }
 
       textarea {
@@ -269,16 +274,28 @@ h2 {
         width: 90%;
       }
 
-      .pin-text-area {
+      .panel-title {
+        width: 100%;
+      }
+
+      .addClue-text-area {
         width: 90%;
       }
 
-      .pin-button-area {
+      .addClue-button-area {
         width: 10%
       }
 
+      .clue-text-area {
+        width: 86%;
+      }
+
+      .clue-button-area {
+        width: 4%
+      }
+
       .clue-hint-container {
-        margin-bottom: 10px;
+        width: 94%;
       }
 
       .bold-title {

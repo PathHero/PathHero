@@ -73,10 +73,10 @@ module.exports = React.createClass({
           Clue {this.props.pin.clues.length + 1}
         </div>
         <div className="row">
-          <div className="col-xs-10 pin-text-area">
+          <div className="col-xs-10 addClue-text-area">
             <textarea rows="2" ref="clueInput" placeholder="Ex: A former defensive point"/>
           </div>
-          <div className="col-xs-1 pin-button-area">
+          <div className="col-xs-1 addClue-button-area">
             <Btn label={"Add Clue"} newStyle={addClue} clickHandler={this.handleNewClue} />
           </div>       
         </div>
