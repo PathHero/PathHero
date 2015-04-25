@@ -93,6 +93,14 @@ h2 {
     width: 50%;
   }    
 
+  .fa-remove {
+    font-size: x-large;
+    position: relative;
+    left: 18px;
+    bottom: -3px;
+    color: #ffa600;
+  }
+
   @media (min-width: 1200px) {
     .container {
       width: 93%;
@@ -177,16 +185,28 @@ h2 {
         position: relative;
         left: 9px;
         top: 5px;
-        width: 330px;
+        width: 400px;
       }
 
       textarea {
         font-size: 1.15em;
-        width: 330px;
+        width: 90%;
+      }
+
+      .pin-text-area {
+        width: 90%;
+      }
+
+      .pin-button-area {
+        width: 10%
       }
 
       .clue-hint-container {
         margin-bottom: 10px;
+      }
+
+      .bold-title {
+        font-weight: bold;
       }
     
       .clueDetails {
@@ -195,6 +215,11 @@ h2 {
           text-decoration: underline;
           margin-right: 10px;
       }
+
+        .edit-clue {
+          text-align: right;
+          left: 10px;
+        }
     }
 
     }

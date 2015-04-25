@@ -153,25 +153,30 @@ module.exports = React.createClass({displayName: "exports",
     var text;
     if (this.state.editMode) {
       editBtn = (React.createElement("button", {className: "btn", onClick: this.toggleEdit}, "Save"));
-      text = (React.createElement("textarea", {cols: "35", ref: "clueEdit", 
-        defaultValue: this.props.clue, 
-        placeholder: "Ex: A former defensive point"}));
+      text = (React.createElement("textarea", {cols: "35", ref: "clueEdit", defaultValue: this.props.clue}));
     } else {
-      editBtn = (React.createElement("a", {href: "javascript:;", onClick: this.toggleEdit}, "Edit"));
+      editBtn = (React.createElement("a", {onClick: this.toggleEdit}, "Edit"));
       text = this.props.clue;
     }
+
+    var clueStyle = {
+      marginBottom: '10'
+    }
+
     return (
-      React.createElement("div", {className: "clueDetails"}, 
+      React.createElement("div", {style: clueStyle, className: "clueDetails"}, 
         React.createElement("div", {className: "row"}, 
-          React.createElement("div", {className: "col-xs-2"}, 
-            "Clue ", this.props.clueIndex + 1, ":"
-          ), 
-          React.createElement("div", {className: "col-xs-6"}, 
+          React.createElement("div", {className: "col-xs-12 bold-title"}, 
+          "Clue ", this.props.clueIndex + 1
+          )
+        ), 
+        React.createElement("div", {className: "row"}, 
+          React.createElement("div", {className: "col-xs-9"}, 
           text
           ), 
-          React.createElement("div", {className: "col-xs-4"}, 
+          React.createElement("div", {className: "col-xs-3 edit-clue"}, 
             editBtn, 
-            React.createElement("a", {href: "javascript:;", onClick: this.deleteClue}, "Delete")
+            React.createElement("a", {clickHandler: this.deleteClue}, "Delete")
           )
         )
       )
@@ -542,7 +547,7 @@ module.exports = React.createClass({displayName: "exports",
                             placeholder: "Location Name", 
                             value: this.props.pin.answer}), 
                       React.createElement("span", null, 
-                        React.createElement(Btn, {label: "X", clickHandler: this.removePin})
+                        React.createElement("i", {className: "fa fa-remove", onClick: this.removePin})
                       )
                    ));
     } else {
@@ -560,20 +565,35 @@ module.exports = React.createClass({displayName: "exports",
 
     var addClue = {
       position: 'relative',
-      top: '-22',
-      left: '10',
+      top: '10',
+      left: '-55',
+      backgroundColor: '#ffa600',
+      color: '#fff',
+      fontWeight: '500',
+      borderRadius: '2px',
+      fontSize: '1em'
     };
 
+    console.log(this.props);
     return (
       React.createElement("div", {className: "pinContainer"}, 
         React.createElement(Panel, {header: pinHeader}, 
         React.createElement(ReactCSSTransitionGroup, {transitionName: "dynamicListItem"}, 
         clueNodes
         ), 
-        React.createElement("textarea", {col: "35", row: "30", ref: "clueInput", placeholder: "Ex: A former defensive point"}), 
-        React.createElement(Btn, {label: "Add Clue", newStyle: addClue, clickHandler: this.handleNewClue}), 
-        React.createElement("div", null, "Answer"), 
-        React.createElement("textarea", {col: "35", row: "30", ref: "resultText", 
+        React.createElement("div", {className: "bold-title"}, 
+          "Clue ", this.props.pin.clues.length + 1
+        ), 
+        React.createElement("div", {className: "row"}, 
+          React.createElement("div", {className: "col-xs-10 pin-text-area"}, 
+            React.createElement("textarea", {rows: "2", ref: "clueInput", placeholder: "Ex: A former defensive point"})
+          ), 
+          React.createElement("div", {className: "col-xs-1 pin-button-area"}, 
+            React.createElement(Btn, {label: "Add Clue", newStyle: addClue, clickHandler: this.handleNewClue})
+          )
+        ), 
+        React.createElement("div", {className: "bold-title"}, "Answer"), 
+        React.createElement("textarea", {col: "38", rows: "4", ref: "resultText", 
                   defaultValue: this.props.pin.resultText, 
                   placeholder: "Ex: Great job! The bar on the corner has the best martinis.", 
                   onChange: this.resultTextOnChange}), 
