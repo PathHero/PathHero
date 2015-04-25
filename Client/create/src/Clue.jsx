@@ -8,7 +8,7 @@ module.exports = React.createClass({
   deleteClue: function() {
     Actions.removeClue(this.props.pinIndex, this.props.clueIndex);
   },
-  onClueChange: function(){
+  onBlur: function(){
     var newText = this.refs.clueEdit.getDOMNode().value;
     Actions.updateClue(newText, this.props.pinIndex, this.props.clueIndex);
   },
@@ -19,14 +19,14 @@ module.exports = React.createClass({
 
     var removeStyle = {
       textAlign: 'left'
-    }
+    };
 
     var clueText = (
       <textarea
         className="clue-text-area"
         ref="clueEdit" 
-        value={this.props.clue}
-        onChange={this.onClueChange}
+        defaultValue={this.props.clue}
+        onBlur={this.onBlur}
         placeholder="Ex: A former defensive point"
       />
     );

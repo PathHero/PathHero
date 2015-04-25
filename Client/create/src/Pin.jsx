@@ -18,7 +18,7 @@ module.exports = React.createClass({
     Actions.addClue(newClue, this.props.pinIndex);
     React.findDOMNode(this.refs.clueInput).focus();  
   },
-  onLocationChange: function() {
+  onBlur: function() {
     var locationName = this.refs.locationName.getDOMNode().value;
     Actions.updatePinAtKey(locationName, this.props.pinIndex, 'answer');
   },
@@ -33,9 +33,9 @@ module.exports = React.createClass({
         <input 
           type="text" 
           ref="locationName" 
-          onChange={this.onLocationChange}
+          onBlur={this.onBlur}
           placeholder="Location Name"
-          value={this.props.pin.answer}
+          defaultValue={this.props.pin.answer}
         />
         <span>
           <i className="fa fa-remove" onClick={this.removePin}></i>
@@ -44,7 +44,7 @@ module.exports = React.createClass({
     );
 
     var clueNodes = this.props.pin.clues.map(function(clue, clueIndex) {
-      var key = '' + this.props.pinIndex + clueIndex;
+      var key = '' + this.props.pinIndex + clueIndex + this.props.pin.clues.length;
       return (
         <Clue clue={clue} pinIndex={this.props.pinIndex} 
         clueIndex={clueIndex} key={key}/>
