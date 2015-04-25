@@ -4026,7 +4026,8 @@ h2 {
   border: 2px solid #fff;
   border-radius: 200px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
-  cursor: 'pointer'; }
+  cursor: 'pointer';
+  display: none; }
 
 .gMapInactiveButton:hover {
   background: rgba(33, 33, 33, 0.6); }
@@ -4155,13 +4156,15 @@ h2 {
 .navbar-brand {
   font-weight: 500; }
 
-#playerContainer {
+#player-body {
   background: url(../static/golden-gate-brdige-blurred2.jpg) no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
-  overflow: auto;
+  overflow: auto; }
+
+#playerContainer {
   padding: 0 10px; }
   #playerContainer h1 {
     text-align: center;
@@ -4197,6 +4200,8 @@ h2 {
       font-size: 0.8em; }
   #playerContainer hr {
     border-top: 1px solid #B59191; }
+  #playerContainer #clue-container {
+    padding-bottom: 60px; }
   #playerContainer .clue-num-container {
     margin-bottom: 10px;
     position: relative; }
