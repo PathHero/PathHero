@@ -12,7 +12,7 @@ module.exports = React.createClass({
       pinNodes = (<div id="pin-prompt" className="row"><div className="col-sm-1"><i className="fa fa-arrow-left"></i></div><div className="col-sm-11"><span>Click on the map to add your first pin</span></div></div>);
     } else {
       pinNodes = this.props.pins.map(function(pin, index) {
-        var key = '' + index + this.props.pins.length;
+        var key = '' + index + pin.geo.lat + pin.geo.lng;
         return (
           <Pin pinIndex={index} pin={pin} key={key}></Pin>
         );

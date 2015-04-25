@@ -644,7 +644,7 @@ module.exports = React.createClass({displayName: "exports",
       pinNodes = (React.createElement("div", {id: "pin-prompt", className: "row"}, React.createElement("div", {className: "col-sm-1"}, React.createElement("i", {className: "fa fa-arrow-left"})), React.createElement("div", {className: "col-sm-11"}, React.createElement("span", null, "Click on the map to add your first pin"))));
     } else {
       pinNodes = this.props.pins.map(function(pin, index) {
-        var key = '' + index + this.props.pins.length;
+        var key = '' + index + pin.geo.lat + pin.geo.lng;
         return (
           React.createElement(Pin, {pinIndex: index, pin: pin, key: key})
         );
