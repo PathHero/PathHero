@@ -136,9 +136,13 @@ module.exports = React.createClass({displayName: "exports",
       marginBottom: '10'
     };
 
+    var removeStyle = {
+      textAlign: 'left'
+    }
+
     var clueText = (
       React.createElement("textarea", {
-        cols: "35", 
+        className: "clue-text-area", 
         ref: "clueEdit", 
         value: this.props.clue, 
         onChange: this.onClueChange, 
@@ -152,11 +156,11 @@ module.exports = React.createClass({displayName: "exports",
           React.createElement("div", {className: "col-xs-12 bold-title"}, 
             "Clue ", this.props.clueIndex + 1
           ), 
-          React.createElement("div", {className: "col-xs-7"}, 
+          React.createElement("div", {className: "col-xs-10 clue-hint-container"}, 
             clueText
           ), 
-          React.createElement("div", {className: "col-xs-1"}, 
-            React.createElement("i", {className: "fa fa-remove", onClick: this.deleteClue})
+          React.createElement("div", {className: "col-xs-1 clue-button-area"}, 
+            React.createElement("i", {style: removeStyle, className: "fa fa-remove remove-shifted", onClick: this.deleteClue})
           )
         )
       )
@@ -538,7 +542,7 @@ module.exports = React.createClass({displayName: "exports",
   render: function() {
     var pinHeader = (
       React.createElement("span", null, 
-        React.createElement("img", {src: mapImg[this.props.pinIndex], width: "42"}), 
+        React.createElement("img", {src: mapImg[this.props.pinIndex], width: "43"}), 
         React.createElement("input", {
           type: "text", 
           ref: "locationName", 
@@ -582,10 +586,10 @@ module.exports = React.createClass({displayName: "exports",
           "Clue ", this.props.pin.clues.length + 1
         ), 
         React.createElement("div", {className: "row"}, 
-          React.createElement("div", {className: "col-xs-10 pin-text-area"}, 
+          React.createElement("div", {className: "col-xs-10 addClue-text-area"}, 
             React.createElement("textarea", {rows: "2", ref: "clueInput", placeholder: "Ex: A former defensive point"})
           ), 
-          React.createElement("div", {className: "col-xs-1 pin-button-area"}, 
+          React.createElement("div", {className: "col-xs-1 addClue-button-area"}, 
             React.createElement(Btn, {label: "Add Clue", newStyle: addClue, clickHandler: this.handleNewClue})
           )
         ), 
