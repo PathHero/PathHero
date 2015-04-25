@@ -157,9 +157,9 @@ gMap.createPath = function (callback){
         title: 'Marker',
         icon: {
           url: gMap.pointImg,
-          scaledSize: new google.maps.Size(15,15),
+          scaledSize: new google.maps.Size(16,16),
           origin: new google.maps.Point(0,0),
-          anchor: new google.maps.Point(5,5),
+          anchor: new google.maps.Point(8,8),
           zIndex: 0
         }
     }
