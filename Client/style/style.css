@@ -4351,4 +4351,32 @@ h2 {
 .dynamicListItem-leave.dynamicListItem-leave-active {
   opacity: 0.01; }
 
+#choose-hunt-page {
+  background: url(../static/choose-hunt-bg.jpg) no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover; }
+  #choose-hunt-page .account {
+    width: 80%;
+    margin: 100px auto; }
+    #choose-hunt-page .account h1 {
+      display: inline;
+      color: #3F8B89;
+      font-size: 50px; }
+      #choose-hunt-page .account h1 #or {
+        color: #888;
+        margin: 0 20px; }
+    #choose-hunt-page .account a {
+      color: #ffa600;
+      text-decoration: underline; }
+    #choose-hunt-page .account a:hover {
+      color: #FF7E00;
+      text-decoration: underline; }
+    #choose-hunt-page .account h5 {
+      font-size: 2em; }
+    #choose-hunt-page .account .list-group-item {
+      background-color: rgba(237, 234, 234, 0.3);
+      border-radius: 2px; }
+
 /*# sourceMappingURL=style.css.map */
