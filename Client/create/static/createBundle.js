@@ -227,9 +227,10 @@ module.exports = React.createClass({displayName: "exports",
       url = null;
     } else {
       url = (
-        React.createElement("div", {className: "tour-summary-container"}, 
-          React.createElement("h2", null, "Hunt URL:"), 
-          React.createElement("a", {className: "editModeURL", href: this.props.hunt.url}, this.props.hunt.url)
+        React.createElement("div", {id: "hunt-url", className: "tour-summary-container"}, 
+          React.createElement("h2", null, "Hunt Saved! Here is Your Hunt Link:"), 
+          React.createElement("a", {className: "editModeURL", href: this.props.hunt.url}, this.props.hunt.url), 
+          React.createElement("p", null, "Send this to your players so they can access your hunt")
         ));
     }
 

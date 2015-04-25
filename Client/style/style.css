@@ -3864,12 +3864,28 @@ h2 {
   .navbar-default .navbar-brand {
     color: #fff; }
 
-.editModeURL {
-  font-size: 1.5em; }
+#hunt-url {
+  margin: 25px 0 45px; }
+  #hunt-url h2 {
+    margin-bottom: 32px; }
+  #hunt-url .editModeURL {
+    font-size: 1.5em;
+    background-color: #E6F4E9;
+    padding: 21px 30px 55px 26px;
+    border-radius: 5px; }
+  #hunt-url p {
+    color: #488381;
+    margin-top: 10px;
+    font-size: 1.2em;
+    font-style: italic;
+    padding-left: 25px;
+    font-weight: 500; }
+  #hunt-url .bottom-hr {
+    margin-top: 40px; }
 
 #app-container h2 {
   color: #D55A2D;
-  font-size: 12px;
+  font-size: 1em;
   font-weight: 500;
   text-transform: uppercase; }
 #app-container #map-container {
@@ -3911,7 +3927,7 @@ h2 {
           margin-right: 20px;
           font-size: 1.5em; } }
   #app-container #hunt-info-container #hunt-title-container {
-    margin: 20px 0 25px; }
+    margin: 30px 0 20px; }
     #app-container #hunt-info-container #hunt-title-container #hunt-title {
       margin: 0px 0;
       font-size: 30px; }
