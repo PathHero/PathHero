@@ -542,7 +542,7 @@ module.exports = React.createClass({displayName: "exports",
   render: function() {
     var pinHeader = (
       React.createElement("span", null, 
-        React.createElement("img", {src: mapImg[this.props.pinIndex], width: "43"}), 
+        React.createElement("img", {src: mapImg[this.props.pinIndex], width: "42"}), 
         React.createElement("input", {
           type: "text", 
           ref: "locationName", 

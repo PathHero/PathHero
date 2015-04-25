@@ -3848,6 +3848,9 @@ button.close {
 html body {
   font-family: 'Ubuntu', sans-serif; }
 
+.playerHTML {
+  overflow: hidden; }
+
 h2 {
   color: #848484;
   font-size: 12px;
