@@ -116,19 +116,34 @@ h2 {
 
 
 
+
     #hunt-details {
       padding-left: 0;
-      margin-top: 19px;
+      margin-top: 21px;
+
+      @media (max-width: $screen-md-max) {
+        margin-top: 21px;
+      }
 
       li {
         list-style: none;
         display: inline;
-        margin-right: 2.5em;
+        margin-right: 1.8em;
         font-size: 1.6em;
         color: #73bcba;
         font-weight: 600;
+        
+        @media (max-width: $screen-md-max) {
+            margin-right: 20px;
+            font-size: 1.5em;
+        }
       }
     }
+
+      
+
+
+    
 
     #hunt-title-container {
       margin: 20px 0 25px;     
