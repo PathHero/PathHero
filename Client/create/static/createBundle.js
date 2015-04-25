@@ -127,7 +127,7 @@ module.exports = React.createClass({displayName: "exports",
   deleteClue: function() {
     Actions.removeClue(this.props.pinIndex, this.props.clueIndex);
   },
-  onClueChange: function(){
+  onBlur: function(){
     var newText = this.refs.clueEdit.getDOMNode().value;
     Actions.updateClue(newText, this.props.pinIndex, this.props.clueIndex);
   },
@@ -136,29 +136,33 @@ module.exports = React.createClass({displayName: "exports",
       marginBottom: '10'
     };
 
+    var removeStyle = {
+      textAlign: 'left'
+    };
+
     var clueText = (
       React.createElement("textarea", {
-        cols: "35", 
+        className: "clue-text-area", 
         ref: "clueEdit", 
-        value: this.props.clue, 
-        onChange: this.onClueChange, 
+        defaultValue: this.props.clue, 
+        onBlur: this.onBlur, 
         placeholder: "Ex: A former defensive point"}
       )
     );
 
     return (
       React.createElement("div", {style: clueStyle, className: "clueDetails"}, 
-        React.createElement("div", {className: "row"}, 
-          React.createElement("div", {className: "col-xs-12 bold-title"}, 
-            "Clue ", this.props.clueIndex + 1
-          ), 
-          React.createElement("div", {className: "col-xs-7"}, 
-            clueText
-          ), 
-          React.createElement("div", {className: "col-xs-1"}, 
-            React.createElement("i", {className: "fa fa-remove", onClick: this.deleteClue})
-          )
+        
+        React.createElement("div", {className: "bold-title"}, 
+          "Clue ", this.props.clueIndex + 1
+        ), 
+        
+        clueText, 
+        
+        React.createElement("div", {className: "clue-button-area"}, 
+          React.createElement("i", {style: removeStyle, className: "fa fa-remove remove-shifted", onClick: this.deleteClue})
         )
+        
       )
     );
   }
@@ -527,7 +531,7 @@ module.exports = React.createClass({displayName: "exports",
     Actions.addClue(newClue, this.props.pinIndex);
     React.findDOMNode(this.refs.clueInput).focus();  
   },
-  onLocationChange: function() {
+  onBlur: function() {
     var locationName = this.refs.locationName.getDOMNode().value;
     Actions.updatePinAtKey(locationName, this.props.pinIndex, 'answer');
   },
@@ -542,9 +546,9 @@ module.exports = React.createClass({displayName: "exports",
         React.createElement("input", {
           type: "text", 
           ref: "locationName", 
-          onChange: this.onLocationChange, 
+          onBlur: this.onBlur, 
           placeholder: "Location Name", 
-          value: this.props.pin.answer}
+          defaultValue: this.props.pin.answer}
         ), 
         React.createElement("span", null, 
           React.createElement("i", {className: "fa fa-remove", onClick: this.removePin})
@@ -553,43 +557,33 @@ module.exports = React.createClass({displayName: "exports",
     );
 
     var clueNodes = this.props.pin.clues.map(function(clue, clueIndex) {
-      var key = '' + this.props.pinIndex + clueIndex;
+      var key = '' + this.props.pinIndex + clueIndex + this.props.pin.clues.length;
       return (
         React.createElement(Clue, {clue: clue, pinIndex: this.props.pinIndex, 
         clueIndex: clueIndex, key: key})
       );
     }, this);
 
-    var addClue = {
-      position: 'relative',
-      top: '10',
-      left: '-55',
-      backgroundColor: '#ffa600',
-      color: '#fff',
-      fontWeight: '500',
-      borderRadius: '2px',
-      fontSize: '1em'
-    };
-
     return (
-      React.createElement("div", {className: "pinContainer"}, 
+      React.createElement("div", null, 
         React.createElement(Panel, {header: pinHeader}, 
-        React.createElement(ReactCSSTransitionGroup, {transitionName: "dynamicListItem"}, 
-        clueNodes
-        ), 
-
-        React.createElement("div", {className: "bold-title"}, 
-          "Clue ", this.props.pin.clues.length + 1
-        ), 
-        React.createElement("div", {className: "row"}, 
-          React.createElement("div", {className: "col-xs-10 pin-text-area"}, 
-            React.createElement("textarea", {rows: "2", ref: "clueInput", placeholder: "Ex: A former defensive point"})
+        React.createElement("div", {id: "clue-container"}, 
+          React.createElement(ReactCSSTransitionGroup, {transitionName: "dynamicListItem"}, 
+          clueNodes
           ), 
-          React.createElement("div", {className: "col-xs-1 pin-button-area"}, 
-            React.createElement(Btn, {label: "Add Clue", newStyle: addClue, clickHandler: this.handleNewClue})
-          )
-        ), 
 
+          React.createElement("div", {className: "bold-title"}, 
+            "Clue ", this.props.pin.clues.length + 1
+          ), 
+          
+            React.createElement("div", {className: "addClue-text-area"}, 
+              React.createElement("textarea", {rows: "2", ref: "clueInput", placeholder: "Ex: A former defensive point"}), 
+              React.createElement("div", {className: "addClue-button-area"}, 
+                React.createElement(Btn, {label: "Add Clue", clickHandler: this.handleNewClue})
+              )
+            )
+          
+        ), 
         React.createElement(PinArrivalMessage, {pin: this.props.pin, pinIndex: this.props.pinIndex})
         )
       )
@@ -611,7 +605,7 @@ module.exports = React.createClass({displayName: "exports",
   },
   render: function() {
     return (
-      React.createElement("div", null, 
+      React.createElement("div", {id: "arrival-msg"}, 
         React.createElement("div", {className: "bold-title"}, "Arrival Message"), 
         React.createElement("textarea", {
           col: "38", 
@@ -640,8 +634,9 @@ module.exports = React.createClass({displayName: "exports",
       pinNodes = (React.createElement("div", {id: "pin-prompt", className: "row"}, React.createElement("div", {className: "col-sm-1"}, React.createElement("i", {className: "fa fa-arrow-left"})), React.createElement("div", {className: "col-sm-11"}, React.createElement("span", null, "Click on the map to add your first pin"))));
     } else {
       pinNodes = this.props.pins.map(function(pin, index) {
+        var key = '' + index + pin.geo.lat + pin.geo.lng;
         return (
-          React.createElement(Pin, {pinIndex: index, pin: pin, key: index})
+          React.createElement(Pin, {pinIndex: index, pin: pin, key: key})
         );
       }, this);
     }

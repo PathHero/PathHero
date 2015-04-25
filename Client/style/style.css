@@ -4374,7 +4374,8 @@ h2 {
       color: #FF7E00;
       text-decoration: underline; }
     #choose-hunt-page .account h5 {
-      font-size: 2em; }
+      font-size: 2em;
+      color: #3F8B89; }
     #choose-hunt-page .account .list-group-item {
       background-color: rgba(237, 234, 234, 0.3);
       border-radius: 2px; }
