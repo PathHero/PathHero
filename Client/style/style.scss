@@ -71,39 +71,12 @@ h2 {
 }
 
 
-#hunt-url {
-  margin: 25px 0 45px;
 
-  h2 {
-    margin-bottom: 32px;
-  }
-  
-  .editModeURL{
-    font-size: 1.5em;
-    background-color: #E6F4E9;
-    padding: 21px 30px 55px 26px;
-    border-radius: 5px;
-  }
-
-  p {
-    color: #488381;
-      margin-top: 10px;
-      font-size: 1.2em;
-      font-style: italic;
-      padding-left: 25px;
-      font-weight: 500;
-  }
-
-  .bottom-hr {
-    margin-top: 40px;
-  }
-  
-}
 
 #app-container {
 
   h2 {
-    color: #D55A2D;
+    color: #E26129;
     font-size: 1em;
     font-weight: 500;
     text-transform: uppercase;
@@ -140,15 +113,35 @@ h2 {
     background-color: #FDFBFB;
     padding-left: 20px;
 
+    #save-btn {
+      .btn {
+        background-color: #ffa600;
+        float: right;
+        position: absolute;
+        right: 40px;
+        top: 20px;
+        
+        color: #fff;
+        font-weight: 500;
+        border-radius: 2px;
+        font-size: 1.4em
+      }      
+    }
 
+    #save-btn {
+      .btn:hover {
+        background-color: #F9774D;          
+      }        
+    }
+    
 
 
     #hunt-details {
       padding-left: 0;
-      margin-top: 21px;
+      margin-top: 27px;
 
       @media (max-width: $screen-md-max) {
-        margin-top: 21px;
+        margin-top: 28px;
       }
 
       li {
@@ -164,6 +157,37 @@ h2 {
             font-size: 1.5em;
         }
       }
+    }
+
+    #hunt-url {
+      margin: 25px 0 45px;
+
+      h2 {
+        margin-bottom: 32px;
+        text-transform: none;
+        font-size: 1.8em;
+      }
+      
+      .editModeURL{
+        font-size: 1.5em;
+        background-color: #E6F4E9;
+        padding: 21px 30px 55px 26px;
+        border-radius: 5px;
+      }
+
+      p {
+        color: #488381;
+          margin-top: 10px;
+          font-size: 1.2em;
+          font-style: italic;
+          padding-left: 25px;
+          font-weight: 500;
+      }
+
+      .bottom-hr {
+        margin-top: 40px;
+      }
+      
     }
 
       

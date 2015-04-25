@@ -61,7 +61,7 @@ module.exports = React.createClass({
     } else {
       url = (
         <div id="hunt-url" className="tour-summary-container">
-          <h2>Hunt Saved! Here is Your Hunt Link:</h2>
+          <h2>Hunt Saved!</h2>
           <a className="editModeURL" href={this.props.hunt.url}>{this.props.hunt.url}</a>
           <p>Send this to your players so they can access your hunt</p>
         </div>);
