@@ -5,7 +5,7 @@ var React = require('react');
 var Actions = require('../RefluxActions');
 
 module.exports = React.createClass({
-  resultTextOnChange: function(){
+  onBlur: function(){
     var newResultText = this.refs.resultText.getDOMNode().value;
     Actions.updatePinAtKey(newResultText, this.props.pinIndex, 'resultText');
   },
@@ -17,9 +17,9 @@ module.exports = React.createClass({
           col="38" 
           rows="4" 
           ref="resultText" 
-          value={this.props.pin.resultText}
+          defaultValue={this.props.pin.resultText}
           placeholder="Ex: Great job! The bar on the corner has the best martinis."
-          onChange={this.resultTextOnChange}/>
+          onBlur={this.onBlur}/>
       </div>
     );
   }

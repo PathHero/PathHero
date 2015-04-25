@@ -331,7 +331,7 @@ var React = require('react');
 var Actions = require('../RefluxActions');
 
 module.exports = React.createClass({displayName: "exports",
-  onChangeDesc: function() {
+  onBlur: function() {
     var newDesc = this.refs.descEdit.getDOMNode().value;
     Actions.updateHuntAtKey(newDesc, 'huntDesc');
   },
@@ -340,13 +340,13 @@ module.exports = React.createClass({displayName: "exports",
       React.createElement("textarea", {
         id: "hunt-desc", 
         ref: "descEdit", 
-        onChange: this.onChangeDesc, 
+        onBlur: this.onBlur, 
         placeholder: "Ex: This adventurous challenge takes you from the" + ' ' +
-          "the inner streets of San Francisco to the tranquil peace of local parks," + ' ' + 
+          "the inner streets of San Francisco to the tranquil peace of local parks," + ' ' +
           "and ends back in the city after weaving around the coastline.", 
         cols: "83", 
         rows: "6", 
-        value: this.props.hunt.huntDesc, 
+        defaultValue: this.props.hunt.huntDesc, 
         key: this.props.hunt._id}
       )
     );
@@ -484,7 +484,7 @@ module.exports = React.createClass({displayName: "exports",
   onComponentDidMount: function() {
     this.refs.titleEdit.getDOMNode().focus();
   },
-  onChangeTitle: function() {
+  onBlur: function() {
     var newTitle = this.refs.titleEdit.getDOMNode().value;
     Actions.updateHuntAtKey(newTitle, 'huntName');
   },
@@ -493,10 +493,10 @@ module.exports = React.createClass({displayName: "exports",
       React.createElement("input", {
         id: "hunt-title", 
         ref: "titleEdit", 
-        onChange: this.onChangeTitle, 
+        onBlur: this.onBlur, 
         placeholder: "Ex: Secrets of San Francisco", 
         size: "39", 
-        value: this.props.hunt.huntName, 
+        defaultValue: this.props.hunt.huntName, 
         key: this.props.hunt._id}
       )
     );
@@ -599,7 +599,7 @@ var React = require('react');
 var Actions = require('../RefluxActions');
 
 module.exports = React.createClass({displayName: "exports",
-  resultTextOnChange: function(){
+  onBlur: function(){
     var newResultText = this.refs.resultText.getDOMNode().value;
     Actions.updatePinAtKey(newResultText, this.props.pinIndex, 'resultText');
   },
@@ -611,9 +611,9 @@ module.exports = React.createClass({displayName: "exports",
           col: "38", 
           rows: "4", 
           ref: "resultText", 
-          value: this.props.pin.resultText, 
+          defaultValue: this.props.pin.resultText, 
           placeholder: "Ex: Great job! The bar on the corner has the best martinis.", 
-          onChange: this.resultTextOnChange})
+          onBlur: this.onBlur})
       )
     );
   }
