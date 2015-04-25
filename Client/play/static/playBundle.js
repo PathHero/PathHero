@@ -198,10 +198,10 @@ gMap.CenterControl = function (position,text, callback, addToList,startAsActive)
 };
 
 gMap.createPath = function (callback){
+  //defaulting the parameters
   callback = callback || function(){};
-  if(gMap.directionsDisplay instanceof google.maps.DirectionsRenderer){
-    var oldPath = gMap.directionsDisplay;
-  }
+
+  //setting the render configuration
   var directionsRendererConfig = {
     map: gMap.map,
     draggable : false,
@@ -217,8 +217,15 @@ gMap.createPath = function (callback){
         }
     }
   };
+  //if we are in creator view we can drag the dots
   if(!gMap.disableAddPins){
     directionsRendererConfig.draggable = true;
+  }
+
+  //to erase the map we need to run map.setMap(null);
+  //to do this we save it to oldPath so we can recover the map if needed and erase later.
+  if(gMap.directionsDisplay instanceof google.maps.DirectionsRenderer){
+    var oldPath = gMap.directionsDisplay;
   }
   gMap.directionsDisplay = new google.maps.DirectionsRenderer(directionsRendererConfig);
   //creating waypoints to place on the map
@@ -255,17 +262,21 @@ gMap.createPath = function (callback){
       if(oldPath){
         oldPath.setMap(null);
       }
+      //CALLBACK
+      callback();
+      gMap.trigger('dragEvent', [gMap.pathLatLng]);
     }
     //IF REQUEST FAILED
     else{
       console.error('Error with gMap.createPath: Status:', google.maps.DirectionsStatus, ': Response:',response);
       gMap.pathLatLng.pop(); //remove the last waypoint added
+      //clear failed map and replace it with the old one
+      gMap.directionsDisplay.setMap(null);
+      gMap.directionsDisplay = oldPath;
     }
     //AFTER REQUEST
 
-    //CALLBACK
-    callback();
-    gMap.trigger('dragEvent', [gMap.pathLatLng]);
+    
 
     //EVENTS
     google.maps.event.addListener(gMap.directionsDisplay, 'directions_changed', function() {
