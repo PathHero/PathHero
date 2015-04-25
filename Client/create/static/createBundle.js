@@ -152,17 +152,17 @@ module.exports = React.createClass({displayName: "exports",
 
     return (
       React.createElement("div", {style: clueStyle, className: "clueDetails"}, 
-        React.createElement("div", {className: "row"}, 
-          React.createElement("div", {className: "col-xs-12 bold-title"}, 
-            "Clue ", this.props.clueIndex + 1
-          ), 
-          React.createElement("div", {className: "col-xs-10 clue-hint-container"}, 
-            clueText
-          ), 
-          React.createElement("div", {className: "col-xs-1 clue-button-area"}, 
-            React.createElement("i", {style: removeStyle, className: "fa fa-remove remove-shifted", onClick: this.deleteClue})
-          )
+        
+        React.createElement("div", {className: "bold-title"}, 
+          "Clue ", this.props.clueIndex + 1
+        ), 
+        
+        clueText, 
+        
+        React.createElement("div", {className: "clue-button-area"}, 
+          React.createElement("i", {style: removeStyle, className: "fa fa-remove remove-shifted", onClick: this.deleteClue})
         )
+        
       )
     );
   }
@@ -564,36 +564,26 @@ module.exports = React.createClass({displayName: "exports",
       );
     }, this);
 
-    var addClue = {
-      position: 'relative',
-      top: '10',
-      left: '-55',
-      backgroundColor: '#ffa600',
-      color: '#fff',
-      fontWeight: '500',
-      borderRadius: '2px',
-      fontSize: '1em'
-    };
-
     return (
-      React.createElement("div", {className: "pinContainer"}, 
+      React.createElement("div", null, 
         React.createElement(Panel, {header: pinHeader}, 
-        React.createElement(ReactCSSTransitionGroup, {transitionName: "dynamicListItem"}, 
-        clueNodes
-        ), 
-
-        React.createElement("div", {className: "bold-title"}, 
-          "Clue ", this.props.pin.clues.length + 1
-        ), 
-        React.createElement("div", {className: "row"}, 
-          React.createElement("div", {className: "col-xs-10 addClue-text-area"}, 
-            React.createElement("textarea", {rows: "2", ref: "clueInput", placeholder: "Ex: A former defensive point"})
+        React.createElement("div", {id: "clue-container"}, 
+          React.createElement(ReactCSSTransitionGroup, {transitionName: "dynamicListItem"}, 
+          clueNodes
           ), 
-          React.createElement("div", {className: "col-xs-1 addClue-button-area"}, 
-            React.createElement(Btn, {label: "Add Clue", newStyle: addClue, clickHandler: this.handleNewClue})
-          )
-        ), 
 
+          React.createElement("div", {className: "bold-title"}, 
+            "Clue ", this.props.pin.clues.length + 1
+          ), 
+          
+            React.createElement("div", {className: "addClue-text-area"}, 
+              React.createElement("textarea", {rows: "2", ref: "clueInput", placeholder: "Ex: A former defensive point"}), 
+              React.createElement("div", {className: "addClue-button-area"}, 
+                React.createElement(Btn, {label: "Add Clue", clickHandler: this.handleNewClue})
+              )
+            )
+          
+        ), 
         React.createElement(PinArrivalMessage, {pin: this.props.pin, pinIndex: this.props.pinIndex})
         )
       )
@@ -615,7 +605,7 @@ module.exports = React.createClass({displayName: "exports",
   },
   render: function() {
     return (
-      React.createElement("div", null, 
+      React.createElement("div", {id: "arrival-msg"}, 
         React.createElement("div", {className: "bold-title"}, "Arrival Message"), 
         React.createElement("textarea", {
           col: "38", 

@@ -3867,6 +3867,10 @@ h2 {
   .navbar-default .navbar-brand {
     color: #fff; }
 
+#app-container input, #app-container textarea {
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  border-radius: 2px; }
 #app-container h2 {
   color: #E26129;
   font-size: 1em;
@@ -3885,8 +3889,8 @@ h2 {
   bottom: -3px;
   color: #ffa600; }
 #app-container .remove-shifted {
-  left: -80px;
-  top: 10px; }
+  left: 10px;
+  top: -17px; }
 @media (min-width: 1200px) {
   #app-container .container {
     width: 93%; } }
@@ -3904,6 +3908,8 @@ h2 {
     top: 20px;
     color: #fff;
     font-weight: 500;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
     border-radius: 2px;
     font-size: 1.4em; }
   #app-container #hunt-info-container #save-btn .btn:hover {
@@ -3935,6 +3941,8 @@ h2 {
       font-size: 1.5em;
       background-color: #E6F4E9;
       padding: 21px 30px 55px 26px;
+      -webkit-border-radius: 5px;
+      -moz-border-radius: 5px;
       border-radius: 5px; }
       @media (max-width: 1250px) {
         #app-container #hunt-info-container #hunt-url .editModeURL {
@@ -3959,6 +3967,10 @@ h2 {
   #app-container #hunt-info-container input, #app-container #hunt-info-container textarea {
     padding-left: 7px;
     border: 1px solid #ccc; }
+  #app-container #hunt-info-container .tour-summary-container a {
+    color: #D84D4D; }
+  #app-container #hunt-info-container .tour-summary-container a:hover {
+    color: #D84D4D; }
   #app-container #hunt-info-container .tour-summary-container input, #app-container #hunt-info-container .tour-summary-container textarea {
     width: 100%; }
   #app-container #hunt-info-container .tour-summary-container textarea {
@@ -3968,6 +3980,8 @@ h2 {
     padding-left: 0; }
   #app-container #hunt-info-container .tour-summary-container ul li {
     display: inline;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
     border-radius: 3px;
     border: 1px solid #c0d4db;
     padding: 5px; }
@@ -3983,24 +3997,31 @@ h2 {
     position: relative;
     left: 9px;
     top: 5px;
-    width: 71%; }
+    width: 448px; }
+    @media (max-width: 1255px) {
+      #app-container #hunt-info-container #pin-container input {
+        width: 350px; } }
   #app-container #hunt-info-container #pin-container textarea {
     font-size: 1.15em;
-    width: 90%; }
+    width: 100%; }
   #app-container #hunt-info-container #pin-container .panel-title {
     width: 100%; }
   #app-container #hunt-info-container #pin-container .addClue-text-area {
-    width: 90%; }
-  #app-container #hunt-info-container #pin-container .addClue-button-area {
-    width: 10%; }
+    width: 500px;
+    margin-bottom: 20px; }
+    @media (max-width: 1255px) {
+      #app-container #hunt-info-container #pin-container .addClue-text-area {
+        width: 401px; } }
   #app-container #hunt-info-container #pin-container .clue-text-area {
-    width: 86%; }
+    width: 79.1%; }
   #app-container #hunt-info-container #pin-container .clue-button-area {
-    width: 4%; }
+    display: inline; }
   #app-container #hunt-info-container #pin-container .clue-hint-container {
     width: 94%; }
   #app-container #hunt-info-container #pin-container .bold-title {
-    font-weight: bold; }
+    font-weight: bold;
+    color: #665C5C;
+    font-size: 1.2em; }
   #app-container #hunt-info-container #pin-container .clueDetails a {
     color: #ffa600;
     text-decoration: underline;
@@ -4008,6 +4029,20 @@ h2 {
   #app-container #hunt-info-container #pin-container .clueDetails .edit-clue {
     text-align: right;
     left: 10px; }
+  #app-container #hunt-info-container #pin-container #arrival-msg {
+    width: 500px; }
+    @media (max-width: 1255px) {
+      #app-container #hunt-info-container #pin-container #arrival-msg {
+        width: 401px; } }
+  #app-container #hunt-info-container #clue-container {
+    margin-bottom: 20px; }
+    #app-container #hunt-info-container #clue-container button {
+      background-color: #ffa600;
+      color: #fff;
+      font-weight: 500;
+      border-radius: 2px;
+      font-size: 1em;
+      text-align: right; }
   #app-container #hunt-info-container #pin-prompt {
     color: #ccc;
     margin-top: 50px;
@@ -4036,6 +4071,8 @@ h2 {
   text-align: center;
   margin-top: 10px;
   border: 2px solid #fff;
+  -webkit-border-radius: 200px;
+  -moz-border-radius: 200px;
   border-radius: 200px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
   cursor: 'pointer';
@@ -4127,6 +4164,8 @@ h2 {
   position: fixed;
   display: block;
   background-color: transparent;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
   border-radius: 50%;
   z-index: 20;
   -webkit-box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.75);
@@ -4159,6 +4198,8 @@ h2 {
       margin-bottom: 20px; }
     #welcome-msg-container #welcome-text #start-btn .btn {
       background-color: #ffa600;
+      -webkit-border-radius: 1px;
+      -moz-border-radius: 1px;
       border-radius: 1px;
       font-size: 1.5em;
       font-weight: bold; }
@@ -4202,6 +4243,8 @@ h2 {
     margin-top: 10px; }
   #playerContainer .btn {
     background-color: #ffa600;
+    -webkit-border-radius: 1px;
+    -moz-border-radius: 1px;
     border-radius: 1px;
     font-size: 1.5em;
     font-weight: bold;
@@ -4283,6 +4326,8 @@ h2 {
   #homepage-container #action-btns .hero-btns:hover {
     background-color: #CE4A1F; }
 #homepage-container .profilePic {
+  -webkit-border-radius: 200px;
+  -moz-border-radius: 200px;
   border-radius: 200px;
   width: 120px;
   height: 120px;

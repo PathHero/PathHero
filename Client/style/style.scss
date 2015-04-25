@@ -78,6 +78,12 @@ h2 {
 
 #app-container {
 
+  input, textarea {
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+  }
+
   h2 {
     color: #E26129;
     font-size: 1em;
@@ -104,8 +110,8 @@ h2 {
   }
 
   .remove-shifted {
-    left: -80px;
-    top: 10px;
+    left: 10px;
+    top: -17px;
   }
 
   @media (min-width: 1200px) {
@@ -131,6 +137,8 @@ h2 {
         
         color: #fff;
         font-weight: 500;
+        -webkit-border-radius: 2px;
+        -moz-border-radius: 2px;
         border-radius: 2px;
         font-size: 1.4em
       }      
@@ -180,6 +188,8 @@ h2 {
         font-size: 1.5em;
         background-color: #E6F4E9;
         padding: 21px 30px 55px 26px;
+        -webkit-border-radius: 5px;
+        -moz-border-radius: 5px;
         border-radius: 5px;
       
         @media (max-width: 1250px) {
@@ -209,11 +219,7 @@ h2 {
       
     }
 
-      
-
-
     
-
     #hunt-title-container {
       margin: 30px 0 20px;     
       
@@ -230,6 +236,14 @@ h2 {
 
     .tour-summary-container {
 
+      a {
+        color: #D84D4D;
+      }
+      
+      a:hover {
+        color: #D84D4D;
+      } 
+
       input, textarea {
         width: 100%;
       }
@@ -245,6 +259,8 @@ h2 {
 
       ul li {
         display: inline;
+        -webkit-border-radius: 3px;
+        -moz-border-radius: 3px;
         border-radius: 3px;
         border: 1px solid #c0d4db;
         padding: 5px;
@@ -269,12 +285,17 @@ h2 {
         position: relative;
         left: 9px;
         top: 5px;
-        width: 71%;
+        width: 448px;
+
+        @media (max-width: 1255px) {
+          width: 350px;          
+        }
+
       }
 
       textarea {
         font-size: 1.15em;
-        width: 90%;
+        width: 100%;
       }
 
       .panel-title {
@@ -282,19 +303,26 @@ h2 {
       }
 
       .addClue-text-area {
-        width: 90%;
+        width: 500px;
+        margin-bottom: 20px;
+
+        @media (max-width: 1255px) {
+          width: 401px;          
+        }
+
       }
 
       .addClue-button-area {
-        width: 10%
+        
+        
       }
 
       .clue-text-area {
-        width: 86%;
+        width: 79.1%;
       }
 
       .clue-button-area {
-        width: 4%
+        display: inline;
       }
 
       .clue-hint-container {
@@ -303,6 +331,8 @@ h2 {
 
       .bold-title {
         font-weight: bold;
+        color: #665C5C;
+        font-size: 1.2em;
       }
     
       .clueDetails {
@@ -316,25 +346,47 @@ h2 {
           text-align: right;
           left: 10px;
         }
-    }
 
     }
+
+    #arrival-msg {
+      width: 500px;
+
+      @media (max-width: 1255px) {
+        width: 401px;          
+      }
+    }
+
+  }
+
+  #clue-container {
+    margin-bottom: 20px; 
+    
+    button {
+      background-color: #ffa600;
+      color: #fff;
+      font-weight: 500;
+      border-radius: 2px;
+      font-size: 1em;
+      text-align: right;
+    }
+  }
   
-    #pin-prompt {
+  #pin-prompt {
 
-      color: #ccc;
-      margin-top: 50px;
-      line-height: 1.2;
+    color: #ccc;
+    margin-top: 50px;
+    line-height: 1.2;
 
-      @media (min-width: $screen-lg-min) {
-        font-size: 3.4em;        
-      }
-
-      @media (max-width: $screen-md-max) {
-        font-size: 3.2em;        
-      }
-
+    @media (min-width: $screen-lg-min) {
+      font-size: 3.4em;        
     }
+
+    @media (max-width: $screen-md-max) {
+      font-size: 3.2em;        
+    }
+
+  }
 
   }
 }
@@ -362,7 +414,9 @@ h2 {
   text-align : center;
   margin-top : 10px;
   border : 2px solid #fff;
-  border-radius : 200px;
+  -webkit-border-radius: 200px;
+  -moz-border-radius: 200px;
+  border-radius: 200px;
   box-shadow : 0 2px 6px rgba(0,0,0,.3);
   cursor : 'pointer';
   display: none;
@@ -482,7 +536,9 @@ h2 {
   position:fixed;
   display:block;
   background-color:transparent;
-  border-radius:50%;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  border-radius: 50%;
   z-index:20;
   -webkit-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
   -moz-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
@@ -532,6 +588,8 @@ h2 {
     #start-btn {
       .btn {
         background-color: #ffa600;
+        -webkit-border-radius: 1px;
+        -moz-border-radius: 1px;
         border-radius: 1px;
         font-size: 1.5em;
         font-weight: bold;
@@ -597,6 +655,8 @@ h2 {
 
   .btn {
     background-color: #ffa600;
+    -webkit-border-radius: 1px;
+    -moz-border-radius: 1px;
     border-radius: 1px;
     font-size: 1.5em;
     font-weight: bold;
@@ -729,6 +789,8 @@ h2 {
   }
 
   .profilePic{
+    -webkit-border-radius: 200px;
+    -moz-border-radius: 200px;
     border-radius: 200px;
     width: 120px;
     height: 120px;
