@@ -754,6 +754,7 @@ h2 {
 }
 
 .dynamicListItem-leave {
+  position: absolute;
   opacity: 1;
   transition: opacity .5s ease-in;
   -webkit-transition: opacity .5s ease-in;

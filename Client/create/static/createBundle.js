@@ -127,7 +127,7 @@ module.exports = React.createClass({displayName: "exports",
   deleteClue: function() {
     Actions.removeClue(this.props.pinIndex, this.props.clueIndex);
   },
-  onClueChange: function(){
+  onBlur: function(){
     var newText = this.refs.clueEdit.getDOMNode().value;
     Actions.updateClue(newText, this.props.pinIndex, this.props.clueIndex);
   },
@@ -138,14 +138,14 @@ module.exports = React.createClass({displayName: "exports",
 
     var removeStyle = {
       textAlign: 'left'
-    }
+    };
 
     var clueText = (
       React.createElement("textarea", {
         className: "clue-text-area", 
         ref: "clueEdit", 
-        value: this.props.clue, 
-        onChange: this.onClueChange, 
+        defaultValue: this.props.clue, 
+        onBlur: this.onBlur, 
         placeholder: "Ex: A former defensive point"}
       )
     );
@@ -531,7 +531,7 @@ module.exports = React.createClass({displayName: "exports",
     Actions.addClue(newClue, this.props.pinIndex);
     React.findDOMNode(this.refs.clueInput).focus();  
   },
-  onLocationChange: function() {
+  onBlur: function() {
     var locationName = this.refs.locationName.getDOMNode().value;
     Actions.updatePinAtKey(locationName, this.props.pinIndex, 'answer');
   },
@@ -546,9 +546,9 @@ module.exports = React.createClass({displayName: "exports",
         React.createElement("input", {
           type: "text", 
           ref: "locationName", 
-          onChange: this.onLocationChange, 
+          onBlur: this.onBlur, 
           placeholder: "Location Name", 
-          value: this.props.pin.answer}
+          defaultValue: this.props.pin.answer}
         ), 
         React.createElement("span", null, 
           React.createElement("i", {className: "fa fa-remove", onClick: this.removePin})
@@ -557,7 +557,7 @@ module.exports = React.createClass({displayName: "exports",
     );
 
     var clueNodes = this.props.pin.clues.map(function(clue, clueIndex) {
-      var key = '' + this.props.pinIndex + clueIndex;
+      var key = '' + this.props.pinIndex + clueIndex + this.props.pin.clues.length;
       return (
         React.createElement(Clue, {clue: clue, pinIndex: this.props.pinIndex, 
         clueIndex: clueIndex, key: key})
@@ -644,8 +644,9 @@ module.exports = React.createClass({displayName: "exports",
       pinNodes = (React.createElement("div", {id: "pin-prompt", className: "row"}, React.createElement("div", {className: "col-sm-1"}, React.createElement("i", {className: "fa fa-arrow-left"})), React.createElement("div", {className: "col-sm-11"}, React.createElement("span", null, "Click on the map to add your first pin"))));
     } else {
       pinNodes = this.props.pins.map(function(pin, index) {
+        var key = '' + index + this.props.pins.length;
         return (
-          React.createElement(Pin, {pinIndex: index, pin: pin, key: index})
+          React.createElement(Pin, {pinIndex: index, pin: pin, key: key})
         );
       }, this);
     }
