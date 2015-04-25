@@ -4178,7 +4178,8 @@ h2 {
     margin-bottom: 20px; }
   #playerContainer .current-clue-txt,
   #playerContainer ul,
-  #playerContainer section {
+  #playerContainer section,
+  #playerContainer #huntSummaryContainer p {
     font-size: 1.2em; }
   #playerContainer ul {
     margin-top: 8px; }

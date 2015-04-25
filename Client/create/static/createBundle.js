@@ -227,10 +227,9 @@ module.exports = React.createClass({displayName: "exports",
       url = null;
     } else {
       url = (
-        React.createElement("div", {id: "hunt-url", className: "tour-summary-container"}, 
-          React.createElement("h2", null, "Hunt Saved!"), 
-          React.createElement("a", {className: "editModeURL", href: this.props.hunt.url}, this.props.hunt.url), 
-          React.createElement("p", null, "Send this to your players so they can access your hunt")
+        React.createElement("div", {className: "tour-summary-container"}, 
+          React.createElement("h2", null, "Hunt URL:"), 
+          React.createElement("a", {className: "editModeURL", href: this.props.hunt.url}, this.props.hunt.url)
         ));
     }
 
@@ -451,7 +450,17 @@ module.exports = React.createClass({displayName: "exports",
   },
   render: function() {
     var btnLabel = "Save hunt";
-
+    var btnStyle = {
+      float: 'right',
+      position: 'absolute',
+      right: '40px',
+      top: '16px',
+      backgroundColor: '#ffa600',
+      color: '#fff',
+      fontWeight: '500',
+      borderRadius: '2px',
+      fontSize: '1.4em'
+    };
 
     if (this.state.showSaveAlert) {
       return (
@@ -461,8 +470,8 @@ module.exports = React.createClass({displayName: "exports",
       );
     } else {
         return (
-        React.createElement("div", {id: "save-btn"}, 
-          React.createElement(Btn, {label: btnLabel, clickHandler: this.handleSubmit})
+        React.createElement("div", null, 
+          React.createElement(Btn, {label: btnLabel, newStyle: btnStyle, clickHandler: this.handleSubmit})
         )
       );
     }
