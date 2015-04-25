@@ -6,6 +6,9 @@ var PinList = require('./PinList');
 var HuntSubmitForm = require('./HuntSubmitForm');
 var gMap = require('../../../lib/gMapLib');
 var Actions = require('../RefluxActions');
+var HuntDesc = require('./HuntDesc');
+var HuntTitle = require('./HuntTitle');
+var HuntDetails = require('./HuntDetails');
 
 var windowHeight = {
   minHeight: window.innerHeight
@@ -19,7 +22,7 @@ module.exports = React.createClass({
     };
     Actions.updateHuntAtKey(huntInfo, 'huntInfo');
   },
-  componentDidMount: function() {
+  addAddMarkerEvent: function() {
     gMap.addEventListener('addMarker', function(latLng) {
       var geo = {
         lat: latLng.lat(),
@@ -34,7 +37,8 @@ module.exports = React.createClass({
       Actions.addPin(pin);
       this.updateHuntInfo();
     }.bind(this));
-
+  },
+  addDragMarkerEvent: function() {
     gMap.addEventListener('dragEvent', function(latLngArray) {
       latLngArray.forEach(function(latLng, index) {
         var geo = {
@@ -45,44 +49,15 @@ module.exports = React.createClass({
       });
       this.updateHuntInfo();
     }.bind(this));
-
-    if (window.location.pathname.split('/')[1] === 'create') {
-      if (this.props.hunt.editMode) {
-        this.refs.titleEdit.getDOMNode().focus();
-      }
-    }
   },
-  onChangeTitle: function() {
-    var newTitle = this.refs.titleEdit.getDOMNode().value;
-    Actions.updateHuntAtKey(newTitle, 'huntName');
-  },
-  onChangeDesc: function() {
-    var newDesc = this.refs.descEdit.getDOMNode().value;
-    Actions.updateHuntAtKey(newDesc, 'huntDesc');
+  componentDidMount: function() {
+    this.addAddMarkerEvent();
+    this.addDragMarkerEvent();
   },
   render: function() {
-    var title, desc, url;
-    if (this.props.hunt.editMode) {
-      title = (<input id="hunt-title" ref="titleEdit" onChange={this.onChangeTitle}
-                      placeholder="Ex: Secrets of San Francisco" size="39"
-                      value={this.props.hunt.huntName} key={this.props.hunt._id} />);
-    } else {
-      title = (<span id="hunt-title">{this.props.hunt.huntName}</span>);
-    }
-
-    if (this.props.hunt.editMode) {
-      desc = (<textarea id="hunt-desc" ref="descEdit" onChange={this.onChangeDesc} 
-                        placeholder="Ex: This adventurous challenge takes you from the
-                        the inner streets of San Francisco to the tranquil peace of local parks, 
-                        and ends back in the city after weaving around the coastline."
-                        cols="83" rows="6" value={this.props.hunt.huntDesc} 
-                        key={this.props.hunt._id} />);
-    } else {
-      desc = (<span id="hunt-desc">{this.props.hunt.huntDesc}</span>);
-    }
-
+    var url;
     if (!this.props.hunt.url) {
-      url = '';
+      url = null;
     } else {
       url = (
         <div className="tour-summary-container">
@@ -94,27 +69,19 @@ module.exports = React.createClass({
     return (
       <div className="clueBox">
         <div id="hunt-info-container" className="col-xs-6" style={windowHeight}>
-          <HuntSubmitForm hunt={this.props.hunt} editMode={this.props.hunt.editMode} />
-          <ul id="hunt-details">
-            <li>{' '+this.props.hunt.pins.length} locations</li>
-            <li>{' '+this.props.hunt.huntInfo.huntDistance} miles</li>
-            <li>{this.props.hunt.huntInfo.huntTimeEst} hours walk</li>
-          </ul>
+          <HuntSubmitForm hunt={this.props.hunt}/>
+          <HuntDetails hunt={this.props.hunt}/>
           
           <div id="hunt-title-container">
             {url}
             <div className="tour-summary-container">
-              <h2>Hunt Title</h2>
-              {title}
-              <h2>Hunt Description</h2>
-              <p>{desc}</p>
-              <div>
-              </div>
+              <HuntTitle hunt={this.props.hunt}/>
+              <HuntDesc hunt={this.props.hunt}/>
             </div>
           </div>
           <div id="pin-container">
             <h2>Pins</h2>
-            <PinList pins={this.props.hunt.pins} editMode={this.props.hunt.editMode} /> 
+            <PinList pins={this.props.hunt.pins}/> 
           </div>
         </div>
       </div>
