@@ -837,6 +837,7 @@ h2 {
       display: inline;
       color: #3F8B89;
       font-size: 50px;
+      margin-bottom: 30px;
 
       #or {
         color: #888;
@@ -844,25 +845,54 @@ h2 {
       }
     }
 
-    a {
+    .h1-class {
       color: #ffa600;
       text-decoration: underline;
     }
 
-    a:hover {
+    .h1-class:hover {
       color: #FF7E00;
       text-decoration: underline;
     }
 
-    h5 {
-      font-size: 2em;
-      color: #3F8B89;
-    }
-
     .list-group-item {
-      background-color: rgba(237, 234, 234, 0.3);
+      background-color: rgba(244, 241, 241, 0.9);;
       border-radius: 2px;
     }
+
+
+  }
+
+  .list-group {
+
+    margin-top: 50px;
+    
+    a {
+      text-decoration: none;
+
+      h5 {
+        font-size: 2em;
+        color: #3F8B89;
+        text-decoration: none;
+      }
+
+      h5:hover {
+        color: #ffa600;
+        text-decoration: underline;
+      }
+
+      p {
+        color: #737171;
+        font-size: 1.3em;
+      }
+
+      
+    } 
+
+    a:hover {
+      text-decoration: none;
+    }     
+
 
   }
 

@@ -11,7 +11,7 @@ $(function() {
       $('.HuntList').append(
         '<a href="' + window.location.origin + '/edit/' + item._id + '" class="list-group-item">' + 
           '<h5>' + item.huntName + '</h5>' + 
-          item.huntDesc + 
+          '<p>' + item.huntDesc + '</p>' + 
         '</a>');
     });
   })
