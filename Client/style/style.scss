@@ -845,6 +845,10 @@ h2 {
       }
     }
 
+    .player-index {
+      margin-top: 30px;
+    }
+
     .h1-class {
       color: #ffa600;
       text-decoration: underline;
@@ -896,6 +900,50 @@ h2 {
 
   }
 
+
+
+  .player-index {
+    margin: 20px auto;
+    width: 95%;
+    
+    h1 {
+      font-size: 1.5em;  
+      font-weight: 600;    
+    }  
+
+    .list-group {
+
+      margin-top: 15px;
+      
+      a {
+        text-decoration: none;
+
+        h5 {
+          font-size: 1.3em;
+          color: #ffa600;
+          text-decoration: none;
+        }
+
+        h5:hover {
+          color: #ffa600;
+          text-decoration: underline;
+        }
+
+        p {
+          color: #737171;
+          font-size: 1em;
+        }
+        
+      } 
+
+      a:hover {
+        text-decoration: none;
+      }     
+
+
+    }  
+
+  }
 
 }
 

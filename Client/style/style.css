@@ -4368,6 +4368,8 @@ h2 {
       #choose-hunt-page .account h1 #or {
         color: #888;
         margin: 0 20px; }
+    #choose-hunt-page .account .player-index {
+      margin-top: 30px; }
     #choose-hunt-page .account .h1-class {
       color: #ffa600;
       text-decoration: underline; }
@@ -4393,6 +4395,28 @@ h2 {
         font-size: 1.3em; }
     #choose-hunt-page .list-group a:hover {
       text-decoration: none; }
+  #choose-hunt-page .player-index {
+    margin: 20px auto;
+    width: 95%; }
+    #choose-hunt-page .player-index h1 {
+      font-size: 1.5em;
+      font-weight: 600; }
+    #choose-hunt-page .player-index .list-group {
+      margin-top: 15px; }
+      #choose-hunt-page .player-index .list-group a {
+        text-decoration: none; }
+        #choose-hunt-page .player-index .list-group a h5 {
+          font-size: 1.3em;
+          color: #ffa600;
+          text-decoration: none; }
+        #choose-hunt-page .player-index .list-group a h5:hover {
+          color: #ffa600;
+          text-decoration: underline; }
+        #choose-hunt-page .player-index .list-group a p {
+          color: #737171;
+          font-size: 1em; }
+      #choose-hunt-page .player-index .list-group a:hover {
+        text-decoration: none; }
 
 .formWidth {
   width: 600px;
