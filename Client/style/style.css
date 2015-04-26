@@ -4363,22 +4363,36 @@ h2 {
     #choose-hunt-page .account h1 {
       display: inline;
       color: #3F8B89;
-      font-size: 50px; }
+      font-size: 50px;
+      margin-bottom: 30px; }
       #choose-hunt-page .account h1 #or {
         color: #888;
         margin: 0 20px; }
-    #choose-hunt-page .account a {
+    #choose-hunt-page .account .h1-class {
       color: #ffa600;
       text-decoration: underline; }
-    #choose-hunt-page .account a:hover {
+    #choose-hunt-page .account .h1-class:hover {
       color: #FF7E00;
       text-decoration: underline; }
-    #choose-hunt-page .account h5 {
-      font-size: 2em;
-      color: #3F8B89; }
     #choose-hunt-page .account .list-group-item {
-      background-color: rgba(237, 234, 234, 0.3);
+      background-color: rgba(244, 241, 241, 0.9);
       border-radius: 2px; }
+  #choose-hunt-page .list-group {
+    margin-top: 50px; }
+    #choose-hunt-page .list-group a {
+      text-decoration: none; }
+      #choose-hunt-page .list-group a h5 {
+        font-size: 2em;
+        color: #3F8B89;
+        text-decoration: none; }
+      #choose-hunt-page .list-group a h5:hover {
+        color: #ffa600;
+        text-decoration: underline; }
+      #choose-hunt-page .list-group a p {
+        color: #737171;
+        font-size: 1.3em; }
+    #choose-hunt-page .list-group a:hover {
+      text-decoration: none; }
 
 .formWidth {
   width: 600px;
