@@ -3,7 +3,7 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
   <link rel="stylesheet" href="http://create.pathhero.com/style/style.css">
   </head>
-  <body>
+  <body id="choose-hunt-page">
 
     <nav role="navigation" class="navbar navbar-default navbar-fixed-top">
       <div class="container">
@@ -11,24 +11,29 @@
           <span class="navbar-brand">Path Hero</span>
         </div>
         <ul class="nav navbar-nav navbar-right">
-          <li><a href="/login"><button class="btn btn-info" type="submit">Login</button></a></li>
+          <li></li>
         </ul>
       </div>
     </nav>
+    <div class="centerForm formWidth">
 
-    <div class="container-fluid account">
-      <h2>Sign Up</h2>
-      <form method="post" action="signup">
-        <div class="input-group input-group-lg">
-          <span class="input-group-addon" id="sizing-addon1">Username</span>
-          <input type="text" name="username" class="form-control" placeholder="Username" required="required" aria-describedby="sizing-addon1">
-        </div>
-        <div class="input-group input-group-lg">
-          <span class="input-group-addon" id="sizing-addon1">Password</span>
-          <input type="password" name="password" class="form-control" placeholder="Username" required="required" aria-describedby="sizing-addon1">
-        </div>
-        <button class="btn btn-success" type="submit">Sign Up</button>
-      </form>
+      <div >
+        <h2>Sign Up</h2>
+        <br>
+        <form method="post" action="signup">
+          <div class="input-group input-group-lg sign-in-form-width">
+            <span class="input-group-addon col-xs-3" id="sizing-addon1">Username</span>
+            <input type="text" name="username" class="form-control sign-in-form-field-width" placeholder="Username" required="required" aria-describedby="sizing-addon1">
+          </div>
+            <div class="input-group input-group-lg sign-in-form-width">
+              <span class="input-group-addon col-xs-3" id="sizing-addon1">Password</span>
+              <input type="password" name="password" class="form-control sign-in-form-field-width" placeholder="Password" required="required" aria-describedby="sizing-addon1">
+            </div>
+            <button class="btn btn-success col-xs-3 btn-sign-in" type="submit">Sign Up</button>
+        </form>
+            <a href="/login"><button class="btn btn-info col-xs-3 btn-sign-up">Sign In</button></a>
+      </div>
+
     </div>
   </body>
 </html>
