@@ -11,45 +11,46 @@
           <span class="navbar-brand">Path Hero</span>
         </div>
         <ul class="nav navbar-nav navbar-right">
-          <li><a href="/signup"><button class="btn btn-info" type="submit">Create an Account</button></a></li>
+          <li></li>
         </ul>
       </div>
     </nav>
+    <div class="centerForm formWidth">
 
-    <div class="container-fluid account">
-      <h2>Login</h2>
-      <form method="post" action="login/local">
-        <div class="input-group input-group-lg">
-          <span class="input-group-addon" id="sizing-addon1">Username</span>
-          <input type="text" name="username" class="form-control" placeholder="Username" required="required" aria-describedby="sizing-addon1">
-        </div>
-        <div class="input-group input-group-lg">
-          <span class="input-group-addon" id="sizing-addon1">Password</span>
-          <input type="password" name="password" class="form-control" placeholder="Username" required="required" aria-describedby="sizing-addon1">
-        </div>
-        <button class="btn btn-success" type="submit">Sign In</button>
-      </form>
-    </div>
+      <div >
+        <h2>Login</h2>
+        <br>
+        <form method="post" action="login/local">
+          <div class="input-group input-group-lg sign-in-form-width">
+            <span class="input-group-addon col-xs-3" id="sizing-addon1">Username</span>
+            <input type="text" name="username" class="form-control sign-in-form-field-width" placeholder="Username" required="required" aria-describedby="sizing-addon1">
+          </div>
+            <div class="input-group input-group-lg sign-in-form-width">
+              <span class="input-group-addon col-xs-3" id="sizing-addon1">Password</span>
+              <input type="password" name="password" class="form-control sign-in-form-field-width" placeholder="Username" required="required" aria-describedby="sizing-addon1">
+            </div>
+            <button class="btn btn-success col-xs-3 btn-sign-in" type="submit">Sign In</button>
+        </form>
+            <a href="/signup"><button class="btn btn-info col-xs-3 btn-sign-up">Sign Up</button></a>
+      </div>
+      <br><br><br><br>
+      <p>Or Sign in with your favorite network.</p>
+      <div class="col-xs-3 siginImg">
+        <a href="/login/facebook">
+          <img class="media center-block" src="static/fb.png" alt="Facebook Logo"/>
+        </a>
+      </div>
+      <div class="col-xs-3 siginImg">
+        <a href="/login/twitter">
+          <img class="media center-block" src="static/twitter.png" alt="Twitter Logo"/>
+        </a>
+      </div>
+      <div class="col-xs-3 siginImg">
+        <a href="/login/github">
+          <img class="media center-block" src="static/github.png" alt="Github Logo"/>
+        </a>
+      </div>
 
-    <div class="col-xs-2 media">
-      <a href="/login/facebook">
-        <img class="media center-block" src="static/fb.png" alt="Facebook Logo"/>
-        <p class="text-center">Login w/ Facebook</p>
-      </a>
-    </div>
-    </div>
-    <div class="col-xs-2 media">
-      <a href="/login/twitter">
-        <img class="media center-block" src="static/twitter.png" alt="Twitter Logo"/>
-        <p class="text-center">Login w/ Twitter</p>
-      </a>
-    </div>
-    </div>
-    <div class="col-xs-2 media">
-      <a href="/login/github">
-        <img class="media center-block" src="static/github.png" alt="Github Logo"/>
-        <p class="text-center">Login w/ Github</p>
-      </a>
     </div>
   </body>
 </html>
