@@ -3926,7 +3926,8 @@ h2 {
       margin-right: 1.8em;
       font-size: 1.6em;
       color: #73bcba;
-      font-weight: 600; }
+      font-weight: 600;
+      margin-right: 20px; }
       @media (max-width: 1199px) {
         #app-container #hunt-info-container #hunt-details li {
           margin-right: 20px;
