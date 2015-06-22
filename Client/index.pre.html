@@ -8,8 +8,15 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
     <!-- vendor scripts -->
     <!-- <script src="http://pathhero.com/bower_components/jquery/dist/jquery.js"></script> -->
+    <!-- @if NODE_ENV='production' -->
+    <link rel="stylesheet" href="http://create.pathhero.com/style/style.css">
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Ubuntu:300,400,500">
+    <!-- @endif -->
+
+    <!-- @if NODE_ENV='development' -->
     <link rel="stylesheet" href="http://create.wettowelreactor.com:3000/style/style.css">
     <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Ubuntu:300,400,500">
+    <!-- @endif -->
   </head>
   <body id="homepage-body">
     
@@ -19,8 +26,13 @@
         <h1 class="center mainTitle">Path Hero</h1>
 
         <div id="action-btns">
+          <!-- @if NODE_ENV='production' -->
+          <a href="http://create.pathhero.com/"><button class="btn hero-btns">Create</a></button><a href="http://play.pathhero.com/"><button class="btn hero-btns">Play</a></button>
+          <!-- @endif -->
+          <!-- @if NODE_ENV='development' -->
           <a href="http://create.wettowelreactor.com:3000"><button class="btn hero-btns">Create</a></button>
           <a href="http://play.wettowelreactor.com:3000"><button class="btn hero-btns">Play</a></button>
+          <!-- @endif -->
         </div>        
 
       </div>

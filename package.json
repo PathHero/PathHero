@@ -33,6 +33,7 @@
     "grunt-mocha-test": "^0.12.7",
     "grunt-nodemon": "^0.4.0",
     "grunt-notify": "^0.4.1",
+    "grunt-preprocess": "^4.2.0",
     "istanbul": "^0.3.13",
     "istanbul-react": "^1.0.1",
     "mocha": "^2.2.1",

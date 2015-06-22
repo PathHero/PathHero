@@ -9,7 +9,14 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
     <!-- vendor scripts -->
     
+    <!-- @if NODE_ENV='production' -->
+    <script src="http://pathhero.com/bower_components/jquery/dist/jquery.js"></script>
+    <link rel="stylesheet" href="http://create.pathhero.com/style/style.css">
+  <!-- @endif -->
+
+  <!-- @if NODE_ENV='development' -->
   <link rel="stylesheet" href="http://create.wettowelreactor.com:3000/style/style.css">
+  <!-- @endif -->
   <script src="static/index.js"></script>
 
   </head>

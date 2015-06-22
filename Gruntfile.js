@@ -12,6 +12,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-istanbul');
   grunt.loadNpmTasks('grunt-react');
   grunt.loadNpmTasks('grunt-browserify');
+  grunt.loadNpmTasks('grunt-preprocess');
 
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
@@ -42,6 +43,16 @@ module.exports = function(grunt) {
         src: ['**/*.jsx'],
         dest: 'Client/create/src/compiled',
         ext: '.js'
+      }
+    },
+
+    preprocess: {
+      multifile: {
+        files: {
+          'Client/index.html' : 'Client/index.pre.html',
+          'Client/create/create.html' : 'Client/create/create.pre.html',
+          'Client/create/index.html' : 'Client/create/index.pre.html'
+        }
       }
     },
 
@@ -177,6 +188,7 @@ module.exports = function(grunt) {
     }
   });
 
+  grunt.registerTask('process', 'preprocess');
   grunt.registerTask('test', 'mochaTest:test');
   grunt.registerTask('check', ['jshint', 'mochaTest:test', 'coverage']);
   grunt.registerTask('coverage', ['env:coverage', 'instrument', 'mochaTest:cov',
