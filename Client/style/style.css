@@ -4448,8 +4448,6 @@ h2 {
   border: 0px !important;
   border-radius: 3px !important;
   margin: 20px !important;
-  position: relative;
-  top: -14px; }
 
 .btn-sign-in:hover {
   background-color: #D53D06 !important; }

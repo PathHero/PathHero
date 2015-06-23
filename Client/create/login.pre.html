@@ -2,7 +2,12 @@
   <head>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
   
+  <!-- @if NODE_ENV='production' -->
+  <link rel="stylesheet" href="http://create.pathhero.com/style/style.css">
+  <!-- @endif -->
+  <!-- @if NODE_ENV='development' -->
   <link rel="stylesheet" href="http://create.wettowelreactor.com:3000/style/style.css">
+  <!-- @endif -->
   </head>
   <body id="choose-hunt-page">
 

@@ -18,8 +18,10 @@ module.exports = function(grunt) {
     pkg: grunt.file.readJSON('package.json'),
 
     browserify: {
-      browserifyOptions: {
-        debug: true
+      options: {
+        browserifyOptions: {
+          debug: true
+        }
       },
       'Client/play/static/playBundle.js': [
         'Client/play/src/compiled/play.js'
@@ -51,7 +53,8 @@ module.exports = function(grunt) {
         files: {
           'Client/index.html' : 'Client/index.pre.html',
           'Client/create/create.html' : 'Client/create/create.pre.html',
-          'Client/create/index.html' : 'Client/create/index.pre.html'
+          'Client/create/index.html' : 'Client/create/index.pre.html',
+          'Client/create/login.html' : 'Client/create/login.pre.html'
         }
       }
     },
