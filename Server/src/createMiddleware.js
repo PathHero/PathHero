@@ -50,12 +50,12 @@ module.exports.addSubdomain = function(app) {
       if (data.length === 0) {
         res.redirect('/create');
       } else {
-        res.sendFile(path.resolve(__dirname + '/../../Client/create/index.html'));
+        res.render(path.resolve(__dirname + '/../../Client/create/index.hbs'));
       }
     })
     .fail(function(error) {
-      console.log(error);
-      res.sendFile(path.resolve(__dirname + '/../../Client/create/index.html'));
+      console.log('error in get "/":', error);
+      res.render(path.resolve(__dirname + '/../../Client/create/index.hbs'));
     });
   });  
 
@@ -69,10 +69,12 @@ module.exports.addSubdomain = function(app) {
   // Authenticate a user: strategy is one of
   // ['local', 'facebook', 'github', 'google', 'twitter']
   // Local expects the body to have a username and password in a json object.
-  router.post('/login/local', bodyParser.urlencoded({ extended: false }),
+  router.post('/login/local', function logAuthLocal(req, res, next) {
+    console.log('post request to /login/local');
+    next();
+  }, bodyParser.urlencoded({ extended: false }),
     passport.authenticate('local',
-      {successRedirect: '/', failureRedirect: '/login'}
-    )
+      {successRedirect: '/', failureRedirect: '/login', failureFlash: true})
   );
 
   router.get('/login/:strategy/callback', bodyParser.urlencoded({ extended: false }), function(req, res, next) { 
@@ -90,7 +92,7 @@ module.exports.addSubdomain = function(app) {
   });
 
   router.get('/login', function(req, res) {
-    res.sendFile(path.resolve(__dirname + '/../../Client/create/login.html'));
+    res.render(path.resolve(__dirname + '/../../Client/create/login.hbs'), {message: req.flash('error')});
   });
 
   router.get('/logout', function(req, res) {
@@ -128,7 +130,7 @@ module.exports.addSubdomain = function(app) {
   });
 
   router.get('/create', checkAuth, function(req, res) {
-    res.sendFile(path.resolve(__dirname + '/../../Client/create/create.html'));
+    res.render(path.resolve(__dirname + '/../../Client/create/create.hbs'));
   });
   
   // Retrieves a hunt based on a hunt id.
@@ -149,7 +151,7 @@ module.exports.addSubdomain = function(app) {
       if (typeof data !== 'object' || Object.keys(data).length === 0) {
         res.redirect('/');
       } else {
-        res.sendFile(path.resolve(__dirname + '/../../Client/create/create.html'));
+        res.render(path.resolve(__dirname + '/../../Client/create/create.html'));
       }
     })
     .fail(function(error) { 

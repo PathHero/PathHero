@@ -966,6 +966,16 @@ h2 {
 .sign-in-form-field-width{
   width: 60% !important;
 }
+
+.flash-message {
+  background-color: $orange !important;
+  border: 0px !important;
+  border-radius:3px !important;
+  margin: 0 auto !important;
+  max-width: 200px;
+  display: hidden;  
+}
+
 .btn-sign-in{
   background-color: $orange !important;
   border: 0px !important;
@@ -978,7 +988,6 @@ h2 {
   border-radius:3px !important;
   margin: 20px !important;
   position:relative;
-  top:-14px;
 }
 .btn-sign-in:hover{
   background-color: $red-orange !important;

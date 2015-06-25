@@ -52,9 +52,9 @@ module.exports = function(grunt) {
       multifile: {
         files: {
           'Client/index.html' : 'Client/index.pre.html',
-          'Client/create/create.html' : 'Client/create/create.pre.html',
-          'Client/create/index.html' : 'Client/create/index.pre.html',
-          'Client/create/login.html' : 'Client/create/login.pre.html'
+          'Client/create/create.hbs' : 'Client/create/create.pre.hbs',
+          'Client/create/index.hbs' : 'Client/create/index.pre.hbs',
+          'Client/create/login.hbs' : 'Client/create/login.pre.hbs'
         }
       }
     },

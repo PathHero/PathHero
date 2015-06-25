@@ -10,6 +10,8 @@ var passport = require('./authMiddleware');
 var playDomain = require('./playMiddleware');
 var createDomain = require('./createMiddleware');
 var sessionKey = require('../util/serverConfig.js').sessionKey;
+var flash = require('connect-flash');
+var handlebars = require('express-handlebars');
 
 module.exports = function(app) {
   app.use(cookieParser());
@@ -21,6 +23,11 @@ module.exports = function(app) {
     resave: true, 
     store: new MongoStore({url: 'mongodb://' + uri})
   }));
+  app.use(flash());
+  app.engine('.hbs', handlebars({defaultLayout: false, 
+                                  partialsDir: __dirname + '/../../Client/create/partials/',
+                                  extname: '.hbs'}));
+  app.set('view engine', '.hbs');
 
   passport.addAuth(app);
   playDomain.addSubdomain(app);

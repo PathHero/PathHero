@@ -21,12 +21,13 @@ var localLogin = function(username, password, done) {
   db.validateUser(username, password)
   .then(function(data) {
     if(!data.id) {
-      return done(null, false, data.message); 
+      return done(null, false, {message: data.message}); 
     } else {
       return done(null, data.id);
     }
   })
   .fail(function(error) {
+    console.log('failed localLogin validateUser');
     return done(error);
   });
 };

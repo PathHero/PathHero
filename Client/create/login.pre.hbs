@@ -1,9 +1,20 @@
 <html>
   <head>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+  <script src="https://code.jquery.com/jquery-2.1.4.js"></script>
+  <script>
+  $(document).ready(function() {
+    $('.flash-message').fadeTo(5000, 0);
+  });
+  </script>
   
+  <!-- @if NODE_ENV='production' -->
+  <link rel="stylesheet" href="http://create.pathhero.com/style/style.css">
+  <!-- @endif -->
+  <!-- @if NODE_ENV='development' -->
   <link rel="stylesheet" href="http://create.wettowelreactor.com:3000/style/style.css">
-  </head>
+  <!-- @endif -->
+  {{> favicons}}
   <body id="choose-hunt-page">
 
     <nav role="navigation" class="navbar navbar-default navbar-fixed-top">
@@ -18,10 +29,15 @@
     </nav>
     <div class="centerForm formWidth">
 
-      <div >
+      <div class="flash-message">
+      {{#if message}}
+      {{message}}
+      {{/if}}
+      </div>
+       
         <h2>Login</h2>
         <br>
-        <form method="post" action="login/local">
+        <form method="post" action="/login/local">
           <div class="input-group input-group-lg sign-in-form-width">
             <span class="input-group-addon col-xs-3" id="sizing-addon1">Username</span>
             <input type="text" name="username" class="form-control sign-in-form-field-width" placeholder="Username" required="required" aria-describedby="sizing-addon1">
@@ -33,7 +49,6 @@
             <button class="btn btn-success col-xs-3 btn-sign-in" name="submitButton" value="signin" type="submit">Sign In</button>
             <button class="btn btn-info col-xs-3 btn-sign-up" name="submitButton" value="signup">Sign Up</button>
         </form>
-      </div>
       <br><br><br><br>
       <p>Or Sign in with your favorite network.</p>
       <div class="col-xs-3 siginImg">
