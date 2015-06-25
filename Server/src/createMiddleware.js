@@ -26,7 +26,11 @@ var resolvePromise = function(dbPromise, res, callback) {
 };
 
 var checkAuth = function(req, res, next) {
-  if (!!req.user) {
+  if (req.query.create === 'demo') {
+    console.log ('skipping auth');
+    req.body.username = 'guest';
+    next();
+  } else if (!!req.user) {
     console.log('user authed');
     next();
   } else {
@@ -65,6 +69,7 @@ module.exports.addSubdomain = function(app) {
     var userid = req.user;
     resolvePromise(db.getUserHunts(userid), res);
   });
+
 
   // Authenticate a user: strategy is one of
   // ['local', 'facebook', 'github', 'google', 'twitter']
@@ -130,6 +135,7 @@ module.exports.addSubdomain = function(app) {
   });
 
   router.get('/create', checkAuth, function(req, res) {
+    console.log('get request to "/create"');
     res.render(path.resolve(__dirname + '/../../Client/create/create.hbs'));
   });
   

@@ -740,6 +740,10 @@ h2 {
 
 
 #homepage-container {
+  .enter-pathhero {
+    margin-bottom: 10px;
+  }
+
   #hero {
     background-color: rgba(29, 2, 2, 0.6);
     padding: 4% 10%;
@@ -778,6 +782,18 @@ h2 {
       -moz-border-radius: 1px;
       border-radius: 1px;
       width: 130px;
+    }
+
+    .hero-arrows {
+      color: white;
+      margin: 0 4px;
+      font-size: 1.8em;
+      font-weight: 500;
+      -webkit-border-radius: 1px;
+      -moz-border-radius: 1px;
+      border-radius: 1px;
+      width: 130px;
+      text-align: center;
     }
 
     .hero-btns:hover {
