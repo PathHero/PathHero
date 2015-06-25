@@ -75,11 +75,15 @@ module.exports.addSubdomain = function(app) {
   // Authenticate a user: strategy is one of
   // ['local', 'facebook', 'github', 'google', 'twitter']
   // Local expects the body to have a username and password in a json object.
-  router.post('/login/local', function logAuthLocal(req, res, next) {
-    console.log('post request to /login/local');
-    next();
-  }, bodyParser.urlencoded({ extended: false }),
-    passport.authenticate('local',
+  router.post('/login/local', bodyParser.urlencoded({ extended: false }),
+    function signupRedirect(req, res, next) {
+      if (req.body.submitButton === 'signup' && !req.query.redirect) {
+        console.log('redirect POST /login/local to POST /signup');
+        res.redirect(307, '/signup');
+      } else {
+        next();
+      }
+  }, passport.authenticate('local',
       {successRedirect: '/', failureRedirect: '/login', failureFlash: true})
   );
 
@@ -114,9 +118,9 @@ module.exports.addSubdomain = function(app) {
     
     resolvePromise(db.findOrCreateUser(username, password), res, function(doc) {
       if (doc === null) {
-        res.redirect('/login');
+        res.redirect(307, '/login/local?redirect=yes');
       } else {
-        res.send('user already exists');
+        res.render(path.resolve(__dirname + '/../../Client/create/login.hbs'), {message: 'user already exists'});
       }
     });
   });
