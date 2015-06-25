@@ -29,6 +29,7 @@ var checkAuth = function(req, res, next) {
   if (req.query.create === 'demo') {
     console.log ('skipping auth');
     req.body.username = 'guest';
+    req.user = 'guest';
     next();
   } else if (!!req.user) {
     console.log('user authed');
@@ -128,14 +129,14 @@ module.exports.addSubdomain = function(app) {
   // 
   //  Returns the hunt url on success
   router.post('/create', checkAuth, function(req, res) {
-    console.log('Post Create Login');
+    console.log('POST to "/create"');
     var hunt = req.body;
     hunt.creatorId = req.user;    
     resolvePromise(db.addHunt(hunt), res);
   });
 
   router.get('/create', checkAuth, function(req, res) {
-    console.log('get request to "/create"');
+    console.log('GET to "/create"');
     res.render(path.resolve(__dirname + '/../../Client/create/create.hbs'));
   });
   
