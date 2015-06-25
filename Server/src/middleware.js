@@ -34,7 +34,6 @@ module.exports = function(app) {
   playDomain.addSubdomain(app);
   createDomain.addSubdomain(app);
   app.get('/', function(req, res) {
-    console.log('dirname is:', __dirname);
     res.render(path.resolve(__dirname + '/../../Client/index.hbs'));
   });
 

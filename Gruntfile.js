@@ -54,7 +54,9 @@ module.exports = function(grunt) {
           'Client/index.hbs' : 'Client/index.pre.hbs',
           'Client/create/create.hbs' : 'Client/create/create.pre.hbs',
           'Client/create/index.hbs' : 'Client/create/index.pre.hbs',
-          'Client/create/login.hbs' : 'Client/create/login.pre.hbs'
+          'Client/create/login.hbs' : 'Client/create/login.pre.hbs',
+          'Client/play/index.hbs' : 'Client/play/index.pre.hbs',
+          'Client/play/player.hbs': 'Client/play/player.pre.hbs'
         }
       }
     },

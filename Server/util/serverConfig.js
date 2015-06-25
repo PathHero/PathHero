@@ -26,11 +26,20 @@ catch(err) {
 //   callbackUrl: 'http://create.pathhero.com/login/twitter/callback'
 // };
 var sessionKey = secrets.sessionKey || process.env.SESSION_KEY;
+if (process.env.NODE_ENV === 'production') {
+  var domain = 'bencreasy.com';
+  var createSubdomain = 'create.pathhero';
+  var playSubdomain = 'play.pathhero';
+} else {
+  var domain = 'wettowelreactor.com'
+  var createSubdomain = 'create';
+  var playSubdomain = 'play';
+}
 
 module.exports = {
-  domain: 'bencreasy.com',
-  createSubdomain: 'create.pathhero',
-  playSubdomain: 'play.pathhero',
+  domain: domain,
+  createSubdomain: createSubdomain,
+  playSubdomain: playSubdomain,
   // facebook: facebook,
   // github: github,
   // twitter: twitter,
