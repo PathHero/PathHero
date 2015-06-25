@@ -51,7 +51,7 @@ module.exports = function(grunt) {
     preprocess: {
       multifile: {
         files: {
-          'Client/index.html' : 'Client/index.pre.html',
+          'Client/index.hbs' : 'Client/index.pre.hbs',
           'Client/create/create.hbs' : 'Client/create/create.pre.hbs',
           'Client/create/index.hbs' : 'Client/create/index.pre.hbs',
           'Client/create/login.hbs' : 'Client/create/login.pre.hbs'
