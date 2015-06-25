@@ -738,6 +738,17 @@ h2 {
   margin-top: -20px;
 }
 
+.hero-arrows {
+  color: white;
+  margin: 0 4px;
+  font-size: 1.8em;
+  font-weight: 500;
+  -webkit-border-radius: 1px;
+  -moz-border-radius: 1px;
+  border-radius: 1px;
+  width: 130px;
+  text-align: center;
+}
 
 #homepage-container {
   .enter-pathhero {
@@ -782,18 +793,6 @@ h2 {
       -moz-border-radius: 1px;
       border-radius: 1px;
       width: 130px;
-    }
-
-    .hero-arrows {
-      color: white;
-      margin: 0 4px;
-      font-size: 1.8em;
-      font-weight: 500;
-      -webkit-border-radius: 1px;
-      -moz-border-radius: 1px;
-      border-radius: 1px;
-      width: 130px;
-      text-align: center;
     }
 
     .hero-btns:hover {

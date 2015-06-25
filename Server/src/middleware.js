@@ -12,6 +12,7 @@ var createDomain = require('./createMiddleware');
 var sessionKey = require('../util/serverConfig.js').sessionKey;
 var flash = require('connect-flash');
 var handlebars = require('express-handlebars');
+var path = require('path');
 
 module.exports = function(app) {
   app.use(cookieParser());
@@ -32,6 +33,10 @@ module.exports = function(app) {
   passport.addAuth(app);
   playDomain.addSubdomain(app);
   createDomain.addSubdomain(app);
+  app.get('/', function(req, res) {
+    console.log('dirname is:', __dirname);
+    res.render(path.resolve(__dirname + '/../../Client/index.hbs'));
+  });
 
   console.log('Serving Static Folder:', __dirname + '/../../Client/');
   app.use(express.static(__dirname + '/../../Client/'));
