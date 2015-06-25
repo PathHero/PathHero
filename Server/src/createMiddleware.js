@@ -53,8 +53,18 @@ module.exports.addSubdomain = function(app) {
     db.getUserHunts(userid)
     .then(function(data) {
       if (data.length === 0) {
-        res.redirect('/create');
+        console.log('GET to "/" found no hunts, redirecting to "/create"')
+        if (req.query.create === 'demo') {
+          res.redirect('/create?create=demo');
+        } else {
+          res.redirect('/create');
+        }
+      } else if (req.query.create === 'demo') {
+        console.log('rendering demo list of hunts');
+        res.render(path.resolve(__dirname + '/../../Client/create/index.hbs'), 
+                  {queryString: '?create=demo'});
       } else {
+        console.log('rendering production list of hunts');
         res.render(path.resolve(__dirname + '/../../Client/create/index.hbs'));
       }
     })
@@ -162,7 +172,7 @@ module.exports.addSubdomain = function(app) {
       if (typeof data !== 'object' || Object.keys(data).length === 0) {
         res.redirect('/');
       } else {
-        res.render(path.resolve(__dirname + '/../../Client/create/create.html'));
+        res.render(path.resolve(__dirname + '/../../Client/create/create.hbs'));
       }
     })
     .fail(function(error) { 

@@ -17,6 +17,11 @@ module.exports = React.createClass({
     if (window.location.pathname.split('/')[1] === 'edit') {
       dataType = 'json';
     }
+
+    if (window.location.href.split('?')[1] === 'create=demo') {
+      this.queryString = 'create=demo';
+    }
+
     $.ajax({
       url: window.location.href,
       type: 'POST',
@@ -37,7 +42,11 @@ module.exports = React.createClass({
     });
   },
   moveToEditScreen: function(huntId) {
-    window.location.href = window.location.origin + '/edit/' + huntId;
+    if (this.queryString) {
+      window.location.href = window.location.origin + '/edit/' + huntId + '?' + this.queryString
+    } else {
+      window.location.href = window.location.origin + '/edit/' + huntId;
+    }
   },
   dismissSaveAlert: function() {
     this.setState({showSaveAlert: false});

@@ -17,6 +17,6 @@ ADD . /app
 WORKDIR /app
 RUN npm install
 ENV NODE_ENV production
-RUN grunt process 
+RUN grunt process && grunt uglify
 VOLUME /home/persistence
 CMD mongod --fork --logpath /var/log/mongod.log && grunt deploy

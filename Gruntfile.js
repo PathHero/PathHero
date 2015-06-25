@@ -1,18 +1,19 @@
 'use strict';
 module.exports = function(grunt) {
   grunt.file.setBase(__dirname);
-  grunt.loadNpmTasks('grunt-notify');
-  grunt.loadNpmTasks('grunt-jsxhint');
   grunt.loadNpmTasks('grunt-contrib-watch');
-  grunt.loadNpmTasks('grunt-nodemon');
-  grunt.loadNpmTasks('grunt-concurrent');
+  grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-sass');
-  grunt.loadNpmTasks('grunt-mocha-test');
-  grunt.loadNpmTasks('grunt-env');
-  grunt.loadNpmTasks('grunt-istanbul');
   grunt.loadNpmTasks('grunt-react');
   grunt.loadNpmTasks('grunt-browserify');
   grunt.loadNpmTasks('grunt-preprocess');
+  grunt.loadNpmTasks('grunt-jsxhint');
+  grunt.loadNpmTasks('grunt-notify');
+  grunt.loadNpmTasks('grunt-nodemon');
+  grunt.loadNpmTasks('grunt-concurrent');
+  grunt.loadNpmTasks('grunt-mocha-test');
+  grunt.loadNpmTasks('grunt-env');
+  grunt.loadNpmTasks('grunt-istanbul');
 
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
@@ -29,6 +30,19 @@ module.exports = function(grunt) {
       'Client/create/static/createBundle.js': [
         'Client/create/src/compiled/create.js',
       ]
+    },
+
+    uglify: {
+      options: {
+        mangle: false,
+        sourceMap: true,
+        sourceMapName: 'Client/create/static/createBundleSourceMap.map'
+      },
+      target: {
+        files: {
+          'Client/create/static/createBundle.min.js' : 'Client/create/static/createBundle.js'
+        }
+      }
     },
 
     react: {

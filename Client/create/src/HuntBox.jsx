@@ -43,13 +43,17 @@ module.exports = React.createClass({
     }
   },
   render: function() {
+    if (window.location.href.split('?')[1]) {
+      var queryString = '?' + window.location.href.split('?')[1];
+    }
+      
     return (
       <div className="huntBox">
         <Navbar fixedTop brand="Path Hero">
           <Nav right>
-            <NavItem href="/create">Create hunt</NavItem>
-            <NavItem href="/">View hunts</NavItem>
-            <NavItem href="/logout">Logout</NavItem>
+            <NavItem href={'/create' + queryString}>Create hunt</NavItem>
+            <NavItem href={'/' + queryString}>View hunts</NavItem>
+            <NavItem href={'/logout'}>Logout</NavItem>
           </Nav>
         </Navbar>
         <HuntMap />
