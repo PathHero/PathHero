@@ -26,7 +26,12 @@ var resolvePromise = function(dbPromise, res, callback) {
 };
 
 var checkAuth = function(req, res, next) {
-  if (!!req.user) {
+  if (req.query.create === 'demo') {
+    console.log ('skipping auth');
+    req.body.username = 'guest';
+    req.user = 'guest';
+    next();
+  } else if (!!req.user) {
     console.log('user authed');
     next();
   } else {
@@ -48,14 +53,24 @@ module.exports.addSubdomain = function(app) {
     db.getUserHunts(userid)
     .then(function(data) {
       if (data.length === 0) {
-        res.redirect('/create');
+        console.log('GET to "/" found no hunts, redirecting to "/create"')
+        if (req.query.create === 'demo') {
+          res.redirect('/create?create=demo');
+        } else {
+          res.redirect('/create');
+        }
+      } else if (req.query.create === 'demo') {
+        console.log('rendering demo list of hunts');
+        res.render(path.resolve(__dirname + '/../../Client/create/index.hbs'), 
+                  {queryString: '?create=demo'});
       } else {
-        res.sendFile(path.resolve(__dirname + '/../../Client/create/index.html'));
+        console.log('rendering production list of hunts');
+        res.render(path.resolve(__dirname + '/../../Client/create/index.hbs'));
       }
     })
     .fail(function(error) {
-      console.log(error);
-      res.sendFile(path.resolve(__dirname + '/../../Client/create/index.html'));
+      console.log('error in get "/":', error);
+      res.render(path.resolve(__dirname + '/../../Client/create/index.hbs'));
     });
   });  
 
@@ -66,13 +81,20 @@ module.exports.addSubdomain = function(app) {
     resolvePromise(db.getUserHunts(userid), res);
   });
 
+
   // Authenticate a user: strategy is one of
   // ['local', 'facebook', 'github', 'google', 'twitter']
   // Local expects the body to have a username and password in a json object.
   router.post('/login/local', bodyParser.urlencoded({ extended: false }),
-    passport.authenticate('local',
-      {successRedirect: '/', failureRedirect: '/login'}
-    )
+    function signupRedirect(req, res, next) {
+      if (req.body.submitButton === 'signup' && !req.query.redirect) {
+        console.log('redirect POST /login/local to POST /signup');
+        res.redirect(307, '/signup');
+      } else {
+        next();
+      }
+  }, passport.authenticate('local',
+      {successRedirect: '/', failureRedirect: '/login', failureFlash: true})
   );
 
   router.get('/login/:strategy/callback', bodyParser.urlencoded({ extended: false }), function(req, res, next) { 
@@ -90,7 +112,7 @@ module.exports.addSubdomain = function(app) {
   });
 
   router.get('/login', function(req, res) {
-    res.sendFile(path.resolve(__dirname + '/../../Client/create/login.html'));
+    res.render(path.resolve(__dirname + '/../../Client/create/login.hbs'), {message: req.flash('error')});
   });
 
   router.get('/logout', function(req, res) {
@@ -106,9 +128,9 @@ module.exports.addSubdomain = function(app) {
     
     resolvePromise(db.findOrCreateUser(username, password), res, function(doc) {
       if (doc === null) {
-        res.redirect('/login');
+        res.redirect(307, '/login/local?redirect=yes');
       } else {
-        res.send('user already exists');
+        res.render(path.resolve(__dirname + '/../../Client/create/login.hbs'), {message: 'user already exists'});
       }
     });
   });
@@ -121,14 +143,15 @@ module.exports.addSubdomain = function(app) {
   // 
   //  Returns the hunt url on success
   router.post('/create', checkAuth, function(req, res) {
-    console.log('Post Create Login');
+    console.log('POST to "/create"');
     var hunt = req.body;
     hunt.creatorId = req.user;    
     resolvePromise(db.addHunt(hunt), res);
   });
 
   router.get('/create', checkAuth, function(req, res) {
-    res.sendFile(path.resolve(__dirname + '/../../Client/create/create.html'));
+    console.log('GET to "/create"');
+    res.render(path.resolve(__dirname + '/../../Client/create/create.hbs'));
   });
   
   // Retrieves a hunt based on a hunt id.
@@ -149,7 +172,7 @@ module.exports.addSubdomain = function(app) {
       if (typeof data !== 'object' || Object.keys(data).length === 0) {
         res.redirect('/');
       } else {
-        res.sendFile(path.resolve(__dirname + '/../../Client/create/create.html'));
+        res.render(path.resolve(__dirname + '/../../Client/create/create.hbs'));
       }
     })
     .fail(function(error) { 

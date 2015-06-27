@@ -1,0 +1,34 @@
+<!doctype html>
+<html class='playerHTML'>
+  <head>
+    <meta charset="utf-8">
+    <title>Path Hero</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {{> favicons}}
+    {{> analytics}}
+   <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+   <!-- @if NODE_ENV='production' -->
+    <link rel="stylesheet" href="http://create.pathhero.bencreasy.com/style/style.css">
+    <!-- @endif -->
+    <!-- @if NODE_ENV='development' -->
+    <link rel="stylesheet" href="http://create.wettowelreactor.com:3000/style/style.css">
+    <!-- @endif -->
+
+    <!-- vendor scripts -->
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js"></script>
+  </head>
+  <body id="player-body">
+    <div id="player-app">
+    </div>
+    <footer class="footer">
+      <!-- footer will go here -->
+    </footer>
+    <!-- @if NODE_ENV='production' -->
+    <script src="http://play.pathhero.bencreasy.com/static/playBundle.js"></script>
+    <!-- @endif -->
+    <!-- @if NODE_ENV='development' -->
+    <script src="http://play.wettowelreactor.com:3000/static/playBundle.js"></script>
+    <!-- @endif -->
+  </body>
+</html>

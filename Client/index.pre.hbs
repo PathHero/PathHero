@@ -1,0 +1,76 @@
+<!doctype html>
+<html>
+  <head>
+  {{> favicons}}
+  {{> analytics}}
+  <meta name="theme-color" content="#ffffff">
+    <meta charset="utf-8">
+    <title>Path Hero</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Ubuntu:300,400,500">
+    <!-- vendor scripts -->
+    <!-- <script src="http://pathhero.com/bower_components/jquery/dist/jquery.js"></script> -->
+    <!-- @if NODE_ENV='production' -->
+    <link rel="stylesheet" href="http://pathhero.bencreasy.com/style/style.css">
+    <!-- @endif -->
+
+    <!-- @if NODE_ENV='development' -->
+    <link rel="stylesheet" href="http://wettowelreactor.com:3000/style/style.css">
+    <!-- @endif -->
+  </head>
+  <body id="homepage-body">
+    
+    <div id="homepage-container">
+      
+      <div id="hero">
+        <h1 class="center mainTitle">Path Hero</h1>
+
+        <div id="action-btns">
+          <!-- @if NODE_ENV='production' -->
+          <div class="enter-pathhero">
+            <a href="http://create.pathhero.bencreasy.com"><button class="btn hero-btns">Create</a></button>
+            <a href="http://play.pathhero.bencreasy.com"><button class="btn hero-btns">Play</a></button>
+          </div>
+          <div>
+            <i class="hero-arrows fa fa-arrow-circle-down"></i>
+            <i class="hero-arrows fa fa-arrow-circle-down"></i>
+          </div>          
+          <div>
+            <a href="http://create.pathhero.bencreasy.com/create?create=demo"><button class="btn hero-btns">Demo</a></button>
+            <a href="http://play.pathhero.bencreasy.com"><button class="btn hero-btns">Demo</a></button>
+          </div>
+          <!-- @endif -->
+          <!-- @if NODE_ENV='development' -->
+          <div class="enter-pathhero">
+            <a href="http://create.wettowelreactor.com:3000"><button class="btn hero-btns">Create</a></button>
+            <a href="http://play.wettowelreactor.com:3000"><button class="btn hero-btns">Play</a></button>
+          </div>
+          <div>
+            <i class="hero-arrows fa fa-arrow-circle-down"></i>
+            <i class="hero-arrows fa fa-arrow-circle-down"></i>
+          </div>          
+          <div>
+            <a href="http://create.wettowelreactor.com:3000/create?create=demo"><button class="btn hero-btns">Demo</a></button>
+            <a href="http://play.wettowelreactor.com:3000?play=demo"><button class="btn hero-btns">Demo</a></button>
+          </div>
+          <!-- @endif -->
+        </div>        
+
+      </div>
+      
+
+    <!-- <div class="center">
+      <img class="profilePic" src="https://avatars0.githubusercontent.com/u/5033604?v=3&s=460"/>
+      <img class="profilePic" src="https://avatars1.githubusercontent.com/u/5614134?v=3&s=460"/>
+      <img class="profilePic" src="https://avatars2.githubusercontent.com/u/1234382?v=3&s=460"/>
+      <img class="profilePic" src="https://avatars1.githubusercontent.com/u/2390194?v=3&s=460"/>
+    </div> -->
+      
+    </div>
+
+
+  </body>
+</html>

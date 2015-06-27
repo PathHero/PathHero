@@ -5,10 +5,12 @@ var subdomain = require('express-subdomain');
 var serverConfig = require('../util/serverConfig');
 var db = require('../util/database');
 var path = require('path');
+var cors = require('cors');
+
 
 module.exports.addSubdomain = function(app) {
   var router = express.Router();
-
+  router.use(cors());
   router.use('/static', express.static(__dirname + '/../../Client/play/static'));
 
   router.get('/hunts', function(req, res) {
@@ -22,10 +24,11 @@ module.exports.addSubdomain = function(app) {
   });
 
   router.get('/', function(req, res) {
-    res.sendFile(path.resolve(__dirname + '/../../Client/play/index.html'));
+    res.render(path.resolve(__dirname + '/../../Client/play/index.hbs'));
   });
 
   router.get('/:huntid', function(req, res) {
+    console.log('entering GET params');
     var huntid = req.params.huntid;
     console.log('getting hunt game:', huntid);
     db.getHuntById(huntid)
@@ -35,7 +38,7 @@ module.exports.addSubdomain = function(app) {
         res.redirect('/');
       } else {
         console.log('Hunt found sending play view');
-        res.sendFile(path.resolve(__dirname + '/../../Client/play/player.html'));
+        res.render(path.resolve(__dirname + '/../../Client/play/player.hbs'));
       }
     })
     .fail(function(error) {

@@ -1,24 +1,28 @@
 'use strict';
 module.exports = function(grunt) {
   grunt.file.setBase(__dirname);
-  grunt.loadNpmTasks('grunt-notify');
-  grunt.loadNpmTasks('grunt-jsxhint');
   grunt.loadNpmTasks('grunt-contrib-watch');
+  grunt.loadNpmTasks('grunt-contrib-uglify');
+  grunt.loadNpmTasks('grunt-contrib-sass');
+  grunt.loadNpmTasks('grunt-react');
+  grunt.loadNpmTasks('grunt-browserify');
+  grunt.loadNpmTasks('grunt-preprocess');
+  grunt.loadNpmTasks('grunt-jsxhint');
+  grunt.loadNpmTasks('grunt-notify');
   grunt.loadNpmTasks('grunt-nodemon');
   grunt.loadNpmTasks('grunt-concurrent');
-  grunt.loadNpmTasks('grunt-contrib-sass');
   grunt.loadNpmTasks('grunt-mocha-test');
   grunt.loadNpmTasks('grunt-env');
   grunt.loadNpmTasks('grunt-istanbul');
-  grunt.loadNpmTasks('grunt-react');
-  grunt.loadNpmTasks('grunt-browserify');
 
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
 
     browserify: {
-      browserifyOptions: {
-        debug: true
+      options: {
+        browserifyOptions: {
+          debug: true
+        }
       },
       'Client/play/static/playBundle.js': [
         'Client/play/src/compiled/play.js'
@@ -26,6 +30,19 @@ module.exports = function(grunt) {
       'Client/create/static/createBundle.js': [
         'Client/create/src/compiled/create.js',
       ]
+    },
+
+    uglify: {
+      options: {
+        mangle: false,
+        sourceMap: true,
+        sourceMapName: 'Client/create/static/createBundleSourceMap.map'
+      },
+      target: {
+        files: {
+          'Client/create/static/createBundle.min.js' : 'Client/create/static/createBundle.js'
+        }
+      }
     },
 
     react: {
@@ -42,6 +59,19 @@ module.exports = function(grunt) {
         src: ['**/*.jsx'],
         dest: 'Client/create/src/compiled',
         ext: '.js'
+      }
+    },
+
+    preprocess: {
+      multifile: {
+        files: {
+          'Client/index.hbs' : 'Client/index.pre.hbs',
+          'Client/create/create.hbs' : 'Client/create/create.pre.hbs',
+          'Client/create/index.hbs' : 'Client/create/index.pre.hbs',
+          'Client/create/login.hbs' : 'Client/create/login.pre.hbs',
+          'Client/play/index.hbs' : 'Client/play/index.pre.hbs',
+          'Client/play/player.hbs': 'Client/play/player.pre.hbs'
+        }
       }
     },
 
@@ -177,6 +207,7 @@ module.exports = function(grunt) {
     }
   });
 
+  grunt.registerTask('process', 'preprocess');
   grunt.registerTask('test', 'mochaTest:test');
   grunt.registerTask('check', ['jshint', 'mochaTest:test', 'coverage']);
   grunt.registerTask('coverage', ['env:coverage', 'instrument', 'mochaTest:cov',

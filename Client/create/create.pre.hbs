@@ -1,0 +1,38 @@
+<!doctype html>
+<html class="no-js">
+  <head>
+    <meta charset="utf-8">
+    <title>Path Hero</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+    {{> favicons}}
+    {{> analytics}}
+    <!-- @if NODE_ENV='production' -->
+    <link rel="stylesheet" href="http://create.pathhero.bencreasy.com/style/style.css">
+    <!-- @endif -->
+
+    <!-- @if NODE_ENV='development' -->
+    <link rel="stylesheet" href="http://create.wettowelreactor.com:3000/style/style.css">
+    <!-- @endif -->
+    
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  </head>
+  <body>
+    <div id="app-container">
+    </div>
+    <footer class="footer">
+      <!-- footer will go here -->
+    </footer>
+    
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js"></script>
+    <!-- @if NODE_ENV='production' -->
+    <script src="http://create.pathhero.bencreasy.com/static/createBundle.min.js"></script>
+    <!-- @endif -->
+
+    <!-- @if NODE_ENV='development' -->
+    <script src="http://create.wettowelreactor.com:3000/static/createBundle.js"></script>
+    <!-- @endif -->
+  </body>
+
+
+</html>
