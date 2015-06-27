@@ -18,6 +18,7 @@ module.exports = function(app) {
   app.use(cookieParser());
   app.use(bodyParser.json());
   // Use sessions and store them in our MongoDB instance
+  console.log('setting sessionKey which is:', sessionKey);
   app.use(session({
     secret: sessionKey,
     saveUninitialized: true, 

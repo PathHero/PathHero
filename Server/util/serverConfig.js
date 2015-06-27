@@ -26,6 +26,7 @@ catch(err) {
 //   callbackUrl: 'http://create.pathhero.com/login/twitter/callback'
 // };
 var sessionKey = secrets.sessionKey || process.env.SESSION_KEY;
+console.log('fresh session key is:', sessionKey);
 if (process.env.NODE_ENV === 'production') {
   var domain = 'bencreasy.com';
   var createSubdomain = 'create.pathhero';
